@@ -22,11 +22,60 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
 
-    return AppCard(
-      accent: true,
-      radius: Radii.xl,
-      padding: EdgeInsets.all(compact ? Insets.xl : Insets.xxl),
-      child: Column(
+    // A faint diagonal sheen over the card -- gold leaf caught at an angle --
+    // is the one place the system allows a decorative flourish beyond the
+    // divider ornament, since this card is the single focal point per screen.
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(Radii.xl),
+      child: Stack(
+        children: [
+          AppCard(
+            accent: true,
+            radius: Radii.xl,
+            padding: EdgeInsets.all(compact ? Insets.xl : Insets.xxl),
+            child: _WordCardContent(
+              word: word,
+              onTapIpa: onTapIpa,
+              compact: compact,
+            ),
+          ),
+          Positioned.fill(
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0, 0.32],
+                    colors: [
+                      p.gold.withValues(alpha: 0.05),
+                      p.gold.withValues(alpha: 0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WordCardContent extends StatelessWidget {
+  final Word word;
+  final VoidCallback? onTapIpa;
+  final bool compact;
+  const _WordCardContent({
+    required this.word,
+    this.onTapIpa,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,8 +176,7 @@ class WordCard extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 }
 

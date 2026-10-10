@@ -13,6 +13,7 @@ enum WordCategory {
   culture,
   health,
   home,
+  conversation,
 }
 
 enum WordType { noun, verb, adjective, adverb, phrase, expression }
@@ -51,6 +52,7 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.culture => 'Cultura',
         WordCategory.health => 'Salud',
         WordCategory.home => 'Hogar',
+        WordCategory.conversation => 'Conversación',
       };
 
   String get emoji => switch (this) {
@@ -64,6 +66,7 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.culture => '🎭',
         WordCategory.health => '🏥',
         WordCategory.home => '🏠',
+        WordCategory.conversation => '💬',
       };
 
   /// Snake-case key as stored in the seed dataset.
@@ -78,6 +81,7 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.culture => 'culture',
         WordCategory.health => 'health',
         WordCategory.home => 'home',
+        WordCategory.conversation => 'conversation',
       };
 
   static WordCategory? parse(String raw) {

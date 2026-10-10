@@ -9,7 +9,7 @@
 | Feature | Estado |
 |---|---|
 | Palabra del día (determinista por fecha) | ✅ |
-| Catálogo de 120 palabras · 10 categorías · A1–C2 | ✅ |
+| Catálogo de 196 palabras · 11 categorías (incluye conversación) · A1–C2 | ✅ |
 | Audio TTS en francés (palabra y frase) | ✅ |
 | Práctica de pronunciación con reconocimiento de voz | ✅ |
 | Score de pronunciación (claridad · acento · ritmo) | ✅ |
@@ -157,7 +157,7 @@ del catálogo, la rotación de la palabra del día, y el repositorio de progreso
 | `lib/features/progress/data/progress_repository.dart` | SRS, historial, racha |
 | `lib/features/pronunciation/domain/usecases/pronunciation_scorer.dart` | Scoring de pronunciación |
 | `lib/features/progress/domain/usecases/sm2_algorithm.dart` | Algoritmo SM-2 |
-| `assets/data/words_seed.json` | Catálogo de 120 palabras |
+| `assets/data/words_seed.json` | Catálogo de 196 palabras |
 
 ---
 

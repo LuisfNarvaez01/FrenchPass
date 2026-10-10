@@ -42,6 +42,27 @@ class AppBackground extends StatelessWidget {
               ),
             ),
           ),
+          // A second, cooler bloom low on the opposite side keeps the warm
+          // top glow from reading as a single flat spotlight.
+          Positioned(
+            bottom: -200,
+            left: -140,
+            child: IgnorePointer(
+              child: Container(
+                width: 420,
+                height: 420,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      p.terracotta.withValues(alpha: 0.05),
+                      p.terracotta.withValues(alpha: 0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           child,
         ],
       ),
@@ -91,16 +112,54 @@ class AppCard extends StatelessWidget {
     if (onTap == null) {
       return DecoratedBox(decoration: decoration, child: content);
     }
-    return DecoratedBox(
-      decoration: decoration,
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(radius),
-        child: InkWell(
-          onTap: onTap,
+    return _PressScale(
+      child: DecoratedBox(
+        decoration: decoration,
+        child: Material(
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(radius),
-          child: content,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(radius),
+            child: content,
+          ),
         ),
+      ),
+    );
+  }
+}
+
+/// Wraps a tappable surface with a subtle press-down scale, so taps across
+/// the app read as physical rather than flat. Purely cosmetic — the actual
+/// tap handling stays on the child's own gesture detector (`InkWell`,
+/// `GestureDetector`, …); this only listens for down/up/cancel to drive the
+/// scale, never consuming the tap itself.
+class _PressScale extends StatefulWidget {
+  final Widget child;
+  const _PressScale({required this.child});
+
+  @override
+  State<_PressScale> createState() => _PressScaleState();
+}
+
+class _PressScaleState extends State<_PressScale> {
+  bool _pressed = false;
+
+  void _setPressed(bool value) {
+    if (_pressed != value) setState(() => _pressed = value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (_) => _setPressed(true),
+      onPointerUp: (_) => _setPressed(false),
+      onPointerCancel: (_) => _setPressed(false),
+      child: AnimatedScale(
+        scale: _pressed ? 0.98 : 1.0,
+        duration: Motion.fast,
+        curve: Curves.easeOut,
+        child: widget.child,
       ),
     );
   }
