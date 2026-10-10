@@ -22,7 +22,7 @@
 | Actualización en la app (CI + GitHub Releases) | ✅ |
 | "Otra palabra" + escucha palabra por palabra | ✅ |
 | Tema claro / oscuro / sistema | ✅ |
-| Widget Android (pantalla de inicio) | 🔜 |
+| Widget Android (pantalla de inicio) | ✅ |
 | Soporte iOS | 🔜 |
 
 ---
@@ -62,7 +62,8 @@ datos relacional, y la app arranca sin esperar I/O.
 - **La palabra del día es una función pura de la fecha.** Rota sobre una
   permutación fija, de modo que cualquier ventana de N días consecutivos cubre
   el catálogo entero exactamente una vez, y el mismo día da el mismo resultado
-  en cualquier parte (incluido un futuro widget sin estado compartido).
+  en cualquier parte — incluido el widget de pantalla de inicio, que no
+  recomputa nada: solo pinta lo último que la app le escribió.
 - **Las gráficas de progreso son de una sola serie** y el título las nombra, así
   que no necesitan leyenda. La magnitud se codifica con longitud de barra más un
   paso de una rampa de un solo tono (validada: luminosidad monótona, ΔL ≥ 0.06,
@@ -130,6 +131,17 @@ Además:
 - **Reconocimiento de voz** con permiso de micrófono para la práctica de
   pronunciación.
 
+### Widget de pantalla de inicio
+
+Mantén presionada la pantalla de inicio → *Widgets* → **FrenchPass** →
+arrastra el widget "Palabra del día". Muestra la palabra, su IPA y la
+traducción, y tocarlo abre la app. Se actualiza cada vez que la app calcula
+la palabra del día (al abrir la pestaña "Hoy" o al iniciar la app) — es un
+`RemoteViews` clásico (`WordOfTheDayWidgetProvider.kt`) que solo pinta lo que
+Flutter le escribió vía `home_widget`; no recalcula nada por su cuenta, así
+que el valor puede quedarse un día atrasado si la app no se abre, igual que
+cualquier widget de clima.
+
 ---
 
 ## 🔄 Actualizaciones automáticas
@@ -168,7 +180,7 @@ una clave nueva — no hay forma de evitarlo, es una restricción de Android.
 ## 🧪 Tests
 
 ```bash
-flutter test     # 62 tests
+flutter test     # 69 tests
 flutter analyze  # sin issues
 ```
 
@@ -185,6 +197,9 @@ del catálogo, la rotación de la palabra del día, y el repositorio de progreso
 |---|---|
 | `lib/core/theme/app_palette.dart` | Tokens de color, espaciado y radios |
 | `lib/core/theme/app_theme.dart` | Temas claro y oscuro, escala tipográfica |
+| `lib/core/services/widget_service.dart` | Publica la palabra del día al widget |
+| `android/.../WordOfTheDayWidgetProvider.kt` | Widget nativo (RemoteViews) |
+| `lib/core/services/update_service.dart` | Chequeo de actualizaciones (GitHub Releases) |
 | `lib/core/widgets/charts.dart` | Gráficas con `CustomPainter` |
 | `lib/core/services/tts_service.dart` | Voz francesa, con degradación elegante |
 | `lib/core/services/speech_service.dart` | Reconocimiento de voz y permisos |

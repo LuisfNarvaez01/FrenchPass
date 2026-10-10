@@ -57,6 +57,10 @@ dependencies:
   http: ^1.2.2
   path_provider: ^2.1.4
 
+  # Android home-screen widget: shows the word of the day without opening
+  # the app.
+  home_widget: ^0.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

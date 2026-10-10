@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mirrors the app's dark "Parisian elegant" surface: warm near-black ground,
+     a thin gold-tinted border, generous radius. Classic RemoteViews widgets
+     cannot read the app's Dart-side theme, so these are the dark-mode values
+     from AppPalette.dark hand-copied; keep the two in sync if the palette
+     changes. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#1F1A14" />
+    <corners android:radius="20dp" />
+    <stroke android:width="1dp" android:color="#3A3024" />
+</shape>

@@ -7,6 +7,7 @@ import 'package:french_pass/core/services/speech_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/services/update_service.dart';
+import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
@@ -21,6 +22,7 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<SpeechService>(SpeechService());
   getIt.registerSingleton<NotificationService>(NotificationService());
   getIt.registerSingleton<UpdateService>(UpdateService());
+  getIt.registerSingleton<WidgetService>(WidgetService());
 
   // ─── Repositories ─────────────────────────────────────────────────────────
   // The corpus is loaded up front: it is a single bundled asset and every
@@ -44,4 +46,15 @@ Future<void> configureDependencies() async {
   // Fire-and-forget: a slow or failed network check must never delay the UI
   // or crash startup. MainShell shows the result once it lands, if ever.
   unawaited(getIt<UpdateService>().checkInBackground());
+
+  // Push today's word to the home-screen widget as soon as it is known, so
+  // a widget placed on the home screen is current even on a launch where
+  // the learner never opens the "Hoy" tab (HomeCubit republishes it with the
+  // saved level filter once that tab does build).
+  final levelFilter =
+      LevelFilterExtension.parse(storage.getString(StorageKeys.cefrLevel));
+  final today = words.wordOfTheDay(DateTime.now(), levels: levelFilter.levels);
+  if (today != null) {
+    unawaited(getIt<WidgetService>().publishWordOfTheDay(today));
+  }
 }

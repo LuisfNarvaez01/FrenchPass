@@ -62,6 +62,19 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
+
+        <!-- Home-screen widget: shows the word of the day without opening
+             the app. See WordOfTheDayWidgetProvider.kt. -->
+        <receiver
+            android:name=".WordOfTheDayWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/word_widget_info"/>
+        </receiver>
     </application>
 
     <!-- Package visibility (Android 11+): without these queries the TTS engine and

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
+import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
       create: (_) => HomeCubit(
         getIt<WordRepository>(),
         getIt<ProgressRepository>(),
+        getIt<WidgetService>(),
       )..refresh(context.read<SettingsBloc>().state.levelFilter),
       child: const _HomeView(),
     );

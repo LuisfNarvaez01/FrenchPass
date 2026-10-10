@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/entities/srs_card.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
@@ -77,9 +80,11 @@ class HomeState extends Equatable {
 class HomeCubit extends Cubit<HomeState> {
   final WordRepository _words;
   final ProgressRepository _progress;
+  final WidgetService _widget;
   final Random _random = Random();
 
-  HomeCubit(this._words, this._progress) : super(const HomeState());
+  HomeCubit(this._words, this._progress, this._widget)
+      : super(const HomeState());
 
   /// Recomputes everything the home screen shows, and resets to today's
   /// official word. Cheap enough to call on every return to the tab, which
@@ -103,6 +108,10 @@ class HomeCubit extends Cubit<HomeState> {
       card: word == null ? null : _progress.cardFor(word.id),
       corpusSize: _words.all.length,
     ));
+
+    // The widget always mirrors today's actual word, not an explored pick,
+    // so it stays a reliable "what's today's word" surface at a glance.
+    if (word != null) unawaited(_widget.publishWordOfTheDay(word));
   }
 
   /// Swaps the card for a different random word from the same level pool —
