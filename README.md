@@ -19,6 +19,8 @@
 | Buscador y navegación por categoría/nivel | ✅ |
 | Palabras guardadas | ✅ |
 | Notificación diaria configurable | ✅ |
+| Actualización en la app (CI + GitHub Releases) | ✅ |
+| "Otra palabra" + escucha palabra por palabra | ✅ |
 | Tema claro / oscuro / sistema | ✅ |
 | Widget Android (pantalla de inicio) | 🔜 |
 | Soporte iOS | 🔜 |
@@ -127,6 +129,39 @@ Además:
   La app lo detecta y lo avisa en lugar de fallar en silencio.
 - **Reconocimiento de voz** con permiso de micrófono para la práctica de
   pronunciación.
+
+---
+
+## 🔄 Actualizaciones automáticas
+
+Cada push a `main` dispara `.github/workflows/release.yml`, que compila,
+corre `analyze`/`test`, y publica una GitHub Release etiquetada con la
+versión de `pubspec.yaml` (`vX.Y.Z`). La app, al abrir cualquier pantalla con
+la barra de navegación, revisa en segundo plano si esa release es más nueva
+que la instalada; si lo es, ofrece un diálogo para **descargar e instalar
+sola** — el único paso manual que queda es la confirmación del instalador de
+Android, que el sistema no deja automatizar para una app fuera de la Play
+Store.
+
+**Configuración única (ya no se repite):** la release debe firmarse con la
+*misma* clave que ya está instalada en los teléfonos de prueba, o Android
+rechazará la actualización por firma distinta y pedirá desinstalar primero.
+Hay que cargar esa clave como secretos del repo:
+
+1. En GitHub → *Settings → Secrets and variables → Actions → New repository
+   secret*, crea estos cuatro:
+   - `KEYSTORE_BASE64` — contenido de `keystore_base64_for_github_secret.txt`
+     (generado junto al keystore local, ignorado por git; bórralo del disco
+     una vez cargado el secreto).
+   - `KEYSTORE_PASSWORD`, `KEY_PASSWORD`, `KEY_ALIAS` — los mismos valores de
+     `android/key.properties`.
+2. Pushea a `main`. La Action compila, firma y publica la release.
+3. Abre la app en el teléfono que ya tiene la versión anterior instalada: en
+   un momento debería aparecer el aviso de actualización.
+
+Si alguna vez se pierde o rota la clave de firma, hay que desinstalar la app
+de cada dispositivo de prueba antes de poder instalar una build firmada con
+una clave nueva — no hay forma de evitarlo, es una restricción de Android.
 
 ---
 

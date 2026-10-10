@@ -49,3 +49,4 @@ android/app/*.jks
 
 # Built APKs (generated artifacts)
 /FrenchPass-*.apk
+/keystore_base64_for_github_secret.txt

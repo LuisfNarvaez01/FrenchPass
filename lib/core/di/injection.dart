@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 
 import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/speech_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
+import 'package:french_pass/core/services/update_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
@@ -17,6 +20,7 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<TtsService>(TtsService());
   getIt.registerSingleton<SpeechService>(SpeechService());
   getIt.registerSingleton<NotificationService>(NotificationService());
+  getIt.registerSingleton<UpdateService>(UpdateService());
 
   // ─── Repositories ─────────────────────────────────────────────────────────
   // The corpus is loaded up front: it is a single bundled asset and every
@@ -36,4 +40,8 @@ Future<void> configureDependencies() async {
   // for engine startup.
   final rate = storage.getInt(StorageKeys.speechRate);
   await getIt<TtsService>().init(rate: (rate ?? 38) / 100);
+
+  // Fire-and-forget: a slow or failed network check must never delay the UI
+  // or crash startup. MainShell shows the result once it lands, if ever.
+  unawaited(getIt<UpdateService>().checkInBackground());
 }
