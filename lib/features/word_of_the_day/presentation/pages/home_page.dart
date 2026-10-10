@@ -40,6 +40,8 @@ class _HomeView extends StatefulWidget {
 class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
   final _tts = getIt<TtsService>();
   bool _speaking = false;
+  bool _sequenceSpeaking = false;
+  bool _cancelSequence = false;
 
   @override
   void initState() {
@@ -75,6 +77,34 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
     final ok = await _tts.speak(text);
     if (!mounted) return;
     setState(() => _speaking = false);
+    if (!ok) _showNoVoice();
+  }
+
+  /// Speaks the example sentence one word at a time, then the whole sentence
+  /// at natural speed -- so a learner who only gets the gist from the fast
+  /// full read can hear each word isolated first.
+  Future<void> _speakWordByWord(String sentence) async {
+    if (_sequenceSpeaking) {
+      _cancelSequence = true;
+      await _tts.stop();
+      if (mounted) setState(() => _sequenceSpeaking = false);
+      return;
+    }
+    _cancelSequence = false;
+    setState(() => _sequenceSpeaking = true);
+
+    final words = sentence
+        .split(RegExp(r'\s+'))
+        .where((w) => w.trim().isNotEmpty)
+        .toList();
+
+    final ok = await _tts.speakSequence(
+      [...words, sentence],
+      shouldContinue: () => !_cancelSequence,
+    );
+
+    if (!mounted) return;
+    setState(() => _sequenceSpeaking = false);
     if (!ok) _showNoVoice();
   }
 
@@ -158,11 +188,21 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                             isSaved: state.isFavorite,
                             onListen: () => _speak(word.french),
                             onPractice: () async {
+                              // Captured before the await: practicing an
+                              // explored word should not snap the card back
+                              // to today's word, only refresh its SRS summary.
+                              final cubit = context.read<HomeCubit>();
+                              final wasExploring = cubit.state.isExploring;
                               await context.push(
                                 '/word/${word.id}/practice',
                                 extra: word,
                               );
-                              if (mounted) _refresh();
+                              if (!mounted) return;
+                              if (wasExploring) {
+                                cubit.refreshCurrentCard();
+                              } else {
+                                _refresh();
+                              }
                             },
                             onSave: () async {
                               // Captured before the await: the callback may
@@ -184,10 +224,25 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                             },
                           ).animate().fadeIn(delay: 120.ms),
 
+                          const SizedBox(height: Insets.md),
+
+                          _NextWordRow(
+                            isExploring: state.isExploring,
+                            onNext: () {
+                              _tts.stop();
+                              context.read<HomeCubit>().showRandomWord(
+                                  context.read<SettingsBloc>().state.levelFilter);
+                            },
+                            onBackToToday: _refresh,
+                          ).animate().fadeIn(delay: 150.ms),
+
                           const SizedBox(height: Insets.xl),
 
-                          _ExampleAudioButton(
-                            onTap: () => _speak(word.exampleFr),
+                          _ExampleAudioRow(
+                            isSpeakingWord: _speaking,
+                            isSpeakingSequence: _sequenceSpeaking,
+                            onWordByWord: () => _speakWordByWord(word.exampleFr),
+                            onFullSentence: () => _speak(word.exampleFr),
                           ).animate().fadeIn(delay: 180.ms),
 
                           const SizedBox(height: Insets.xxl),
@@ -265,21 +320,104 @@ class _Masthead extends StatelessWidget {
   }
 }
 
-class _ExampleAudioButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _ExampleAudioButton({required this.onTap});
+/// Lets the learner go straight to a different word without waiting for the
+/// next calendar day, and shows a way back once they have wandered off it.
+class _NextWordRow extends StatelessWidget {
+  final bool isExploring;
+  final VoidCallback onNext;
+  final VoidCallback onBackToToday;
+
+  const _NextWordRow({
+    required this.isExploring,
+    required this.onNext,
+    required this.onBackToToday,
+  });
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    return OutlinedButton.icon(
-      onPressed: onTap,
-      icon: Icon(Icons.record_voice_over_outlined, size: 18, color: p.gold),
-      label: const Text('Escuchar la frase completa'),
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size.fromHeight(48),
-        side: BorderSide(color: p.border),
-      ),
+    return Row(
+      children: [
+        if (isExploring) ...[
+          Expanded(
+            child: TextButton.icon(
+              onPressed: onBackToToday,
+              icon: Icon(Icons.today_rounded, size: 16, color: p.textSecondary),
+              label: const Text('Volver a la palabra de hoy'),
+              style: TextButton.styleFrom(foregroundColor: p.textSecondary),
+            ),
+          ),
+          const SizedBox(width: Insets.sm),
+        ],
+        Expanded(
+          child: TextButton.icon(
+            onPressed: onNext,
+            icon: Icon(Icons.shuffle_rounded, size: 16, color: p.gold),
+            label: const Text('Otra palabra'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Two listening modes for the example sentence: word by word, then at
+/// natural speed -- the first time someone hears the fast version it is easy
+/// to assume the app is stuck, so the slower path is offered right beside it.
+class _ExampleAudioRow extends StatelessWidget {
+  final bool isSpeakingWord;
+  final bool isSpeakingSequence;
+  final VoidCallback onWordByWord;
+  final VoidCallback onFullSentence;
+
+  const _ExampleAudioRow({
+    required this.isSpeakingWord,
+    required this.isSpeakingSequence,
+    required this.onWordByWord,
+    required this.onFullSentence,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: isSpeakingWord ? null : onWordByWord,
+            icon: Icon(
+              isSpeakingSequence
+                  ? Icons.stop_circle_outlined
+                  : Icons.format_list_numbered_rounded,
+              size: 18,
+              color: p.gold,
+            ),
+            label: Text(isSpeakingSequence ? 'Detener' : 'Palabra por palabra'),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              side: BorderSide(color: p.border),
+            ),
+          ),
+        ),
+        const SizedBox(width: Insets.md),
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: isSpeakingSequence ? null : onFullSentence,
+            icon: Icon(
+              isSpeakingWord
+                  ? Icons.graphic_eq_rounded
+                  : Icons.record_voice_over_outlined,
+              size: 18,
+              color: p.gold,
+            ),
+            label: const Text('Frase completa'),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              side: BorderSide(color: p.border),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

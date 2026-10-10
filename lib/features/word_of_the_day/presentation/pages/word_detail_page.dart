@@ -25,6 +25,8 @@ class _WordDetailPageState extends State<WordDetailPage> {
   final _progress = getIt<ProgressRepository>();
 
   bool _speaking = false;
+  bool _sequenceSpeaking = false;
+  bool _cancelSequence = false;
   late bool _isFavorite;
   SrsCard? _card;
 
@@ -51,6 +53,37 @@ class _WordDetailPageState extends State<WordDetailPage> {
     final ok = await _tts.speak(text);
     if (!mounted) return;
     setState(() => _speaking = false);
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No hay una voz francesa instalada en el dispositivo.'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _speakWordByWord(String sentence) async {
+    if (_sequenceSpeaking) {
+      _cancelSequence = true;
+      await _tts.stop();
+      if (mounted) setState(() => _sequenceSpeaking = false);
+      return;
+    }
+    _cancelSequence = false;
+    setState(() => _sequenceSpeaking = true);
+
+    final words = sentence
+        .split(RegExp(r'\s+'))
+        .where((w) => w.trim().isNotEmpty)
+        .toList();
+
+    final ok = await _tts.speakSequence(
+      [...words, sentence],
+      shouldContinue: () => !_cancelSequence,
+    );
+
+    if (!mounted) return;
+    setState(() => _sequenceSpeaking = false);
     if (!ok) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -139,15 +172,50 @@ class _WordDetailPageState extends State<WordDetailPage> {
 
                           const SizedBox(height: Insets.lg),
 
-                          OutlinedButton.icon(
-                            onPressed: () => _speak(word.exampleFr),
-                            icon: Icon(Icons.record_voice_over_outlined,
-                                size: 18, color: p.gold),
-                            label: const Text('Escuchar la frase completa'),
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(48),
-                              side: BorderSide(color: p.border),
-                            ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: _speaking
+                                      ? null
+                                      : () => _speakWordByWord(word.exampleFr),
+                                  icon: Icon(
+                                    _sequenceSpeaking
+                                        ? Icons.stop_circle_outlined
+                                        : Icons.format_list_numbered_rounded,
+                                    size: 18,
+                                    color: p.gold,
+                                  ),
+                                  label: Text(_sequenceSpeaking
+                                      ? 'Detener'
+                                      : 'Palabra por palabra'),
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(48),
+                                    side: BorderSide(color: p.border),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: Insets.md),
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: _sequenceSpeaking
+                                      ? null
+                                      : () => _speak(word.exampleFr),
+                                  icon: Icon(
+                                    _speaking
+                                        ? Icons.graphic_eq_rounded
+                                        : Icons.record_voice_over_outlined,
+                                    size: 18,
+                                    color: p.gold,
+                                  ),
+                                  label: const Text('Frase completa'),
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(48),
+                                    side: BorderSide(color: p.border),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
 
                           const SizedBox(height: Insets.xxl),

@@ -82,12 +82,17 @@ class TtsService {
   }
 
   /// Speaks [text] in French. Returns false when no voice could play it.
+  ///
+  /// Skips the `stop()` round-trip when nothing is currently playing — that
+  /// extra platform-channel call was the main source of the "it takes a
+  /// moment to start" feeling, since each one blocks on the engine
+  /// acknowledging a cancel it didn't need to do.
   Future<bool> speak(String text) async {
     if (text.trim().isEmpty) return false;
     await init(rate: _rate);
     if (!_available) return false;
     try {
-      await _tts.stop();
+      if (_speaking) await _tts.stop();
       _emit(true);
       await _tts.speak(text);
       _emit(false);
@@ -97,6 +102,37 @@ class TtsService {
       _emit(false);
       return false;
     }
+  }
+
+  /// Speaks each of [parts] in turn, pausing briefly between them, so a
+  /// learner can hear a sentence broken into its words before hearing it at
+  /// natural speed. Returns false immediately if no voice is available —
+  /// callers should not show a partial read-through on a device with no
+  /// French TTS.
+  Future<bool> speakSequence(
+    List<String> parts, {
+    Duration gap = const Duration(milliseconds: 220),
+    bool Function()? shouldContinue,
+  }) async {
+    final cleaned = parts.map((p) => p.trim()).where((p) => p.isNotEmpty);
+    await init(rate: _rate);
+    if (!_available) return false;
+
+    for (final part in cleaned) {
+      if (shouldContinue != null && !shouldContinue()) return true;
+      try {
+        if (_speaking) await _tts.stop();
+        _emit(true);
+        await _tts.speak(part);
+        _emit(false);
+      } catch (e) {
+        debugPrint('TtsService.speakSequence failed on "$part": $e');
+        _emit(false);
+        return false;
+      }
+      if (gap > Duration.zero) await Future<void>.delayed(gap);
+    }
+    return true;
   }
 
   Future<void> stop() async {

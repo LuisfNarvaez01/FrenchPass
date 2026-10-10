@@ -48,7 +48,7 @@ class SettingsState extends Equatable {
     this.levelFilter = LevelFilter.mixed,
     this.notificationsEnabled = false,
     this.notificationHour = 9,
-    this.speechRate = 45,
+    this.speechRate = 38,
   });
 
   SettingsState copyWith({
@@ -165,7 +165,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       notificationsEnabled:
           _storage.getBool(StorageKeys.notificationsEnabled) ?? false,
       notificationHour: _storage.getInt(StorageKeys.notificationHour) ?? 9,
-      speechRate: _storage.getInt(StorageKeys.speechRate) ?? 45,
+      speechRate: _storage.getInt(StorageKeys.speechRate) ?? 38,
     ));
   }
 

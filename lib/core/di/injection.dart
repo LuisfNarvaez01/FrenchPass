@@ -35,5 +35,5 @@ Future<void> configureDependencies() async {
   // Warm the TTS engine so the first "Escuchar" tap is not the one that pays
   // for engine startup.
   final rate = storage.getInt(StorageKeys.speechRate);
-  await getIt<TtsService>().init(rate: (rate ?? 45) / 100);
+  await getIt<TtsService>().init(rate: (rate ?? 38) / 100);
 }
