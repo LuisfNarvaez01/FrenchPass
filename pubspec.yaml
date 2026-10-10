@@ -1,0 +1,64 @@
+name: french_pass
+description: Aprende francés con la palabra del día, práctica de pronunciación y sistema de repetición espaciada.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+  equatable: ^2.0.5
+
+  # Dependency Injection
+  get_it: ^8.0.2
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # Persistence — the corpus is a bundled asset, so the only stored state is
+  # the learner's progress: a few small JSON documents, no database needed.
+  shared_preferences: ^2.3.3
+
+  # Text to speech (French voice)
+  # Pinned: flutter_tts 4.2.x declares Kotlin 2.2.20 / AGP 8.13, newer than the
+  # Flutter 3.27 toolchain, and its source trips a K2 frontend crash
+  # ("source must not be null") on Kotlin 2.0.x.
+  flutter_tts: 4.1.0
+
+  # Speech recognition
+  speech_to_text: ^7.0.0
+
+  # Daily reminder
+  flutter_local_notifications: ^17.2.4
+  timezone: ^0.9.4
+
+  # Functional Programming (Either, Option)
+  fpdart: ^1.1.0
+
+  # Permissions (microphone, notifications)
+  permission_handler: ^11.3.1
+
+  # UI
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.0
+
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/data/words_seed.json
