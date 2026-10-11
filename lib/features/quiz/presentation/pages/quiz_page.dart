@@ -75,9 +75,7 @@ class _QuizIntro extends StatelessWidget {
             'escucha y transcripción fonética.',
             style: context.texts.bodyMedium,
           ),
-
           const SizedBox(height: Insets.xxl),
-
           AppCard(
             accent: true,
             child: Column(
@@ -107,9 +105,7 @@ class _QuizIntro extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: Insets.xl),
-
           Text('MODOS DE PREGUNTA', style: AppTheme.eyebrow(context)),
           const SizedBox(height: Insets.md),
           Wrap(
@@ -120,9 +116,7 @@ class _QuizIntro extends StatelessWidget {
                 Pill(label: mode.promptEs, tone: p.textSecondary),
             ],
           ),
-
           const SizedBox(height: Insets.xxl),
-
           ElevatedButton.icon(
             onPressed: () => context.read<QuizCubit>().start(filter),
             icon: const Icon(Icons.play_arrow_rounded),
@@ -158,8 +152,7 @@ class _IntroRow extends StatelessWidget {
         Flexible(
           child: Text(
             value,
-            style:
-                context.texts.labelMedium?.copyWith(color: p.textPrimary),
+            style: context.texts.labelMedium?.copyWith(color: p.textPrimary),
             textAlign: TextAlign.right,
           ),
         ),
@@ -221,8 +214,8 @@ class _QuizRoundState extends State<_QuizRound> {
       children: [
         // ── Progress header ───────────────────────────────────────────────
         Padding(
-          padding: const EdgeInsets.fromLTRB(
-              Insets.page, Insets.md, Insets.page, 0),
+          padding:
+              const EdgeInsets.fromLTRB(Insets.page, Insets.md, Insets.page, 0),
           child: Column(
             children: [
               Row(
@@ -244,8 +237,7 @@ class _QuizRoundState extends State<_QuizRound> {
                     child: Text(
                       '${state.correct}✓',
                       textAlign: TextAlign.center,
-                      style: context.texts.labelMedium
-                          ?.copyWith(color: p.good),
+                      style: context.texts.labelMedium?.copyWith(color: p.good),
                     ),
                   ),
                 ],
@@ -276,16 +268,14 @@ class _QuizRoundState extends State<_QuizRound> {
             child: Column(
               key: ValueKey(state.index),
               children: [
-                Text(question.mode.promptEs,
-                    style: AppTheme.eyebrow(context)),
+                Text(question.mode.promptEs, style: AppTheme.eyebrow(context)),
                 const SizedBox(height: Insets.xl),
-
-                _Prompt(question: question, onReplay: () {
-                  _tts.speak(question.target.french);
-                }),
-
+                _Prompt(
+                    question: question,
+                    onReplay: () {
+                      _tts.speak(question.target.french);
+                    }),
                 const SizedBox(height: Insets.xxl),
-
                 for (var i = 0; i < question.options.length; i++) ...[
                   _OptionTile(
                     label: question.labelFor(question.options[i]),
@@ -303,15 +293,14 @@ class _QuizRoundState extends State<_QuizRound> {
                   ),
                   const SizedBox(height: Insets.md),
                 ],
-
                 if (revealing) ...[
                   const SizedBox(height: Insets.sm),
                   _RevealNote(question: question)
                       .animate()
-                      .fadeIn(duration: 200.ms),
+                      .fadeIn(duration: Motion.fast),
                 ],
               ],
-            ).animate(key: ValueKey(state.index)).fadeIn(duration: 220.ms),
+            ).animate(key: ValueKey(state.index)).fadeIn(duration: Motion.fast),
           ),
         ),
 
@@ -375,8 +364,8 @@ class _Prompt extends StatelessWidget {
           GestureDetector(
             onTap: onReplay,
             child: Container(
-              width: 104,
-              height: 104,
+              width: Sizes.heroControlSm,
+              height: Sizes.heroControlSm,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: p.gold.withValues(alpha: 0.12),
@@ -412,8 +401,7 @@ class _Prompt extends StatelessWidget {
             ),
             if (question.mode == QuizMode.frToEs) ...[
               const SizedBox(height: Insets.sm),
-              Text(question.target.ipa,
-                  style: AppTheme.ipa(context, size: 15)),
+              Text(question.target.ipa, style: AppTheme.ipa(context, size: 15)),
             ],
           ],
         ),
@@ -491,8 +479,8 @@ class _OptionTile extends StatelessWidget {
                     border: Border.all(color: p.border),
                   ),
                   child: Text(_letters[index % _letters.length],
-                      style: context.texts.labelSmall
-                          ?.copyWith(letterSpacing: 0)),
+                      style:
+                          context.texts.labelSmall?.copyWith(letterSpacing: 0)),
                 ),
                 const SizedBox(width: Insets.lg),
                 Expanded(
@@ -551,8 +539,7 @@ class _QuizSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final wrong =
-        state.answers.where((a) => !a.isCorrect).toList();
+    final wrong = state.answers.where((a) => !a.isCorrect).toList();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
@@ -561,15 +548,12 @@ class _QuizSummary extends StatelessWidget {
         children: [
           Text('Resultado', style: AppTheme.eyebrow(context)),
           const SizedBox(height: Insets.xl),
-
           ScoreRing(
             score: state.accuracy,
             caption: '${state.correct}/${state.total} correctas',
           ).animate().fadeIn().scale(
               begin: const Offset(0.85, 0.85), curve: Curves.easeOutBack),
-
           const SizedBox(height: Insets.xl),
-
           Text(
             switch (state.accuracy) {
               >= 0.9 => '¡Impecable !',
@@ -585,9 +569,7 @@ class _QuizSummary extends StatelessWidget {
             style: context.texts.bodySmall,
             textAlign: TextAlign.center,
           ),
-
           const SizedBox(height: Insets.xxl),
-
           if (wrong.isNotEmpty) ...[
             Align(
               alignment: Alignment.centerLeft,
@@ -596,8 +578,7 @@ class _QuizSummary extends StatelessWidget {
             const SizedBox(height: Insets.md),
             for (final answer in wrong) ...[
               AppCard(
-                onTap: () =>
-                    context.push('/word/${answer.question.target.id}'),
+                onTap: () => context.push('/word/${answer.question.target.id}'),
                 padding: const EdgeInsets.symmetric(
                     horizontal: Insets.lg, vertical: Insets.md),
                 child: Row(
@@ -627,7 +608,6 @@ class _QuizSummary extends StatelessWidget {
             ],
             const SizedBox(height: Insets.lg),
           ],
-
           Row(
             children: [
               Expanded(
@@ -641,8 +621,9 @@ class _QuizSummary extends StatelessWidget {
               const SizedBox(width: Insets.md),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => context.read<QuizCubit>().start(
-                      context.read<SettingsBloc>().state.levelFilter),
+                  onPressed: () => context
+                      .read<QuizCubit>()
+                      .start(context.read<SettingsBloc>().state.levelFilter),
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(52)),
                   child: const Text('Otra ronda'),

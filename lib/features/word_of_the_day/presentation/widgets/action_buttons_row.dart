@@ -27,9 +27,8 @@ class ActionButtonsRow extends StatelessWidget {
       children: [
         Expanded(
           child: _IconAction(
-            icon: isSpeaking
-                ? Icons.graphic_eq_rounded
-                : Icons.volume_up_rounded,
+            icon:
+                isSpeaking ? Icons.graphic_eq_rounded : Icons.volume_up_rounded,
             label: isSpeaking ? 'Suena…' : 'Escuchar',
             onTap: onListen,
             active: isSpeaking,
@@ -39,7 +38,7 @@ class ActionButtonsRow extends StatelessWidget {
         Expanded(
           flex: 2,
           child: SizedBox(
-            height: 64,
+            height: Sizes.actionHeight,
             child: ElevatedButton.icon(
               onPressed: onPractice,
               icon: const Icon(Icons.mic_rounded, size: 20),
@@ -82,7 +81,7 @@ class _IconAction extends StatelessWidget {
     final tone = active ? p.gold : p.textSecondary;
 
     return SizedBox(
-      height: 64,
+      height: Sizes.actionHeight,
       child: Material(
         color: active ? p.gold.withValues(alpha: 0.10) : p.surface,
         borderRadius: BorderRadius.circular(Radii.md),

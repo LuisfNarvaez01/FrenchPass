@@ -54,25 +54,14 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
         child: SafeArea(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Insets.sm),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.close_rounded),
-                      tooltip: 'Cerrar',
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    const SizedBox(width: Insets.xs),
-                    Text('Resultado', style: context.texts.titleLarge),
-                  ],
-                ),
+              const AppTopBar(
+                title: 'Resultado',
+                leading: AppBackButton.close(),
               ),
 
               Expanded(
                 child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: Insets.page),
+                  padding: const EdgeInsets.symmetric(horizontal: Insets.page),
                   child: Column(
                     children: [
                       const SizedBox(height: Insets.lg),
@@ -86,9 +75,9 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
 
                       ScoreRing(score: result.overallScore)
                           .animate()
-                          .fadeIn(delay: 120.ms)
+                          .fadeIn(delay: Motion.stagger(3))
                           .scale(
-                              delay: 120.ms,
+                              delay: Motion.stagger(3),
                               begin: const Offset(0.85, 0.85),
                               curve: Curves.easeOutBack),
 
@@ -98,13 +87,13 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
                         result.feedback.labelEs,
                         style: context.texts.headlineMedium,
                         textAlign: TextAlign.center,
-                      ).animate().fadeIn(delay: 320.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(8)),
                       const SizedBox(height: Insets.xs),
                       Text(
                         result.feedback.subtitle,
                         style: context.texts.bodyMedium,
                         textAlign: TextAlign.center,
-                      ).animate().fadeIn(delay: 360.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(9)),
 
                       const SizedBox(height: Insets.xxl),
 
@@ -122,6 +111,8 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
                                   : '« ${result.recognizedText} »',
                               style: context.texts.bodyLarge
                                   ?.copyWith(fontStyle: FontStyle.italic),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: Insets.md),
                             Divider(color: p.border),
@@ -134,7 +125,7 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
                                     fontStyle: FontStyle.italic)),
                           ],
                         ),
-                      ).animate().fadeIn(delay: 420.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(10)),
 
                       const SizedBox(height: Insets.lg),
 
@@ -145,26 +136,24 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
                             Text('DESGLOSE', style: AppTheme.eyebrow(context)),
                             const SizedBox(height: Insets.lg),
                             MeterRow(
-                                label: 'Claridad',
-                                value: result.clarityScore),
+                                label: 'Claridad', value: result.clarityScore),
                             const SizedBox(height: Insets.lg),
                             MeterRow(
                                 label: 'Acento', value: result.accentScore),
                             const SizedBox(height: Insets.lg),
-                            MeterRow(
-                                label: 'Ritmo', value: result.rhythmScore),
+                            MeterRow(label: 'Ritmo', value: result.rhythmScore),
                           ],
                         ),
                       )
                           .animate()
-                          .fadeIn(delay: 480.ms)
+                          .fadeIn(delay: Motion.stagger(12))
                           .slideY(begin: 0.06, end: 0),
 
                       const SizedBox(height: Insets.lg),
 
                       _NextReviewNote(card: _card)
                           .animate()
-                          .fadeIn(delay: 540.ms),
+                          .fadeIn(delay: Motion.stagger(14)),
 
                       const SizedBox(height: Insets.xxl),
                     ],
@@ -189,8 +178,7 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
                     const SizedBox(width: Insets.md),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(context)
-                            .popUntil((route) => route.isFirst),
+                        onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(52)),
                         child: const Text('Continuar'),

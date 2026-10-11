@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
@@ -64,8 +65,7 @@ class SettingsPage extends StatelessWidget {
                 const _Separator(),
                 _SpeechRateTile(
                   rate: settings.speechRate,
-                  onChanged: (rate) =>
-                      bloc.add(ChangeSpeechRateEvent(rate)),
+                  onChanged: (rate) => bloc.add(ChangeSpeechRateEvent(rate)),
                 ),
               ],
             ),
@@ -121,7 +121,13 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   Text('FrenchPass', style: AppTheme.eyebrow(context)),
                   const SizedBox(height: Insets.xs),
-                  Text('Versión 1.0.0', style: context.texts.bodySmall),
+                  FutureBuilder<PackageInfo>(
+                    future: PackageInfo.fromPlatform(),
+                    builder: (context, snap) => Text(
+                      snap.hasData ? 'Versión ${snap.data!.version}' : '',
+                      style: context.texts.bodySmall,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -131,8 +137,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  static String _hourLabel(int hour) =>
-      '${hour.toString().padLeft(2, '0')}:00';
+  static String _hourLabel(int hour) => '${hour.toString().padLeft(2, '0')}:00';
 }
 
 class _Group extends StatelessWidget {
@@ -212,8 +217,8 @@ class _SegmentedRow<T> extends StatelessWidget {
                       onTap: () => onChanged(option.$1),
                       child: AnimatedContainer(
                         duration: Motion.fast,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: Insets.md),
+                        padding:
+                            const EdgeInsets.symmetric(vertical: Insets.md),
                         decoration: BoxDecoration(
                           color: option.$1 == value
                               ? p.gold.withValues(alpha: 0.18)
@@ -224,9 +229,8 @@ class _SegmentedRow<T> extends StatelessWidget {
                           option.$2,
                           textAlign: TextAlign.center,
                           style: context.texts.labelMedium?.copyWith(
-                            color: option.$1 == value
-                                ? p.gold
-                                : p.textSecondary,
+                            color:
+                                option.$1 == value ? p.gold : p.textSecondary,
                           ),
                         ),
                       ),
@@ -310,8 +314,8 @@ class _SpeechRateTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          Insets.lg, Insets.lg, Insets.lg, Insets.sm),
+      padding:
+          const EdgeInsets.fromLTRB(Insets.lg, Insets.lg, Insets.lg, Insets.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

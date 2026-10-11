@@ -16,6 +16,22 @@ class ChartPoint {
   });
 }
 
+/// Wraps a custom-painted chart so a screen reader announces its data as
+/// text — the painted marks themselves are invisible to it.
+Widget _describedChart(
+        {required String label,
+        required String value,
+        required Widget child}) =>
+    Semantics(
+      container: true,
+      label: label,
+      value: value,
+      excludeSemantics: true,
+      child: child,
+    );
+
+String _fmt(double v) => v.round().toString();
+
 /// Vertical bars for a count-per-day series.
 ///
 /// One series, so there is no legend — the section title names it. Magnitude is
@@ -45,43 +61,49 @@ class _WeeklyBarsState extends State<WeeklyBars> {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final maxValue = widget.points.fold<double>(
-        0, (m, pt) => math.max(m, pt.value));
+    final maxValue =
+        widget.points.fold<double>(0, (m, pt) => math.max(m, pt.value));
     // A flat-zero series still needs a baseline to read against.
     final scaleMax = maxValue <= 0 ? 1.0 : maxValue;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final count = widget.points.length;
-        final slot = constraints.maxWidth / count;
+    return _describedChart(
+      label: 'Gráfico de barras',
+      value: widget.points
+          .map((pt) => '${pt.label}: ${_fmt(pt.value)}${widget.unit}')
+          .join(', '),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final count = widget.points.length;
+          final slot = constraints.maxWidth / count;
 
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTapDown: (d) {
-            final i = (d.localPosition.dx / slot).floor().clamp(0, count - 1);
-            setState(() => _selected = _selected == i ? null : i);
-          },
-          child: SizedBox(
-            height: widget.height,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                for (var i = 0; i < count; i++)
-                  Expanded(
-                    child: _Bar(
-                      point: widget.points[i],
-                      fraction: widget.points[i].value / scaleMax,
-                      showValue: _selected == i ||
-                          (_selected == null && widget.points[i].highlight),
-                      unit: widget.unit,
-                      tone: widget.points[i].highlight ? p.gold : p.goldDim,
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTapDown: (d) {
+              final i = (d.localPosition.dx / slot).floor().clamp(0, count - 1);
+              setState(() => _selected = _selected == i ? null : i);
+            },
+            child: SizedBox(
+              height: widget.height,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  for (var i = 0; i < count; i++)
+                    Expanded(
+                      child: _Bar(
+                        point: widget.points[i],
+                        fraction: widget.points[i].value / scaleMax,
+                        showValue: _selected == i ||
+                            (_selected == null && widget.points[i].highlight),
+                        unit: widget.unit,
+                        tone: widget.points[i].highlight ? p.gold : p.goldDim,
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -113,8 +135,8 @@ class _Bar extends StatelessWidget {
           child: showValue
               ? Text(
                   '${point.value.round()}$unit',
-                  style: context.texts.labelSmall?.copyWith(
-                      color: tone, letterSpacing: 0, fontSize: 11),
+                  style: context.texts.labelSmall
+                      ?.copyWith(color: tone, letterSpacing: 0, fontSize: 11),
                 )
               : null,
         ),
@@ -142,8 +164,8 @@ class _Bar extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: fraction <= 0 ? p.border : tone,
                       // Rounded data-end, square baseline end.
-                      borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(4)),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                   ),
                 ),
@@ -194,46 +216,54 @@ class _TrendLineState extends State<TrendLine> {
       );
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final w = constraints.maxWidth;
-        final count = widget.points.length;
-        void pick(Offset local) {
-          final i = ((local.dx / w) * (count - 1)).round().clamp(0, count - 1);
-          setState(() => _active = i);
-        }
+    return _describedChart(
+      label: 'Gráfico de línea',
+      value: widget.points
+          .map((pt) => '${pt.label}: ${_fmt(pt.value * 100)} %')
+          .join(', '),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final w = constraints.maxWidth;
+          final count = widget.points.length;
+          void pick(Offset local) {
+            final i =
+                ((local.dx / w) * (count - 1)).round().clamp(0, count - 1);
+            setState(() => _active = i);
+          }
 
-        return GestureDetector(
-          onTapDown: (d) => pick(d.localPosition),
-          onHorizontalDragUpdate: (d) => pick(d.localPosition),
-          onHorizontalDragEnd: (_) => setState(() => _active = null),
-          onTapUp: (_) => setState(() => _active = null),
-          child: SizedBox(
-            height: widget.height,
-            width: w,
-            child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: 1),
-              duration: Motion.slow,
-              curve: Curves.easeOutCubic,
-              builder: (context, t, _) => CustomPaint(
-                painter: _TrendPainter(
-                  points: widget.points,
-                  progress: t,
-                  active: _active,
-                  line: p.gold,
-                  fillTop: p.gold.withValues(alpha: 0.22),
-                  fillBottom: p.gold.withValues(alpha: 0.0),
-                  grid: p.border,
-                  surface: p.surface,
-                  labelStyle: context.texts.labelSmall!
-                      .copyWith(color: p.textMuted, letterSpacing: 0),
-                  valueStyle: context.texts.labelLarge!.copyWith(color: p.gold),
+          return GestureDetector(
+            onTapDown: (d) => pick(d.localPosition),
+            onHorizontalDragUpdate: (d) => pick(d.localPosition),
+            onHorizontalDragEnd: (_) => setState(() => _active = null),
+            onTapUp: (_) => setState(() => _active = null),
+            child: SizedBox(
+              height: widget.height,
+              width: w,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: 1),
+                duration: Motion.slow,
+                curve: Curves.easeOutCubic,
+                builder: (context, t, _) => CustomPaint(
+                  painter: _TrendPainter(
+                    points: widget.points,
+                    progress: t,
+                    active: _active,
+                    line: p.gold,
+                    fillTop: p.gold.withValues(alpha: 0.22),
+                    fillBottom: p.gold.withValues(alpha: 0.0),
+                    grid: p.border,
+                    surface: p.surface,
+                    labelStyle: context.texts.labelSmall!
+                        .copyWith(color: p.textMuted, letterSpacing: 0),
+                    valueStyle:
+                        context.texts.labelLarge!.copyWith(color: p.gold),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -279,8 +309,7 @@ class _TrendPainter extends CustomPainter {
       ..color = grid
       ..strokeWidth = 1;
     for (final v in [0.0, 0.5, 1.0]) {
-      canvas.drawLine(
-          Offset(0, yOf(v)), Offset(plotW, yOf(v)), gridPaint);
+      canvas.drawLine(Offset(0, yOf(v)), Offset(plotW, yOf(v)), gridPaint);
     }
 
     final path = Path();
@@ -376,75 +405,104 @@ class _TrendPainter extends CustomPainter {
 /// Magnitude is doubly encoded — bar length plus a step off the single-hue
 /// ordinal ramp — and every row carries a direct value label, so the ranking
 /// survives both colour-vision deficiency and a greyscale print.
-class RankedBars extends StatelessWidget {
+///
+/// Only the top [maxRows] show at first; the rest sit behind "Ver todas" so a
+/// long tail never pushes the rest of the page down.
+class RankedBars extends StatefulWidget {
   final List<ChartPoint> rows;
   final int maxRows;
 
   const RankedBars({super.key, required this.rows, this.maxRows = 6});
 
   @override
+  State<RankedBars> createState() => _RankedBarsState();
+}
+
+class _RankedBarsState extends State<RankedBars> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final sorted = [...rows]..sort((a, b) => b.value.compareTo(a.value));
-    final shown = sorted.take(maxRows).toList();
-    final maxValue =
-        shown.fold<double>(0, (m, r) => math.max(m, r.value));
+    final sorted = [...widget.rows]..sort((a, b) => b.value.compareTo(a.value));
+    final hidden = sorted.length - widget.maxRows;
+    final shown = _expanded ? sorted : sorted.take(widget.maxRows).toList();
+    // Scale against the overall max so expanding never rescales the bars
+    // already on screen.
+    final maxValue = sorted.fold<double>(0, (m, r) => math.max(m, r.value));
     final scaleMax = maxValue <= 0 ? 1.0 : maxValue;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var i = 0; i < shown.length; i++) ...[
-          if (i > 0) const SizedBox(height: Insets.md),
-          Row(
+        _describedChart(
+          label: 'Gráfico de barras ordenado',
+          value: shown.map((r) => '${r.label}: ${_fmt(r.value)}').join(', '),
+          child: Column(
             children: [
-              SizedBox(
-                width: 104,
-                child: Text(
-                  shown[i].label,
-                  style: context.texts.bodySmall
-                      ?.copyWith(color: p.textSecondary),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(width: Insets.sm),
-              Expanded(
-                child: ClipRRect
-                  (borderRadius: BorderRadius.circular(4),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TweenAnimationBuilder<double>(
-                      tween: Tween(
-                          begin: 0,
-                          end: (shown[i].value / scaleMax).clamp(0.02, 1.0)),
-                      duration: Motion.slow,
-                      curve: Curves.easeOutCubic,
-                      builder: (context, t, _) => FractionallySizedBox(
-                        widthFactor: t,
-                        child: Container(
-                          height: 10,
-                          decoration: BoxDecoration(
-                            color: p.rampStep(shown[i].value / scaleMax),
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(4)),
+              for (var i = 0; i < shown.length; i++) ...[
+                if (i > 0) const SizedBox(height: Insets.md),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Sizes.labelColumnWide,
+                      child: Text(
+                        shown[i].label,
+                        style: context.texts.bodySmall
+                            ?.copyWith(color: p.textSecondary),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: Insets.sm),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TweenAnimationBuilder<double>(
+                            tween: Tween(
+                                begin: 0,
+                                end: (shown[i].value / scaleMax)
+                                    .clamp(0.02, 1.0)),
+                            duration: Motion.slow,
+                            curve: Curves.easeOutCubic,
+                            builder: (context, t, _) => FractionallySizedBox(
+                              widthFactor: t,
+                              child: Container(
+                                height: 10,
+                                decoration: BoxDecoration(
+                                  color: p.rampStep(shown[i].value / scaleMax),
+                                  borderRadius: const BorderRadius.horizontal(
+                                      right: Radius.circular(4)),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                    const SizedBox(width: Insets.sm),
+                    SizedBox(
+                      width: 36,
+                      child: Text(
+                        '${shown[i].value.round()}',
+                        textAlign: TextAlign.right,
+                        style: context.texts.labelMedium
+                            ?.copyWith(color: p.textPrimary),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: Insets.sm),
-              SizedBox(
-                width: 36,
-                child: Text(
-                  '${shown[i].value.round()}',
-                  textAlign: TextAlign.right,
-                  style: context.texts.labelMedium
-                      ?.copyWith(color: p.textPrimary),
-                ),
-              ),
+              ],
             ],
+          ),
+        ),
+        if (hidden > 0) ...[
+          const SizedBox(height: Insets.sm),
+          TextButton(
+            onPressed: () => setState(() => _expanded = !_expanded),
+            child: Text(_expanded ? 'Ver menos' : 'Ver todas ($hidden más)'),
           ),
         ],
       ],

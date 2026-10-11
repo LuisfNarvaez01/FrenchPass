@@ -63,7 +63,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
               ),
             ),
-
             if (searching)
               _WordSliverList(words: results, emptyQuery: _query)
             else ...[
@@ -77,8 +76,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       onTap: () => _openFavorites(favorites),
                       child: Row(
                         children: [
-                          Icon(Icons.bookmark_rounded,
-                              color: p.gold, size: 22),
+                          Icon(Icons.bookmark_rounded, color: p.gold, size: 22),
                           const SizedBox(width: Insets.lg),
                           Expanded(
                             child: Column(
@@ -101,13 +99,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     ),
                   ),
                 ),
-
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(
                     Insets.page, Insets.xl, Insets.page, Insets.xxxl),
                 sliver: SliverGrid(
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: Insets.md,
                     crossAxisSpacing: Insets.md,
@@ -122,7 +118,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         count: _words.countForCategory(category),
                       )
                           .animate()
-                          .fadeIn(delay: (30 * i).ms, duration: 250.ms)
+                          .fadeIn(delay: (30 * i).ms, duration: Motion.base)
                           .slideY(begin: 0.08, end: 0);
                     },
                   ),
@@ -136,9 +132,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 
   void _openFavorites(Set<String> favorites) {
-    final words =
-        favorites.map(_words.byId).whereType<Word>().toList()
-          ..sort((a, b) => a.french.compareTo(b.french));
+    final words = favorites.map(_words.byId).whereType<Word>().toList()
+      ..sort((a, b) => a.french.compareTo(b.french));
 
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -330,15 +325,7 @@ class _WordListScaffold extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
-              SliverAppBar(
-                pinned: true,
-                backgroundColor: context.palette.bg,
-                surfaceTintColor: Colors.transparent,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-                  onPressed: () => Navigator.of(context).pop(),
-                  tooltip: 'Volver',
-                ),
+              AppSliverBar(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

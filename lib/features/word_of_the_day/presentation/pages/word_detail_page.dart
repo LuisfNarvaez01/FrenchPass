@@ -3,13 +3,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
-import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/entities/srs_card.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/widgets/action_buttons_row.dart';
+import 'package:french_pass/features/word_of_the_day/presentation/widgets/example_audio_row.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_card.dart';
 
 class WordDetailPage extends StatefulWidget {
@@ -20,13 +21,9 @@ class WordDetailPage extends StatefulWidget {
   State<WordDetailPage> createState() => _WordDetailPageState();
 }
 
-class _WordDetailPageState extends State<WordDetailPage> {
-  final _tts = getIt<TtsService>();
+class _WordDetailPageState extends State<WordDetailPage> with TtsPlaybackState {
   final _progress = getIt<ProgressRepository>();
 
-  bool _speaking = false;
-  bool _sequenceSpeaking = false;
-  bool _cancelSequence = false;
   late bool _isFavorite;
   SrsCard? _card;
 
@@ -35,62 +32,6 @@ class _WordDetailPageState extends State<WordDetailPage> {
     super.initState();
     _isFavorite = _progress.isFavorite(widget.wordId);
     _card = _progress.cardFor(widget.wordId);
-  }
-
-  @override
-  void dispose() {
-    _tts.stop();
-    super.dispose();
-  }
-
-  Future<void> _speak(String text) async {
-    if (_speaking) {
-      await _tts.stop();
-      if (mounted) setState(() => _speaking = false);
-      return;
-    }
-    setState(() => _speaking = true);
-    final ok = await _tts.speak(text);
-    if (!mounted) return;
-    setState(() => _speaking = false);
-    if (!ok) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No hay una voz francesa instalada en el dispositivo.'),
-        ),
-      );
-    }
-  }
-
-  Future<void> _speakWordByWord(String sentence) async {
-    if (_sequenceSpeaking) {
-      _cancelSequence = true;
-      await _tts.stop();
-      if (mounted) setState(() => _sequenceSpeaking = false);
-      return;
-    }
-    _cancelSequence = false;
-    setState(() => _sequenceSpeaking = true);
-
-    final words = sentence
-        .split(RegExp(r'\s+'))
-        .where((w) => w.trim().isNotEmpty)
-        .toList();
-
-    final ok = await _tts.speakSequence(
-      [...words, sentence],
-      shouldContinue: () => !_cancelSequence,
-    );
-
-    if (!mounted) return;
-    setState(() => _sequenceSpeaking = false);
-    if (!ok) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No hay una voz francesa instalada en el dispositivo.'),
-        ),
-      );
-    }
   }
 
   @override
@@ -109,18 +50,8 @@ class _WordDetailPageState extends State<WordDetailPage> {
                 )
               : CustomScrollView(
                   slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      backgroundColor: p.bg,
-                      surfaceTintColor: Colors.transparent,
-                      leading: IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                            size: 20),
-                        onPressed: () => context.pop(),
-                        tooltip: 'Volver',
-                      ),
-                      title: Text(word.french,
-                          style: context.texts.titleLarge),
+                    AppSliverBar(
+                      title: Text(word.french, style: context.texts.titleLarge),
                       actions: [
                         IconButton(
                           tooltip: _isFavorite
@@ -147,18 +78,16 @@ class _WordDetailPageState extends State<WordDetailPage> {
                         delegate: SliverChildListDelegate([
                           WordCard(
                             word: word,
-                            onTapIpa: () => _speak(word.french),
-                          ).animate().fadeIn(duration: 300.ms),
-
+                            onTapIpa: () => speak(word.french),
+                          ).animate().fadeIn(duration: Motion.base),
                           const SizedBox(height: Insets.lg),
-
                           ActionButtonsRow(
-                            isSpeaking: _speaking,
+                            isSpeaking: speaking,
                             isSaved: _isFavorite,
-                            onListen: () => _speak(word.french),
+                            onListen: () => speak(word.french),
                             onPractice: () async {
-                              await context.push(
-                                  '/word/${word.id}/practice', extra: word);
+                              await context.push('/word/${word.id}/practice',
+                                  extra: word);
                               if (!mounted) return;
                               setState(() =>
                                   _card = _progress.cardFor(widget.wordId));
@@ -169,64 +98,19 @@ class _WordDetailPageState extends State<WordDetailPage> {
                               if (mounted) setState(() => _isFavorite = saved);
                             },
                           ),
-
                           const SizedBox(height: Insets.lg),
-
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: _speaking
-                                      ? null
-                                      : () => _speakWordByWord(word.exampleFr),
-                                  icon: Icon(
-                                    _sequenceSpeaking
-                                        ? Icons.stop_circle_outlined
-                                        : Icons.format_list_numbered_rounded,
-                                    size: 18,
-                                    color: p.gold,
-                                  ),
-                                  label: Text(_sequenceSpeaking
-                                      ? 'Detener'
-                                      : 'Palabra por palabra'),
-                                  style: OutlinedButton.styleFrom(
-                                    minimumSize: const Size.fromHeight(48),
-                                    side: BorderSide(color: p.border),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: Insets.md),
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: _sequenceSpeaking
-                                      ? null
-                                      : () => _speak(word.exampleFr),
-                                  icon: Icon(
-                                    _speaking
-                                        ? Icons.graphic_eq_rounded
-                                        : Icons.record_voice_over_outlined,
-                                    size: 18,
-                                    color: p.gold,
-                                  ),
-                                  label: const Text('Frase completa'),
-                                  style: OutlinedButton.styleFrom(
-                                    minimumSize: const Size.fromHeight(48),
-                                    side: BorderSide(color: p.border),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          ExampleAudioRow(
+                            isSpeakingWord: speaking,
+                            isSpeakingSequence: sequenceSpeaking,
+                            onWordByWord: () => speakWordByWord(word.exampleFr),
+                            onFullSentence: () => speak(word.exampleFr),
                           ),
-
                           const SizedBox(height: Insets.xxl),
-
                           _TranslationsCard(
                             es: word.translationEs,
                             en: word.translationEn,
                           ),
-
                           const SizedBox(height: Insets.lg),
-
                           _SrsCardSummary(card: _card),
                         ]),
                       ),
@@ -277,7 +161,7 @@ class _Row extends StatelessWidget {
         Text(flag, style: const TextStyle(fontSize: 16)),
         const SizedBox(width: Insets.md),
         SizedBox(
-          width: 68,
+          width: Sizes.labelColumn,
           child: Text(label, style: context.texts.bodySmall),
         ),
         Expanded(
@@ -297,23 +181,13 @@ class _SrsCardSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
     final c = card;
 
     if (c == null) {
-      return AppCard(
-        child: Row(
-          children: [
-            Icon(Icons.schedule_rounded, color: p.textMuted, size: 20),
-            const SizedBox(width: Insets.md),
-            Expanded(
-              child: Text(
-                'Practícala una vez y entrará en tu calendario de repasos.',
-                style: context.texts.bodySmall,
-              ),
-            ),
-          ],
-        ),
+      return const InfoNotice(
+        icon: Icons.schedule_rounded,
+        iconSize: 20,
+        message: 'Practícala una vez y entrará en tu calendario de repasos.',
       );
     }
 
@@ -339,17 +213,16 @@ class _SrsCardSummary extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _Metric(
-                    label: 'Próximo repaso', value: whenLabel),
+                child: _Metric(label: 'Próximo repaso', value: whenLabel),
+              ),
+              Expanded(
+                child:
+                    _Metric(label: 'Repeticiones', value: '${c.repetitions}'),
               ),
               Expanded(
                 child: _Metric(
-                    label: 'Repeticiones', value: '${c.repetitions}'),
-              ),
-              Expanded(
-                child: _Metric(
-                  label: 'Facilidad',
-                  value: c.easinessFactor.toStringAsFixed(2),
+                  label: 'Dificultad',
+                  value: _difficultyLabel(c.easinessFactor),
                 ),
               ),
             ],
@@ -359,6 +232,14 @@ class _SrsCardSummary extends StatelessWidget {
     );
   }
 }
+
+/// Plain-language reading of the SM-2 easiness factor (1.3 – 2.5): the raw
+/// number means nothing to a learner, but "this one is hard for you" does.
+String _difficultyLabel(double easiness) => switch (easiness) {
+      >= 2.3 => 'Fácil',
+      >= 1.8 => 'Media',
+      _ => 'Difícil',
+    };
 
 class _Metric extends StatelessWidget {
   final String label;

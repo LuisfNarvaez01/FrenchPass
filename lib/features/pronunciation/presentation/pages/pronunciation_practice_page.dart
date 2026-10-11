@@ -125,11 +125,15 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
       _partial = '';
     });
 
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
+    final done = await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
         builder: (_) => PronunciationResultPage(result: scored, word: word),
       ),
     );
+    // "Continuar" on the result closes practice too, landing back on
+    // whichever screen opened it (home or the word detail) instead of
+    // unwinding the whole stack.
+    if (done == true && mounted) context.pop();
   }
 
   Future<void> _stop() async {
@@ -153,15 +157,11 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                 )
               : Column(
                   children: [
-                    _TopBar(
-                      title: 'Práctica',
-                      onClose: () => context.pop(),
-                    ),
-
+                    const AppTopBar(title: 'Práctica'),
                     Expanded(
                       child: SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: Insets.page),
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: Insets.page),
                         child: Column(
                           children: [
                             const SizedBox(height: Insets.xl),
@@ -178,7 +178,7 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                                     ?.copyWith(color: p.gold),
                                 textAlign: TextAlign.center,
                               ),
-                            ).animate().fadeIn(duration: 300.ms),
+                            ).animate().fadeIn(duration: Motion.base),
 
                             const SizedBox(height: Insets.sm),
                             Text(word.ipa,
@@ -196,8 +196,8 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                               onPressed: _phase == _Phase.idle
                                   ? () => _tts.speak(word.french)
                                   : null,
-                              icon: const Icon(Icons.volume_up_rounded,
-                                  size: 18),
+                              icon:
+                                  const Icon(Icons.volume_up_rounded, size: 18),
                               label: const Text('Escúchala primero'),
                             ),
 
@@ -206,7 +206,7 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                             // Live transcript — shows the learner what the
                             // recognizer is actually hearing.
                             SizedBox(
-                              height: 64,
+                              height: Sizes.actionHeight,
                               child: Center(
                                 child: AnimatedSwitcher(
                                   duration: Motion.fast,
@@ -220,10 +220,8 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                                           decoration: BoxDecoration(
                                             color: p.surfaceAlt,
                                             borderRadius:
-                                                BorderRadius.circular(
-                                                    Radii.md),
-                                            border:
-                                                Border.all(color: p.border),
+                                                BorderRadius.circular(Radii.md),
+                                            border: Border.all(color: p.border),
                                           ),
                                           child: Text(
                                             '« $_partial »',
@@ -232,6 +230,11 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
                                                     fontStyle:
                                                         FontStyle.italic),
                                             textAlign: TextAlign.center,
+                                            // The box has a fixed height so
+                                            // the mic never jumps; a long
+                                            // partial must not overflow it.
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                 ),
@@ -287,31 +290,6 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage> {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  final String title;
-  final VoidCallback onClose;
-
-  const _TopBar({required this.title, required this.onClose});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Insets.sm),
-      child: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-            onPressed: onClose,
-            tooltip: 'Volver',
-          ),
-          const SizedBox(width: Insets.xs),
-          Text(title, style: context.texts.titleLarge),
-        ],
-      ),
-    );
-  }
-}
-
 /// Big round record control. Its ring responds to the live microphone level, so
 /// the learner can see that the app is picking their voice up.
 class _MicButton extends StatelessWidget {
@@ -335,8 +313,8 @@ class _MicButton extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: Motion.fast,
-        width: 128,
-        height: 128,
+        width: Sizes.heroControl,
+        height: Sizes.heroControl,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: listening ? p.gold.withValues(alpha: 0.14) : p.surface,

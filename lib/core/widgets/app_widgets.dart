@@ -207,6 +207,109 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
+/// The back affordance every pushed screen shares. `maybePop` works for both
+/// go_router routes and plain pushed routes.
+class AppBackButton extends StatelessWidget {
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback? onPressed;
+
+  const AppBackButton({
+    super.key,
+    this.icon = Icons.arrow_back_ios_new_rounded,
+    this.tooltip = 'Volver',
+    this.onPressed,
+  });
+
+  /// The "close" variant for screens that end a flow rather than step back.
+  const AppBackButton.close({super.key, this.onPressed})
+      : icon = Icons.close_rounded,
+        tooltip = 'Cerrar';
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+        icon: Icon(icon, size: 20),
+        tooltip: tooltip,
+        onPressed: onPressed ?? () => Navigator.maybePop(context),
+      );
+}
+
+/// Pinned header for pushed, scrolling screens: back button, title, actions.
+class AppSliverBar extends StatelessWidget {
+  final Widget title;
+  final List<Widget>? actions;
+
+  const AppSliverBar({super.key, required this.title, this.actions});
+
+  @override
+  Widget build(BuildContext context) => SliverAppBar(
+        pinned: true,
+        backgroundColor: context.palette.bg,
+        surfaceTintColor: Colors.transparent,
+        leading: const AppBackButton(),
+        title: title,
+        actions: actions,
+      );
+}
+
+/// Non-scrolling header for full-screen flows (practice, result).
+class AppTopBar extends StatelessWidget {
+  final String title;
+  final AppBackButton leading;
+
+  const AppTopBar({
+    super.key,
+    required this.title,
+    this.leading = const AppBackButton(),
+  });
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Insets.sm),
+        child: Row(
+          children: [
+            leading,
+            const SizedBox(width: Insets.xs),
+            Expanded(
+              child: Text(title,
+                  style: context.texts.titleLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis),
+            ),
+          ],
+        ),
+      );
+}
+
+/// A one-line status message in a card: icon plus a short sentence. For
+/// "nothing to do here" moments that are too small for a full [EmptyState].
+class InfoNotice extends StatelessWidget {
+  final IconData icon;
+  final Color? iconColor;
+  final String message;
+  final double iconSize;
+
+  const InfoNotice({
+    super.key,
+    required this.icon,
+    required this.message,
+    this.iconColor,
+    this.iconSize = 22,
+  });
+
+  @override
+  Widget build(BuildContext context) => AppCard(
+        child: Row(
+          children: [
+            Icon(icon,
+                color: iconColor ?? context.palette.textMuted, size: iconSize),
+            const SizedBox(width: Insets.md),
+            Expanded(child: Text(message, style: context.texts.bodySmall)),
+          ],
+        ),
+      );
+}
+
 /// Small rounded label. Defaults to a muted surface; [tone] tints it.
 class Pill extends StatelessWidget {
   final String label;
@@ -245,10 +348,9 @@ class Pill extends StatelessWidget {
           ],
           Text(
             label,
-            style: (dense
-                    ? context.texts.labelSmall
-                    : context.texts.labelMedium)
-                ?.copyWith(color: c),
+            style:
+                (dense ? context.texts.labelSmall : context.texts.labelMedium)
+                    ?.copyWith(color: c),
           ),
         ],
       ),
@@ -346,32 +448,39 @@ class ScoreRing extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     final tone = p.statusFor(score);
-    return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: 0, end: score.clamp(0.0, 1.0)),
-      duration: Motion.slow,
-      curve: Curves.easeOutCubic,
-      builder: (context, value, _) => SizedBox(
-        width: size,
-        height: size,
-        child: CustomPaint(
-          painter: _RingPainter(
-            value: value,
-            track: p.surfaceAlt,
-            tone: tone,
-            stroke: stroke,
-          ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '${(value * 100).round()}%',
-                  style: context.texts.displaySmall
-                      ?.copyWith(color: tone, fontWeight: FontWeight.w700),
-                ),
-                if (caption != null)
-                  Text(caption!, style: context.texts.bodySmall),
-              ],
+    // The painted ring and the animating number mean nothing to a screen
+    // reader, so announce the final score once instead.
+    return Semantics(
+      label: caption ?? 'Puntuación',
+      value: '${(score.clamp(0.0, 1.0) * 100).round()} %',
+      excludeSemantics: true,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: 0, end: score.clamp(0.0, 1.0)),
+        duration: Motion.slow,
+        curve: Curves.easeOutCubic,
+        builder: (context, value, _) => SizedBox(
+          width: size,
+          height: size,
+          child: CustomPaint(
+            painter: _RingPainter(
+              value: value,
+              track: p.surfaceAlt,
+              tone: tone,
+              stroke: stroke,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '${(value * 100).round()}%',
+                    style: context.texts.displaySmall
+                        ?.copyWith(color: tone, fontWeight: FontWeight.w700),
+                  ),
+                  if (caption != null)
+                    Text(caption!, style: context.texts.bodySmall),
+                ],
+              ),
             ),
           ),
         ),
@@ -500,8 +609,8 @@ class EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 72,
-              height: 72,
+              width: Sizes.emptyIcon,
+              height: Sizes.emptyIcon,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: p.surfaceAlt,
@@ -511,7 +620,8 @@ class EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: Insets.xl),
             Text(title,
-                style: context.texts.headlineSmall, textAlign: TextAlign.center),
+                style: context.texts.headlineSmall,
+                textAlign: TextAlign.center),
             const SizedBox(height: Insets.sm),
             Text(message,
                 style: context.texts.bodyMedium, textAlign: TextAlign.center),

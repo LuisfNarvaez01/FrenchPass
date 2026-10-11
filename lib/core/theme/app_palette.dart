@@ -64,23 +64,23 @@ class AppPalette extends ThemeExtension<AppPalette> {
   });
 
   static const dark = AppPalette(
-    bg:           Color(0xFF14110D),
-    bgAlt:        Color(0xFF1A1612),
-    surface:      Color(0xFF1F1A14),
-    surfaceAlt:   Color(0xFF2A2318),
-    border:       Color(0xFF3A3024),
+    bg: Color(0xFF14110D),
+    bgAlt: Color(0xFF1A1612),
+    surface: Color(0xFF1F1A14),
+    surfaceAlt: Color(0xFF2A2318),
+    border: Color(0xFF3A3024),
     borderStrong: Color(0xFF4A3C2C),
-    gold:         Color(0xFFC49A3C),
-    goldBright:   Color(0xFFD7B45E),
-    goldDim:      Color(0xFF9E7C33),
-    terracotta:   Color(0xFFC0693F),
-    textPrimary:  Color(0xFFF2EDE3),
-    textSecondary:Color(0xFFA89880),
-    textMuted:    Color(0xFF7D6F5D),
-    onGold:       Color(0xFF1A1612),
-    good:         Color(0xFF4CAF82),
-    warning:      Color(0xFFE0A526),
-    critical:     Color(0xFFCF6679),
+    gold: Color(0xFFC49A3C),
+    goldBright: Color(0xFFD7B45E),
+    goldDim: Color(0xFF9E7C33),
+    terracotta: Color(0xFFC0693F),
+    textPrimary: Color(0xFFF2EDE3),
+    textSecondary: Color(0xFFA89880),
+    textMuted: Color(0xFF7D6F5D),
+    onGold: Color(0xFF1A1612),
+    good: Color(0xFF4CAF82),
+    warning: Color(0xFFE0A526),
+    critical: Color(0xFFCF6679),
     goldRamp: [
       Color(0xFF7C6029),
       Color(0xFF9E7C33),
@@ -91,23 +91,23 @@ class AppPalette extends ThemeExtension<AppPalette> {
   );
 
   static const light = AppPalette(
-    bg:           Color(0xFFFAF6EF),
-    bgAlt:        Color(0xFFF3ECE0),
-    surface:      Color(0xFFFFFFFF),
-    surfaceAlt:   Color(0xFFF6F0E6),
-    border:       Color(0xFFE4D9C7),
+    bg: Color(0xFFFAF6EF),
+    bgAlt: Color(0xFFF3ECE0),
+    surface: Color(0xFFFFFFFF),
+    surfaceAlt: Color(0xFFF6F0E6),
+    border: Color(0xFFE4D9C7),
     borderStrong: Color(0xFFD2C3AA),
-    gold:         Color(0xFF8B6520),
-    goldBright:   Color(0xFFC49A3C),
-    goldDim:      Color(0xFF6E4F18),
-    terracotta:   Color(0xFF9A4A22),
-    textPrimary:  Color(0xFF2E2720),
-    textSecondary:Color(0xFF6E6054),
-    textMuted:    Color(0xFF91826F),
-    onGold:       Color(0xFFFFFFFF),
-    good:         Color(0xFF2E8B63),
-    warning:      Color(0xFFB87A12),
-    critical:     Color(0xFFC1455A),
+    gold: Color(0xFF8B6520),
+    goldBright: Color(0xFFC49A3C),
+    goldDim: Color(0xFF6E4F18),
+    terracotta: Color(0xFF9A4A22),
+    textPrimary: Color(0xFF2E2720),
+    textSecondary: Color(0xFF6E6054),
+    textMuted: Color(0xFF91826F),
+    onGold: Color(0xFFFFFFFF),
+    good: Color(0xFF2E8B63),
+    warning: Color(0xFFB87A12),
+    critical: Color(0xFFC1455A),
     goldRamp: [
       Color(0xFFD7B45E),
       Color(0xFFC49A3C),
@@ -226,6 +226,24 @@ abstract final class Insets {
   static const page = 20.0;
 }
 
+/// Fixed component dimensions -- the few sizes that are not spacing but still
+/// need to agree across screens.
+abstract final class Sizes {
+  /// Height of the primary action buttons (listen / practice / save).
+  static const actionHeight = 64.0;
+
+  /// Big circular controls: the mic and the quiz replay disc.
+  static const heroControl = 128.0;
+  static const heroControlSm = 104.0;
+
+  /// Icon disc on an empty state.
+  static const emptyIcon = 72.0;
+
+  /// Fixed label column beside a value (translations, ranked bars).
+  static const labelColumn = 68.0;
+  static const labelColumnWide = 104.0;
+}
+
 abstract final class Radii {
   static const sm = 8.0;
   static const md = 12.0;
@@ -238,6 +256,10 @@ abstract final class Motion {
   static const fast = Duration(milliseconds: 180);
   static const base = Duration(milliseconds: 300);
   static const slow = Duration(milliseconds: 450);
+
+  /// Delay for the [step]th item of an entrance cascade -- one shared rhythm
+  /// so every screen's sections settle in at the same pace.
+  static Duration stagger(int step) => Duration(milliseconds: 40 * step);
 }
 
 extension PaletteOf on BuildContext {

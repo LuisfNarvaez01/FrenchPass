@@ -22,6 +22,7 @@ class _ProgressPageState extends State<ProgressPage> {
   final _words = getIt<WordRepository>();
 
   bool _showTable = false;
+  bool _showAllWeak = false;
 
   static const _weekdayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
@@ -59,7 +60,6 @@ class _ProgressPageState extends State<ProgressPage> {
                   ),
                 ),
               ),
-
               if (!hasData)
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -96,8 +96,7 @@ class _ProgressPageState extends State<ProgressPage> {
                           const SizedBox(width: Insets.md),
                           Expanded(
                             child: StatTile(
-                              value:
-                                  '${(stats.averageScore * 100).round()}',
+                              value: '${(stats.averageScore * 100).round()}',
                               unit: '%',
                               label: 'Precisión media',
                               icon: Icons.track_changes_rounded,
@@ -134,7 +133,7 @@ class _ProgressPageState extends State<ProgressPage> {
                         eyebrow: 'Últimos 7 días',
                         title: 'Prácticas por día',
                         child: WeeklyBars(points: _weeklyPoints()),
-                      ).animate().fadeIn(duration: 300.ms),
+                      ).animate().fadeIn(duration: Motion.base),
 
                       const SizedBox(height: Insets.lg),
 
@@ -146,7 +145,7 @@ class _ProgressPageState extends State<ProgressPage> {
                             'Arrastra sobre la línea para ver un día concreto. '
                             'Los días sin práctica no se dibujan.',
                         child: TrendLine(points: _trendPoints()),
-                      ).animate().fadeIn(delay: 80.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(2)),
 
                       const SizedBox(height: Insets.lg),
 
@@ -155,7 +154,7 @@ class _ProgressPageState extends State<ProgressPage> {
                         eyebrow: 'Reparto',
                         title: 'Prácticas por categoría',
                         child: RankedBars(rows: _categoryPoints()),
-                      ).animate().fadeIn(delay: 140.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(4)),
 
                       const SizedBox(height: Insets.lg),
 
@@ -163,9 +162,12 @@ class _ProgressPageState extends State<ProgressPage> {
                       _WeakWords(
                         entries: _weakWords(),
                         showTable: _showTable,
+                        showAll: _showAllWeak,
+                        onToggleShowAll: () =>
+                            setState(() => _showAllWeak = !_showAllWeak),
                         onToggleTable: () =>
                             setState(() => _showTable = !_showTable),
-                      ).animate().fadeIn(delay: 200.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(5)),
 
                       const SizedBox(height: Insets.lg),
 
@@ -174,7 +176,7 @@ class _ProgressPageState extends State<ProgressPage> {
                         corpusSize: _words.all.length,
                         longestStreak: stats.longestStreak,
                         favorites: stats.favoriteCount,
-                      ).animate().fadeIn(delay: 260.ms),
+                      ).animate().fadeIn(delay: Motion.stagger(6)),
                     ]),
                   ),
                 ),
@@ -218,8 +220,7 @@ class _ProgressPageState extends State<ProgressPage> {
     }
     return [
       for (final entry in counts.entries)
-        ChartPoint(
-            label: entry.key.labelEs, value: entry.value.toDouble()),
+        ChartPoint(label: entry.key.labelEs, value: entry.value.toDouble()),
     ];
   }
 
@@ -235,7 +236,7 @@ class _ProgressPageState extends State<ProgressPage> {
       entries.add((word: word, score: entry.value));
     }
     entries.sort((a, b) => a.score.compareTo(b.score));
-    return entries.take(6).toList();
+    return entries;
   }
 }
 
@@ -277,34 +278,33 @@ class _ChartCard extends StatelessWidget {
 }
 
 class _WeakWords extends StatelessWidget {
-  final List<({Word word, double score})> entries;
+  static const _collapsedCount = 6;
+
+  final List<({Word word, double score})> all;
   final bool showTable;
   final VoidCallback onToggleTable;
+  final bool showAll;
+  final VoidCallback onToggleShowAll;
 
   const _WeakWords({
-    required this.entries,
+    required List<({Word word, double score})> entries,
     required this.showTable,
     required this.onToggleTable,
-  });
+    required this.showAll,
+    required this.onToggleShowAll,
+  }) : all = entries;
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
+    final hidden = all.length - _collapsedCount;
+    final entries = showAll ? all : all.take(_collapsedCount).toList();
 
     if (entries.isEmpty) {
-      return AppCard(
-        child: Row(
-          children: [
-            Icon(Icons.verified_rounded, color: p.good, size: 22),
-            const SizedBox(width: Insets.md),
-            Expanded(
-              child: Text(
-                'Ninguna palabra por debajo del 75 %. Excelente trabajo.',
-                style: context.texts.bodySmall,
-              ),
-            ),
-          ],
-        ),
+      return InfoNotice(
+        icon: Icons.verified_rounded,
+        iconColor: p.good,
+        message: 'Ninguna palabra por debajo del 75 %. Excelente trabajo.',
       );
     }
 
@@ -319,11 +319,9 @@ class _WeakWords extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('PARA REFORZAR',
-                        style: AppTheme.eyebrow(context)),
+                    Text('PARA REFORZAR', style: AppTheme.eyebrow(context)),
                     const SizedBox(height: Insets.xs),
-                    Text('Tus puntos débiles',
-                        style: context.texts.titleLarge),
+                    Text('Tus puntos débiles', style: context.texts.titleLarge),
                   ],
                 ),
               ),
@@ -341,7 +339,6 @@ class _WeakWords extends StatelessWidget {
             ],
           ),
           const SizedBox(height: Insets.lg),
-
           if (showTable)
             Table(
               columnWidths: const {
@@ -372,8 +369,7 @@ class _WeakWords extends StatelessWidget {
             for (var i = 0; i < entries.length; i++) ...[
               if (i > 0) const SizedBox(height: Insets.lg),
               InkWell(
-                onTap: () =>
-                    context.push('/word/${entries[i].word.id}'),
+                onTap: () => context.push('/word/${entries[i].word.id}'),
                 borderRadius: BorderRadius.circular(Radii.sm),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,6 +393,13 @@ class _WeakWords extends StatelessWidget {
                 ),
               ),
             ],
+          if (hidden > 0) ...[
+            const SizedBox(height: Insets.md),
+            TextButton(
+              onPressed: onToggleShowAll,
+              child: Text(showAll ? 'Ver menos' : 'Ver todas ($hidden más)'),
+            ),
+          ],
         ],
       ),
     );

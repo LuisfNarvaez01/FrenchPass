@@ -4,16 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
-import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/cubit/home_cubit.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/widgets/action_buttons_row.dart';
+import 'package:french_pass/features/word_of_the_day/presentation/widgets/example_audio_row.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,12 +40,8 @@ class _HomeView extends StatefulWidget {
   State<_HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
-  final _tts = getIt<TtsService>();
-  bool _speaking = false;
-  bool _sequenceSpeaking = false;
-  bool _cancelSequence = false;
-
+class _HomeViewState extends State<_HomeView>
+    with WidgetsBindingObserver, TtsPlaybackState {
   @override
   void initState() {
     super.initState();
@@ -54,7 +51,6 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _tts.stop();
     super.dispose();
   }
 
@@ -68,59 +64,6 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
   void _refresh() => context
       .read<HomeCubit>()
       .refresh(context.read<SettingsBloc>().state.levelFilter);
-
-  Future<void> _speak(String text) async {
-    if (_speaking) {
-      await _tts.stop();
-      if (mounted) setState(() => _speaking = false);
-      return;
-    }
-    setState(() => _speaking = true);
-    final ok = await _tts.speak(text);
-    if (!mounted) return;
-    setState(() => _speaking = false);
-    if (!ok) _showNoVoice();
-  }
-
-  /// Speaks the example sentence one word at a time, then the whole sentence
-  /// at natural speed -- so a learner who only gets the gist from the fast
-  /// full read can hear each word isolated first.
-  Future<void> _speakWordByWord(String sentence) async {
-    if (_sequenceSpeaking) {
-      _cancelSequence = true;
-      await _tts.stop();
-      if (mounted) setState(() => _sequenceSpeaking = false);
-      return;
-    }
-    _cancelSequence = false;
-    setState(() => _sequenceSpeaking = true);
-
-    final words = sentence
-        .split(RegExp(r'\s+'))
-        .where((w) => w.trim().isNotEmpty)
-        .toList();
-
-    final ok = await _tts.speakSequence(
-      [...words, sentence],
-      shouldContinue: () => !_cancelSequence,
-    );
-
-    if (!mounted) return;
-    setState(() => _sequenceSpeaking = false);
-    if (!ok) _showNoVoice();
-  }
-
-  void _showNoVoice() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'No hay una voz francesa instalada en este dispositivo. '
-          'Instálala en Ajustes de Android › Idioma › Texto a voz.',
-        ),
-        duration: Duration(seconds: 5),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,12 +103,20 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                         child: _Masthead(streak: state.streak),
                       ),
                     ),
-
                     SliverPadding(
                       padding: const EdgeInsets.fromLTRB(
                           Insets.page, Insets.xxl, Insets.page, Insets.xxxl),
                       sliver: SliverList(
                         delegate: SliverChildListDelegate([
+                          // Reviews are the one thing a returning learner
+                          // came for, so they lead -- one tap, above the fold.
+                          if (state.dueCount > 0) ...[
+                            _DueBanner(dueCount: state.dueCount)
+                                .animate()
+                                .fadeIn(duration: Motion.base),
+                            const SizedBox(height: Insets.xxl),
+                          ],
+
                           Text('Palabra del día',
                               style: AppTheme.eyebrow(context)),
                           const SizedBox(height: Insets.xs),
@@ -177,18 +128,16 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
 
                           WordCard(
                             word: word,
-                            onTapIpa: () => _speak(word.french),
-                          )
-                              .animate()
-                              .fadeIn(duration: 350.ms)
-                              .slideY(begin: 0.06, end: 0, curve: Curves.easeOut),
+                            onTapIpa: () => speak(word.french),
+                          ).animate().fadeIn(duration: Motion.base).slideY(
+                              begin: 0.06, end: 0, curve: Curves.easeOut),
 
                           const SizedBox(height: Insets.lg),
 
                           ActionButtonsRow(
-                            isSpeaking: _speaking,
+                            isSpeaking: speaking,
                             isSaved: state.isFavorite,
-                            onListen: () => _speak(word.french),
+                            onListen: () => speak(word.french),
                             onPractice: () async {
                               // Captured before the await: practicing an
                               // explored word should not snap the card back
@@ -210,8 +159,7 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                               // Captured before the await: the callback may
                               // outlive this element.
                               final cubit = context.read<HomeCubit>();
-                              final messenger =
-                                  ScaffoldMessenger.of(context);
+                              final messenger = ScaffoldMessenger.of(context);
                               await cubit.toggleFavorite();
                               if (!mounted) return;
                               final saved = cubit.state.isFavorite;
@@ -224,35 +172,39 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                                 ),
                               );
                             },
-                          ).animate().fadeIn(delay: 120.ms),
+                          ).animate().fadeIn(delay: Motion.stagger(3)),
+
+                          const SizedBox(height: Insets.lg),
+
+                          ExampleAudioRow(
+                            isSpeakingWord: speaking,
+                            isSpeakingSequence: sequenceSpeaking,
+                            onWordByWord: () => speakWordByWord(word.exampleFr),
+                            onFullSentence: () => speak(word.exampleFr),
+                          ).animate().fadeIn(delay: Motion.stagger(4)),
 
                           const SizedBox(height: Insets.md),
 
+                          // Secondary: wandering off today's word comes after
+                          // everything that serves it.
                           _NextWordRow(
                             isExploring: state.isExploring,
                             onNext: () {
-                              _tts.stop();
-                              context.read<HomeCubit>().showRandomWord(
-                                  context.read<SettingsBloc>().state.levelFilter);
+                              stopSpeaking();
+                              context.read<HomeCubit>().showRandomWord(context
+                                  .read<SettingsBloc>()
+                                  .state
+                                  .levelFilter);
                             },
                             onBackToToday: _refresh,
-                          ).animate().fadeIn(delay: 150.ms),
-
-                          const SizedBox(height: Insets.xl),
-
-                          _ExampleAudioRow(
-                            isSpeakingWord: _speaking,
-                            isSpeakingSequence: _sequenceSpeaking,
-                            onWordByWord: () => _speakWordByWord(word.exampleFr),
-                            onFullSentence: () => _speak(word.exampleFr),
-                          ).animate().fadeIn(delay: 180.ms),
+                          ).animate().fadeIn(delay: Motion.stagger(5)),
 
                           const SizedBox(height: Insets.xxl),
 
                           _StreakCard(
                             streak: state.streak,
                             studiedToday: state.studiedToday,
-                          ).animate().fadeIn(delay: 220.ms),
+                          ).animate().fadeIn(delay: Motion.stagger(6)),
 
                           const SizedBox(height: Insets.lg),
 
@@ -260,7 +212,7 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
                             dueCount: state.dueCount,
                             words: state.dueWords,
                             corpusSize: state.corpusSize,
-                          ).animate().fadeIn(delay: 260.ms),
+                          ).animate().fadeIn(delay: Motion.stagger(6)),
                         ]),
                       ),
                     ),
@@ -277,12 +229,27 @@ class _HomeViewState extends State<_HomeView> with WidgetsBindingObserver {
   String _todayFormatted() {
     final now = DateTime.now();
     const months = [
-      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
     ];
     const weekdays = [
-      'lunes', 'martes', 'miércoles', 'jueves',
-      'viernes', 'sábado', 'domingo',
+      'lunes',
+      'martes',
+      'miércoles',
+      'jueves',
+      'viernes',
+      'sábado',
+      'domingo',
     ];
     final weekday = weekdays[now.weekday - 1];
     return '$weekday, ${now.day} de ${months[now.month - 1]}';
@@ -315,7 +282,9 @@ class _Masthead extends StatelessWidget {
           ),
         ),
         if (streak > 0)
-          Pill(label: '$streak d', icon: Icons.local_fire_department_rounded,
+          Pill(
+              label: '$streak d',
+              icon: Icons.local_fire_department_rounded,
               tone: p.terracotta),
       ],
     );
@@ -363,63 +332,40 @@ class _NextWordRow extends StatelessWidget {
   }
 }
 
-/// Two listening modes for the example sentence: word by word, then at
-/// natural speed -- the first time someone hears the fast version it is easy
-/// to assume the app is stuck, so the slower path is offered right beside it.
-class _ExampleAudioRow extends StatelessWidget {
-  final bool isSpeakingWord;
-  final bool isSpeakingSequence;
-  final VoidCallback onWordByWord;
-  final VoidCallback onFullSentence;
-
-  const _ExampleAudioRow({
-    required this.isSpeakingWord,
-    required this.isSpeakingSequence,
-    required this.onWordByWord,
-    required this.onFullSentence,
-  });
+/// Compact call to review, pinned above the word of the day whenever the
+/// spaced-repetition queue has something due.
+class _DueBanner extends StatelessWidget {
+  final int dueCount;
+  const _DueBanner({required this.dueCount});
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    return Row(
-      children: [
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: isSpeakingWord ? null : onWordByWord,
-            icon: Icon(
-              isSpeakingSequence
-                  ? Icons.stop_circle_outlined
-                  : Icons.format_list_numbered_rounded,
-              size: 18,
-              color: p.gold,
-            ),
-            label: Text(isSpeakingSequence ? 'Detener' : 'Palabra por palabra'),
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size.fromHeight(48),
-              side: BorderSide(color: p.border),
-            ),
-          ),
-        ),
-        const SizedBox(width: Insets.md),
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: isSpeakingSequence ? null : onFullSentence,
-            icon: Icon(
-              isSpeakingWord
-                  ? Icons.graphic_eq_rounded
-                  : Icons.record_voice_over_outlined,
-              size: 18,
-              color: p.gold,
-            ),
-            label: const Text('Frase completa'),
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size.fromHeight(48),
-              side: BorderSide(color: p.border),
+    return AppCard(
+      onTap: () => context.go('/quiz'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.md),
+      child: Row(
+        children: [
+          Icon(Icons.replay_rounded, color: p.terracotta, size: 22),
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Toca repasar', style: context.texts.titleMedium),
+                Text(
+                  '$dueCount ${dueCount == 1 ? 'palabra espera' : 'palabras esperan'} tu voz',
+                  style: context.texts.bodySmall,
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+          Text('Repasar',
+              style: context.texts.labelLarge?.copyWith(color: p.gold)),
+          Icon(Icons.chevron_right_rounded, color: p.gold, size: 20),
+        ],
+      ),
     );
   }
 }
@@ -498,22 +444,13 @@ class _ReviewQueue extends StatelessWidget {
     final p = context.palette;
 
     if (dueCount == 0) {
-      return AppCard(
-        child: Row(
-          children: [
-            Icon(Icons.task_alt_rounded, color: p.good, size: 22),
-            const SizedBox(width: Insets.md),
-            Expanded(
-              child: Text(
-                words.isEmpty && corpusSize > 0
-                    ? 'Aún no tienes repasos programados. Practica la palabra '
-                        'de hoy y el sistema te la devolverá en el momento justo.'
-                    : 'Sin repasos pendientes. Todo al día.',
-                style: context.texts.bodySmall,
-              ),
-            ),
-          ],
-        ),
+      return InfoNotice(
+        icon: Icons.task_alt_rounded,
+        iconColor: p.good,
+        message: words.isEmpty && corpusSize > 0
+            ? 'Aún no tienes repasos programados. Practica la palabra '
+                'de hoy y el sistema te la devolverá en el momento justo.'
+            : 'Sin repasos pendientes. Todo al día.',
       );
     }
 
@@ -522,9 +459,8 @@ class _ReviewQueue extends StatelessWidget {
       children: [
         SectionHeader(
           eyebrow: 'Repetición espaciada',
-          title: 'Toca repasar',
-          subtitle: '$dueCount ${dueCount == 1 ? 'palabra' : 'palabras'} '
-              'esperando tu voz',
+          title: 'Tu cola de repaso',
+          subtitle: 'Toca una palabra para verla antes del quiz',
           trailing: TextButton(
             onPressed: () => context.go('/quiz'),
             child: const Text('Quiz'),

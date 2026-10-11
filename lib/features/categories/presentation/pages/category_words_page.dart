@@ -23,7 +23,6 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final p = context.palette;
     final category = WordCategoryExtension.parse(widget.categoryKey);
 
     if (category == null) {
@@ -58,15 +57,7 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
-              SliverAppBar(
-                pinned: true,
-                backgroundColor: p.bg,
-                surfaceTintColor: Colors.transparent,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-                  onPressed: () => context.pop(),
-                  tooltip: 'Volver',
-                ),
+              AppSliverBar(
                 title: Row(
                   children: [
                     Text(category.emoji, style: const TextStyle(fontSize: 18)),
@@ -99,8 +90,7 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
                           _FilterChip(
                             label: level.label,
                             selected: _levelFilter == level,
-                            onTap: () =>
-                                setState(() => _levelFilter = level),
+                            onTap: () => setState(() => _levelFilter = level),
                           ),
                         ],
                       ],
