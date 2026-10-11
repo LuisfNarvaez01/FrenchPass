@@ -38,7 +38,13 @@ jobs:
       - name: Decode signing key
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 -d > android/app/frenchpass-release.jks
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::error::Secret KEYSTORE_BASE64 is empty or missing (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > android/app/frenchpass-release.jks
+
 
       - name: Write key.properties
         env:
@@ -52,6 +58,21 @@ jobs:
           keyAlias=$KEY_ALIAS
           storeFile=frenchpass-release.jks
           EOF
+
+      # Fail here, with a readable message, rather than deep inside Gradle's
+      # signing task where the cause is buried in the log.
+      - name: Verify signing key
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          for name in KEYSTORE_PASSWORD KEY_ALIAS; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Secret $name is empty or missing."
+              exit 1
+            fi
+          done
+          keytool -list -keystore android/app/frenchpass-release.jks             -storepass "$KEYSTORE_PASSWORD" -alias "$KEY_ALIAS" >/dev/null             || { echo "::error::Keystore could not be opened with KEYSTORE_PASSWORD / KEY_ALIAS -- check the secrets match the local key."; exit 1; }
 
       - run: flutter pub get
 
