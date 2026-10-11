@@ -8,6 +8,7 @@ import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:french_pass/features/settings/presentation/widgets/tutor_settings_tiles.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -18,120 +19,140 @@ class SettingsPage extends StatelessWidget {
     final settings = context.watch<SettingsBloc>().state;
     final bloc = context.read<SettingsBloc>();
 
-    return AppBackground(
-      child: SafeArea(
-        bottom: false,
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-              Insets.page, Insets.xl, Insets.page, Insets.xxxl),
-          children: [
-            Text('Ajustes', style: context.texts.headlineLarge),
-            const SizedBox(height: Insets.xxl),
-
-            // ── Appearance ────────────────────────────────────────────────
-            _Group(
-              eyebrow: 'Apariencia',
-              children: [
-                _SegmentedRow<ThemeMode>(
-                  label: 'Tema',
-                  value: settings.themeMode,
-                  options: const [
-                    (ThemeMode.dark, 'Oscuro'),
-                    (ThemeMode.light, 'Claro'),
-                    (ThemeMode.system, 'Sistema'),
-                  ],
-                  onChanged: (mode) => bloc.add(ChangeThemeEvent(mode)),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: Insets.lg),
-
-            // ── Learning ──────────────────────────────────────────────────
-            _Group(
-              eyebrow: 'Aprendizaje',
-              children: [
-                _ChoiceTile<LevelFilter>(
-                  icon: Icons.layers_outlined,
-                  title: 'Nivel',
-                  subtitle: settings.levelFilter.labelEs,
-                  value: settings.levelFilter,
-                  options: [
-                    for (final filter in LevelFilter.values)
-                      (filter, filter.labelEs),
-                  ],
-                  onChanged: (filter) => bloc.add(ChangeLevelEvent(filter)),
-                ),
-                const _Separator(),
-                _SpeechRateTile(
-                  rate: settings.speechRate,
-                  onChanged: (rate) => bloc.add(ChangeSpeechRateEvent(rate)),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: Insets.lg),
-
-            // ── Reminder ──────────────────────────────────────────────────
-            _Group(
-              eyebrow: 'Recordatorio diario',
-              children: [
-                SwitchListTile(
-                  value: settings.notificationsEnabled,
-                  onChanged: (enabled) =>
-                      bloc.add(ToggleNotificationsEvent(enabled)),
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: Insets.lg, vertical: Insets.xs),
-                  title: Text('Avisarme cada día',
-                      style: context.texts.titleMedium),
-                  subtitle: Text(
-                    settings.notificationsEnabled
-                        ? 'Activo a las ${_hourLabel(settings.notificationHour)}'
-                        : 'Un aviso para no perder la racha',
-                    style: context.texts.bodySmall,
-                  ),
-                ),
-                if (settings.notificationsEnabled) ...[
-                  const _Separator(),
-                  _HourTile(
-                    hour: settings.notificationHour,
-                    onChanged: (hour) =>
-                        bloc.add(ChangeNotificationHourEvent(hour)),
-                  ),
-                ],
-              ],
-            ),
-
-            const SizedBox(height: Insets.lg),
-
-            // ── Data ──────────────────────────────────────────────────────
-            const _Group(
-              eyebrow: 'Datos',
-              children: [
-                _CorpusTile(),
-                _Separator(),
-                _ResetTile(),
-              ],
-            ),
-
-            const SizedBox(height: Insets.xl),
-
-            Center(
-              child: Column(
+    return Scaffold(
+      body: AppBackground(
+        child: SafeArea(
+          bottom: false,
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+                Insets.page, Insets.sm, Insets.page, Insets.xxxl),
+            children: [
+              Row(
                 children: [
-                  Text('FrenchPass', style: AppTheme.eyebrow(context)),
-                  const SizedBox(height: Insets.xs),
-                  FutureBuilder<PackageInfo>(
-                    future: PackageInfo.fromPlatform(),
-                    builder: (context, snap) => Text(
-                      snap.hasData ? 'Versión ${snap.data!.version}' : '',
-                      style: context.texts.bodySmall,
-                    ),
+                  const AppBackButton(),
+                  const SizedBox(width: Insets.xs),
+                  Text('Ajustes', style: context.texts.headlineLarge),
+                ],
+              ),
+              const SizedBox(height: Insets.xl),
+
+              // ── Tutor ─────────────────────────────────────────────────────
+              const _Group(
+                eyebrow: 'Tutor de IA',
+                children: [
+                  ApiKeyTile(),
+                  _Separator(),
+                  VoiceTile(),
+                ],
+              ),
+
+              const SizedBox(height: Insets.lg),
+
+              // ── Appearance ────────────────────────────────────────────────
+              _Group(
+                eyebrow: 'Apariencia',
+                children: [
+                  _SegmentedRow<ThemeMode>(
+                    label: 'Tema',
+                    value: settings.themeMode,
+                    options: const [
+                      (ThemeMode.dark, 'Oscuro'),
+                      (ThemeMode.light, 'Claro'),
+                      (ThemeMode.system, 'Sistema'),
+                    ],
+                    onChanged: (mode) => bloc.add(ChangeThemeEvent(mode)),
                   ),
                 ],
               ),
-            ),
-          ],
+
+              const SizedBox(height: Insets.lg),
+
+              // ── Learning ──────────────────────────────────────────────────
+              _Group(
+                eyebrow: 'Aprendizaje',
+                children: [
+                  _ChoiceTile<LevelFilter>(
+                    icon: Icons.layers_outlined,
+                    title: 'Nivel',
+                    subtitle: settings.levelFilter.labelEs,
+                    value: settings.levelFilter,
+                    options: [
+                      for (final filter in LevelFilter.values)
+                        (filter, filter.labelEs),
+                    ],
+                    onChanged: (filter) => bloc.add(ChangeLevelEvent(filter)),
+                  ),
+                  const _Separator(),
+                  _SpeechRateTile(
+                    rate: settings.speechRate,
+                    onChanged: (rate) => bloc.add(ChangeSpeechRateEvent(rate)),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: Insets.lg),
+
+              // ── Reminder ──────────────────────────────────────────────────
+              _Group(
+                eyebrow: 'Recordatorio diario',
+                children: [
+                  SwitchListTile(
+                    value: settings.notificationsEnabled,
+                    onChanged: (enabled) =>
+                        bloc.add(ToggleNotificationsEvent(enabled)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: Insets.lg, vertical: Insets.xs),
+                    title: Text('Avisarme cada día',
+                        style: context.texts.titleMedium),
+                    subtitle: Text(
+                      settings.notificationsEnabled
+                          ? 'Activo a las ${_hourLabel(settings.notificationHour)}'
+                          : 'Un aviso para no perder la racha',
+                      style: context.texts.bodySmall,
+                    ),
+                  ),
+                  if (settings.notificationsEnabled) ...[
+                    const _Separator(),
+                    _HourTile(
+                      hour: settings.notificationHour,
+                      onChanged: (hour) =>
+                          bloc.add(ChangeNotificationHourEvent(hour)),
+                    ),
+                  ],
+                ],
+              ),
+
+              const SizedBox(height: Insets.lg),
+
+              // ── Data ──────────────────────────────────────────────────────
+              const _Group(
+                eyebrow: 'Datos',
+                children: [
+                  _CorpusTile(),
+                  _Separator(),
+                  _ResetTile(),
+                ],
+              ),
+
+              const SizedBox(height: Insets.xl),
+
+              Center(
+                child: Column(
+                  children: [
+                    Text('FrenchPass', style: AppTheme.eyebrow(context)),
+                    const SizedBox(height: Insets.xs),
+                    FutureBuilder<PackageInfo>(
+                      future: PackageInfo.fromPlatform(),
+                      builder: (context, snap) => Text(
+                        snap.hasData ? 'Versión ${snap.data!.version}' : '',
+                        style: context.texts.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -86,7 +86,9 @@ jobs:
       - name: Read app version
         id: version
         run: |
-          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+          # Tag with the marketing version only ("v1.3.0", not "v1.3.0+4"):
+          # it is what the in-app update prompt shows the learner.
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //; s/+.*//')
           echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Create release

@@ -286,6 +286,11 @@ class _Masthead extends StatelessWidget {
               label: '$streak d',
               icon: Icons.local_fire_department_rounded,
               tone: p.terracotta),
+        IconButton(
+          tooltip: 'Ajustes',
+          icon: Icon(Icons.settings_outlined, color: p.textSecondary),
+          onPressed: () => context.push('/settings'),
+        ),
       ],
     );
   }

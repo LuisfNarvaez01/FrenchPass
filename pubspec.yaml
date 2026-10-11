@@ -1,7 +1,7 @@
 name: french_pass
 description: Aprende francés con la palabra del día, práctica de pronunciación y sistema de repetición espaciada.
 publish_to: 'none'
-version: 1.2.0+3
+version: 1.3.0+4
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -61,6 +61,16 @@ dependencies:
   # the app.
   home_widget: ^0.7.0
 
+  # AI tutor: live voice conversation over the Gemini Live WebSocket API.
+  # Pinned to releases contemporary with the Flutter 3.27 / Kotlin 2.0
+  # toolchain. record streams raw PCM from the mic; flutter_pcm_sound plays
+  # the tutor's PCM audio as it streams in.
+  record: 5.2.0
+  flutter_pcm_sound: 3.1.3
+  web_socket_channel: 3.0.2
+  # The learner's Gemini API key lives here, encrypted, never in the APK.
+  flutter_secure_storage: 9.2.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,3 +81,9 @@ flutter:
 
   assets:
     - assets/data/words_seed.json
+
+dependency_overrides:
+  # record 5.2.0 otherwise resolves record_platform_interface 1.6.x, whose
+  # API record_linux 0.7.x no longer satisfies -- a compile error even on
+  # Android, because every federated implementation is compiled.
+  record_platform_interface: 1.2.0

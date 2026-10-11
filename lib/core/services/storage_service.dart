@@ -90,4 +90,8 @@ abstract final class StorageKeys {
   static const studiedDays = '${prefix}progress.studiedDays';
   static const quizRuns = '${prefix}progress.quizRuns';
   static const onboardingDone = '${prefix}onboarding.done';
+
+  static const tutorVoice = '${prefix}tutor.voice';
+  static const tutorProfile = '${prefix}tutor.profile';
+  static const tutorHistory = '${prefix}tutor.history';
 }

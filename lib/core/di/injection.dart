@@ -10,6 +10,8 @@ import 'package:french_pass/core/services/update_service.dart';
 import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:french_pass/features/tutor/data/tutor_repository.dart';
+import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 
 final getIt = GetIt.instance;
@@ -31,6 +33,8 @@ Future<void> configureDependencies() async {
   await words.load();
   getIt.registerSingleton<WordRepository>(words);
   getIt.registerSingleton<ProgressRepository>(ProgressRepository(storage));
+  getIt.registerSingleton<TutorRepository>(TutorRepository(storage));
+  getIt.registerSingleton<TutorReviewService>(TutorReviewService());
 
   // ─── BLoCs ────────────────────────────────────────────────────────────────
   getIt.registerFactory<SettingsBloc>(

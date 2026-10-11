@@ -12,10 +12,10 @@ class MainShell extends StatefulWidget {
 
   static const _tabs = [
     (icon: Icons.auto_stories_outlined, activeIcon: Icons.auto_stories_rounded, label: 'Hoy',        path: '/home'),
+    (icon: Icons.forum_outlined,        activeIcon: Icons.forum_rounded,        label: 'Tutor',      path: '/tutor'),
     (icon: Icons.psychology_outlined,   activeIcon: Icons.psychology_rounded,   label: 'Quiz',       path: '/quiz'),
     (icon: Icons.grid_view_outlined,    activeIcon: Icons.grid_view_rounded,    label: 'Categorías', path: '/categories'),
     (icon: Icons.insights_outlined,     activeIcon: Icons.insights_rounded,     label: 'Progreso',   path: '/progress'),
-    (icon: Icons.tune_outlined,         activeIcon: Icons.tune_rounded,         label: 'Ajustes',    path: '/settings'),
   ];
 
   @override

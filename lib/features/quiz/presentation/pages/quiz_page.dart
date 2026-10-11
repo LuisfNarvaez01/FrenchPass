@@ -42,7 +42,7 @@ class _QuizView extends StatelessWidget {
                 title: 'Pocas palabras para un quiz',
                 message: 'Amplía el filtro de nivel en Ajustes y vuelve.',
                 actionLabel: 'Ir a Ajustes',
-                onAction: () => context.go('/settings'),
+                onAction: () => context.push('/settings'),
               ),
             QuizStatus.running || QuizStatus.revealing => _QuizRound(state),
             QuizStatus.finished => _QuizSummary(state),

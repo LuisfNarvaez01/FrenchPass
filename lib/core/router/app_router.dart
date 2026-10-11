@@ -8,6 +8,8 @@ import 'package:french_pass/features/progress/presentation/pages/progress_page.d
 import 'package:french_pass/features/pronunciation/presentation/pages/pronunciation_practice_page.dart';
 import 'package:french_pass/features/quiz/presentation/pages/quiz_page.dart';
 import 'package:french_pass/features/settings/presentation/pages/settings_page.dart';
+import 'package:french_pass/features/tutor/presentation/pages/tutor_page.dart';
+import 'package:french_pass/features/tutor/presentation/pages/tutor_session_page.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/pages/home_page.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/pages/word_detail_page.dart';
@@ -28,6 +30,12 @@ class AppRouter {
                 _fade(state, const HomePage()),
           ),
           GoRoute(
+            path: '/tutor',
+            name: 'tutor',
+            pageBuilder: (context, state) =>
+                _fade(state, const TutorPage()),
+          ),
+          GoRoute(
             path: '/quiz',
             name: 'quiz',
             pageBuilder: (context, state) =>
@@ -45,13 +53,21 @@ class AppRouter {
             pageBuilder: (context, state) =>
                 _fade(state, const ProgressPage()),
           ),
-          GoRoute(
-            path: '/settings',
-            name: 'settings',
-            pageBuilder: (context, state) =>
-                _fade(state, const SettingsPage()),
-          ),
         ],
+      ),
+
+      // Settings left the tab bar to make room for the tutor; it opens from
+      // the gear on Home and from the tutor's "set up your key" prompts.
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (context, state) => const SettingsPage(),
+      ),
+      GoRoute(
+        path: '/tutor/:lessonId',
+        name: 'tutor-session',
+        builder: (context, state) =>
+            TutorSessionPage(lessonId: state.pathParameters['lessonId']!),
       ),
 
       // ── Full-screen routes (outside the tab shell) ────────────────────────
