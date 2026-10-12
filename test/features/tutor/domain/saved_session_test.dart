@@ -63,7 +63,7 @@ void main() {
           {'who': 'tutor', 'text': 'Salut'},
           'garbage',
         ],
-        'studies': {'nope': {}, '0': {'translationEs': 'Hola'}},
+        'studies': {'nope': <String, dynamic>{}, '0': {'translationEs': 'Hola'}},
       });
       expect(restored.messages, hasLength(1));
       expect(restored.studies.keys, [0]);
