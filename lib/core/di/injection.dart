@@ -39,7 +39,7 @@ Future<void> configureDependencies() async {
   // ─── BLoCs ────────────────────────────────────────────────────────────────
   getIt.registerFactory<SettingsBloc>(
     () => SettingsBloc(getIt<StorageService>(), getIt<NotificationService>(),
-        getIt<TtsService>()),
+        getIt<TtsService>(), getIt<WidgetService>()),
   );
 
   // Warm the TTS engine so the first "Escuchar" tap is not the one that pays

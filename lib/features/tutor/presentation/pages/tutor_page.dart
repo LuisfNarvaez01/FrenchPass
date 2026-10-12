@@ -4,10 +4,13 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
+import 'package:french_pass/features/tutor/domain/saved_session.dart';
+import 'package:french_pass/features/tutor/presentation/pages/session_review_page.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 /// The tutor tab: what the tutor knows about you, then the lessons.
@@ -24,6 +27,7 @@ class _TutorPageState extends State<TutorPage> {
   bool? _hasKey;
   late LearnerProfile _profile;
   late Set<String> _completed;
+  List<SavedSession> _sessions = const [];
 
   @override
   void initState() {
@@ -38,12 +42,18 @@ class _TutorPageState extends State<TutorPage> {
       _hasKey = key != null;
       _profile = _repo.profile();
       _completed = _repo.completedLessonIds();
+      _sessions = _repo.sessions();
     });
   }
 
   Future<void> _open(Lesson lesson) async {
     await context.push('/tutor/${lesson.id}');
     // A finished lesson rewrites the profile and history.
+    if (mounted) await _reload();
+  }
+
+  Future<void> _review(SavedSession session) async {
+    await context.push('/review/${session.id}');
     if (mounted) await _reload();
   }
 
@@ -90,6 +100,13 @@ class _TutorPageState extends State<TutorPage> {
                   await _reload();
                 },
               ).animate().fadeIn(duration: Motion.base),
+              const SizedBox(height: Insets.xl),
+            ],
+            if (_sessions.isNotEmpty) ...[
+              _LastSessions(sessions: _sessions, onOpen: _review)
+                  .animate()
+                  .fadeIn(duration: Motion.base)
+                  .moveY(begin: 8, end: 0, curve: Curves.easeOutCubic),
               const SizedBox(height: Insets.xl),
             ],
             _LessonTile(
@@ -317,15 +334,9 @@ class _LessonTile extends StatelessWidget {
             horizontal: Insets.lg, vertical: Insets.md),
         child: Row(
           children: [
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: p.surfaceAlt,
-                borderRadius: BorderRadius.circular(Radii.md),
-              ),
-              child: Text(lesson.emoji, style: const TextStyle(fontSize: 22)),
+            TopicBadge(
+              icon: lesson.icon,
+              tone: lesson.isFreeTalk ? p.terracotta : p.gold,
             ),
             const SizedBox(width: Insets.md),
             Expanded(
@@ -355,6 +366,107 @@ class _LessonTile extends StatelessWidget {
               Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// The most recent conversation, front and centre, so going over it is one
+/// tap away; older ones sit underneath in a quieter list.
+class _LastSessions extends StatelessWidget {
+  final List<SavedSession> sessions;
+  final ValueChanged<SavedSession> onOpen;
+
+  const _LastSessions({required this.sessions, required this.onOpen});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final last = sessions.first;
+    final lesson = Lessons.byId(last.lessonId);
+    final older = sessions.skip(1).take(3).toList();
+
+    return AppCard(
+      accent: true,
+      padding: EdgeInsets.zero,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+                Insets.lg, Insets.lg, Insets.lg, Insets.md),
+            child: Row(
+              children: [
+                TopicBadge(
+                  icon: lesson?.icon ?? Icons.forum_outlined,
+                  tone: p.gold,
+                  size: 48,
+                ),
+                const SizedBox(width: Insets.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Tu última conversación',
+                          style: context.texts.titleMedium),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${lesson?.titleEs ?? 'Conversación'} · '
+                        '${sessionDateEs(last.date)} · '
+                        '${last.spokenLines} frases',
+                        style: context.texts.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+                Insets.lg, 0, Insets.lg, Insets.lg),
+            child: ElevatedButton.icon(
+              onPressed: () => onOpen(last),
+              icon: const Icon(Icons.menu_book_rounded, size: 20),
+              label: const Text('Repasar palabra por palabra'),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48)),
+            ),
+          ),
+          if (older.isNotEmpty) ...[
+            Divider(color: p.border, height: 1),
+            for (final s in older)
+              InkWell(
+                onTap: () => onOpen(s),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Insets.lg, vertical: Insets.md),
+                  child: Row(
+                    children: [
+                      Icon(Lessons.byId(s.lessonId)?.icon ?? Icons.forum_outlined,
+                          size: 18, color: p.textMuted),
+                      const SizedBox(width: Insets.md),
+                      Expanded(
+                        child: Text(
+                          Lessons.byId(s.lessonId)?.titleEs ?? 'Conversación',
+                          style: context.texts.bodyMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(sessionDateEs(s.date),
+                          style: context.texts.bodySmall),
+                      const SizedBox(width: Insets.xs),
+                      Icon(Icons.chevron_right_rounded,
+                          size: 18, color: p.textMuted),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ],
       ),
     );
   }

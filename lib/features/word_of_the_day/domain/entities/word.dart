@@ -55,20 +55,6 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.conversation => 'Conversación',
       };
 
-  String get emoji => switch (this) {
-        WordCategory.dailyLife => '🗺️',
-        WordCategory.food => '🥐',
-        WordCategory.travel => '✈️',
-        WordCategory.business => '💼',
-        WordCategory.emotions => '💛',
-        WordCategory.technology => '💻',
-        WordCategory.nature => '🌿',
-        WordCategory.culture => '🎭',
-        WordCategory.health => '🏥',
-        WordCategory.home => '🏠',
-        WordCategory.conversation => '💬',
-      };
-
   /// Snake-case key as stored in the seed dataset.
   String get key => switch (this) {
         WordCategory.dailyLife => 'daily_life',

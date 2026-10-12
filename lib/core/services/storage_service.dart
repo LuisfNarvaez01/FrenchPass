@@ -94,4 +94,5 @@ abstract final class StorageKeys {
   static const tutorVoice = '${prefix}tutor.voice';
   static const tutorProfile = '${prefix}tutor.profile';
   static const tutorHistory = '${prefix}tutor.history';
+  static const tutorSessions = '${prefix}tutor.sessions';
 }

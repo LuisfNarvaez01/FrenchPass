@@ -4,7 +4,6 @@ import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 /// goal, so a conversation has an end the learner can actually reach.
 class Lesson {
   final String id;
-  final String emoji;
   final String titleEs;
   final String subtitleEs;
   final CefrLevel level;
@@ -24,7 +23,6 @@ class Lesson {
 
   const Lesson({
     required this.id,
-    required this.emoji,
     required this.titleEs,
     required this.subtitleEs,
     required this.level,
@@ -51,7 +49,6 @@ abstract final class Lessons {
   static const all = <Lesson>[
     Lesson(
       id: 'presentarse',
-      emoji: '👋',
       titleEs: 'Presentarte',
       subtitleEs: 'Tu nombre, de dónde eres y a qué te dedicas',
       level: CefrLevel.a1,
@@ -70,7 +67,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'cafe',
-      emoji: '☕',
       titleEs: 'Pedir en un café',
       subtitleEs: 'Pedir algo de beber y de comer, y pagar',
       level: CefrLevel.a1,
@@ -88,7 +84,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'direcciones',
-      emoji: '🧭',
       titleEs: 'Preguntar por una dirección',
       subtitleEs: 'Encontrar el metro, una farmacia o un museo',
       level: CefrLevel.a1,
@@ -107,7 +102,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'panaderia',
-      emoji: '🥖',
       titleEs: 'En la panadería',
       subtitleEs: 'Cantidades, precios y cortesía',
       level: CefrLevel.a1,
@@ -124,7 +118,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'hotel',
-      emoji: '🏨',
       titleEs: 'Llegar al hotel',
       subtitleEs: 'Reserva, habitación y horarios',
       level: CefrLevel.a2,
@@ -142,7 +135,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'restaurante',
-      emoji: '🍽️',
       titleEs: 'Cenar en un restaurante',
       subtitleEs: 'Pedir el menú, alergias y la cuenta',
       level: CefrLevel.a2,
@@ -159,7 +151,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'compras',
-      emoji: '👕',
       titleEs: 'Comprar ropa',
       subtitleEs: 'Tallas, colores y probarse algo',
       level: CefrLevel.a2,
@@ -176,7 +167,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'tren',
-      emoji: '🚆',
       titleEs: 'Comprar un billete de tren',
       subtitleEs: 'Destino, horario e ida y vuelta',
       level: CefrLevel.a2,
@@ -194,7 +184,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'farmacia',
-      emoji: '💊',
       titleEs: 'En la farmacia',
       subtitleEs: 'Explicar qué te pasa',
       level: CefrLevel.a2,
@@ -212,7 +201,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'aficiones',
-      emoji: '🎨',
       titleEs: 'Hablar de tus aficiones',
       subtitleEs: 'Lo que te gusta hacer y por qué',
       level: CefrLevel.a2,
@@ -230,7 +218,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'planes',
-      emoji: '📅',
       titleEs: 'Quedar con un amigo',
       subtitleEs: 'Proponer, aceptar y cambiar planes',
       level: CefrLevel.b1,
@@ -247,7 +234,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: 'entrevista',
-      emoji: '💼',
       titleEs: 'Entrevista de trabajo',
       subtitleEs: 'Experiencia, fortalezas y preguntas',
       level: CefrLevel.b1,
@@ -265,7 +251,6 @@ abstract final class Lessons {
     ),
     Lesson(
       id: freeTalkId,
-      emoji: '💬',
       titleEs: 'Conversación libre',
       subtitleEs: 'Habla de lo que quieras, en francés',
       level: CefrLevel.a2,

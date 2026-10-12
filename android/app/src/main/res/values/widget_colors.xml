@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home-screen widget palette, hand-copied from AppPalette (lib/core/theme/
+     app_palette.dart). RemoteViews cannot read the Dart theme, so keep the two
+     in sync. The unsuffixed names follow the system (values-night overrides
+     them); the _light/_dark ones are applied from Kotlin when the learner
+     picked a fixed theme in the app. -->
+<resources>
+    <color name="widget_bg_start_light">#FFFDF8</color>
+    <color name="widget_bg_end_light">#F5ECDD</color>
+    <color name="widget_border_light">#E4D9C7</color>
+    <color name="widget_frame_light">#738B6520</color>
+    <color name="widget_gold_light">#8B6520</color>
+    <color name="widget_on_gold_light">#FFFFFF</color>
+    <color name="widget_text_light">#2E2720</color>
+    <color name="widget_text2_light">#6E6054</color>
+    <color name="widget_muted_light">#91826F</color>
+    <color name="widget_ring_light">#408B6520</color>
+    <color name="widget_bg_start_dark">#262016</color>
+    <color name="widget_bg_end_dark">#17130E</color>
+    <color name="widget_border_dark">#3A3024</color>
+    <color name="widget_frame_dark">#73C49A3C</color>
+    <color name="widget_gold_dark">#C49A3C</color>
+    <color name="widget_on_gold_dark">#1A1612</color>
+    <color name="widget_text_dark">#F2EDE3</color>
+    <color name="widget_text2_dark">#A89880</color>
+    <color name="widget_muted_dark">#7D6F5D</color>
+    <color name="widget_ring_dark">#40C49A3C</color>
+    <color name="widget_bg_start">@color/widget_bg_start_light</color>
+    <color name="widget_bg_end">@color/widget_bg_end_light</color>
+    <color name="widget_border">@color/widget_border_light</color>
+    <color name="widget_frame">@color/widget_frame_light</color>
+    <color name="widget_gold">@color/widget_gold_light</color>
+    <color name="widget_on_gold">@color/widget_on_gold_light</color>
+    <color name="widget_text">@color/widget_text_light</color>
+    <color name="widget_text2">@color/widget_text2_light</color>
+    <color name="widget_muted">@color/widget_muted_light</color>
+    <color name="widget_ring">@color/widget_ring_light</color>
+</resources>

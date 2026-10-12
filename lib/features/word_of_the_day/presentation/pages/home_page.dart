@@ -7,6 +7,7 @@ import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
@@ -126,11 +127,13 @@ class _HomeViewState extends State<_HomeView>
                           ),
                           const SizedBox(height: Insets.lg),
 
-                          WordCard(
-                            word: word,
-                            onTapIpa: () => speak(word.french),
-                          ).animate().fadeIn(duration: Motion.base).slideY(
-                              begin: 0.06, end: 0, curve: Curves.easeOut),
+                          _InkIn(
+                            key: ValueKey(word.id),
+                            child: WordCard(
+                              word: word,
+                              onTapIpa: () => speak(word.french),
+                            ),
+                          ),
 
                           const SizedBox(height: Insets.lg),
 
@@ -397,25 +400,45 @@ class _StreakCard extends StatelessWidget {
         ),
     };
 
+    final calm = MediaQuery.disableAnimationsOf(context);
+    final flame = Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: p.terracotta.withValues(alpha: 0.14),
+      ),
+      child: Icon(Icons.local_fire_department_rounded,
+          color: p.terracotta, size: 24),
+    );
+
     return AppCard(
       child: Row(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: (studiedToday ? p.good : p.terracotta)
-                  .withValues(alpha: 0.14),
-            ),
-            child: Icon(
-              studiedToday
-                  ? Icons.check_circle_rounded
-                  : Icons.local_fire_department_rounded,
-              color: studiedToday ? p.good : p.terracotta,
-              size: 24,
-            ),
-          ),
+          // Practising today earns the mascot; until then the flame asks
+          // for it with a short flicker.
+          if (studiedToday)
+            const SizedBox(
+              width: 48,
+              height: 48,
+              child: OverflowBox(
+                maxWidth: 68,
+                maxHeight: 68,
+                child: MascotSticker(size: 68),
+              ),
+            )
+          else if (streak > 0 && !calm)
+            flame
+                .animate(delay: 600.ms)
+                .scaleXY(begin: 1, end: 1.12, duration: 260.ms)
+                .then()
+                .scaleXY(begin: 1.12, end: 1 / 1.12, duration: 260.ms)
+                .then()
+                .scaleXY(begin: 1, end: 1.08, duration: 220.ms)
+                .then()
+                .scaleXY(begin: 1.08, end: 1 / 1.08, duration: 220.ms)
+          else
+            flame,
           const SizedBox(width: Insets.lg),
           Expanded(
             child: Column(
@@ -503,5 +526,33 @@ class _ReviewQueue extends StatelessWidget {
         ],
       ],
     );
+  }
+}
+
+/// The word of the day arriving like fresh ink: it sharpens from a soft blur
+/// as it settles, then a single band of light crosses the card, gold leaf
+/// catching the lamp. Replays only when the word itself changes.
+class _InkIn extends StatelessWidget {
+  final Widget child;
+  const _InkIn({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    if (MediaQuery.disableAnimationsOf(context)) {
+      return child.animate().fadeIn(duration: Motion.base);
+    }
+    return child
+        .animate()
+        .fadeIn(duration: 380.ms, curve: Curves.easeOut)
+        .blurXY(begin: 7, end: 0, duration: 520.ms, curve: const Cubic(0.16, 1, 0.3, 1))
+        .scaleXY(begin: 0.975, end: 1, duration: 520.ms, curve: const Cubic(0.16, 1, 0.3, 1))
+        .then(delay: 120.ms)
+        .shimmer(
+          duration: 1100.ms,
+          angle: 0.5,
+          size: 0.6,
+          color: p.goldBright.withValues(alpha: 0.22),
+        );
   }
 }

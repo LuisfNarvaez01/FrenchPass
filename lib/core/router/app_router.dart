@@ -8,6 +8,7 @@ import 'package:french_pass/features/progress/presentation/pages/progress_page.d
 import 'package:french_pass/features/pronunciation/presentation/pages/pronunciation_practice_page.dart';
 import 'package:french_pass/features/quiz/presentation/pages/quiz_page.dart';
 import 'package:french_pass/features/settings/presentation/pages/settings_page.dart';
+import 'package:french_pass/features/tutor/presentation/pages/session_review_page.dart';
 import 'package:french_pass/features/tutor/presentation/pages/tutor_page.dart';
 import 'package:french_pass/features/tutor/presentation/pages/tutor_session_page.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
@@ -68,6 +69,12 @@ class AppRouter {
         name: 'tutor-session',
         builder: (context, state) =>
             TutorSessionPage(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: '/review/:sessionId',
+        name: 'session-review',
+        builder: (context, state) =>
+            SessionReviewPage(sessionId: state.pathParameters['sessionId']!),
       ),
 
       // ── Full-screen routes (outside the tab shell) ────────────────────────

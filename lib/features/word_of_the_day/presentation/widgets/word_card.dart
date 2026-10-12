@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
@@ -81,7 +82,8 @@ class _WordCardContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Pill(
-                label: '${word.category.emoji}  ${word.category.labelEs}',
+                label: word.category.labelEs,
+                icon: word.category.icon,
                 tone: p.gold,
               ),
               Pill(label: word.level.label, tone: p.terracotta, dense: true),

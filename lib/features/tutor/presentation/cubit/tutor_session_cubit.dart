@@ -12,6 +12,7 @@ import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
+import 'package:french_pass/features/tutor/domain/saved_session.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 
 enum TutorPhase {
@@ -49,6 +50,10 @@ class TutorSessionState extends Equatable {
   /// Tutor lines whose audio was kept and can be replayed.
   final Set<int> replayable;
 
+  /// Id of the saved conversation once the lesson has ended, so the summary
+  /// can open it for review.
+  final String? savedSessionId;
+
   const TutorSessionState({
     this.phase = TutorPhase.connecting,
     this.messages = const [],
@@ -61,6 +66,7 @@ class TutorSessionState extends Equatable {
     this.reviewFailed = false,
     this.translations = const {},
     this.replayable = const {},
+    this.savedSessionId,
   });
 
   bool get isLive =>
@@ -86,6 +92,7 @@ class TutorSessionState extends Equatable {
     bool? reviewFailed,
     Map<int, String?>? translations,
     Set<int>? replayable,
+    String? savedSessionId,
   }) =>
       TutorSessionState(
         phase: phase ?? this.phase,
@@ -99,6 +106,7 @@ class TutorSessionState extends Equatable {
         reviewFailed: reviewFailed ?? this.reviewFailed,
         translations: translations ?? this.translations,
         replayable: replayable ?? this.replayable,
+        savedSessionId: savedSessionId ?? this.savedSessionId,
       );
 
   @override
@@ -114,6 +122,7 @@ class TutorSessionState extends Equatable {
         reviewFailed,
         translations,
         replayable,
+        savedSessionId,
       ];
 }
 
@@ -472,11 +481,31 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     final spoke = state.messages
         .whereType<LearnerLine>()
         .any((l) => l.text.trim().isNotEmpty);
+
+    // Kept before the review runs, so the conversation survives even if the
+    // review fails or the learner leaves while it loads.
+    final now = DateTime.now();
+    var saved = SavedSession(
+      id: '${now.millisecondsSinceEpoch}',
+      lessonId: lesson.id,
+      date: now,
+      goalReached: state.goalReached,
+      messages: [
+        for (final m in state.messages)
+          if (m.text.trim().isNotEmpty || m is LearnerLine && m.notes.isNotEmpty)
+            m,
+      ],
+    );
+    final hasConversation = saved.spokenLines > 0;
+    if (hasConversation) await _repo.saveSession(saved);
+
+    if (isClosed) return;
     emit(state.copyWith(
       phase: TutorPhase.ended,
       micLevel: 0,
       error: note,
       reviewing: spoke,
+      savedSessionId: hasConversation ? saved.id : null,
     ));
     if (!spoke) return;
 
@@ -495,6 +524,18 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
       }
     } catch (e) {
       debugPrint('TutorSessionCubit review failed: $e');
+    }
+
+    if (review != null && review.summaryEs.isNotEmpty) {
+      saved = SavedSession(
+        id: saved.id,
+        lessonId: saved.lessonId,
+        date: saved.date,
+        goalReached: saved.goalReached,
+        messages: saved.messages,
+        summaryEs: review.summaryEs,
+      );
+      await _repo.saveSession(saved);
     }
 
     await _repo.addRecord(LessonRecord(

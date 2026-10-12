@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -13,6 +15,7 @@ import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 import 'package:french_pass/features/tutor/presentation/cubit/tutor_session_cubit.dart';
+import 'package:french_pass/features/tutor/presentation/widgets/tutor_note_card.dart';
 
 class TutorSessionPage extends StatelessWidget {
   final String lessonId;
@@ -161,7 +164,7 @@ class _Header extends StatelessWidget {
               ? AppBackButton.close(onPressed: onEnd)
               : const AppBackButton(),
           const SizedBox(width: Insets.xs),
-          Text(lesson.emoji, style: const TextStyle(fontSize: 20)),
+          Icon(lesson.icon, size: 20, color: context.palette.gold),
           const SizedBox(width: Insets.sm),
           Expanded(
             child: Text(lesson.titleEs,
@@ -422,81 +425,12 @@ class _LearnerBlock extends StatelessWidget {
           ),
         for (final note in line.notes) ...[
           const SizedBox(height: Insets.sm),
-          _NoteCard(note: note)
+          TutorNoteCard(note: note)
               .animate()
               .fadeIn(duration: Motion.base)
               .slideY(begin: 0.15, end: 0, curve: Curves.easeOut),
         ],
       ],
-    );
-  }
-}
-
-class _NoteCard extends StatelessWidget {
-  final TutorNote note;
-  const _NoteCard({required this.note});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    final (icon, tone, label, main, detail) = switch (note) {
-      CorrectionNote(:final betterFr, :final explanationEs) => (
-          Icons.edit_note_rounded,
-          p.warning,
-          'Mejor dicho',
-          betterFr,
-          explanationEs,
-        ),
-      PronunciationNote(:final wordFr, :final tipEs) => (
-          Icons.record_voice_over_outlined,
-          p.terracotta,
-          'Pronunciación',
-          wordFr,
-          tipEs,
-        ),
-      HintNote(:final phraseFr, :final translationEs) => (
-          Icons.lightbulb_outline_rounded,
-          p.good,
-          'Puedes decir',
-          phraseFr,
-          translationEs,
-        ),
-    };
-
-    return Semantics(
-      container: true,
-      label: '$label: $main. $detail',
-      excludeSemantics: true,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(Insets.md),
-        decoration: BoxDecoration(
-          color: tone.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(Radii.md),
-          border: Border(left: BorderSide(color: tone, width: 3)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, size: 16, color: tone),
-                const SizedBox(width: Insets.xs),
-                Text(label.toUpperCase(),
-                    style: AppTheme.eyebrow(context).copyWith(color: tone)),
-              ],
-            ),
-            const SizedBox(height: Insets.xs),
-            Text(main,
-                style:
-                    context.texts.titleMedium?.copyWith(color: p.textPrimary)),
-            if (detail.isNotEmpty) ...[
-              const SizedBox(height: 2),
-              Text(detail, style: context.texts.bodySmall),
-            ],
-          ],
-        ),
-      ),
     );
   }
 }
@@ -667,13 +601,24 @@ class _Summary extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(
           Insets.page, Insets.lg, Insets.page, Insets.xxxl),
       children: [
+        // Finishing a conversation in French is the effort worth marking.
+        if (state.messages.any((m) => m is LearnerLine && m.text.isNotEmpty))
+          Center(
+            child: MascotCelebration(
+              size: 132,
+              caption: state.goalReached ? '¡Bravo !' : 'Bien joué !',
+            ),
+          ),
+        const SizedBox(height: Insets.md),
         Text(
           state.goalReached ? '¡Lección completada!' : 'Lección terminada',
           style: context.texts.headlineMedium,
+          textAlign: TextAlign.center,
         ),
         if (state.error != null) ...[
           const SizedBox(height: Insets.xs),
-          Text(state.error!, style: context.texts.bodySmall),
+          Text(state.error!,
+              style: context.texts.bodySmall, textAlign: TextAlign.center),
         ],
         const SizedBox(height: Insets.lg),
         if (state.reviewing)
@@ -718,7 +663,7 @@ class _Summary extends StatelessWidget {
           Text('TUS CORRECCIONES', style: AppTheme.eyebrow(context)),
           const SizedBox(height: Insets.sm),
           for (final note in notes) ...[
-            _NoteCard(note: note),
+            TutorNoteCard(note: note),
             const SizedBox(height: Insets.sm),
           ],
         ] else if (!state.reviewing && state.messages.isNotEmpty) ...[
@@ -730,17 +675,27 @@ class _Summary extends StatelessWidget {
           ),
         ],
         const SizedBox(height: Insets.xxl),
-        ElevatedButton(
+        if (state.savedSessionId != null) ...[
+          ElevatedButton.icon(
+            onPressed: () =>
+                context.pushReplacement('/review/${state.savedSessionId}'),
+            icon: const Icon(Icons.menu_book_rounded, size: 20),
+            style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(52)),
+            label: const Text('Repasar la conversación'),
+          ),
+          const SizedBox(height: Insets.md),
+        ],
+        OutlinedButton(
           onPressed: () => context.pushReplacement('/tutor/${lesson.id}'),
           style:
-              ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+              OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
           child: const Text('Repetir lección'),
         ),
-        const SizedBox(height: Insets.md),
-        OutlinedButton(
+        const SizedBox(height: Insets.sm),
+        TextButton(
           onPressed: () => context.pop(),
-          style:
-              OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+          style: TextButton.styleFrom(minimumSize: const Size.fromHeight(48)),
           child: const Text('Volver a las lecciones'),
         ),
       ],

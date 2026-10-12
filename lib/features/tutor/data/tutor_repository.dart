@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
+import 'package:french_pass/features/tutor/domain/saved_session.dart';
 
 /// The tutor's persistent state: the learner profile, lesson history and
 /// the voice choice in preferences, and the Gemini API key in the platform
@@ -18,6 +19,10 @@ class TutorRepository {
 
   static const _apiKeyKey = 'fp.tutor.geminiApiKey';
   static const _maxHistory = 60;
+
+  /// Full transcripts are a few KB each; the last handful is what a learner
+  /// actually goes back to.
+  static const _maxSessions = 8;
 
   // ── API key ───────────────────────────────────────────────────────────────
   Future<String?> apiKey() async {
@@ -64,6 +69,7 @@ class TutorRepository {
   Future<void> resetProfile() async {
     await _storage.remove(StorageKeys.tutorProfile);
     await _storage.remove(StorageKeys.tutorHistory);
+    await _storage.remove(StorageKeys.tutorSessions);
   }
 
   // ── History ──────────────────────────────────────────────────────────────
@@ -79,6 +85,34 @@ class TutorRepository {
         all.length > _maxHistory ? all.sublist(all.length - _maxHistory) : all;
     return _storage.setJsonList(
         StorageKeys.tutorHistory, kept.map((r) => r.toJson()).toList());
+  }
+
+  // ── Saved conversations ──────────────────────────────────────────────────
+  /// Newest first.
+  List<SavedSession> sessions() => _storage
+      .getJsonList(StorageKeys.tutorSessions)
+      .whereType<Map<String, dynamic>>()
+      .map(SavedSession.fromJson)
+      .where((s) => s.id.isNotEmpty && s.messages.isNotEmpty)
+      .toList()
+    ..sort((a, b) => b.date.compareTo(a.date));
+
+  SavedSession? session(String id) {
+    for (final s in sessions()) {
+      if (s.id == id) return s;
+    }
+    return null;
+  }
+
+  /// Inserts [session], or replaces the saved one with the same id (which
+  /// is how studied lines get cached).
+  Future<void> saveSession(SavedSession session) {
+    final all = [
+      session,
+      ...sessions().where((s) => s.id != session.id),
+    ].take(_maxSessions);
+    return _storage.setJsonList(
+        StorageKeys.tutorSessions, [for (final s in all) s.toJson()]);
   }
 
   /// Lesson ids the learner has completed at least once (goal reached).

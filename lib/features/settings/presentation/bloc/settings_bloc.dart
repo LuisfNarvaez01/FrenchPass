@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
+import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 /// Which CEFR levels the daily word and the quiz draw from.
@@ -144,7 +145,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final NotificationService _notifications;
   final TtsService _tts;
 
-  SettingsBloc(this._storage, this._notifications, this._tts)
+  /// Optional so tests can build the bloc without a platform channel.
+  final WidgetService? _widget;
+
+  SettingsBloc(this._storage, this._notifications, this._tts, [this._widget])
       : super(const SettingsState()) {
     on<LoadSettingsEvent>(_onLoad);
     on<ChangeThemeEvent>(_onChangeTheme);
@@ -167,12 +171,21 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       notificationHour: _storage.getInt(StorageKeys.notificationHour) ?? 9,
       speechRate: _storage.getInt(StorageKeys.speechRate) ?? 38,
     ));
+    _syncWidget();
   }
+
+  /// The home-screen widget cannot read Flutter's settings, so it gets its
+  /// own copy of the two it uses: the theme and the voice speed.
+  void _syncWidget() => _widget?.publishAppearance(
+        themeMode: state.themeMode,
+        speechRate: state.speechRate,
+      );
 
   Future<void> _onChangeTheme(
       ChangeThemeEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(themeMode: event.themeMode));
     await _storage.setString(StorageKeys.themeMode, event.themeMode.name);
+    _syncWidget();
   }
 
   Future<void> _onChangeLanguage(
@@ -217,6 +230,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(state.copyWith(speechRate: event.rate));
     await _storage.setInt(StorageKeys.speechRate, event.rate);
     await _tts.setRate(event.rate / 100);
+    _syncWidget();
   }
 
   static ThemeMode _themeFromName(String? name) => switch (name) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
 
@@ -97,7 +98,13 @@ class _IconAction extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 21, color: tone),
+                // While the word plays, the icon breathes with it.
+                active && icon == Icons.graphic_eq_rounded &&
+                        !MediaQuery.disableAnimationsOf(context)
+                    ? Icon(icon, size: 21, color: tone)
+                        .animate(onPlay: (c) => c.repeat(reverse: true))
+                        .scaleXY(begin: 0.85, end: 1.15, duration: 380.ms)
+                    : Icon(icon, size: 21, color: tone),
                 const SizedBox(height: Insets.xs),
                 Text(
                   label,

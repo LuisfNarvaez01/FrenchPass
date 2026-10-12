@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_bg_start">@color/widget_bg_start_dark</color>
+    <color name="widget_bg_end">@color/widget_bg_end_dark</color>
+    <color name="widget_border">@color/widget_border_dark</color>
+    <color name="widget_frame">@color/widget_frame_dark</color>
+    <color name="widget_gold">@color/widget_gold_dark</color>
+    <color name="widget_on_gold">@color/widget_on_gold_dark</color>
+    <color name="widget_text">@color/widget_text_dark</color>
+    <color name="widget_text2">@color/widget_text2_dark</color>
+    <color name="widget_muted">@color/widget_muted_dark</color>
+    <color name="widget_ring">@color/widget_ring_dark</color>
+</resources>

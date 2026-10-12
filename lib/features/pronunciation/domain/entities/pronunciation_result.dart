@@ -4,10 +4,10 @@ enum PronunciationFeedback { parfait, tresBien, biensur, reessaie }
 
 extension PronunciationFeedbackExtension on PronunciationFeedback {
   String get labelEs => switch (this) {
-        PronunciationFeedback.parfait => '¡Parfait! 🌟',
-        PronunciationFeedback.tresBien => '¡Très bien! 👏',
-        PronunciationFeedback.biensur => '¡Pas mal! 💪',
-        PronunciationFeedback.reessaie => 'Réessaie... 🎯',
+        PronunciationFeedback.parfait => '¡Parfait!',
+        PronunciationFeedback.tresBien => '¡Très bien!',
+        PronunciationFeedback.biensur => '¡Pas mal!',
+        PronunciationFeedback.reessaie => 'Réessaie…',
       };
 
   String get subtitle => switch (this) {

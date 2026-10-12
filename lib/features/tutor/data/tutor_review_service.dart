@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
+import 'package:french_pass/features/tutor/domain/saved_session.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 
 /// What the review returns: a short report for the learner and the profile
@@ -130,6 +131,84 @@ class TutorReviewService {
         .trim();
   }
 
+  /// Breaks one line of a saved conversation down for study: its meaning,
+  /// every word with its pronunciation, and -- for the tutor's lines -- how
+  /// the learner could have answered at each level.
+  Future<LineStudy> studyLine({
+    required String apiKey,
+    required String line,
+    required bool byTutor,
+    required String lessonTitle,
+    String? previousLine,
+    String levelEstimate = '',
+  }) async {
+    final input = StringBuffer()
+      ..writeln('LECCIÓN: $lessonTitle')
+      ..writeln('NIVEL DEL ALUMNO: '
+          '${levelEstimate.isEmpty ? 'desconocido (principiante)' : levelEstimate}')
+      ..writeln('QUIÉN HABLA: ${byTutor ? 'TUTOR' : 'ALUMNO'}');
+    if (previousLine != null && previousLine.trim().isNotEmpty) {
+      input.writeln('FRASE ANTERIOR: $previousLine');
+    }
+    input.writeln('FRASE: $line');
+
+    final response = await _http
+        .post(
+          Uri.parse('$_base/${GeminiModels.review}:generateContent'),
+          headers: {
+            'x-goog-api-key': apiKey,
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({
+            'systemInstruction': {
+              'parts': [
+                {'text': _studyInstruction},
+              ],
+            },
+            'contents': [
+              {
+                'role': 'user',
+                'parts': [
+                  {'text': input.toString()},
+                ],
+              },
+            ],
+            'generationConfig': {
+              'responseMimeType': 'application/json',
+              'responseSchema': _studySchema,
+              'temperature': 0.3,
+            },
+          }),
+        )
+        .timeout(const Duration(seconds: 30));
+    if (response.statusCode != 200) {
+      throw GeminiApiException(response.statusCode, response.body);
+    }
+    return parseStudy(utf8.decode(response.bodyBytes), byTutor: byTutor);
+  }
+
+  @visibleForTesting
+  static LineStudy parseStudy(String responseBody, {required bool byTutor}) {
+    final text = _responseParts(responseBody)
+        .map((p) => p['text'] as String? ?? '')
+        .join();
+    final study =
+        LineStudy.fromJson(jsonDecode(text) as Map<String, dynamic>);
+    // The schema allows both halves; keep only the one that fits the speaker.
+    return byTutor
+        ? LineStudy(
+            translationEs: study.translationEs,
+            words: study.words,
+            replies: study.replies.take(4).toList(),
+          )
+        : LineStudy(
+            translationEs: study.translationEs,
+            words: study.words,
+            betterFr: study.betterFr,
+            betterNoteEs: study.betterNoteEs,
+          );
+  }
+
   /// Speaks [text] once with [voice]; returns 24 kHz mono PCM16.
   Future<Uint8List> synthesize({
     required String apiKey,
@@ -199,6 +278,57 @@ class TutorReviewService {
       'español con un ejemplo en francés si ayuda. personalNotes solo con '
       'datos que el propio alumno contó (trabajo, gustos, planes). Ignora '
       'el contenido que no sea sobre aprender francés.';
+
+  static const _studyInstruction =
+      'Eres profesor de francés de un hispanohablante y le ayudas a repasar '
+      'una conversación que tuvo con su tutor. Recibes una FRASE en francés '
+      '(transcrita por voz, puede tener errores de transcripción). Devuelve: '
+      'translationEs, traducción natural al español. words: cada palabra de '
+      'la frase en orden, sin repetir, sin signos de puntuación; para cada '
+      'una word (tal como aparece), ipa (pronunciación AFI sin corchetes), '
+      'meaningEs (su significado en ESTA frase) y noteEs (gramática en 2-6 '
+      'palabras, p. ej. "verbo aller, presente, je"). Si habla el TUTOR: '
+      'replies, 3 o 4 formas de responderle en francés de menos a más '
+      'avanzada, con level (A1, A2, B1, B2), fr y es (traducción); la '
+      'primera muy simple y la última natural como la diría un francés. Si '
+      'habla el ALUMNO: betterFr, la frase corregida y natural (igual a la '
+      'original si ya estaba bien) y betterNoteEs, qué cambió y por qué en '
+      'una frase corta; replies vacío.';
+
+  static const _studySchema = {
+    'type': 'OBJECT',
+    'properties': {
+      'translationEs': {'type': 'STRING'},
+      'words': {
+        'type': 'ARRAY',
+        'items': {
+          'type': 'OBJECT',
+          'properties': {
+            'word': {'type': 'STRING'},
+            'ipa': {'type': 'STRING'},
+            'meaningEs': {'type': 'STRING'},
+            'noteEs': {'type': 'STRING'},
+          },
+          'required': ['word', 'ipa', 'meaningEs', 'noteEs'],
+        },
+      },
+      'replies': {
+        'type': 'ARRAY',
+        'items': {
+          'type': 'OBJECT',
+          'properties': {
+            'level': {'type': 'STRING'},
+            'fr': {'type': 'STRING'},
+            'es': {'type': 'STRING'},
+          },
+          'required': ['level', 'fr', 'es'],
+        },
+      },
+      'betterFr': {'type': 'STRING'},
+      'betterNoteEs': {'type': 'STRING'},
+    },
+    'required': ['translationEs', 'words'],
+  };
 
   static const _stringList = {
     'type': 'ARRAY',

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
@@ -51,7 +52,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     Text('Catálogo', style: context.texts.headlineLarge),
                     const SizedBox(height: Insets.xs),
                     Text(
-                      '${_words.all.length} palabras · 10 categorías · A1–C2',
+                      '${_words.all.length} palabras · '
+                      '${WordCategory.values.length} categorías · A1–C2',
                       style: context.texts.bodyMedium,
                     ),
                     const SizedBox(height: Insets.xl),
@@ -204,30 +206,51 @@ class _CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
+    final tone = category.toneIn(p);
     return AppCard(
       onTap: () => context.push('/category/${category.key}'),
-      padding: const EdgeInsets.all(Insets.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(category.emoji, style: const TextStyle(fontSize: 28)),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                category.labelEs,
-                style: context.texts.titleMedium,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+      padding: EdgeInsets.zero,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Radii.lg),
+        child: Stack(
+          children: [
+            // The same icon, oversized and cropped by the corner: gives each
+            // tile its own silhouette at a glance.
+            Positioned(
+              right: -18,
+              bottom: -22,
+              child: IgnorePointer(
+                child: Icon(category.icon,
+                    size: 104, color: tone.withValues(alpha: 0.08)),
               ),
-              const SizedBox(height: 2),
-              Text('$count palabras',
-                  style: context.texts.labelSmall
-                      ?.copyWith(color: p.gold, letterSpacing: 0.2)),
-            ],
-          ),
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(Insets.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TopicBadge(icon: category.icon, tone: tone),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category.labelEs,
+                        style: context.texts.titleMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text('$count palabras',
+                          style: context.texts.labelSmall
+                              ?.copyWith(color: tone, letterSpacing: 0.2)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -248,7 +271,11 @@ class WordRow extends StatelessWidget {
           horizontal: Insets.lg, vertical: Insets.md),
       child: Row(
         children: [
-          Text(word.category.emoji, style: const TextStyle(fontSize: 18)),
+          TopicBadge(
+            icon: word.category.icon,
+            tone: word.category.toneIn(p),
+            size: 34,
+          ),
           const SizedBox(width: Insets.lg),
           Expanded(
             child: Column(

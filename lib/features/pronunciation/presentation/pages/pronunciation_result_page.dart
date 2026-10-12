@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/entities/srs_card.dart';
 import 'package:french_pass/features/pronunciation/domain/entities/pronunciation_result.dart';
@@ -73,13 +74,29 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
 
                       const SizedBox(height: Insets.xxl),
 
-                      ScoreRing(score: result.overallScore)
-                          .animate()
-                          .fadeIn(delay: Motion.stagger(3))
-                          .scale(
-                              delay: Motion.stagger(3),
-                              begin: const Offset(0.85, 0.85),
-                              curve: Curves.easeOutBack),
+                      // Said clearly: the mascot is stuck onto the score,
+                      // like a gold star on homework.
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          ScoreRing(score: result.overallScore)
+                              .animate()
+                              .fadeIn(delay: Motion.stagger(3))
+                              .scale(
+                                  delay: Motion.stagger(3),
+                                  begin: const Offset(0.85, 0.85),
+                                  curve: Curves.easeOutCubic),
+                          if (result.isSuccess)
+                            const Positioned(
+                              right: -86,
+                              bottom: -34,
+                              child: MascotCelebration(
+                                size: 92,
+                                delay: Duration(milliseconds: 520),
+                              ),
+                            ),
+                        ],
+                      ),
 
                       const SizedBox(height: Insets.xl),
 

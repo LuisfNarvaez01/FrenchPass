@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/categories/presentation/pages/categories_page.dart'
     show WordRow;
@@ -60,7 +61,11 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
               AppSliverBar(
                 title: Row(
                   children: [
-                    Text(category.emoji, style: const TextStyle(fontSize: 18)),
+                    TopicBadge(
+                      icon: category.icon,
+                      tone: category.toneIn(context.palette),
+                      size: 32,
+                    ),
                     const SizedBox(width: Insets.sm),
                     Expanded(
                       child: Text(category.labelEs,

@@ -82,3 +82,66 @@ class HintNote extends TutorNote {
   @override
   String describe() => '$phraseFr ($translationEs)';
 }
+
+// ── Persistence ──────────────────────────────────────────────────────────────
+// A finished lesson is saved so the learner can study it afterwards; these
+// keep the JSON shape in one place, next to the types it mirrors.
+
+Map<String, dynamic> tutorMessageToJson(TutorMessage message) =>
+    switch (message) {
+      TutorLine(:final text) => {'who': 'tutor', 'text': text},
+      LearnerLine(:final text, :final notes) => {
+          'who': 'learner',
+          'text': text,
+          if (notes.isNotEmpty)
+            'notes': [for (final n in notes) tutorNoteToJson(n)],
+        },
+    };
+
+TutorMessage? tutorMessageFromJson(Object? raw) {
+  if (raw is! Map<String, dynamic>) return null;
+  final text = raw['text'] as String? ?? '';
+  return switch (raw['who']) {
+    'tutor' => TutorLine(text),
+    'learner' => LearnerLine(text, [
+        for (final n in raw['notes'] as List? ?? const [])
+          if (tutorNoteFromJson(n) case final TutorNote note) note,
+      ]),
+    _ => null,
+  };
+}
+
+Map<String, dynamic> tutorNoteToJson(TutorNote note) => switch (note) {
+      CorrectionNote(:final originalFr, :final betterFr, :final explanationEs) =>
+        {
+          'kind': 'correction',
+          if (originalFr != null) 'originalFr': originalFr,
+          'betterFr': betterFr,
+          'explanationEs': explanationEs,
+        },
+      PronunciationNote(:final wordFr, :final tipEs) => {
+          'kind': 'pronunciation',
+          'wordFr': wordFr,
+          'tipEs': tipEs,
+        },
+      HintNote(:final phraseFr, :final translationEs) => {
+          'kind': 'hint',
+          'phraseFr': phraseFr,
+          'translationEs': translationEs,
+        },
+    };
+
+TutorNote? tutorNoteFromJson(Object? raw) {
+  if (raw is! Map<String, dynamic>) return null;
+  String s(String key) => raw[key] as String? ?? '';
+  return switch (raw['kind']) {
+    'correction' => CorrectionNote(
+        originalFr: raw['originalFr'] as String?,
+        betterFr: s('betterFr'),
+        explanationEs: s('explanationEs'),
+      ),
+    'pronunciation' => PronunciationNote(wordFr: s('wordFr'), tipEs: s('tipEs')),
+    'hint' => HintNote(phraseFr: s('phraseFr'), translationEs: s('translationEs')),
+    _ => null,
+  };
+}
