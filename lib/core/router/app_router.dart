@@ -8,6 +8,7 @@ import 'package:french_pass/features/progress/presentation/pages/progress_page.d
 import 'package:french_pass/features/pronunciation/presentation/pages/pronunciation_practice_page.dart';
 import 'package:french_pass/features/quiz/presentation/pages/quiz_page.dart';
 import 'package:french_pass/features/settings/presentation/pages/settings_page.dart';
+import 'package:french_pass/features/translator/presentation/pages/translator_page.dart';
 import 'package:french_pass/features/tutor/presentation/pages/session_review_page.dart';
 import 'package:french_pass/features/tutor/presentation/pages/tutor_page.dart';
 import 'package:french_pass/features/tutor/presentation/pages/tutor_session_page.dart';
@@ -27,20 +28,17 @@ class AppRouter {
           GoRoute(
             path: '/home',
             name: 'home',
-            pageBuilder: (context, state) =>
-                _fade(state, const HomePage()),
+            pageBuilder: (context, state) => _fade(state, const HomePage()),
           ),
           GoRoute(
             path: '/tutor',
             name: 'tutor',
-            pageBuilder: (context, state) =>
-                _fade(state, const TutorPage()),
+            pageBuilder: (context, state) => _fade(state, const TutorPage()),
           ),
           GoRoute(
             path: '/quiz',
             name: 'quiz',
-            pageBuilder: (context, state) =>
-                _fade(state, const QuizPage()),
+            pageBuilder: (context, state) => _fade(state, const QuizPage()),
           ),
           GoRoute(
             path: '/categories',
@@ -51,8 +49,7 @@ class AppRouter {
           GoRoute(
             path: '/progress',
             name: 'progress',
-            pageBuilder: (context, state) =>
-                _fade(state, const ProgressPage()),
+            pageBuilder: (context, state) => _fade(state, const ProgressPage()),
           ),
         ],
       ),
@@ -69,6 +66,11 @@ class AppRouter {
         name: 'tutor-session',
         builder: (context, state) =>
             TutorSessionPage(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: '/translator',
+        name: 'translator',
+        builder: (context, state) => const TranslatorPage(),
       ),
       GoRoute(
         path: '/review/:sessionId',

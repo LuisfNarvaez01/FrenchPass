@@ -109,6 +109,10 @@ class _TutorPageState extends State<TutorPage> {
                   .moveY(begin: 8, end: 0, curve: Curves.easeOutCubic),
               const SizedBox(height: Insets.xl),
             ],
+            _TranslatorTile(onTap: () => context.push('/translator'))
+                .animate()
+                .fadeIn(delay: Motion.stagger(1)),
+            const SizedBox(height: Insets.sm),
             _LessonTile(
               lesson: freeTalk,
               done: false,
@@ -310,6 +314,50 @@ class _Bullets extends StatelessWidget {
   }
 }
 
+/// The translator lives here because it teaches the same way the tutor
+/// review does; it works with the key alone, no lesson needed.
+class _TranslatorTile extends StatelessWidget {
+  final VoidCallback onTap;
+  const _TranslatorTile({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return AppCard(
+      onTap: onTap,
+      padding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.md),
+      child: Row(
+        children: [
+          TopicBadge(icon: Icons.translate_rounded, tone: p.gold),
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Traductor',
+                    style: context.texts.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
+                const SizedBox(height: 2),
+                Text(
+                  'Escribe en español y te explico el francés palabra por '
+                  'palabra.',
+                  style: context.texts.bodySmall,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: Insets.sm),
+          Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
+        ],
+      ),
+    );
+  }
+}
+
 class _LessonTile extends StatelessWidget {
   final Lesson lesson;
   final bool done;
@@ -425,8 +473,8 @@ class _LastSessions extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-                Insets.lg, 0, Insets.lg, Insets.lg),
+            padding:
+                const EdgeInsets.fromLTRB(Insets.lg, 0, Insets.lg, Insets.lg),
             child: ElevatedButton.icon(
               onPressed: () => onOpen(last),
               icon: const Icon(Icons.menu_book_rounded, size: 20),
@@ -445,8 +493,11 @@ class _LastSessions extends StatelessWidget {
                       horizontal: Insets.lg, vertical: Insets.md),
                   child: Row(
                     children: [
-                      Icon(Lessons.byId(s.lessonId)?.icon ?? Icons.forum_outlined,
-                          size: 18, color: p.textMuted),
+                      Icon(
+                          Lessons.byId(s.lessonId)?.icon ??
+                              Icons.forum_outlined,
+                          size: 18,
+                          color: p.textMuted),
                       const SizedBox(width: Insets.md),
                       Expanded(
                         child: Text(

@@ -290,6 +290,11 @@ class _Masthead extends StatelessWidget {
               icon: Icons.local_fire_department_rounded,
               tone: p.terracotta),
         IconButton(
+          tooltip: 'Traductor',
+          icon: Icon(Icons.translate_rounded, color: p.textSecondary),
+          onPressed: () => context.push('/translator'),
+        ),
+        IconButton(
           tooltip: 'Ajustes',
           icon: Icon(Icons.settings_outlined, color: p.textSecondary),
           onPressed: () => context.push('/settings'),
@@ -545,8 +550,16 @@ class _InkIn extends StatelessWidget {
     return child
         .animate()
         .fadeIn(duration: 380.ms, curve: Curves.easeOut)
-        .blurXY(begin: 7, end: 0, duration: 520.ms, curve: const Cubic(0.16, 1, 0.3, 1))
-        .scaleXY(begin: 0.975, end: 1, duration: 520.ms, curve: const Cubic(0.16, 1, 0.3, 1))
+        .blurXY(
+            begin: 7,
+            end: 0,
+            duration: 520.ms,
+            curve: const Cubic(0.16, 1, 0.3, 1))
+        .scaleXY(
+            begin: 0.975,
+            end: 1,
+            duration: 520.ms,
+            curve: const Cubic(0.16, 1, 0.3, 1))
         .then(delay: 120.ms)
         .shimmer(
           duration: 1100.ms,

@@ -1,3 +1,4 @@
+import 'package:french_pass/features/tutor/data/writing_style.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
@@ -67,6 +68,8 @@ abstract final class TutorPrompt {
           'que no sabe cómo decir algo, llama a $toolShowHint con la frase en '
           'francés que necesita y su traducción, y anímale en francés a '
           'decirla.')
+      ..writeln('- Las explicaciones de esas herramientas, en una o dos '
+          'frases. ${WritingStyle.explanationsEs}')
       ..writeln()
       ..writeln('## Final')
       ..writeln(lesson.isFreeTalk
