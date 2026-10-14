@@ -9,6 +9,18 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+// Some plugins still compile against old SDKs (flutter_pcm_sound: 33),
+// which the AndroidX libraries they now pull in reject in release builds.
+// Compile every plugin against the app's SDK; it changes no behaviour, only
+// which platform APIs the compiler can see. Registered before the
+// evaluationDependsOn below, which evaluates the plugins early.
+subprojects { sub ->
+    sub.afterEvaluate {
+        if (sub.plugins.hasPlugin("com.android.library")) {
+            sub.android.compileSdkVersion = 37
+        }
+    }
+}
 subprojects {
     project.evaluationDependsOn(":app")
 }
