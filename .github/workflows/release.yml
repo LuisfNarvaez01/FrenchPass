@@ -10,6 +10,9 @@ name: Build and release
 on:
   push:
     branches: [main]
+    # The privacy policy and store docs are served by GitHub Pages; editing
+    # them shouldn't ship a new app version.
+    paths-ignore: ['docs/**']
   workflow_dispatch: {}
 
 permissions:
