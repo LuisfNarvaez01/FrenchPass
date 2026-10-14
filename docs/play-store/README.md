@@ -64,6 +64,36 @@ Lo que ya está hecho en el código va al final.
    dispositivos › Países/regiones* quita los del Espacio Económico Europeo,
    Reino Unido y Suiza.
 
+### Suscripción Premium
+
+1. **Perfil de pagos**: Play Console › Configuración › Perfil de pagos.
+   Crea la cuenta de comerciante (pide datos bancarios y fiscales). Sin ella
+   no se pueden crear productos de pago.
+2. **Crear la suscripción**: Monetizar › Productos › Suscripciones › Crear.
+   - ID del producto: `premium` (exacto; la app lo busca con ese nombre).
+   - Nombre: *FrenchPass Premium*.
+   - Dos planes base, con estos ID exactos:
+     - `mensual`: renovación automática cada mes, US$4,99.
+     - `anual`: renovación automática cada año, US$39,99.
+   - En cada plan, *Precios por país*: Play convierte solo, pero conviene
+     bajar Latinoamérica (por ejemplo US$2,99 al mes). Activa los planes.
+3. **Probar sin pagar**: Configuración › Pruebas de licencias, añade tu
+   cuenta de Google y las de tus testers. Sus compras no se cobran y las
+   renovaciones pasan en minutos, así que puedes ver el ciclo completo.
+4. Las compras solo funcionan en la app instalada desde Play (prueba interna
+   o cerrada). La versión de GitHub cuenta siempre como Premium.
+
+**Qué incluye cada plan** (se cambia en `lib/features/premium/data/usage_service.dart`):
+
+| | Gratis | Premium |
+|---|---|---|
+| Palabra del día, quiz, repasos, pronunciación, widget | Sin límite | Sin límite |
+| Tutor por voz | 10 minutos de prueba, una sola vez | 150 minutos al mes |
+| Traductor y repaso frase por frase | 5 consultas al día | 100 consultas al día |
+
+Las traducciones y los análisis ya guardados no cuentan: se vuelven a abrir
+gratis.
+
 ### Contenido de la app (formularios)
 
 | Formulario | Respuesta |
@@ -89,7 +119,10 @@ terceros con fines propios: Google actúa como proveedor del servicio):
 
 - ¿Se pueden eliminar los datos? Sí: «Borrar mis datos» en Ajustes, o
   desinstalar. No hay servidor propio con copias.
-- No hay cuenta de usuario, ni ubicación, ni contactos, ni datos de pago.
+- No hay cuenta de usuario, ni ubicación, ni contactos.
+- Los pagos los procesa Google Play: la app no ve ni guarda datos de la
+  tarjeta. Revisa en la misma página de Firebase/Google si la biblioteca de
+  facturación de Play te obliga a declarar «Historial de compras».
 
 ### Ficha de Play Store
 
@@ -123,7 +156,12 @@ También incluye:
   la estás olvidando.
 - Tu racha y tu progreso, guardados en tu teléfono.
 
-No necesitas cuenta. La app no tiene anuncios.
+No necesitas cuenta y la app no tiene anuncios.
+
+Gratis tienes la palabra del día, el quiz, los repasos y la pronunciación sin
+límite, 10 minutos de prueba con el tutor y 5 consultas al día al traductor.
+FrenchPass Premium te da 150 minutos de tutor al mes y hasta 100 consultas
+diarias.
 
 El tutor, el traductor y el repaso usan Gemini, la IA de Google, así que
 necesitan conexión a internet.
@@ -144,10 +182,8 @@ necesitan conexión a internet.
   Si no es tuya ni tienes permiso, Play puede rechazar la app por propiedad
   intelectual. La salida segura es una ilustración propia del mismo
   personaje.
-- **Tope de uso diario.** Cada minuto de voz con el tutor cuesta. Como App
-  Check garantiza que las peticiones vienen de tu app, un límite dentro de
-  la app (por ejemplo, 20 minutos de tutor y 50 traducciones al día) sí
-  protege tu factura. Falta decidir las cifras.
+- **Medir el costo real** durante la prueba cerrada (Google Cloud ›
+  Facturación › Informes) y ajustar minutos o precios si hace falta.
 
 ## Ya hecho en el código
 
@@ -160,3 +196,5 @@ necesitan conexión a internet.
 - El workflow genera el AAB de Play ofuscado, con los símbolos para leer
   los errores.
 - `google-services.json` fuera del repositorio público.
+- Plan gratis + Premium con suscripción de Google Play, contador de minutos
+  y de consultas diarias.

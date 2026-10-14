@@ -1,12 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/features/premium/data/billing_service.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
+
+/// Premium status, and the way to subscribe or check minutes.
+class PremiumTile extends StatelessWidget {
+  const PremiumTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final billing = getIt<BillingService>();
+    return ValueListenableBuilder<bool>(
+      valueListenable: billing.isPremium,
+      builder: (context, premium, _) => ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: Insets.lg, vertical: Insets.sm),
+        leading: Icon(
+          premium ? Icons.verified_rounded : Icons.workspace_premium_outlined,
+          size: 20,
+          color: premium ? p.good : p.gold,
+        ),
+        title: Text('FrenchPass Premium', style: context.texts.titleMedium),
+        subtitle: Text(
+          premium
+              ? 'Activo · ${getIt<UsageService>().tutorTimeLeft().inMinutes} '
+                  'min de tutor este mes'
+              : '${UsageLimits.premiumTutorPerMonth.inMinutes} minutos de '
+                  'tutor al mes',
+          style: context.texts.bodySmall,
+        ),
+        trailing:
+            Icon(Icons.chevron_right_rounded, size: 20, color: p.textMuted),
+        onTap: () => context.push('/premium'),
+      ),
+    );
+  }
+}
 
 /// GitHub build only: this install's App Check debug token. Firebase
 /// rejects AI calls from it until the token is added in the console

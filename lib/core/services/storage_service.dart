@@ -66,13 +66,12 @@ class StorageService {
   Future<void> setStringSet(String key, Set<String> value) =>
       _prefs.setStringList(key, value.toList());
 
-  /// Wipes every FrenchPass key (used by "restablecer progreso"), except
-  /// the App Check debug token: it identifies the install, not the learner,
-  /// and a new one would have to be registered in Firebase again.
+  /// Wipes every FrenchPass key (used by "Borrar mis datos"), except the
+  /// ones in [StorageKeys.surviveReset].
   Future<void> clearAll() async {
     for (final key in _prefs.getKeys().toList()) {
       if (key.startsWith(StorageKeys.prefix) &&
-          key != StorageKeys.appCheckDebugToken) {
+          !StorageKeys.surviveReset.contains(key)) {
         await _prefs.remove(key);
       }
     }
@@ -104,4 +103,12 @@ abstract final class StorageKeys {
   static const translations = '${prefix}translator.history';
 
   static const appCheckDebugToken = '${prefix}appCheck.debugToken';
+
+  static const usage = '${prefix}premium.usage';
+  static const premiumCached = '${prefix}premium.active';
+
+  /// Kept by "Borrar mis datos": they describe the install and its
+  /// subscription, not the learner, and wiping the usage meter would hand
+  /// out a fresh free trial.
+  static const surviveReset = {appCheckDebugToken, usage, premiumCached};
 }

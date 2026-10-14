@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
@@ -17,25 +18,31 @@ class SessionReviewState extends Equatable {
   /// Lines whose last fetch failed, with a message for the learner.
   final Map<int, String> failed;
 
+  /// Of [failed], the ones refused by the free daily limit.
+  final bool limitReached;
+
   const SessionReviewState({
     this.session,
     this.loading = const {},
     this.failed = const {},
+    this.limitReached = false,
   });
 
   SessionReviewState copyWith({
     SavedSession? session,
     Set<int>? loading,
     Map<int, String>? failed,
+    bool? limitReached,
   }) =>
       SessionReviewState(
         session: session ?? this.session,
         loading: loading ?? this.loading,
         failed: failed ?? this.failed,
+        limitReached: limitReached ?? this.limitReached,
       );
 
   @override
-  List<Object?> get props => [session, loading, failed];
+  List<Object?> get props => [session, loading, failed, limitReached];
 }
 
 /// Loads a saved conversation and fetches the study material for a line the
@@ -43,13 +50,16 @@ class SessionReviewState extends Equatable {
 class SessionReviewCubit extends Cubit<SessionReviewState> {
   final TutorRepository _repo;
   final TutorReviewService _reviewer;
+  final UsageService _usage;
 
   SessionReviewCubit({
     required String sessionId,
     required TutorRepository repository,
     required TutorReviewService reviewer,
+    required UsageService usage,
   })  : _repo = repository,
         _reviewer = reviewer,
+        _usage = usage,
         super(SessionReviewState(session: repository.session(sessionId)));
 
   Lesson? get lesson {
@@ -68,6 +78,15 @@ class SessionReviewCubit extends Cubit<SessionReviewState> {
     }
     final line = session.messages[index];
     if (line.text.trim().isEmpty) return;
+
+    // Cached studies (above) are free; a new one counts.
+    if (!_usage.canUseAi) {
+      emit(state.copyWith(
+        failed: {...state.failed, index: _usage.aiLimitMessageEs},
+        limitReached: !_usage.isPremium,
+      ));
+      return;
+    }
 
     emit(state.copyWith(
       loading: {...state.loading, index},
@@ -110,6 +129,8 @@ class SessionReviewCubit extends Cubit<SessionReviewState> {
       return;
     }
 
+    await _usage.addAiQuery();
+    if (isClosed) return;
     // Re-read: another line may have been cached while this one loaded.
     final updated = state.session!.withStudy(index, result);
     emit(state.copyWith(session: updated, loading: loading));

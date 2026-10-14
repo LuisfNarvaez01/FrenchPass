@@ -8,6 +8,7 @@ import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -44,6 +45,7 @@ class TutorSessionPage extends StatelessWidget {
         reviewer: getIt<TutorReviewService>(),
         audio: DeviceTutorAudio(),
         client: GeminiLiveClient(),
+        usage: getIt<UsageService>(),
       )..start(),
       child: _LifecycleGuard(child: _SessionView(lesson: lesson)),
     );
@@ -110,9 +112,30 @@ class _SessionView extends StatelessWidget {
                   lesson: lesson,
                   canEnd: state.isLive,
                   onEnd: cubit.endLesson,
+                  timeLeft: state.isLive ? state.timeLeft : null,
                 ),
                 Expanded(
                   child: switch (state.phase) {
+                    TutorPhase.noTime => EmptyState(
+                        icon: Icons.timer_off_outlined,
+                        title: getIt<UsageService>().isPremium
+                            ? 'Se acabaron tus minutos del mes'
+                            : 'Ya usaste tu prueba gratis',
+                        message: getIt<UsageService>().isPremium
+                            ? 'El día 1 tienes '
+                                '${UsageLimits.premiumTutorPerMonth.inMinutes} '
+                                'minutos nuevos. Mientras tanto puedes repasar '
+                                'tus conversaciones.'
+                            : 'Con Premium hablas con el tutor '
+                                '${UsageLimits.premiumTutorPerMonth.inMinutes} '
+                                'minutos al mes.',
+                        actionLabel: getIt<UsageService>().isPremium
+                            ? 'Volver'
+                            : 'Ver Premium',
+                        onAction: getIt<UsageService>().isPremium
+                            ? () => context.pop()
+                            : () => context.pushReplacement('/premium'),
+                      ),
                     TutorPhase.error => EmptyState(
                         icon: Icons.wifi_off_rounded,
                         title: 'No se pudo empezar',
@@ -140,10 +163,15 @@ class _Header extends StatelessWidget {
   final bool canEnd;
   final VoidCallback onEnd;
 
+  /// Shown during the lesson, so running out of minutes is never a
+  /// surprise.
+  final Duration? timeLeft;
+
   const _Header({
     required this.lesson,
     required this.canEnd,
     required this.onEnd,
+    this.timeLeft,
   });
 
   @override
@@ -164,6 +192,18 @@ class _Header extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
           ),
+          if (timeLeft case final left?)
+            Semantics(
+              label: 'Tiempo restante con el tutor',
+              child: Pill(
+                label: left.inMinutes < 1 ? '<1 min' : '${left.inMinutes} min',
+                icon: Icons.timer_outlined,
+                tone: left.inMinutes < 2
+                    ? context.palette.warning
+                    : context.palette.textSecondary,
+                dense: true,
+              ),
+            ),
           if (canEnd)
             TextButton(onPressed: onEnd, child: const Text('Terminar')),
         ],

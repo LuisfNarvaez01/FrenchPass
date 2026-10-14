@@ -362,7 +362,16 @@ class StudySkeleton extends StatelessWidget {
 class StudyError extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
-  const StudyError({super.key, required this.message, required this.onRetry});
+
+  /// The button's text; "Reintentar" unless the fix is something else.
+  final String actionLabel;
+
+  const StudyError({
+    super.key,
+    required this.message,
+    required this.onRetry,
+    this.actionLabel = 'Reintentar',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -384,7 +393,7 @@ class StudyError extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: onRetry,
-              child: const Text('Reintentar'),
+              child: Text(actionLabel),
             ),
           ),
         ],

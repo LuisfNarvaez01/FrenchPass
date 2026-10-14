@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
 import 'package:french_pass/features/translator/domain/translation.dart';
 import 'package:french_pass/features/translator/presentation/cubit/translator_cubit.dart';
@@ -29,6 +31,7 @@ class TranslatorPage extends StatelessWidget {
         translations: getIt<TranslatorRepository>(),
         tutor: getIt<TutorRepository>(),
         gemini: getIt<TutorReviewService>(),
+        usage: getIt<UsageService>(),
       ),
       child: const _TranslatorView(),
     );
@@ -112,7 +115,14 @@ class _TranslatorViewState extends State<_TranslatorView> {
                     if (state.loading)
                       const StudySkeleton()
                     else if (state.error != null)
-                      StudyError(message: state.error!, onRetry: _translate)
+                      state.needsPremium
+                          ? StudyError(
+                              message: state.error!,
+                              actionLabel: 'Ver Premium',
+                              onRetry: () => context.push('/premium'),
+                            )
+                          : StudyError(
+                              message: state.error!, onRetry: _translate)
                     else if (current != null) ...[
                       _Result(translation: current),
                       const SizedBox(height: Insets.xl),

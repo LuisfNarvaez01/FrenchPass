@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
@@ -8,6 +9,7 @@ import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
@@ -55,6 +57,7 @@ class SessionReviewPage extends StatelessWidget {
         sessionId: sessionId,
         repository: getIt<TutorRepository>(),
         reviewer: getIt<TutorReviewService>(),
+        usage: getIt<UsageService>(),
       ),
       child: const _ReviewView(),
     );
@@ -499,7 +502,13 @@ class _StudySheetState extends State<_StudySheet> with TtsPlaybackState {
                 else if (loading)
                   const StudySkeleton()
                 else if (failure != null)
-                  StudyError(message: failure, onRetry: _load)
+                  state.limitReached
+                      ? StudyError(
+                          message: failure,
+                          actionLabel: 'Ver Premium',
+                          onRetry: () => context.push('/premium'),
+                        )
+                      : StudyError(message: failure, onRetry: _load)
                 else
                   const SizedBox.shrink(),
 

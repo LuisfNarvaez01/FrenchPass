@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:french_pass/core/shell/main_shell.dart';
 import 'package:french_pass/features/categories/presentation/pages/categories_page.dart';
 import 'package:french_pass/features/categories/presentation/pages/category_words_page.dart';
+import 'package:french_pass/features/premium/presentation/pages/premium_page.dart';
 import 'package:french_pass/features/progress/presentation/pages/progress_page.dart';
 import 'package:french_pass/features/pronunciation/presentation/pages/pronunciation_practice_page.dart';
 import 'package:french_pass/features/quiz/presentation/pages/quiz_page.dart';
@@ -66,6 +67,11 @@ class AppRouter {
         name: 'tutor-session',
         builder: (context, state) =>
             TutorSessionPage(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: '/premium',
+        name: 'premium',
+        builder: (context, state) => const PremiumPage(),
       ),
       GoRoute(
         path: '/translator',

@@ -7,6 +7,8 @@ import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/features/premium/data/billing_service.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
@@ -25,7 +27,16 @@ class TutorPage extends StatefulWidget {
 class _TutorPageState extends State<TutorPage> {
   final _repo = getIt<TutorRepository>();
 
+  final _usage = getIt<UsageService>();
+  final _billing = getIt<BillingService>();
   final bool _aiReady = AiBackend.isReady;
+
+  @override
+  void dispose() {
+    _billing.isPremium.removeListener(_reload);
+    super.dispose();
+  }
+
   late LearnerProfile _profile;
   late Set<String> _completed;
   List<SavedSession> _sessions = const [];
@@ -33,6 +44,7 @@ class _TutorPageState extends State<TutorPage> {
   @override
   void initState() {
     super.initState();
+    _billing.isPremium.addListener(_reload);
     _reload();
   }
 
@@ -79,6 +91,17 @@ class _TutorPageState extends State<TutorPage> {
               style: context.texts.bodySmall,
             ),
             const SizedBox(height: Insets.xl),
+            if (_aiReady) ...[
+              _PlanCard(
+                premium: _usage.isPremium,
+                timeLeft: _usage.tutorTimeLeft(),
+                onPremium: () async {
+                  await context.push('/premium');
+                  _reload();
+                },
+              ).animate().fadeIn(duration: Motion.base),
+              const SizedBox(height: Insets.xl),
+            ],
             if (!_aiReady) ...[
               InfoNotice(
                 icon: Icons.cloud_off_rounded,
@@ -264,6 +287,79 @@ class _Bullets extends StatelessWidget {
             child: Text('· $item', style: context.texts.bodySmall),
           ),
       ],
+    );
+  }
+}
+
+/// Which plan the learner is on and how much tutor time is left, with the
+/// way to Premium when the free trial is short or spent.
+class _PlanCard extends StatelessWidget {
+  final bool premium;
+  final Duration timeLeft;
+  final VoidCallback onPremium;
+
+  const _PlanCard({
+    required this.premium,
+    required this.timeLeft,
+    required this.onPremium,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final minutes = timeLeft.inMinutes;
+    final spent = timeLeft < const Duration(seconds: 30);
+    final (title, detail) = premium
+        ? (
+            'Premium',
+            spent
+                ? 'Usaste tus minutos de este mes. El día 1 se renuevan.'
+                : 'Te quedan $minutes min con el tutor este mes.',
+          )
+        : spent
+            ? (
+                'Tu prueba gratis terminó',
+                'Con Premium hablas con el tutor '
+                    '${UsageLimits.premiumTutorPerMonth.inMinutes} minutos al '
+                    'mes.',
+              )
+            : (
+                'Prueba gratis',
+                minutes == 1
+                    ? 'Te queda 1 minuto para hablar con el tutor.'
+                    : 'Te quedan $minutes minutos para hablar con el tutor.',
+              );
+
+    return AppCard(
+      accent: !premium && spent,
+      onTap: premium ? null : onPremium,
+      padding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.md),
+      child: Row(
+        children: [
+          Icon(
+            premium ? Icons.verified_rounded : Icons.timer_outlined,
+            color: premium ? p.good : p.gold,
+            size: 22,
+          ),
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: context.texts.titleMedium),
+                const SizedBox(height: 2),
+                Text(detail, style: context.texts.bodySmall),
+              ],
+            ),
+          ),
+          if (!premium) ...[
+            const SizedBox(width: Insets.sm),
+            Text('Ver Premium',
+                style: context.texts.labelLarge?.copyWith(color: p.gold)),
+          ],
+        ],
+      ),
     );
   }
 }

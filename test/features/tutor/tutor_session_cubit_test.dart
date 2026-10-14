@@ -5,6 +5,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/services/storage_service.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -20,11 +21,21 @@ void main() {
   late FakeAudio audio;
   late FakeReviewer reviewer;
   late TutorRepository repo;
+  late UsageService usage;
 
-  Future<TutorSessionCubit> started({bool aiReady = true}) async {
+  Future<TutorSessionCubit> started({
+    bool aiReady = true,
+    bool premium = false,
+    Duration alreadyUsed = Duration.zero,
+  }) async {
     SharedPreferences.setMockInitialValues({});
     final storage = await StorageService.create();
     repo = TutorRepository(storage);
+    // The trial is spent on the free plan, then the subscription starts.
+    var subscribed = false;
+    usage = UsageService(storage, isPremium: () => subscribed);
+    await usage.addTutorTime(alreadyUsed);
+    subscribed = premium;
     AiBackend.readyForTesting = aiReady;
     final cubit = TutorSessionCubit(
       lesson: Lessons.byId('cafe')!,
@@ -32,6 +43,7 @@ void main() {
       reviewer: reviewer,
       audio: audio,
       client: client,
+      usage: usage,
     );
     await cubit.start();
     return cubit;
@@ -50,6 +62,23 @@ void main() {
     expect(cubit.state.phase, TutorPhase.error);
     expect(cubit.state.error, contains('no está disponible'));
     expect(client.connected, isFalse);
+    await cubit.close();
+  });
+
+  test('with the free trial spent it offers Premium and never connects',
+      () async {
+    final cubit = await started(alreadyUsed: UsageLimits.freeTutor);
+    expect(cubit.state.phase, TutorPhase.noTime);
+    expect(client.connected, isFalse);
+    expect(audio.micOn, isFalse);
+    await cubit.close();
+  });
+
+  test('a subscriber who spent the trial still gets the month', () async {
+    final cubit =
+        await started(premium: true, alreadyUsed: UsageLimits.freeTutor);
+    expect(client.connected, isTrue);
+    expect(cubit.state.timeLeft, UsageLimits.premiumTutorPerMonth);
     await cubit.close();
   });
 

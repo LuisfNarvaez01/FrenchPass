@@ -10,6 +10,8 @@ import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/services/update_service.dart';
 import 'package:french_pass/core/services/widget_service.dart';
+import 'package:french_pass/features/premium/data/billing_service.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
@@ -40,6 +42,10 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<TutorRepository>(TutorRepository(storage));
   getIt.registerSingleton<TutorReviewService>(TutorReviewService());
   getIt.registerSingleton<TranslatorRepository>(TranslatorRepository(storage));
+  final billing = BillingService(storage);
+  getIt.registerSingleton<BillingService>(billing);
+  getIt.registerSingleton<UsageService>(
+      UsageService(storage, isPremium: () => billing.isPremium.value));
 
   // ─── BLoCs ────────────────────────────────────────────────────────────────
   getIt.registerFactory<SettingsBloc>(
@@ -58,6 +64,8 @@ Future<void> configureDependencies() async {
   if (AppChannel.isGithub) {
     unawaited(getIt<UpdateService>().checkInBackground());
   }
+  // Starts from the cached Premium state and corrects it once Play answers.
+  unawaited(billing.init());
 
   // Push today's word to the home-screen widget as soon as it is known, so
   // a widget placed on the home screen is current even on a launch where

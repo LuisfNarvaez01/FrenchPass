@@ -41,6 +41,8 @@ class SettingsPage extends StatelessWidget {
               _Group(
                 eyebrow: 'Tutor de IA',
                 children: [
+                  const PremiumTile(),
+                  const _Separator(),
                   const VoiceTile(),
                   if (AiBackend.debugToken case final token?) ...[
                     const _Separator(),

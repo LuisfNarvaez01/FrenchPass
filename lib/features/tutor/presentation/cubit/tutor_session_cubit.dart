@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_prompt.dart';
@@ -17,6 +18,9 @@ import 'package:french_pass/features/tutor/domain/saved_session.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 
 enum TutorPhase {
+  /// No tutor time left: the free trial is spent, or this month's Premium
+  /// minutes are.
+  noTime,
   connecting,
 
   /// Waiting for the tutor to answer.
@@ -53,6 +57,9 @@ class TutorSessionState extends Equatable {
   /// can open it for review.
   final String? savedSessionId;
 
+  /// Tutor time left while the lesson runs.
+  final Duration? timeLeft;
+
   const TutorSessionState({
     this.phase = TutorPhase.connecting,
     this.messages = const [],
@@ -66,6 +73,7 @@ class TutorSessionState extends Equatable {
     this.translations = const {},
     this.replayable = const {},
     this.savedSessionId,
+    this.timeLeft,
   });
 
   bool get isLive =>
@@ -92,6 +100,7 @@ class TutorSessionState extends Equatable {
     Map<int, String?>? translations,
     Set<int>? replayable,
     String? savedSessionId,
+    Duration? timeLeft,
   }) =>
       TutorSessionState(
         phase: phase ?? this.phase,
@@ -106,6 +115,7 @@ class TutorSessionState extends Equatable {
         translations: translations ?? this.translations,
         replayable: replayable ?? this.replayable,
         savedSessionId: savedSessionId ?? this.savedSessionId,
+        timeLeft: timeLeft ?? this.timeLeft,
       );
 
   @override
@@ -122,6 +132,7 @@ class TutorSessionState extends Equatable {
         translations,
         replayable,
         savedSessionId,
+        timeLeft,
       ];
 }
 
@@ -134,6 +145,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   final TutorReviewService _reviewer;
   final TutorAudio _audio;
   final GeminiLiveClient _client;
+  final UsageService _usage;
 
   TutorSessionCubit({
     required this.lesson,
@@ -141,11 +153,20 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     required TutorReviewService reviewer,
     required TutorAudio audio,
     required GeminiLiveClient client,
+    required UsageService usage,
   })  : _repo = repository,
         _reviewer = reviewer,
         _audio = audio,
         _client = client,
+        _usage = usage,
         super(const TutorSessionState());
+
+  /// Tutor time available when the lesson started, and the clock that
+  /// spends it while the conversation is live.
+  Duration _budget = Duration.zero;
+  final Stopwatch _liveClock = Stopwatch();
+  Timer? _ticker;
+  bool _charged = false;
 
   StreamSubscription<LiveEvent>? _eventSub;
   StreamSubscription<void>? _drainSub;
@@ -177,6 +198,11 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
       _fail(const AiException(unavailable: true).messageEs);
       return;
     }
+    if (!_usage.canStartTutor) {
+      emit(state.copyWith(phase: TutorPhase.noTime));
+      return;
+    }
+    _budget = _usage.tutorTimeLeft();
     if (!await _audio.requestMicrophone()) {
       _fail('Necesito permiso para usar el micrófono. Actívalo en los '
           'ajustes de Android para hablar con el tutor.');
@@ -214,8 +240,37 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     }
 
     _turnComplete = false;
-    emit(state.copyWith(phase: TutorPhase.thinking));
+    emit(state.copyWith(phase: TutorPhase.thinking, timeLeft: _budget));
     _client.sendText(TutorPrompt.startRequest);
+    _liveClock.start();
+    _ticker = Timer.periodic(const Duration(seconds: 5), (_) => _tick());
+  }
+
+  /// Spends tutor time while the lesson runs, and ends it when none is left.
+  void _tick() {
+    if (isClosed || _ending || !state.isLive) return;
+    final left = _budget - _liveClock.elapsed;
+    if (left <= Duration.zero) {
+      unawaited(endLesson(
+        note: _usage.isPremium
+            ? 'Se acabaron tus minutos con el tutor de este mes. El día 1 '
+                'tienes ${UsageLimits.premiumTutorPerMonth.inMinutes} más.'
+            : 'Se terminó tu prueba gratis con el tutor. Con Premium tienes '
+                '${UsageLimits.premiumTutorPerMonth.inMinutes} minutos al '
+                'mes.',
+      ));
+      return;
+    }
+    emit(state.copyWith(timeLeft: left));
+  }
+
+  /// Charges the time spent, once, however the lesson ends.
+  Future<void> _chargeTime() async {
+    _ticker?.cancel();
+    _liveClock.stop();
+    if (_charged || _liveClock.elapsed == Duration.zero) return;
+    _charged = true;
+    await _usage.addTutorTime(_liveClock.elapsed);
   }
 
   Future<void> _connect(String model) => _client.connect(
@@ -458,6 +513,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   Future<void> endLesson({String? note}) async {
     if (_ending) return;
     _ending = true;
+    await _chargeTime();
     await _drainSub?.cancel();
     await _eventSub?.cancel();
     await _audio.stopMic();
@@ -545,6 +601,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   @override
   Future<void> close() async {
     _ending = true;
+    await _chargeTime();
     await _drainSub?.cancel();
     await _eventSub?.cancel();
     await _audio.stopMic();

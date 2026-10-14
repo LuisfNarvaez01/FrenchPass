@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
 import 'package:french_pass/features/translator/domain/translation.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -16,15 +17,20 @@ class TranslatorState extends Equatable {
   /// Why the last translation failed, worded for the learner.
   final String? error;
 
+  /// The failure was the free daily limit: offer Premium.
+  final bool needsPremium;
+
   const TranslatorState({
     this.current,
     this.history = const [],
     this.loading = false,
     this.error,
+    this.needsPremium = false,
   });
 
   @override
-  List<Object?> get props => [current?.id, history.length, loading, error];
+  List<Object?> get props =>
+      [current?.id, history.length, loading, error, needsPremium];
 }
 
 /// Sends a Spanish sentence to Gemini and keeps the result in the history,
@@ -37,14 +43,17 @@ class TranslatorCubit extends Cubit<TranslatorState> {
   final TranslatorRepository _translations;
   final TutorRepository _tutor;
   final TutorReviewService _gemini;
+  final UsageService _usage;
 
   TranslatorCubit({
     required TranslatorRepository translations,
     required TutorRepository tutor,
     required TutorReviewService gemini,
+    required UsageService usage,
   })  : _translations = translations,
         _tutor = tutor,
         _gemini = gemini,
+        _usage = usage,
         super(TranslatorState(history: translations.history()));
 
   Future<void> translate(String text) async {
@@ -54,6 +63,16 @@ class TranslatorCubit extends Cubit<TranslatorState> {
     final saved = _translations.find(source);
     if (saved != null) {
       emit(TranslatorState(current: saved, history: state.history));
+      return;
+    }
+
+    // Saved translations above are free; only a new request counts.
+    if (!_usage.canUseAi) {
+      emit(TranslatorState(
+        history: state.history,
+        error: _usage.aiLimitMessageEs,
+        needsPremium: !_usage.isPremium,
+      ));
       return;
     }
 
@@ -79,6 +98,7 @@ class TranslatorCubit extends Cubit<TranslatorState> {
       emit(TranslatorState(history: state.history, error: error));
       return;
     }
+    await _usage.addAiQuery();
     await _translations.save(result);
     if (isClosed) return;
     emit(TranslatorState(current: result, history: _translations.history()));
