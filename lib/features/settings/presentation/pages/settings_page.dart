@@ -189,7 +189,11 @@ class _Group extends StatelessWidget {
         ),
         AppCard(
           padding: EdgeInsets.zero,
-          child: Column(children: children),
+          // Its own Material, or the card's fill hides the tiles' ripple.
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(children: children),
+          ),
         ),
       ],
     );
@@ -313,8 +317,7 @@ class _PlacementTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final done =
-        getIt<StorageService>().getString(StorageKeys.placementLevel);
+    final done = getIt<StorageService>().getString(StorageKeys.placementLevel);
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
           horizontal: Insets.lg, vertical: Insets.sm),

@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/notification_service.dart';
+import 'package:french_pass/core/services/reminder_service.dart';
+import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
@@ -22,12 +24,19 @@ import 'package:french_pass/features/practice/presentation/pages/placement_page.
 import 'package:french_pass/features/practice/presentation/pages/practice_hub_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/reading_pages.dart';
 import 'package:french_pass/features/conjugation/domain/conjugator.dart';
+import 'package:french_pass/features/premium/data/billing_service.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
+import 'package:french_pass/features/premium/presentation/pages/premium_page.dart';
+import 'package:french_pass/features/settings/presentation/pages/settings_page.dart';
+import 'package:french_pass/features/tutor/presentation/pages/tutor_page.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/achievements.dart';
 import 'package:french_pass/features/progress/presentation/pages/progress_page.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
+import 'package:french_pass/features/word_of_the_day/presentation/pages/home_page.dart';
+import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -52,12 +61,23 @@ void main() {
     getIt.registerSingleton<AchievementService>(AchievementService(
         storage, getIt<ProgressRepository>(),
         tutorLessons: () => 0));
-    settings =
-        SettingsBloc(storage, NotificationService(), getIt<TtsService>());
+    final notifications = NotificationService();
+    getIt
+      ..registerSingleton<NotificationService>(notifications)
+      ..registerSingleton<WidgetService>(WidgetService())
+      ..registerSingleton<ReminderService>(
+          ReminderService(storage, notifications, getIt<ProgressRepository>()));
+    final billing = BillingService(storage);
+    getIt
+      ..registerSingleton<BillingService>(billing)
+      ..registerSingleton<UsageService>(
+          UsageService(storage, isPremium: () => billing.isPremium.value));
+    settings = SettingsBloc(storage, notifications, getIt<TtsService>());
   });
 
   Future<void> mount(WidgetTester tester, Widget page) async {
-    tester.view.physicalSize = const Size(1080, 2340);
+    // 360 dp wide: one of the narrowest common Android phones.
+    tester.view.physicalSize = const Size(990, 2340);
     tester.view.devicePixelRatio = 2.75;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(BlocProvider.value(
@@ -153,5 +173,49 @@ void main() {
     await mount(tester, const ProgressPage());
     expect(find.text('Logros'), findsOneWidget);
     expect(find.text('Primer paso'), findsOneWidget);
+  });
+
+  testWidgets('match pairs works starting from the meaning', (tester) async {
+    await mount(tester, const MatchPairsPage());
+    final words = getIt<WordRepository>();
+    final french = tester
+        .widgetList<Text>(find.byType(Text))
+        .map((t) => t.data ?? '')
+        .map(words.lookup)
+        .whereType<Word>()
+        .toSet()
+        .toList();
+    expect(french.length, 5);
+    for (final w in french) {
+      await tester.tap(find.text(w.translationEs).first);
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.tap(find.text(w.french).first);
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await tester.pump(const Duration(seconds: 2));
+    expect(find.text('Ronda 2 de 3'), findsOneWidget);
+  });
+
+  testWidgets('home shows the goal and offers the placement test',
+      (tester) async {
+    // Home lives inside the tab shell's Scaffold.
+    await mount(tester, const Scaffold(body: HomePage()));
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Palabra del día'), findsOneWidget);
+    expect(find.textContaining('Meta de hoy'), findsOneWidget);
+    expect(find.text('¿Cuál es tu nivel?'), findsOneWidget);
+  });
+
+  testWidgets('tutor tab, premium and settings', (tester) async {
+    await mount(tester, const Scaffold(body: TutorPage()));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Traductor'), findsOneWidget);
+    await mount(tester, const PremiumPage());
+    expect(tester.takeException(), isNull);
+    expect(find.text('FrenchPass Premium'), findsOneWidget);
+    await mount(tester, const SettingsPage());
+    expect(tester.takeException(), isNull);
+    expect(find.text('Meta diaria'), findsOneWidget);
   });
 }

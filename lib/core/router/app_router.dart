@@ -114,8 +114,10 @@ class AppRouter {
         routes: [
           GoRoute(
             path: ':verb',
-            builder: (context, state) => VerbPage(
-                verb: Uri.decodeComponent(state.pathParameters['verb']!)),
+            // go_router hands the parameter over already decoded; decoding
+            // it again threw on any accent ("être") and left a grey page.
+            builder: (context, state) =>
+                VerbPage(verb: state.pathParameters['verb']!),
           ),
         ],
       ),

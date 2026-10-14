@@ -9,6 +9,11 @@ import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/features/practice/data/learning_content.dart';
 
+/// Two-voice examples ("Tu viens ? — Ça dépend.") and quotes make poor
+/// dictation and ordering material: the learner would have to place or
+/// type the dash and the quote marks.
+bool hasDialogue(String sentence) => RegExp(r'[—«»"]').hasMatch(sentence);
+
 /// The frame every exercise shares: back button, title, and how far along
 /// the session is.
 class PracticeScaffold extends StatelessWidget {
@@ -87,6 +92,7 @@ class _SpeakButtonState extends State<SpeakButton> {
   bool _busy = false;
 
   Future<void> _speak() async {
+    if (widget.text.trim().isEmpty) return;
     final tts = getIt<TtsService>();
     setState(() => _busy = true);
     final ok = widget.slow

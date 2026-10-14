@@ -33,7 +33,7 @@ abstract final class AnswerCheck {
       .toLowerCase()
       .replaceAll('’', "'")
       .replaceAll(RegExp(r"\s*'\s*"), "'")
-      .replaceAll(RegExp(r'[.!?,;:¿¡]+'), ' ')
+      .replaceAll(RegExp(r'[.!?,;:¿¡—«»"]+'), ' ')
       .replaceAll(RegExp(r'\s+'), ' ')
       .trim();
 

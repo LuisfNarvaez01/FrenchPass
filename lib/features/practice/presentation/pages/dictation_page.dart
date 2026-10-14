@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/text/answer_check.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/practice/presentation/widgets/practice_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
@@ -46,7 +47,7 @@ class _DictationPageState extends State<DictationPage> {
     final sentences = pool
         .where((w) {
           final n = w.exampleFr.split(' ').length;
-          return n >= 3 && n <= 6;
+          return n >= 3 && n <= 6 && !hasDialogue(w.exampleFr);
         })
         .take(_sentences)
         .map((w) => (fr: _clean(w.exampleFr), es: w.exampleEs));
@@ -64,7 +65,14 @@ class _DictationPageState extends State<DictationPage> {
   @override
   Widget build(BuildContext context) {
     if (_items.isEmpty) {
-      return const PracticeScaffold(title: 'Dictado', child: SizedBox());
+      return const PracticeScaffold(
+        title: 'Dictado',
+        child: EmptyState(
+          icon: Icons.filter_alt_off_outlined,
+          title: 'Sin palabras para este nivel',
+          message: 'Cambia el nivel en Ajustes y vuelve a intentarlo.',
+        ),
+      );
     }
     if (_index >= _items.length) {
       return PracticeScaffold(

@@ -161,8 +161,7 @@ class _HomeViewState extends State<_HomeView>
                             _NewAchievements(
                               achievements: fresh,
                               onOpen: () async {
-                                await getIt<AchievementService>()
-                                    .markAllSeen();
+                                await getIt<AchievementService>().markAllSeen();
                                 if (!context.mounted) return;
                                 context.go('/progress');
                               },
@@ -340,7 +339,9 @@ class _PlacementPrompt extends StatelessWidget {
                 Text('Tres minutos y la app se ajusta a ti.',
                     style: context.texts.bodySmall),
                 const SizedBox(height: Insets.xs),
-                Row(
+                // Wrap, not Row: both buttons don't fit beside the mascot
+                // on a typical phone.
+                Wrap(
                   children: [
                     TextButton(
                         onPressed: onStart,

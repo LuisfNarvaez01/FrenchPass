@@ -186,17 +186,27 @@ class _ReadingPageState extends State<ReadingPage> {
               runSpacing: 4,
               children: [
                 for (final token in sentence.fr.split(' '))
-                  InkWell(
-                    onTap: () => _showWord(token),
-                    borderRadius: BorderRadius.circular(Radii.sm),
-                    child: Padding(
+                  // «, », ?, "2022.": shown, but nothing to look up.
+                  if (!RegExp(r'\p{L}', unicode: true).hasMatch(token))
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 2, vertical: 2),
                       child: Text(token,
                           style:
                               context.texts.titleMedium?.copyWith(height: 1.5)),
+                    )
+                  else
+                    InkWell(
+                      onTap: () => _showWord(token),
+                      borderRadius: BorderRadius.circular(Radii.sm),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 2, vertical: 2),
+                        child: Text(token,
+                            style: context.texts.titleMedium
+                                ?.copyWith(height: 1.5)),
+                      ),
                     ),
-                  ),
                 InkWell(
                   onTap: () => setState(() {
                     if (!_translated.remove(i)) _translated.add(i);

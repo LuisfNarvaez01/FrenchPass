@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/practice/presentation/widgets/practice_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
@@ -52,7 +53,7 @@ class _OrderSentencePageState extends State<OrderSentencePage> {
       _items = pool
           .where((w) {
             final n = tokens(w.exampleFr).length;
-            return n >= 4 && n <= 8;
+            return n >= 4 && n <= 8 && !hasDialogue(w.exampleFr);
           })
           .take(_length)
           .toList();
@@ -92,7 +93,13 @@ class _OrderSentencePageState extends State<OrderSentencePage> {
   Widget build(BuildContext context) {
     if (_items.isEmpty) {
       return const PracticeScaffold(
-          title: 'Ordena la frase', child: SizedBox());
+        title: 'Ordena la frase',
+        child: EmptyState(
+          icon: Icons.filter_alt_off_outlined,
+          title: 'Sin frases para este nivel',
+          message: 'Cambia el nivel en Ajustes y vuelve a intentarlo.',
+        ),
+      );
     }
     if (_index >= _items.length) {
       return PracticeScaffold(
@@ -229,7 +236,10 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
   List<Word> _right = const [];
   final Set<String> _matched = {};
   final Set<String> _missed = {};
+
+  /// The half of a pair picked first, on either side.
   String? _left;
+  String? _rightPick;
   String? _wrongFlash;
   int _firstTry = 0;
 
@@ -260,18 +270,38 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
       _matched.clear();
       _missed.clear();
       _left = null;
+      _rightPick = null;
     });
   }
 
-  Future<void> _pickRight(Word w) async {
+  /// Either side can go first.
+  void _tapLeft(Word w) {
+    final right = _rightPick;
+    if (right != null) {
+      _tryPair(w.id, right);
+    } else {
+      setState(() => _left = w.id);
+    }
+  }
+
+  void _tapRight(Word w) {
+    if (_matched.contains(w.id)) return;
     final left = _left;
-    if (left == null || _matched.contains(w.id)) return;
-    if (left == w.id) {
-      setState(() {
-        _matched.add(w.id);
-        _left = null;
-      });
-      if (!_missed.contains(w.id)) _firstTry++;
+    if (left != null) {
+      _tryPair(left, w.id);
+    } else {
+      setState(() => _rightPick = w.id);
+    }
+  }
+
+  Future<void> _tryPair(String left, String right) async {
+    setState(() {
+      _left = null;
+      _rightPick = null;
+    });
+    if (left == right) {
+      setState(() => _matched.add(left));
+      if (!_missed.contains(left)) _firstTry++;
       await getIt<ProgressRepository>().recordPractice(PracticeKind.match);
       if (_matched.length == _words.length) {
         await Future<void>.delayed(const Duration(milliseconds: 400));
@@ -286,8 +316,7 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
     } else {
       setState(() {
         _missed.add(left);
-        _wrongFlash = w.id;
-        _left = null;
+        _wrongFlash = right;
       });
       await Future<void>.delayed(const Duration(milliseconds: 500));
       if (mounted) setState(() => _wrongFlash = null);
@@ -370,7 +399,7 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
                     done: _matched.contains(_words[i].id),
                     selected: _left == _words[i].id,
                     wrong: false,
-                    onTap: () => setState(() => _left = _words[i].id),
+                    onTap: () => _tapLeft(_words[i]),
                   ),
                 ),
                 const SizedBox(width: Insets.md),
@@ -378,9 +407,9 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
                   child: cell(
                     _right[i].translationEs,
                     done: _matched.contains(_right[i].id),
-                    selected: false,
+                    selected: _rightPick == _right[i].id,
                     wrong: _wrongFlash == _right[i].id,
-                    onTap: () => _pickRight(_right[i]),
+                    onTap: () => _tapRight(_right[i]),
                   ),
                 ),
               ],
