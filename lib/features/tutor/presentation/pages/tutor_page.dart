@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
@@ -24,7 +25,7 @@ class TutorPage extends StatefulWidget {
 class _TutorPageState extends State<TutorPage> {
   final _repo = getIt<TutorRepository>();
 
-  bool? _hasKey;
+  final bool _aiReady = AiBackend.isReady;
   late LearnerProfile _profile;
   late Set<String> _completed;
   List<SavedSession> _sessions = const [];
@@ -35,11 +36,9 @@ class _TutorPageState extends State<TutorPage> {
     _reload();
   }
 
-  Future<void> _reload() async {
-    final key = await _repo.apiKey();
+  void _reload() {
     if (!mounted) return;
     setState(() {
-      _hasKey = key != null;
       _profile = _repo.profile();
       _completed = _repo.completedLessonIds();
       _sessions = _repo.sessions();
@@ -49,23 +48,16 @@ class _TutorPageState extends State<TutorPage> {
   Future<void> _open(Lesson lesson) async {
     await context.push('/tutor/${lesson.id}');
     // A finished lesson rewrites the profile and history.
-    if (mounted) await _reload();
+    _reload();
   }
 
   Future<void> _review(SavedSession session) async {
     await context.push('/review/${session.id}');
-    if (mounted) await _reload();
-  }
-
-  Future<void> _openSettings() async {
-    await context.push('/settings');
-    if (mounted) await _reload();
+    _reload();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_hasKey == null) return const AppLoader();
-
     final byLevel = <CefrLevel, List<Lesson>>{};
     for (final lesson in Lessons.all.where((l) => !l.isFreeTalk)) {
       byLevel.putIfAbsent(lesson.level, () => []).add(lesson);
@@ -87,17 +79,19 @@ class _TutorPageState extends State<TutorPage> {
               style: context.texts.bodySmall,
             ),
             const SizedBox(height: Insets.xl),
-            if (_hasKey == false) ...[
-              _KeyMissingCard(onSetUp: _openSettings)
-                  .animate()
-                  .fadeIn(duration: Motion.base),
+            if (!_aiReady) ...[
+              InfoNotice(
+                icon: Icons.cloud_off_rounded,
+                iconColor: context.palette.warning,
+                message: const AiException(unavailable: true).messageEs,
+              ).animate().fadeIn(duration: Motion.base),
               const SizedBox(height: Insets.xl),
             ] else if (!_profile.isEmpty) ...[
               _ProfileCard(
                 profile: _profile,
                 onReset: () async {
                   await _repo.resetProfile();
-                  await _reload();
+                  _reload();
                 },
               ).animate().fadeIn(duration: Motion.base),
               const SizedBox(height: Insets.xl),
@@ -116,7 +110,7 @@ class _TutorPageState extends State<TutorPage> {
             _LessonTile(
               lesson: freeTalk,
               done: false,
-              enabled: _hasKey == true,
+              enabled: _aiReady,
               onTap: () => _open(freeTalk),
             ).animate().fadeIn(delay: Motion.stagger(1)),
             for (final (i, entry) in byLevel.entries.indexed) ...[
@@ -130,7 +124,7 @@ class _TutorPageState extends State<TutorPage> {
                 _LessonTile(
                   lesson: lesson,
                   done: _completed.contains(lesson.id),
-                  enabled: _hasKey == true,
+                  enabled: _aiReady,
                   onTap: () => _open(lesson),
                 ).animate().fadeIn(delay: Motion.stagger(2 + i)),
                 const SizedBox(height: Insets.sm),
@@ -138,46 +132,6 @@ class _TutorPageState extends State<TutorPage> {
             ],
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _KeyMissingCard extends StatelessWidget {
-  final VoidCallback onSetUp;
-  const _KeyMissingCard({required this.onSetUp});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.key_rounded, color: p.gold, size: 22),
-              const SizedBox(width: Insets.md),
-              Expanded(
-                child: Text('Conecta tu clave de Gemini',
-                    style: context.texts.titleMedium),
-              ),
-            ],
-          ),
-          const SizedBox(height: Insets.sm),
-          Text(
-            'El tutor usa la IA de Google. Pega tu clave una vez en Ajustes; '
-            'se guarda cifrada solo en este teléfono.',
-            style: context.texts.bodySmall,
-          ),
-          const SizedBox(height: Insets.lg),
-          ElevatedButton(
-            onPressed: onSetUp,
-            style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(48)),
-            child: const Text('Ir a Ajustes'),
-          ),
-        ],
       ),
     );
   }

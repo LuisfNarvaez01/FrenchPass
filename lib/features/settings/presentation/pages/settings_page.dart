@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
@@ -37,12 +38,14 @@ class SettingsPage extends StatelessWidget {
               const SizedBox(height: Insets.xl),
 
               // ── Tutor ─────────────────────────────────────────────────────
-              const _Group(
+              _Group(
                 eyebrow: 'Tutor de IA',
                 children: [
-                  ApiKeyTile(),
-                  _Separator(),
-                  VoiceTile(),
+                  const VoiceTile(),
+                  if (AiBackend.debugToken case final token?) ...[
+                    const _Separator(),
+                    AppCheckTokenTile(token: token),
+                  ],
                 ],
               ),
 

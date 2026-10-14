@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_prompt.dart';
@@ -16,8 +17,6 @@ import 'package:french_pass/features/tutor/domain/saved_session.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 
 enum TutorPhase {
-  /// No API key saved yet.
-  needsKey,
   connecting,
 
   /// Waiting for the tutor to answer.
@@ -150,7 +149,6 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
 
   StreamSubscription<LiveEvent>? _eventSub;
   StreamSubscription<void>? _drainSub;
-  String? _apiKey;
   LearnerProfile _profile = LearnerProfile.empty;
 
   /// The server finished its turn; once the audio queue drains, the mic
@@ -175,9 +173,8 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   DateTime _lastLevelEmit = DateTime.fromMillisecondsSinceEpoch(0);
 
   Future<void> start() async {
-    _apiKey = await _repo.apiKey();
-    if (_apiKey == null) {
-      emit(state.copyWith(phase: TutorPhase.needsKey));
+    if (!AiBackend.isReady) {
+      _fail(const AiException(unavailable: true).messageEs);
       return;
     }
     if (!await _audio.requestMicrophone()) {
@@ -194,21 +191,16 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     try {
       await _connect(GeminiModels.live);
     } on LiveConnectException catch (e) {
-      if (e.closed?.isAuthOrSetupError ?? false) {
-        if ((e.closed?.reason ?? '').contains('API key')) {
-          _fail('La clave de Gemini no es válida. Revísala en Ajustes.');
-          return;
-        }
-        // A rejected setup usually means the preview model is gone: retry
-        // once on the stable fallback before giving up.
-        try {
-          await _connect(GeminiModels.liveFallback);
-        } on LiveConnectException catch (e2) {
-          _fail(_connectError(e2));
-          return;
-        }
-      } else {
+      if (!e.modelRejected) {
         _fail(_connectError(e));
+        return;
+      }
+      // The preview model was refused (withdrawn or renamed): retry once
+      // on the fallback before giving up.
+      try {
+        await _connect(GeminiModels.liveFallback);
+      } on LiveConnectException catch (e2) {
+        _fail(_connectError(e2));
         return;
       }
     }
@@ -227,21 +219,17 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   }
 
   Future<void> _connect(String model) => _client.connect(
-        apiKey: _apiKey!,
-        setup: buildLiveSetup(
-          model: model,
-          voice: _repo.voice,
-          systemInstruction: TutorPrompt.systemInstruction(lesson, _profile),
-          tools: TutorPrompt.tools(),
-        ),
+        model: model,
+        voice: _repo.voice,
+        systemInstruction: TutorPrompt.systemInstruction(lesson, _profile),
+        tools: TutorPrompt.tools(),
       );
 
   String _connectError(LiveConnectException e) {
-    final reason = e.closed?.reason ?? e.message;
-    if (reason.contains('quota') || reason.contains('RESOURCE_EXHAUSTED')) {
-      return 'Se agotó el uso gratuito de Gemini por ahora. Prueba más tarde.';
-    }
-    return 'No pude conectar con el tutor. Revisa tu conexión a internet.';
+    final ai = e.asAiException;
+    return ai.rateLimited || ai.unavailable
+        ? ai.messageEs
+        : 'No pude conectar con el tutor. Revisa tu conexión a internet.';
   }
 
   // ── Mic ──────────────────────────────────────────────────────────────────
@@ -440,8 +428,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
 
   /// "¿Qué ha dicho?": translates a tutor line into Spanish.
   Future<void> translateLine(int index) async {
-    final key = _apiKey;
-    if (key == null || index >= state.messages.length) return;
+    if (index >= state.messages.length) return;
     if (state.translations.containsKey(index)) return;
     final line = state.messages[index];
     if (line is! TutorLine || line.text.trim().isEmpty) return;
@@ -449,7 +436,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     emit(state.copyWith(translations: {...state.translations, index: null}));
     String? result;
     try {
-      result = await _reviewer.translate(apiKey: key, french: line.text);
+      result = await _reviewer.translate(french: line.text);
     } catch (e) {
       debugPrint('translateLine failed: $e');
     }
@@ -492,7 +479,8 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
       goalReached: state.goalReached,
       messages: [
         for (final m in state.messages)
-          if (m.text.trim().isNotEmpty || m is LearnerLine && m.notes.isNotEmpty)
+          if (m.text.trim().isNotEmpty ||
+              m is LearnerLine && m.notes.isNotEmpty)
             m,
       ],
     );
@@ -509,19 +497,15 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     ));
     if (!spoke) return;
 
-    final key = _apiKey;
     LessonReview? review;
     try {
-      if (key != null) {
-        review = await _reviewer.review(
-          apiKey: key,
-          lesson: lesson,
-          transcript: state.messages,
-          previous: _profile,
-          goalReached: state.goalReached,
-        );
-        await _repo.saveProfile(review.profile);
-      }
+      review = await _reviewer.review(
+        lesson: lesson,
+        transcript: state.messages,
+        previous: _profile,
+        goalReached: state.goalReached,
+      );
+      await _repo.saveProfile(review.profile);
     } catch (e) {
       debugPrint('TutorSessionCubit review failed: $e');
     }

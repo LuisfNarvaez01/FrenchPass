@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
 import 'package:french_pass/features/translator/domain/translation.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -57,34 +57,21 @@ class TranslatorCubit extends Cubit<TranslatorState> {
       return;
     }
 
-    final key = await _tutor.apiKey();
-    if (isClosed) return;
-    if (key == null) {
-      emit(TranslatorState(
-        history: state.history,
-        error: 'Añade tu clave de Gemini en Ajustes para usar el traductor.',
-      ));
-      return;
-    }
-
     emit(TranslatorState(history: state.history, loading: true));
     Translation? result;
     String? error;
     try {
       result = await _gemini.explainTranslation(
-        apiKey: key,
         text: source,
         levelEstimate: _tutor.profile().levelEstimate,
       );
-    } on GeminiApiException catch (e) {
-      error = e.isRateLimited
-          ? 'Gemini está saturado ahora mismo. Prueba en un minuto.'
-          : e.isAuth
-              ? 'Tu clave de Gemini no funciona. Revísala en Ajustes.'
-              : 'No pude traducir esto. Inténtalo otra vez.';
-    } catch (e) {
-      debugPrint('TranslatorCubit.translate failed: $e');
-      error = 'No pude traducir esto. Revisa tu conexión.';
+    } on AiException catch (e) {
+      error = e.rateLimited
+          ? e.messageEs
+          : e.unavailable
+              ? e.messageEs
+              : 'No pude traducir esto. Revisa tu conexión e inténtalo otra '
+                  'vez.';
     }
     if (isClosed) return;
 

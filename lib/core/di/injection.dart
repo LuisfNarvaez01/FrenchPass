@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:get_it/get_it.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
+import 'package:french_pass/core/config/app_channel.dart';
 import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/speech_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
@@ -21,6 +23,7 @@ Future<void> configureDependencies() async {
   // ─── Services ─────────────────────────────────────────────────────────────
   final storage = await StorageService.create();
   getIt.registerSingleton<StorageService>(storage);
+  await AiBackend.init(storage);
   getIt.registerSingleton<TtsService>(TtsService());
   getIt.registerSingleton<SpeechService>(SpeechService());
   getIt.registerSingleton<NotificationService>(NotificationService());
@@ -51,7 +54,10 @@ Future<void> configureDependencies() async {
 
   // Fire-and-forget: a slow or failed network check must never delay the UI
   // or crash startup. MainShell shows the result once it lands, if ever.
-  unawaited(getIt<UpdateService>().checkInBackground());
+  // Play updates the Play build; only the GitHub build updates itself.
+  if (AppChannel.isGithub) {
+    unawaited(getIt<UpdateService>().checkInBackground());
+  }
 
   // Push today's word to the home-screen widget as soon as it is known, so
   // a widget placed on the home screen is current even on a launch where

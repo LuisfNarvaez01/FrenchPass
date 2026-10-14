@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
@@ -368,7 +367,6 @@ class StudyError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final needsKey = message.contains('Ajustes');
     return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,15 +382,10 @@ class StudyError extends StatelessWidget {
           const SizedBox(height: Insets.sm),
           Align(
             alignment: Alignment.centerRight,
-            child: needsKey
-                ? TextButton(
-                    onPressed: () => context.push('/settings'),
-                    child: const Text('Ir a Ajustes'),
-                  )
-                : TextButton(
-                    onPressed: onRetry,
-                    child: const Text('Reintentar'),
-                  ),
+            child: TextButton(
+              onPressed: onRetry,
+              child: const Text('Reintentar'),
+            ),
           ),
         ],
       ),

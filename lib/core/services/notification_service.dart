@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
@@ -29,7 +30,7 @@ class NotificationService {
       tz.setLocalLocation(tz.getLocation(await _localTimezone()));
 
       await _plugin.initialize(
-        const InitializationSettings(
+        settings: const InitializationSettings(
           android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         ),
       );
@@ -40,24 +41,18 @@ class NotificationService {
     }
   }
 
-  /// `timezone` needs an IANA name; the plugin does not expose one, so fall
-  /// back to UTC+offset reasoning via the device offset.
+  /// The device's IANA zone ("Europe/Madrid"), so the reminder follows its
+  /// daylight-saving changes. Guessing from the UTC offset got this wrong:
+  /// Madrid in summer is +2, which the guess mapped to Kyiv (+3).
   Future<String> _localTimezone() async {
-    final offset = DateTime.now().timeZoneOffset;
-    // A handful of common zones keep DST correct for most users; everyone else
-    // gets a fixed-offset zone, which is accurate enough for a daily reminder.
-    const byOffset = {
-      -8: 'America/Los_Angeles',
-      -7: 'America/Denver',
-      -6: 'America/Mexico_City',
-      -5: 'America/Bogota',
-      -4: 'America/Santiago',
-      -3: 'America/Argentina/Buenos_Aires',
-      0: 'Etc/UTC',
-      1: 'Europe/Paris',
-      2: 'Europe/Kyiv',
-    };
-    return byOffset[offset.inHours] ?? 'Etc/UTC';
+    try {
+      final zone = (await FlutterTimezone.getLocalTimezone()).identifier;
+      tz.getLocation(zone); // Throws if the database doesn't know it.
+      return zone;
+    } catch (e) {
+      debugPrint('NotificationService: unknown device zone ($e), using UTC');
+      return 'Etc/UTC';
+    }
   }
 
   Future<bool> requestPermission() async {
@@ -78,11 +73,11 @@ class NotificationService {
     try {
       await cancelDaily();
       await _plugin.zonedSchedule(
-        _dailyId,
-        'Ta palabra del día te espera 🇫🇷',
-        'Un minuto hoy, una palabra más en tu francés.',
-        _nextInstanceOf(hour),
-        const NotificationDetails(
+        id: _dailyId,
+        title: 'Tu palabra del día te espera',
+        body: 'Un minuto hoy, una palabra más en tu francés.',
+        scheduledDate: _nextInstanceOf(hour),
+        notificationDetails: const NotificationDetails(
           android: AndroidNotificationDetails(
             _channelId,
             'Palabra del día',
@@ -93,8 +88,6 @@ class NotificationService {
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
       return true;
@@ -108,7 +101,7 @@ class NotificationService {
     await init();
     if (!_available) return;
     try {
-      await _plugin.cancel(_dailyId);
+      await _plugin.cancel(id: _dailyId);
     } catch (e) {
       debugPrint('NotificationService.cancelDaily failed: $e');
     }

@@ -13,68 +13,63 @@ dependencies:
     sdk: flutter
 
   # State Management
-  flutter_bloc: ^8.1.6
-  bloc: ^8.1.4
-  equatable: ^2.0.5
+  flutter_bloc: ^9.1.1
+  bloc: ^9.2.1
+  equatable: ^3.0.0
 
   # Dependency Injection
-  get_it: ^8.0.2
+  get_it: ^9.3.0
 
   # Navigation
-  go_router: ^14.2.7
+  go_router: ^18.0.2
 
   # Persistence — the corpus is a bundled asset, so the only stored state is
   # the learner's progress: a few small JSON documents, no database needed.
   shared_preferences: ^2.3.3
 
   # Text to speech (French voice)
-  # Pinned: flutter_tts 4.2.x declares Kotlin 2.2.20 / AGP 8.13, newer than the
-  # Flutter 3.27 toolchain, and its source trips a K2 frontend crash
-  # ("source must not be null") on Kotlin 2.0.x.
-  flutter_tts: 4.1.0
+  flutter_tts: ^4.2.5
 
   # Speech recognition
   speech_to_text: ^7.0.0
 
   # Daily reminder
-  flutter_local_notifications: ^17.2.4
-  timezone: ^0.9.4
+  flutter_local_notifications: ^22.3.2
+  timezone: ^0.11.2
 
-  # Functional Programming (Either, Option)
-  fpdart: ^1.1.0
 
   # Permissions (microphone, notifications)
-  permission_handler: ^11.3.1
+  permission_handler: ^13.0.2
 
   # UI
-  google_fonts: ^6.2.1
+  google_fonts: ^9.0.0
   flutter_animate: ^4.5.0
 
-  intl: ^0.19.0
+  intl: ^0.20.3
 
   # In-app update check (GitHub Releases) and APK download/install.
-  package_info_plus: ^8.1.2
+  package_info_plus: ^10.2.2
   http: ^1.2.2
   path_provider: ^2.1.4
 
   # Android home-screen widget: shows the word of the day without opening
   # the app.
-  home_widget: ^0.7.0
+  home_widget: ^0.10.0
 
-  # AI tutor: live voice conversation over the Gemini Live WebSocket API.
-  # Pinned to releases contemporary with the Flutter 3.27 / Kotlin 2.0
-  # toolchain. record streams raw PCM from the mic; flutter_pcm_sound plays
+  # AI tutor: record streams raw PCM from the mic; flutter_pcm_sound plays
   # the tutor's PCM audio as it streams in.
-  record: 5.2.0
-  flutter_pcm_sound: 3.1.3
-  web_socket_channel: 3.0.2
-  # The learner's Gemini API key lives here, encrypted, never in the APK.
-  flutter_secure_storage: 9.2.4
+  record: ^7.1.2
+  flutter_pcm_sound: ^3.3.3
+  web_socket_channel: ^3.0.3
+  flutter_timezone: ^5.1.1
+  firebase_core: ^4.15.0
+  firebase_ai: ^4.0.0
+  firebase_app_check: ^0.4.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
@@ -82,9 +77,3 @@ flutter:
   assets:
     - assets/data/words_seed.json
     - assets/images/mascot.png
-
-dependency_overrides:
-  # record 5.2.0 otherwise resolves record_platform_interface 1.6.x, whose
-  # API record_linux 0.7.x no longer satisfies -- a compile error even on
-  # Android, because every federated implementation is compiled.
-  record_platform_interface: 1.2.0

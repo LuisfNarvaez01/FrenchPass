@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'package:french_pass/core/ai/ai_backend.dart';
 
 /// Model ids in one place: preview names change, and swapping one should be
 /// a one-line edit.
@@ -12,7 +12,7 @@ abstract final class GeminiModels {
   static const live = 'gemini-3.1-flash-live-preview';
 
   /// Fallback if the preview above is withdrawn or rejects the setup.
-  static const liveFallback = 'gemini-2.5-flash-native-audio-latest';
+  static const liveFallback = 'gemini-2.5-flash-native-audio-preview-12-2025';
 
   /// Text model for the end-of-lesson review and profile update.
   static const review = 'gemini-3.5-flash-lite';
@@ -75,176 +75,127 @@ class LiveGoAway extends LiveEvent {
   const LiveGoAway();
 }
 
+/// The connection ended, by either side.
 class LiveClosed extends LiveEvent {
-  final int? code;
   final String? reason;
-  const LiveClosed(this.code, this.reason);
-
-  /// Close codes the server uses for a rejected key or setup.
-  bool get isAuthOrSetupError =>
-      code == 1007 || code == 1008 || (reason ?? '').contains('API key');
+  const LiveClosed([this.reason]);
 }
 
-/// Decodes one server frame into zero or more events. Pure, so the protocol
-/// handling is testable without a socket.
-List<LiveEvent> parseLiveMessage(Object frame) {
-  final String raw;
-  if (frame is String) {
-    raw = frame;
-  } else if (frame is List<int>) {
-    raw = utf8.decode(frame);
-  } else {
-    return const [];
-  }
-
-  final Object? decoded;
-  try {
-    decoded = jsonDecode(raw);
-  } on FormatException {
-    return const [];
-  }
-  if (decoded is! Map<String, dynamic>) return const [];
-
-  final events = <LiveEvent>[];
-  if (decoded.containsKey('setupComplete')) {
-    events.add(const LiveSetupComplete());
-  }
-
-  final toolCall = decoded['toolCall'];
-  if (toolCall is Map<String, dynamic>) {
-    final calls = <LiveToolCall>[];
-    for (final c in (toolCall['functionCalls'] as List? ?? const [])) {
-      if (c is! Map<String, dynamic>) continue;
-      final args = c['args'];
-      calls.add(LiveToolCall(
-        c['id'] as String? ?? '',
-        c['name'] as String? ?? '',
-        args is Map<String, dynamic> ? args : const {},
-      ));
-    }
-    if (calls.isNotEmpty) events.add(LiveToolCalls(calls));
-  }
-
-  final content = decoded['serverContent'];
-  if (content is Map<String, dynamic>) {
-    final input = content['inputTranscription'];
-    if (input is Map && (input['text'] as String? ?? '').isNotEmpty) {
-      events.add(LiveInputTranscript(input['text'] as String));
-    }
-    final turn = content['modelTurn'];
-    if (turn is Map) {
-      for (final part in (turn['parts'] as List? ?? const [])) {
-        if (part is! Map) continue;
-        final inline = part['inlineData'];
-        if (inline is Map && inline['data'] is String) {
-          events.add(LiveAudio(base64Decode(inline['data'] as String)));
+/// Turns one Firebase Live message into the events the session reacts to.
+/// Pure, so the protocol handling is testable without a connection.
+List<LiveEvent> liveEventsFrom(LiveServerMessage message) {
+  switch (message) {
+    case GoingAwayNotice():
+      return const [LiveGoAway()];
+    case LiveServerToolCall(:final functionCalls):
+      final calls = [
+        for (final c in functionCalls ?? const <FunctionCall>[])
+          LiveToolCall(c.id ?? '', c.name, Map<String, dynamic>.from(c.args)),
+      ];
+      return calls.isEmpty ? const [] : [LiveToolCalls(calls)];
+    case LiveServerContent():
+      final events = <LiveEvent>[];
+      final heard = message.inputTranscription?.text ?? '';
+      if (heard.isNotEmpty) events.add(LiveInputTranscript(heard));
+      for (final part in message.modelTurn?.parts ?? const <Part>[]) {
+        if (part is InlineDataPart && part.mimeType.startsWith('audio/')) {
+          events.add(LiveAudio(part.bytes));
         }
       }
-    }
-    final output = content['outputTranscription'];
-    if (output is Map && (output['text'] as String? ?? '').isNotEmpty) {
-      events.add(LiveOutputTranscript(output['text'] as String));
-    }
-    if (content['interrupted'] == true) events.add(const LiveInterrupted());
-    if (content['turnComplete'] == true) events.add(const LiveTurnComplete());
+      final said = message.outputTranscription?.text ?? '';
+      if (said.isNotEmpty) events.add(LiveOutputTranscript(said));
+      if (message.interrupted == true) events.add(const LiveInterrupted());
+      if (message.turnComplete == true) events.add(const LiveTurnComplete());
+      return events;
+    default:
+      return const [];
   }
-
-  if (decoded.containsKey('goAway')) events.add(const LiveGoAway());
-  return events;
 }
 
-/// The setup message that opens a session.
-Map<String, dynamic> buildLiveSetup({
-  required String model,
-  required String voice,
-  required String systemInstruction,
-  required List<Map<String, dynamic>> tools,
-}) =>
-    {
-      'setup': {
-        'model': 'models/$model',
-        'generationConfig': {
-          'responseModalities': ['AUDIO'],
-          'speechConfig': {
-            'languageCode': 'fr-FR',
-            'voiceConfig': {
-              'prebuiltVoiceConfig': {'voiceName': voice},
-            },
-          },
-        },
-        'systemInstruction': {
-          'parts': [
-            {'text': systemInstruction},
-          ],
-        },
-        'tools': tools,
-        // Transcripts of both sides: the learner's drives the chat bubbles
-        // and the end-of-lesson review; the tutor's lets the learner read
-        // along with what they just heard.
-        'inputAudioTranscription': <String, dynamic>{},
-        'outputAudioTranscription': <String, dynamic>{},
-      },
-    };
-
-/// A thin client over the Gemini Live bidirectional WebSocket.
+/// The Gemini Live session, reached through Firebase AI Logic so the app
+/// never holds a Gemini key (see [AiBackend]).
 class GeminiLiveClient {
-  static const _endpoint = 'wss://generativelanguage.googleapis.com/ws/'
-      'google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent';
-
   final _events = StreamController<LiveEvent>.broadcast();
-  WebSocketChannel? _channel;
-  StreamSubscription<dynamic>? _sub;
+  LiveSession? _session;
+  StreamSubscription<LiveServerResponse>? _sub;
 
   Stream<LiveEvent> get events => _events.stream;
-  bool get isOpen => _channel != null;
+  bool get isOpen => _session != null;
 
-  /// Opens the socket and sends [setup]. Completes once the server confirms
-  /// the setup; throws [LiveConnectException] if it closes instead.
+  /// Opens a session on [model]. Completes once the server confirms the
+  /// setup; throws [LiveConnectException] if it doesn't.
   Future<void> connect({
-    required String apiKey,
-    required Map<String, dynamic> setup,
+    required String model,
+    required String voice,
+    required String systemInstruction,
+    required List<Tool> tools,
     Duration timeout = const Duration(seconds: 12),
   }) async {
     await close();
-    final channel = IOWebSocketChannel.connect(
-      Uri.parse(_endpoint),
-      // Header rather than query string, so the key never lands in a URL
-      // that might be logged.
-      headers: {'x-goog-api-key': apiKey},
-      connectTimeout: timeout,
-      pingInterval: const Duration(seconds: 20),
-    );
-    _channel = channel;
+    if (!AiBackend.isReady) {
+      throw const LiveConnectException('Firebase no está listo',
+          unavailable: true);
+    }
+
+    final LiveSession session;
+    try {
+      session = await AiBackend.ai
+          .liveGenerativeModel(
+            model: model,
+            systemInstruction: Content.system(systemInstruction),
+            tools: tools,
+            liveGenerationConfig: LiveGenerationConfig(
+              responseModalities: [ResponseModalities.audio],
+              speechConfig:
+                  SpeechConfig(voiceName: voice, languageCode: 'fr-FR'),
+              // Transcripts of both sides: the learner's drives the chat
+              // bubbles and the end-of-lesson review; the tutor's lets the
+              // learner read along with what they just heard.
+              inputAudioTranscription: AudioTranscriptionConfig(),
+              outputAudioTranscription: AudioTranscriptionConfig(),
+            ),
+          )
+          .connect()
+          .timeout(timeout);
+    } on TimeoutException {
+      throw const LiveConnectException('Tiempo de espera agotado');
+    } catch (e) {
+      throw LiveConnectException('$e', cause: e);
+    }
+    _session = session;
 
     final ready = Completer<void>();
-    _sub = channel.stream.listen(
-      (frame) {
-        for (final event in parseLiveMessage(frame as Object)) {
-          if (event is LiveSetupComplete && !ready.isCompleted) {
-            ready.complete();
-          }
+    _sub = session.receive().listen(
+      (response) {
+        // The server's first message is always its setup confirmation
+        // (a type the SDK doesn't export), so any reply means we're live.
+        if (!ready.isCompleted) {
+          ready.complete();
+          _events.add(const LiveSetupComplete());
+        }
+        for (final event in liveEventsFrom(response.message)) {
           _events.add(event);
         }
       },
       onError: (Object e) {
-        debugPrint('GeminiLiveClient socket error: $e');
-        if (!ready.isCompleted) ready.completeError(LiveConnectException('$e'));
+        debugPrint('GeminiLiveClient stream error: $e');
+        if (!ready.isCompleted) {
+          ready.completeError(LiveConnectException('$e', cause: e));
+        }
       },
       onDone: () {
-        final closed = LiveClosed(channel.closeCode, channel.closeReason);
         if (!ready.isCompleted) {
-          ready.completeError(LiveConnectException(
-              channel.closeReason ?? 'Conexión cerrada (${channel.closeCode})',
-              closed: closed));
+          ready.completeError(
+              const LiveConnectException('La conexión se cerró al empezar'));
         }
-        if (identical(_channel, channel)) _channel = null;
-        _events.add(closed);
+        if (identical(_session, session)) {
+          _session = null;
+          _events.add(const LiveClosed());
+        }
       },
     );
 
     try {
-      await channel.ready.timeout(timeout);
-      channel.sink.add(jsonEncode(setup));
       await ready.future.timeout(timeout);
     } on TimeoutException {
       await close();
@@ -256,63 +207,33 @@ class GeminiLiveClient {
   }
 
   /// Streams 16 kHz mono PCM16 from the mic.
-  void sendAudio(Uint8List pcm16k) => _send({
-        'realtimeInput': {
-          'audio': {
-            'mimeType': 'audio/pcm;rate=16000',
-            'data': base64Encode(pcm16k),
-          },
-        },
-      });
+  void sendAudio(Uint8List pcm16k) => _send((s) =>
+      s.sendAudioRealtime(InlineDataPart('audio/pcm;rate=16000', pcm16k)));
 
   /// A text turn (used for app instructions such as the help button).
-  void sendText(String text) => _send({
-        'clientContent': {
-          'turns': [
-            {
-              'role': 'user',
-              'parts': [
-                {'text': text},
-              ],
-            },
-          ],
-          'turnComplete': true,
-        },
-      });
+  void sendText(String text) =>
+      _send((s) => s.send(input: Content.text(text), turnComplete: true));
 
-  void sendToolResponses(List<LiveToolCall> calls) => _send({
-        'toolResponse': {
-          'functionResponses': [
+  void sendToolResponses(List<LiveToolCall> calls) =>
+      _send((s) => s.sendToolResponse([
             for (final c in calls)
-              {
-                'id': c.id,
-                'name': c.name,
-                'response': {'result': 'ok'},
-              },
-          ],
-        },
-      });
+              FunctionResponse(c.name, const {'result': 'ok'}, id: c.id),
+          ]));
 
-  void _send(Map<String, dynamic> message) {
-    final channel = _channel;
-    if (channel == null) return;
-    try {
-      channel.sink.add(jsonEncode(message));
-    } catch (e) {
+  void _send(Future<void> Function(LiveSession session) send) {
+    final session = _session;
+    if (session == null) return;
+    send(session).catchError((Object e) {
       debugPrint('GeminiLiveClient send failed: $e');
-    }
+    });
   }
 
   Future<void> close() async {
-    final channel = _channel;
-    _channel = null;
+    final session = _session;
+    _session = null;
     await _sub?.cancel();
     _sub = null;
-    if (channel != null) {
-      try {
-        await channel.sink.close();
-      } catch (_) {}
-    }
+    await session?.close();
   }
 
   Future<void> dispose() async {
@@ -323,8 +244,29 @@ class GeminiLiveClient {
 
 class LiveConnectException implements Exception {
   final String message;
-  final LiveClosed? closed;
-  const LiveConnectException(this.message, {this.closed});
+
+  /// True when this build can't reach the AI at all (no Firebase config).
+  final bool unavailable;
+  final Object? cause;
+
+  const LiveConnectException(this.message,
+      {this.unavailable = false, this.cause});
+
+  /// The model itself was refused (a withdrawn preview), as opposed to the
+  /// network or App Check failing: worth one retry on the fallback model.
+  bool get modelRejected {
+    final text = message.toLowerCase();
+    return text.contains('not found') ||
+        text.contains('not supported') ||
+        text.contains('1007') ||
+        text.contains('1008');
+  }
+
+  AiException get asAiException => unavailable
+      ? const AiException(unavailable: true)
+      : cause != null
+          ? AiException.from(cause!)
+          : AiException(detail: message);
 
   @override
   String toString() => 'LiveConnectException: $message';

@@ -44,7 +44,7 @@ class AppTheme {
       dividerTheme: DividerThemeData(color: p.border, thickness: 1, space: 1),
       iconTheme: IconThemeData(color: p.textSecondary, size: 22),
 
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: p.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -147,7 +147,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(Radii.md)),
       ),
 
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: p.surface,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(

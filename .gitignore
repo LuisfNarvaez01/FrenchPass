@@ -45,6 +45,7 @@ app.*.map.json
 /android/app/release
 
 android/key.properties
+android/app/google-services.json
 android/app/*.jks
 
 # Built APKs (generated artifacts)

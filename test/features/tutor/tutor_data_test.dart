@@ -1,40 +1,28 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_prompt.dart';
-import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
 import 'package:french_pass/features/tutor/domain/tutor_message.dart';
 
 void main() {
-  group('parseLiveMessage', () {
-    test('decodes binary setupComplete frames', () {
-      final events = parseLiveMessage(utf8.encode('{"setupComplete": {}}'));
-      expect(events.single, isA<LiveSetupComplete>());
-    });
-
-    test('splits a server content frame into audio, transcripts and turn end',
-        () {
-      final audio = base64Encode([1, 0, 2, 0]);
-      final events = parseLiveMessage(jsonEncode({
-        'serverContent': {
-          'inputTranscription': {'text': 'Bonjour'},
-          'modelTurn': {
-            'parts': [
-              {
-                'inlineData': {'mimeType': 'audio/pcm', 'data': audio},
-              },
-            ],
-          },
-          'outputTranscription': {'text': 'Salut !'},
-          'turnComplete': true,
-        },
-      }));
+  group('liveEventsFrom', () {
+    test('splits server content into audio, transcripts and turn end', () {
+      final events = liveEventsFrom(LiveServerContent(
+        inputTranscription: const Transcription(text: 'Bonjour'),
+        modelTurn: Content.model([
+          InlineDataPart(
+              'audio/pcm;rate=24000', Uint8List.fromList([1, 0, 2, 0])),
+        ]),
+        outputTranscription: const Transcription(text: 'Salut !'),
+        turnComplete: true,
+      ));
       expect(events.map((e) => e.runtimeType), [
         LiveInputTranscript,
         LiveAudio,
@@ -44,42 +32,44 @@ void main() {
       expect((events[1] as LiveAudio).pcm, [1, 0, 2, 0]);
     });
 
-    test('decodes tool calls with their arguments', () {
-      final events = parseLiveMessage(jsonEncode({
-        'toolCall': {
-          'functionCalls': [
-            {
-              'id': 'fc_1',
-              'name': 'show_correction',
-              'args': {'better_fr': 'Je voudrais', 'explanation_es': 'Cortesía'},
-            },
-          ],
-        },
-      }));
+    test('skips empty transcripts and non-audio parts', () {
+      final events = liveEventsFrom(LiveServerContent(
+        inputTranscription: const Transcription(text: ''),
+        modelTurn: Content.model([const TextPart('pensando')]),
+        interrupted: true,
+      ));
+      expect(events.single, isA<LiveInterrupted>());
+    });
+
+    test('decodes tool calls with their ids and arguments', () {
+      final events = liveEventsFrom(LiveServerToolCall(functionCalls: [
+        const FunctionCall(
+          'show_correction',
+          {'better_fr': 'Je voudrais', 'explanation_es': 'Cortesía'},
+          id: 'fc_1',
+        ),
+      ]));
       final call = (events.single as LiveToolCalls).calls.single;
       expect(call.id, 'fc_1');
       expect(call.args['better_fr'], 'Je voudrais');
     });
 
-    test('ignores garbage instead of throwing', () {
-      expect(parseLiveMessage('not json'), isEmpty);
-      expect(parseLiveMessage(42), isEmpty);
+    test('a go-away notice warns that the session is ending', () {
+      expect(liveEventsFrom(const GoingAwayNotice(timeLeft: '5s')).single,
+          isA<LiveGoAway>());
     });
   });
 
-  test('setup asks for French speech, transcripts and the tutor tools', () {
-    final setup = buildLiveSetup(
-      model: 'm',
-      voice: 'Kore',
-      systemInstruction: 'x',
-      tools: TutorPrompt.tools(),
-    )['setup'] as Map<String, dynamic>;
-    expect(setup['model'], 'models/m');
-    expect(setup.containsKey('inputAudioTranscription'), isTrue);
-    final tool = (setup['tools'] as List).single as Map<String, dynamic>;
-    final names = (tool['functionDeclarations'] as List)
-        .map((f) => (f as Map)['name']);
-    expect(names, containsAll(['show_correction', 'show_hint']));
+  test('the tutor declares its four on-screen tools', () {
+    final json = TutorPrompt.tools().single.toJson();
+    final names =
+        (json['functionDeclarations'] as List).map((f) => (f as Map)['name']);
+    expect(names, [
+      'show_correction',
+      'show_pronunciation',
+      'show_hint',
+      'complete_lesson',
+    ]);
   });
 
   group('TutorPrompt', () {
@@ -115,18 +105,6 @@ void main() {
     expect(ids.toSet().length, ids.length);
   });
 
-  group('cleanApiKey', () {
-    test('drops the trailing punctuation a paste drags along', () {
-      expect(TutorRepository.cleanApiKey(' AQ.abc123! \n'), 'AQ.abc123');
-      expect(TutorRepository.cleanApiKey('"AIzaXYZ"'), 'AIzaXYZ');
-    });
-
-    test('treats blank as no key', () {
-      expect(TutorRepository.cleanApiKey('   '), isNull);
-      expect(TutorRepository.cleanApiKey(null), isNull);
-    });
-  });
-
   group('joinFragment', () {
     test('joins word pieces and spaced fragments without doubling spaces', () {
       expect(joinFragment('', ' Bonjour'), 'Bonjour');
@@ -146,31 +124,19 @@ void main() {
 
   test('parseReview reads the model JSON and counts the session', () {
     final body = jsonEncode({
-      'candidates': [
-        {
-          'content': {
-            'parts': [
-              {
-                'text': jsonEncode({
-                  'summaryEs': 'Bien hecho.',
-                  'wellDoneEs': ['Saludo', 'Pedido', 'Pago', 'Extra'],
-                  'practiceNextEs': ['je voudrais'],
-                  'profile': {
-                    'levelEstimate': 'A1+',
-                    'recurringMistakes': ['je veux → je voudrais'],
-                    'pronunciation': <String>[],
-                    'strengths': <String>[],
-                    'personalNotes': <String>[],
-                  },
-                }),
-              },
-            ],
-          },
-        },
-      ],
+      'summaryEs': 'Bien hecho.',
+      'wellDoneEs': ['Saludo', 'Pedido', 'Pago', 'Extra'],
+      'practiceNextEs': ['je voudrais'],
+      'profile': {
+        'levelEstimate': 'A1+',
+        'recurringMistakes': ['je veux → je voudrais'],
+        'pronunciation': <String>[],
+        'strengths': <String>[],
+        'personalNotes': <String>[],
+      },
     });
-    final review = TutorReviewService.parseReview(
-        body, const LearnerProfile(sessions: 4));
+    final review =
+        TutorReviewService.parseReview(body, const LearnerProfile(sessions: 4));
     expect(review.summaryEs, 'Bien hecho.');
     expect(review.wellDoneEs.length, 3);
     expect(review.profile.levelEstimate, 'A1+');

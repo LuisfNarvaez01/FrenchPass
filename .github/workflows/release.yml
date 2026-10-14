@@ -1,9 +1,12 @@
-name: Build and release APK
+name: Build and release
 
-# Every push to main is a release: FrenchPass checks GitHub Releases for a
-# newer tag and offers to download+install it in-app (see
-# lib/core/services/update_service.dart), so a new release here is how a
-# change actually reaches an installed phone without a manual rebuild.
+# Every push to main builds both flavors (android/app/build.gradle):
+#
+# - "github": published as a GitHub Release. The installed GitHub build
+#   checks Releases and offers to update itself (UpdateService), so this is
+#   how a change reaches the developer's phone without a manual rebuild.
+# - "play": an obfuscated app bundle, attached to the workflow run as an
+#   artifact, to upload to Google Play Console by hand.
 on:
   push:
     branches: [main]
@@ -25,7 +28,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.4"
+          flutter-version: "3.47.7"
           channel: stable
           cache: true
 
@@ -74,14 +77,44 @@ jobs:
           done
           keytool -list -keystore android/app/frenchpass-release.jks             -storepass "$KEYSTORE_PASSWORD" -alias "$KEY_ALIAS" >/dev/null             || { echo "::error::Keystore could not be opened with KEYSTORE_PASSWORD / KEY_ALIAS -- check the secrets match the local key."; exit 1; }
 
+      # Firebase config (AI Logic + App Check). Not secret in the way a key
+      # is -- App Check is what protects the AI -- but it stays out of the
+      # public repo all the same. Without it the app builds with its AI
+      # features off, which is never what a release should ship.
+      - name: Write google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::Secret GOOGLE_SERVICES_JSON is empty or missing (paste the whole google-services.json)."
+            exit 1
+          fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+          grep -q '"com.frenchpass.french_pass"' android/app/google-services.json             && grep -q '"com.frenchpass.french_pass.dev"' android/app/google-services.json             || { echo "::error::google-services.json must list both com.frenchpass.french_pass and com.frenchpass.french_pass.dev."; exit 1; }
+
       - run: flutter pub get
 
       - run: flutter analyze
 
       - run: flutter test
 
-      - name: Build release APKs
-        run: flutter build apk --release --split-per-abi
+      - name: Build GitHub APKs
+        run: flutter build apk --release --flavor github --split-per-abi
+
+      # Obfuscated: the Play build is the one strangers download. The symbol
+      # files are kept with the bundle so crash stack traces can be decoded.
+      - name: Build Play app bundle
+        run: |
+          flutter build appbundle --release --flavor play             --obfuscate --split-debug-info=build/symbols
+
+      - name: Keep Play bundle and symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: play-bundle
+          path: |
+            build/app/outputs/bundle/playRelease/app-play-release.aab
+            build/symbols/
+          retention-days: 90
 
       - name: Read app version
         id: version
@@ -98,6 +131,6 @@ jobs:
           name: FrenchPass ${{ steps.version.outputs.tag }}
           generate_release_notes: true
           files: |
-            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
-            build/app/outputs/flutter-apk/app-x86_64-release.apk
+            build/app/outputs/flutter-apk/app-arm64-v8a-github-release.apk
+            build/app/outputs/flutter-apk/app-armeabi-v7a-github-release.apk
+            build/app/outputs/flutter-apk/app-x86_64-github-release.apk

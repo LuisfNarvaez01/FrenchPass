@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
@@ -69,17 +69,6 @@ class SessionReviewCubit extends Cubit<SessionReviewState> {
     final line = session.messages[index];
     if (line.text.trim().isEmpty) return;
 
-    final key = await _repo.apiKey();
-    if (isClosed) return;
-    if (key == null) {
-      emit(state.copyWith(failed: {
-        ...state.failed,
-        index: 'Añade tu clave de Gemini en Ajustes para ver el análisis. '
-            'Puedes escuchar y practicar la frase igualmente.',
-      }));
-      return;
-    }
-
     emit(state.copyWith(
       loading: {...state.loading, index},
       failed: {...state.failed}..remove(index),
@@ -98,22 +87,17 @@ class SessionReviewCubit extends Cubit<SessionReviewState> {
     String? error;
     try {
       result = await _reviewer.studyLine(
-        apiKey: key,
         line: line.text,
         byTutor: line is TutorLine,
         lessonTitle: lesson?.titleEs ?? 'Conversación libre',
         previousLine: previous,
         levelEstimate: _repo.profile().levelEstimate,
       );
-    } on GeminiApiException catch (e) {
-      error = e.isRateLimited
-          ? 'Gemini está saturado ahora mismo. Prueba en un minuto.'
-          : e.isAuth
-              ? 'Tu clave de Gemini no funciona. Revísala en Ajustes.'
-              : 'No pude analizar esta frase. Inténtalo otra vez.';
-    } catch (e) {
-      debugPrint('SessionReviewCubit.study failed: $e');
-      error = 'No pude analizar esta frase. Revisa tu conexión.';
+    } on AiException catch (e) {
+      error = e.rateLimited || e.unavailable
+          ? e.messageEs
+          : 'No pude analizar esta frase. Revisa tu conexión e inténtalo '
+              'otra vez.';
     }
     if (isClosed) return;
 

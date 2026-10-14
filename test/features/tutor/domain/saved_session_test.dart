@@ -50,7 +50,8 @@ void main() {
       expect(learner.text, 'Je veux un café');
       expect((learner.notes[0] as CorrectionNote).betterFr, 'Je voudrais');
       expect((learner.notes[1] as PronunciationNote).wordFr, 'café');
-      expect((restored.messages[2] as LearnerLine).notes.single, isA<HintNote>());
+      expect(
+          (restored.messages[2] as LearnerLine).notes.single, isA<HintNote>());
       expect(restored.studies[0]!.replies.single.fr, 'Un café');
       expect(restored.spokenLines, 2);
     });
@@ -63,7 +64,10 @@ void main() {
           {'who': 'tutor', 'text': 'Salut'},
           'garbage',
         ],
-        'studies': {'nope': <String, dynamic>{}, '0': {'translationEs': 'Hola'}},
+        'studies': {
+          'nope': <String, dynamic>{},
+          '0': {'translationEs': 'Hola'}
+        },
       });
       expect(restored.messages, hasLength(1));
       expect(restored.studies.keys, [0]);
@@ -91,17 +95,7 @@ void main() {
   });
 
   group('TutorReviewService.parseStudy', () {
-    String wrap(Map<String, dynamic> payload) => jsonEncode({
-          'candidates': [
-            {
-              'content': {
-                'parts': [
-                  {'text': jsonEncode(payload)},
-                ],
-              },
-            },
-          ],
-        });
+    String wrap(Map<String, dynamic> payload) => jsonEncode(payload);
 
     final payload = {
       'translationEs': 'Hola',

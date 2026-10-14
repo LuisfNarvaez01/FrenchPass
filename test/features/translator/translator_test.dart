@@ -9,17 +9,7 @@ import 'package:french_pass/features/translator/domain/translation.dart';
 import 'package:french_pass/features/tutor/data/tutor_review_service.dart';
 import 'package:french_pass/features/tutor/domain/saved_session.dart';
 
-String _wrap(Map<String, dynamic> payload) => jsonEncode({
-      'candidates': [
-        {
-          'content': {
-            'parts': [
-              {'text': jsonEncode(payload)},
-            ],
-          },
-        },
-      ],
-    });
+String _wrap(Map<String, dynamic> payload) => jsonEncode(payload);
 
 Translation _t(String id, String es, DateTime date) =>
     Translation(id: id, date: date, sourceEs: es, fr: 'fr $id');

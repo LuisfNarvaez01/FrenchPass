@@ -1,56 +1,20 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/saved_session.dart';
 
-/// The tutor's persistent state: the learner profile, lesson history and
-/// the voice choice in preferences, and the Gemini API key in the platform
-/// keystore -- the key must never sit in plain preferences or in the APK.
+/// The tutor's persistent state, all in preferences: the learner profile,
+/// lesson history, saved conversations and the voice choice. There is no
+/// API key here: Gemini is reached through Firebase (see `AiBackend`).
 class TutorRepository {
   final StorageService _storage;
-  final FlutterSecureStorage _secure;
 
-  TutorRepository(this._storage, [FlutterSecureStorage? secure])
-      : _secure = secure ??
-            const FlutterSecureStorage(
-              aOptions: AndroidOptions(encryptedSharedPreferences: true),
-            );
+  TutorRepository(this._storage);
 
-  static const _apiKeyKey = 'fp.tutor.geminiApiKey';
   static const _maxHistory = 60;
 
   /// Full transcripts are a few KB each; the last handful is what a learner
   /// actually goes back to.
   static const _maxSessions = 8;
-
-  // ── API key ───────────────────────────────────────────────────────────────
-  Future<String?> apiKey() async {
-    final key = (await _secure.read(key: _apiKeyKey))?.trim();
-    return key == null || key.isEmpty ? null : key;
-  }
-
-  Future<void> setApiKey(String? key) async {
-    final cleaned = cleanApiKey(key);
-    if (cleaned == null) {
-      await _secure.delete(key: _apiKeyKey);
-    } else {
-      await _secure.write(key: _apiKeyKey, value: cleaned);
-    }
-  }
-
-  /// Strips what tends to ride along with a pasted key: whitespace, quotes
-  /// and trailing punctuation (a stray "!" is exactly what kept a valid key
-  /// failing before).
-  static String? cleanApiKey(String? raw) {
-    if (raw == null) return null;
-    final cleaned = raw
-        .trim()
-        .replaceAll(RegExp(r'''^["'`]+|["'`]+$'''), '')
-        .replaceAll(RegExp(r'[\s!?,;:]+$'), '')
-        .trim();
-    return cleaned.isEmpty ? null : cleaned;
-  }
 
   // ── Voice ────────────────────────────────────────────────────────────────
   String get voice =>

@@ -113,14 +113,6 @@ class _SessionView extends StatelessWidget {
                 ),
                 Expanded(
                   child: switch (state.phase) {
-                    TutorPhase.needsKey => EmptyState(
-                        icon: Icons.key_rounded,
-                        title: 'Falta tu clave de Gemini',
-                        message: 'Añádela en Ajustes para hablar con el '
-                            'tutor.',
-                        actionLabel: 'Ir a Ajustes',
-                        onAction: () => context.pushReplacement('/settings'),
-                      ),
                     TutorPhase.error => EmptyState(
                         icon: Icons.wifi_off_rounded,
                         title: 'No se pudo empezar',

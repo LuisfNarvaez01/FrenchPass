@@ -5,6 +5,13 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+// Firebase config (AI Logic, App Check). Kept out of the public repo: CI
+// writes it from a secret, and a local build without it still compiles --
+// the app then runs with its AI features switched off (see AiBackend).
+if (file("google-services.json").exists()) {
+    apply plugin: "com.google.gms.google-services"
+}
+
 // Release signing is read from android/key.properties when present; otherwise the
 // build falls back to the debug keys so a fresh clone still produces a runnable APK.
 def keystoreProperties = new Properties()
@@ -16,7 +23,9 @@ if (hasReleaseKeystore) {
 
 android {
     namespace = "com.frenchpass.french_pass"
-    compileSdk = flutter.compileSdkVersion
+    // 37 because permission_handler_android compiles against it; the app
+    // still targets 36 (Play's requirement since Aug 2026).
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -35,9 +44,27 @@ android {
         // 24 is the floor imposed by the audio plugins; speech_to_text,
         // flutter_tts and permission_handler need 23+.
         minSdk = 24
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    // Two builds of the same app. "play" is what Google Play distributes: it
+    // must not update itself, so it has no installer permission. "github" is
+    // the developer's build, published as GitHub Releases and updated
+    // in-app; its own package id lets it sit next to the Play install (Play
+    // re-signs with Google's key, so one could never update the other).
+    flavorDimensions = ["channel"]
+    productFlavors {
+        play {
+            dimension = "channel"
+            manifestPlaceholders = [appName: "FrenchPass"]
+        }
+        github {
+            dimension = "channel"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders = [appName: "FrenchPass Dev"]
+        }
     }
 
     signingConfigs {
@@ -66,5 +93,5 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.4"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 }

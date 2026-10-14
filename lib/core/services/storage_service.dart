@@ -97,4 +97,6 @@ abstract final class StorageKeys {
   static const tutorSessions = '${prefix}tutor.sessions';
 
   static const translations = '${prefix}translator.history';
+
+  static const appCheckDebugToken = '${prefix}appCheck.debugToken';
 }

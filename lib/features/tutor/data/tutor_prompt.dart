@@ -1,3 +1,5 @@
+import 'package:firebase_ai/firebase_ai.dart';
+
 import 'package:french_pass/features/tutor/data/writing_style.dart';
 import 'package:french_pass/features/tutor/domain/learner_profile.dart';
 import 'package:french_pass/features/tutor/domain/lesson.dart';
@@ -129,86 +131,54 @@ abstract final class TutorPrompt {
     return b.toString();
   }
 
-  /// Function declarations for the Live session `tools` field.
-  static List<Map<String, dynamic>> tools() => [
-        {
-          'functionDeclarations': [
-            {
-              'name': toolShowCorrection,
-              'description':
-                  'Muestra en pantalla, como texto bajo la última frase del '
-                      'alumno, cómo debió decirla. Úsala justo después de un error '
-                      'de gramática, vocabulario o registro. No la leas en voz '
-                      'alta.',
-              'parameters': {
-                'type': 'OBJECT',
-                'properties': {
-                  'original_fr': {
-                    'type': 'STRING',
-                    'description':
-                        'Lo que dijo el alumno (o la parte errónea).',
-                  },
-                  'better_fr': {
-                    'type': 'STRING',
-                    'description': 'La frase correcta y natural en francés.',
-                  },
-                  'explanation_es': {
-                    'type': 'STRING',
-                    'description': 'Explicación breve (máx. 2 frases) en '
-                        'español.',
-                  },
-                },
-                'required': ['better_fr', 'explanation_es'],
-              },
+  /// Function declarations for the Live session.
+  static List<Tool> tools() => [
+        Tool.functionDeclarations([
+          FunctionDeclaration(
+            toolShowCorrection,
+            'Muestra en pantalla, como texto bajo la última frase del '
+            'alumno, cómo debió decirla. Úsala justo después de un error '
+            'de gramática, vocabulario o registro. No la leas en voz alta.',
+            parameters: {
+              'original_fr': Schema.string(
+                  description: 'Lo que dijo el alumno (o la parte errónea).'),
+              'better_fr': Schema.string(
+                  description: 'La frase correcta y natural en francés.'),
+              'explanation_es': Schema.string(
+                  description: 'Explicación breve (máx. 2 frases) en español.'),
             },
-            {
-              'name': toolShowPronunciation,
-              'description':
-                  'Muestra en pantalla un consejo de pronunciación para una '
-                      'palabra que el alumno pronunció mal.',
-              'parameters': {
-                'type': 'OBJECT',
-                'properties': {
-                  'word_fr': {'type': 'STRING'},
-                  'tip_es': {
-                    'type': 'STRING',
-                    'description': 'Consejo concreto en español: qué sonido '
-                        'cambiar y cómo (máx. 2 frases).',
-                  },
-                },
-                'required': ['word_fr', 'tip_es'],
-              },
+            optionalParameters: const ['original_fr'],
+          ),
+          FunctionDeclaration(
+            toolShowPronunciation,
+            'Muestra en pantalla un consejo de pronunciación para una '
+            'palabra que el alumno pronunció mal.',
+            parameters: {
+              'word_fr': Schema.string(),
+              'tip_es': Schema.string(
+                  description: 'Consejo concreto en español: qué sonido '
+                      'cambiar y cómo (máx. 2 frases).'),
             },
-            {
-              'name': toolShowHint,
-              'description':
-                  'Muestra en pantalla una frase que el alumno puede decir '
-                      'ahora, cuando no sabe cómo seguir o habla en español.',
-              'parameters': {
-                'type': 'OBJECT',
-                'properties': {
-                  'phrase_fr': {'type': 'STRING'},
-                  'translation_es': {'type': 'STRING'},
-                },
-                'required': ['phrase_fr', 'translation_es'],
-              },
+          ),
+          FunctionDeclaration(
+            toolShowHint,
+            'Muestra en pantalla una frase que el alumno puede decir ahora, '
+            'cuando no sabe cómo seguir o habla en español.',
+            parameters: {
+              'phrase_fr': Schema.string(),
+              'translation_es': Schema.string(),
             },
-            {
-              'name': toolCompleteLesson,
-              'description':
-                  'Marca la lección como completada cuando el alumno ha '
-                      'cumplido el objetivo de la escena.',
-              'parameters': {
-                'type': 'OBJECT',
-                'properties': {
-                  'reason_es': {
-                    'type': 'STRING',
-                    'description': 'Qué logró el alumno, en una frase.',
-                  },
-                },
-              },
+          ),
+          FunctionDeclaration(
+            toolCompleteLesson,
+            'Marca la lección como completada cuando el alumno ha cumplido '
+            'el objetivo de la escena.',
+            parameters: {
+              'reason_es': Schema.string(
+                  description: 'Qué logró el alumno, en una frase.'),
             },
-          ],
-        },
+            optionalParameters: const ['reason_es'],
+          ),
+        ]),
       ];
 }

@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
@@ -20,11 +21,11 @@ void main() {
   late FakeReviewer reviewer;
   late TutorRepository repo;
 
-  Future<TutorSessionCubit> started({String? key = 'k'}) async {
+  Future<TutorSessionCubit> started({bool aiReady = true}) async {
     SharedPreferences.setMockInitialValues({});
     final storage = await StorageService.create();
-    repo = TutorRepository(storage, FakeSecureStorage());
-    if (key != null) await repo.setApiKey(key);
+    repo = TutorRepository(storage);
+    AiBackend.readyForTesting = aiReady;
     final cubit = TutorSessionCubit(
       lesson: Lessons.byId('cafe')!,
       repository: repo,
@@ -44,9 +45,10 @@ void main() {
     reviewer = FakeReviewer();
   });
 
-  test('without a key it asks for one and never connects', () async {
-    final cubit = await started(key: null);
-    expect(cubit.state.phase, TutorPhase.needsKey);
+  test('without the AI backend it explains why and never connects', () async {
+    final cubit = await started(aiReady: false);
+    expect(cubit.state.phase, TutorPhase.error);
+    expect(cubit.state.error, contains('no está disponible'));
     expect(client.connected, isFalse);
     await cubit.close();
   });
@@ -130,8 +132,9 @@ void main() {
       () async {
     final cubit = await started();
     client.emit(const LiveInputTranscript('L’addition, s’il vous plaît'));
-    client.emit(const LiveToolCalls(
-        [LiveToolCall('3', 'complete_lesson', {'reason_es': 'Pagó'})]));
+    client.emit(const LiveToolCalls([
+      LiveToolCall('3', 'complete_lesson', {'reason_es': 'Pagó'})
+    ]));
     client.emit(LiveAudio(Uint8List(480)));
     client.emit(const LiveTurnComplete());
     await pump();
@@ -198,10 +201,13 @@ class FakeLiveClient implements GeminiLiveClient {
   @override
   bool get isOpen => connected;
   @override
-  Future<void> connect(
-      {required String apiKey,
-      required Map<String, dynamic> setup,
-      Duration timeout = const Duration(seconds: 12)}) async {
+  Future<void> connect({
+    required String model,
+    required String voice,
+    required String systemInstruction,
+    required List<Tool> tools,
+    Duration timeout = const Duration(seconds: 12),
+  }) async {
     connected = true;
   }
 
@@ -270,14 +276,13 @@ class FakeReviewer implements TutorReviewService {
 
   @override
   Future<LessonReview> review({
-    required String apiKey,
     required Lesson lesson,
     required List<TutorMessage> transcript,
     required LearnerProfile previous,
     required bool goalReached,
   }) async {
     calls++;
-    if (fail) throw const GeminiApiException(500, 'boom');
+    if (fail) throw const AiException(detail: 'boom');
     return LessonReview(
       summaryEs: 'Resumen',
       wellDoneEs: const [],
@@ -285,55 +290,6 @@ class FakeReviewer implements TutorReviewService {
       profile: previous.copyWith(sessions: previous.sessions + 1),
     );
   }
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-}
-
-class FakeSecureStorage implements FlutterSecureStorage {
-  final _data = <String, String>{};
-
-  @override
-  Future<String?> read({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async =>
-      _data[key];
-
-  @override
-  Future<void> write({
-    required String key,
-    required String? value,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (value == null) {
-      _data.remove(key);
-    } else {
-      _data[key] = value;
-    }
-  }
-
-  @override
-  Future<void> delete({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async =>
-      _data.remove(key);
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
