@@ -51,5 +51,39 @@ void main() {
       expect(updated.intervalDays, 1);
       expect(updated.easinessFactor, greaterThanOrEqualTo(1.3));
     });
+
+    test('a second success on the same day does not advance the schedule',
+        () {
+      final morning = DateTime(2026, 10, 13, 9);
+      var card = SrsCard(wordId: 'w', nextReviewDate: morning);
+      card = SM2Algorithm.update(card, 1.0, now: morning);
+      card = SM2Algorithm.update(card, 1.0,
+          now: morning.add(const Duration(minutes: 1)));
+      card = SM2Algorithm.update(card, 1.0,
+          now: morning.add(const Duration(minutes: 2)));
+
+      expect(card.repetitions, 1);
+      expect(card.intervalDays, 1);
+      expect(card.nextReviewDate, DateTime(2026, 10, 14, 9));
+    });
+
+    test('a failure on the same day still resets the card', () {
+      final morning = DateTime(2026, 10, 13, 9);
+      var card = SrsCard(wordId: 'w', nextReviewDate: morning);
+      card = SM2Algorithm.update(card, 1.0, now: morning);
+      card = SM2Algorithm.update(card, 0.2,
+          now: morning.add(const Duration(minutes: 5)));
+      expect(card.repetitions, 0);
+    });
+
+    test('the next day counts as a new review', () {
+      final day1 = DateTime(2026, 10, 13, 9);
+      var card = SrsCard(wordId: 'w', nextReviewDate: day1);
+      card = SM2Algorithm.update(card, 1.0, now: day1);
+      card = SM2Algorithm.update(card, 1.0,
+          now: DateTime(2026, 10, 14, 9));
+      expect(card.repetitions, 2);
+      expect(card.intervalDays, 6);
+    });
   });
 }

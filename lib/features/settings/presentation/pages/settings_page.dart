@@ -449,20 +449,22 @@ class _ResetTile extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(
           horizontal: Insets.lg, vertical: Insets.sm),
       leading: Icon(Icons.delete_outline_rounded, size: 20, color: p.critical),
-      title: Text('Restablecer progreso',
+      title: Text('Borrar mis datos',
           style: context.texts.titleMedium?.copyWith(color: p.critical)),
-      subtitle: Text('Borra racha, repasos, historial y guardadas',
+      subtitle: Text('Progreso, conversaciones, traducciones y ajustes',
           style: context.texts.bodySmall),
       onTap: () async {
         final bloc = context.read<SettingsBloc>();
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (dialogContext) => AlertDialog(
-            title: const Text('¿Restablecer todo?'),
+            title: const Text('¿Borrar todos tus datos?'),
             content: const Text(
-              'Se borrará tu racha, el calendario de repasos, el historial de '
-              'prácticas y tus palabras guardadas. El catálogo no se toca. '
-              'Esta acción no se puede deshacer.',
+              'Se borra todo lo que la app guarda en este teléfono: tu racha, '
+              'los repasos, el historial de prácticas, las palabras '
+              'guardadas, tus conversaciones con el tutor, lo que el tutor '
+              'sabe de ti, tus traducciones y los ajustes. No se puede '
+              'deshacer.',
             ),
             actions: [
               TextButton(
@@ -486,7 +488,7 @@ class _ResetTile extends StatelessWidget {
 
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Progreso restablecido.')),
+            const SnackBar(content: Text('Datos borrados.')),
           );
         }
       },

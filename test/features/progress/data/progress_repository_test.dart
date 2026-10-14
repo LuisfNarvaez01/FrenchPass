@@ -17,6 +17,17 @@ void main() {
 
   String key(DateTime date) => ProgressRepository.dayKey(date);
 
+  /// Moves every card's last review to two days ago, so the next attempt
+  /// counts as a new spaced review rather than same-day practice.
+  Future<void> nextDay() async {
+    final cards = storage.getJsonMap(StorageKeys.srsCards);
+    final past = DateTime.now().subtract(const Duration(days: 2));
+    for (final card in cards.values) {
+      (card as Map<String, dynamic>)['lastReviewDate'] = past.toIso8601String();
+    }
+    await storage.setJsonMap(StorageKeys.srsCards, cards);
+  }
+
   group('favourites', () {
     test('toggle adds then removes', () async {
       expect(repo.isFavorite('a1-001'), isFalse);
@@ -44,11 +55,14 @@ void main() {
       expect(repo.cardFor('a1-001'), isNotNull);
     });
 
-    test('advances the SM-2 schedule across repeated successes', () async {
+    test('advances the SM-2 schedule across successes on separate days',
+        () async {
       await repo.recordAttempt(
           wordId: 'w', score: 1.0, kind: AttemptKind.quiz);
+      await nextDay();
       await repo.recordAttempt(
           wordId: 'w', score: 1.0, kind: AttemptKind.quiz);
+      await nextDay();
       final third = await repo.recordAttempt(
           wordId: 'w', score: 1.0, kind: AttemptKind.quiz);
 
@@ -107,6 +121,14 @@ void main() {
       expect(repo.currentStreak(), 0);
     });
 
+    test('a run across a daylight-saving change stays unbroken', () async {
+      // Europe moved its clocks on 29 March 2026: that day had 23 hours.
+      await storage.setStringSet(StorageKeys.studiedDays,
+          {'2026-03-28', '2026-03-29', '2026-03-30'});
+      expect(repo.longestStreak(), 3);
+      expect(repo.currentStreak(now: DateTime(2026, 3, 30, 0, 30)), 3);
+    });
+
     test('longestStreak finds the best historical run', () async {
       final base = DateTime(2026, 5, 1);
       await storage.setStringSet(StorageKeys.studiedDays, {
@@ -140,8 +162,17 @@ void main() {
       for (var i = 0; i < 3; i++) {
         await repo.recordAttempt(
             wordId: 'a', score: 1.0, kind: AttemptKind.quiz);
+        await nextDay();
       }
       expect(repo.stats().mastered, 1);
+    });
+
+    test('three tries on the same day do not master a word', () async {
+      for (var i = 0; i < 3; i++) {
+        await repo.recordAttempt(
+            wordId: 'a', score: 1.0, kind: AttemptKind.quiz);
+      }
+      expect(repo.stats().mastered, 0);
     });
 
     test('dailyCounts returns one bucket per requested day', () async {

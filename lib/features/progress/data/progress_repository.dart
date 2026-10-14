@@ -223,20 +223,21 @@ class ProgressRepository {
 
   /// Consecutive days up to today (or up to yesterday, so the streak is not
   /// reported as broken before the learner has had a chance to practise).
-  int currentStreak() {
+  ///
+  /// Steps back by calendar day, never by 24 hours: on the day a clock
+  /// changes for daylight saving, "24 hours ago" can skip a date.
+  int currentStreak({DateTime? now}) {
     final days = loadStudiedDays();
     if (days.isEmpty) return 0;
 
-    final today = DateTime.now();
-    var cursor = days.contains(dayKey(today))
-        ? today
-        : today.subtract(const Duration(days: 1));
-    if (!days.contains(dayKey(cursor))) return 0;
+    final today = now ?? DateTime.now();
+    var offset = days.contains(dayKey(today)) ? 0 : 1;
+    if (!days.contains(dayKey(_daysBefore(today, offset)))) return 0;
 
     var streak = 0;
-    while (days.contains(dayKey(cursor))) {
+    while (days.contains(dayKey(_daysBefore(today, offset)))) {
       streak++;
-      cursor = cursor.subtract(const Duration(days: 1));
+      offset++;
     }
     return streak;
   }
@@ -245,11 +246,18 @@ class ProgressRepository {
     final keys = loadStudiedDays().toList()..sort();
     if (keys.isEmpty) return 0;
 
+    // Compared as UTC dates: local midnights around a daylight-saving
+    // change are 23 or 25 hours apart, which broke the run.
+    DateTime utcDay(String key) {
+      final d = DateTime.parse(key);
+      return DateTime.utc(d.year, d.month, d.day);
+    }
+
     var best = 1;
     var run = 1;
     for (var i = 1; i < keys.length; i++) {
-      final prev = DateTime.parse(keys[i - 1]);
-      final curr = DateTime.parse(keys[i]);
+      final prev = utcDay(keys[i - 1]);
+      final curr = utcDay(keys[i]);
       if (curr.difference(prev).inDays == 1) {
         run++;
         best = run > best ? run : best;
@@ -291,10 +299,9 @@ class ProgressRepository {
     return [
       for (var i = days - 1; i >= 0; i--)
         (
-          day: today.subtract(Duration(days: i)),
+          day: _daysBefore(today, i),
           count: attempts
-              .where((a) =>
-                  dayKey(a.at) == dayKey(today.subtract(Duration(days: i))))
+              .where((a) => dayKey(a.at) == dayKey(_daysBefore(today, i)))
               .length,
         ),
     ];
@@ -307,7 +314,7 @@ class ProgressRepository {
     final today = DateTime.now();
     final out = <({DateTime day, double score})>[];
     for (var i = days - 1; i >= 0; i--) {
-      final day = today.subtract(Duration(days: i));
+      final day = _daysBefore(today, i);
       final ofDay =
           attempts.where((a) => dayKey(a.at) == dayKey(day)).toList();
       if (ofDay.isEmpty) continue;
@@ -342,6 +349,10 @@ class ProgressRepository {
   }
 
   Future<void> resetAll() => _storage.clearAll();
+
+  /// Midnight [n] calendar days before [date].
+  static DateTime _daysBefore(DateTime date, int n) =>
+      DateTime(date.year, date.month, date.day - n);
 
   static String dayKey(DateTime date) =>
       '${date.year.toString().padLeft(4, '0')}-'

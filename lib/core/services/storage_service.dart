@@ -66,10 +66,15 @@ class StorageService {
   Future<void> setStringSet(String key, Set<String> value) =>
       _prefs.setStringList(key, value.toList());
 
-  /// Wipes every FrenchPass key (used by "restablecer progreso").
+  /// Wipes every FrenchPass key (used by "restablecer progreso"), except
+  /// the App Check debug token: it identifies the install, not the learner,
+  /// and a new one would have to be registered in Firebase again.
   Future<void> clearAll() async {
     for (final key in _prefs.getKeys().toList()) {
-      if (key.startsWith(StorageKeys.prefix)) await _prefs.remove(key);
+      if (key.startsWith(StorageKeys.prefix) &&
+          key != StorageKeys.appCheckDebugToken) {
+        await _prefs.remove(key);
+      }
     }
   }
 }

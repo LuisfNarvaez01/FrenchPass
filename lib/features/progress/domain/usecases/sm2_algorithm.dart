@@ -9,9 +9,19 @@ class SM2Algorithm {
   static const double _maxEasiness = 2.5;
 
   /// [score] va de 0.0 (completamente mal) a 1.0 (perfecto)
-  static SrsCard update(SrsCard card, double score) {
+  static SrsCard update(SrsCard card, double score, {DateTime? now}) {
+    final at = now ?? DateTime.now();
     // Normalizar score a escala 0-5 (SM-2 original)
     final q = (score * 5).round().clamp(0, 5);
+
+    // A second success on the same day is practice, not a spaced review:
+    // without this, three good tries in a row pushed a word to a 15-day
+    // interval and counted it as mastered on the day it was first seen.
+    // A failure still counts, so a word that slips is back tomorrow.
+    final last = card.lastReviewDate;
+    if (q >= 3 && last != null && _sameDay(last, at)) {
+      return card.copyWith(lastReviewDate: at, lastScore: score);
+    }
 
     double newEasiness = card.easinessFactor +
         (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02));
@@ -37,9 +47,15 @@ class SM2Algorithm {
       repetitions: newRepetitions,
       easinessFactor: newEasiness,
       intervalDays: newInterval,
-      nextReviewDate: DateTime.now().add(Duration(days: newInterval)),
-      lastReviewDate: DateTime.now(),
+      // Calendar days, not 24-hour blocks, so a daylight-saving change
+      // can't move the review to the wrong date.
+      nextReviewDate: DateTime(at.year, at.month, at.day + newInterval,
+          at.hour, at.minute),
+      lastReviewDate: at,
       lastScore: score,
     );
   }
+
+  static bool _sameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 }
