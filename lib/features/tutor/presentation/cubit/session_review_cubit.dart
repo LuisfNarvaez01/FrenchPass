@@ -113,7 +113,7 @@ class SessionReviewCubit extends Cubit<SessionReviewState> {
         levelEstimate: _repo.profile().levelEstimate,
       );
     } on AiException catch (e) {
-      error = e.rateLimited || e.unavailable
+      error = e.rateLimited || e.unavailable || e.unverified
           ? e.messageEs
           : 'No pude analizar esta frase. Revisa tu conexión e inténtalo '
               'otra vez.';

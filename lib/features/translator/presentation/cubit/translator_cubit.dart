@@ -85,7 +85,7 @@ class TranslatorCubit extends Cubit<TranslatorState> {
         levelEstimate: _tutor.profile().levelEstimate,
       );
     } on AiException catch (e) {
-      error = e.rateLimited
+      error = e.rateLimited || e.unverified
           ? e.messageEs
           : e.unavailable
               ? e.messageEs

@@ -251,6 +251,9 @@ class FakeLiveClient implements GeminiLiveClient {
   Future<void> close() async => connected = false;
   @override
   Future<void> dispose() async {}
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class FakeAudio implements TutorAudio {

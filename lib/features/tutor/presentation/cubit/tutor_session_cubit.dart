@@ -207,6 +207,15 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
       return;
     }
     _budget = _usage.tutorTimeLeft();
+    // A copy App Check won't accept fails here, with a reason, instead of
+    // as a vague dropped connection.
+    final problem = await AiBackend.verify();
+    if (isClosed) return;
+    if (problem != null) {
+      final e = AiException(unverified: true, detail: problem);
+      _fail('${e.messageEs}\n\n${e.technicalEs}');
+      return;
+    }
     if (!await _audio.requestMicrophone()) {
       _fail('Necesito permiso para usar el micrófono. Actívalo en los '
           'ajustes de Android para hablar con el tutor.');
@@ -286,9 +295,10 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
 
   String _connectError(LiveConnectException e) {
     final ai = e.asAiException;
-    return ai.rateLimited || ai.unavailable
+    final message = ai.rateLimited || ai.unavailable || ai.unverified
         ? ai.messageEs
         : 'No pude conectar con el tutor. Revisa tu conexión a internet.';
+    return [message, ai.technicalEs].where((s) => s.isNotEmpty).join('\n\n');
   }
 
   // ── Mic ──────────────────────────────────────────────────────────────────

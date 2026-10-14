@@ -26,7 +26,13 @@ abstract final class AiBackend {
   static bool get isReady => _ready;
 
   @visibleForTesting
-  static set readyForTesting(bool ready) => _ready = ready;
+  static set readyForTesting(bool ready) {
+    _ready = ready;
+    _testing = true;
+  }
+
+  /// Tests have no Firebase app to ask App Check.
+  static bool _testing = false;
 
   /// The App Check debug token of this install, on builds that use one.
   static String? get debugToken => _debugToken;
@@ -49,6 +55,23 @@ abstract final class AiBackend {
   }
 
   static FirebaseAI get ai => FirebaseAI.googleAI();
+
+  /// Asks App Check for a token before an AI call, so a copy that can't be
+  /// verified says so instead of failing as if the network were down.
+  /// Returns null when verified, else what went wrong.
+  static Future<String?> verify() async {
+    if (!_ready) return 'Firebase no se inició';
+    if (_testing) return null;
+    try {
+      final token = await FirebaseAppCheck.instance
+          .getToken()
+          .timeout(const Duration(seconds: 15));
+      return token == null || token.isEmpty ? 'App Check sin token' : null;
+    } catch (e) {
+      debugPrint('AiBackend.verify failed: $e');
+      return '$e';
+    }
+  }
 
   /// A random UUID v4, kept for the life of the install so it only has to
   /// be registered in the console once.
@@ -76,13 +99,24 @@ abstract final class AiBackend {
 class AiException implements Exception {
   final bool rateLimited;
   final bool unavailable;
+
+  /// App Check refused this copy of the app (Play Integrity, or an
+  /// unregistered debug token on the GitHub build).
+  final bool unverified;
   final String detail;
 
   const AiException({
     this.rateLimited = false,
     this.unavailable = false,
+    this.unverified = false,
     this.detail = '',
   });
+
+  /// Words that show up in App Check and attestation failures.
+  static final _attestation = RegExp(
+      r'app.?check|attestation|integrity|PERMISSION_DENIED|unauthenticated|'
+      r'\b40[13]\b|too many attempts',
+      caseSensitive: false);
 
   factory AiException.from(Object error) => switch (error) {
         AiException() => error,
@@ -94,6 +128,8 @@ class AiException implements Exception {
         ServiceApiNotEnabled() ||
         InvalidApiKey() =>
           AiException(unavailable: true, detail: '$error'),
+        _ when _attestation.hasMatch('$error') =>
+          AiException(unverified: true, detail: '$error'),
         _ => AiException(detail: '$error'),
       };
 
@@ -103,8 +139,22 @@ class AiException implements Exception {
       : unavailable
           ? 'La IA no está disponible en esta versión de la app. '
               'Actualízala desde Google Play.'
-          : 'No pude conectar con la IA. Revisa tu conexión e inténtalo '
-              'otra vez.';
+          : unverified
+              ? (AppChannel.isGithub
+                  ? 'Firebase no reconoce esta instalación. Registra el token '
+                      'de App Check que aparece en Ajustes y vuelve a '
+                      'intentarlo.'
+                  : 'Google Play no pudo verificar esta copia de FrenchPass. '
+                      'Instálala desde Google Play y vuelve a intentarlo.')
+              : 'No pude conectar con la IA. Revisa tu conexión e inténtalo '
+                  'otra vez.';
+
+  /// One line for the error screen, so a failure can be reported exactly.
+  String get technicalEs {
+    final d = detail.replaceAll(RegExp(r'\s+'), ' ').trim();
+    if (d.isEmpty) return '';
+    return 'Detalle técnico: ${d.length > 160 ? '${d.substring(0, 160)}…' : d}';
+  }
 
   @override
   String toString() => 'AiException($detail)';

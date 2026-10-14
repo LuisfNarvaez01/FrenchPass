@@ -162,6 +162,17 @@ class GeminiLiveClient {
     } catch (e) {
       throw LiveConnectException('$e', cause: e);
     }
+    await _attach(session, timeout);
+  }
+
+  /// Runs an already-open session, as [connect] does; lets tests drive the
+  /// client with the SDK's `LiveSession.forTesting`.
+  @visibleForTesting
+  Future<void> attachForTesting(LiveSession session,
+          {Duration timeout = const Duration(seconds: 2)}) =>
+      _attach(session, timeout);
+
+  Future<void> _attach(LiveSession session, Duration timeout) async {
     _session = session;
 
     final ready = Completer<void>();
@@ -228,12 +239,26 @@ class GeminiLiveClient {
     });
   }
 
+  /// Closes the session first, then drops the subscription. The other
+  /// order hangs: the SDK's receive() is an async* generator, and
+  /// cancelling it waits until the server sends another message -- which
+  /// after a goodbye may never come, so ending a lesson stalled. Both
+  /// steps are bounded so a dead network can't freeze the screen either.
   Future<void> close() async {
     final session = _session;
     _session = null;
-    await _sub?.cancel();
+    final sub = _sub;
     _sub = null;
-    await session?.close();
+    if (session != null) {
+      await session
+          .close()
+          .timeout(const Duration(seconds: 3), onTimeout: () {})
+          .catchError((Object e) => debugPrint('Live close failed: $e'));
+    }
+    await sub
+        ?.cancel()
+        .timeout(const Duration(seconds: 2), onTimeout: () {})
+        .catchError((Object e) => debugPrint('Live cancel failed: $e'));
   }
 
   Future<void> dispose() async {

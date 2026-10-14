@@ -33,9 +33,24 @@ Lo que ya está hecho en el código va al final.
    - App `…french_pass.dev`: proveedor *Debug*. Abre la versión de GitHub en
      tu teléfono, ve a Ajustes, copia el «Token de App Check» y pégalo en
      *App Check › Apps › Manage debug tokens*.
-   - App `…french_pass`: proveedor *Play Integrity*. Pide la huella SHA-256
-     de la **clave de firma de apps** de Play (Play Console › Integridad de
-     la app › Firma de apps), que existe cuando subes el primer AAB.
+   - App `…french_pass`: proveedor *Play Integrity*. Necesita dos cosas:
+     1. **La huella SHA-256 de la clave de firma de apps**, no la de la
+        clave de carga. En Play Console › Integridad de la app › Firma de
+        apps, la buena es la de arriba («Clave de firma de la app»), que se
+        copia con el botón «Huella digital del certificado SHA-256». La que
+        se ve escrita abajo («Certificado de clave de carga») es la de tu
+        keystore: con esa, la app de Play no pasa la verificación. Pégala en
+        Firebase › Configuración del proyecto › tu app Android › Agregar
+        huella digital (puedes tener varias; si hay claves de firma
+        anteriores, añade también la suya).
+     2. **Vincular Play Integrity con el proyecto**: Play Console ›
+        Integridad de la app › API de Play Integrity › Vincular un proyecto
+        de Cloud › elige el proyecto de Firebase.
+   - La app `…french_pass.dev` (GitHub) no usa Play Integrity sino el token
+     de depuración: registrarle también una huella no estorba, pero no hace
+     falta.
+   - Si algo falla, la pantalla de error del tutor muestra una línea
+     «Detalle técnico»: con ella se sabe qué paso falta.
    - Cuando las dos funcionen, activa **Enforce** para Firebase AI Logic.
      Desde el 2 de noviembre de 2026 Firebase lo exige igualmente.
 8. Baja el límite por usuario: Google Cloud Console › API «Firebase AI
