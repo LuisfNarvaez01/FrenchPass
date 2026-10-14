@@ -226,11 +226,7 @@ class _Connecting extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: 18,
-              height: 18,
-              child: CircularProgressIndicator(strokeWidth: 2, color: p.gold),
-            ),
+            const MascotSticker(size: 52, pose: MascotPose.thinking, tilt: 0),
             const SizedBox(width: Insets.md),
             Text('Conectando con tu tutor…', style: context.texts.bodyMedium),
           ],

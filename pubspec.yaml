@@ -79,3 +79,5 @@ flutter:
   assets:
     - assets/data/words_seed.json
     - assets/images/mascot.png
+    - assets/images/mascot_cool.png
+    - assets/images/mascot_thinking.png

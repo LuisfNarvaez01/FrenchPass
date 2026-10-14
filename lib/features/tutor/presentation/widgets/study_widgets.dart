@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/tutor/domain/saved_session.dart';
 import 'package:french_pass/features/tutor/presentation/widgets/phrase_practice.dart';
@@ -327,35 +328,37 @@ class StudySkeleton extends StatelessWidget {
           ),
         );
     final calm = MediaQuery.disableAnimationsOf(context);
-    final body = Semantics(
+    final bars = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        bar(0.9, 16),
+        bar(0.6, 16),
+        const SizedBox(height: Insets.lg),
+        bar(1, 56),
+        bar(1, 56),
+      ],
+    );
+    return Semantics(
       label: 'Analizando la frase',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              SizedBox(
-                width: 14,
-                height: 14,
-                child: CircularProgressIndicator(strokeWidth: 2, color: p.gold),
-              ),
+              const MascotSticker(size: 44, pose: MascotPose.thinking, tilt: 0),
               const SizedBox(width: Insets.sm),
               Text('Analizando la frase…', style: context.texts.bodySmall),
             ],
           ),
           const SizedBox(height: Insets.lg),
-          bar(0.9, 16),
-          bar(0.6, 16),
-          const SizedBox(height: Insets.lg),
-          bar(1, 56),
-          bar(1, 56),
+          if (calm)
+            bars
+          else
+            bars.animate(onPlay: (c) => c.repeat()).shimmer(
+                duration: 1400.ms, color: p.gold.withValues(alpha: 0.12)),
         ],
       ),
     );
-    if (calm) return body;
-    return body
-        .animate(onPlay: (c) => c.repeat())
-        .shimmer(duration: 1400.ms, color: p.gold.withValues(alpha: 0.12));
   }
 }
 

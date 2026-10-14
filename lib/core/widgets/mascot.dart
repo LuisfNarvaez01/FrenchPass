@@ -5,32 +5,55 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
 
-/// The FrenchPass mascot: a shiba in a beret, with a moustache and a
-/// baguette, cut out as a sticker.
+/// The mascot's three moods, one per moment.
+enum MascotPose {
+  /// Beret and baguette: the app's face (home, Premium, icon, widget).
+  baguette('assets/images/mascot.png', 'Perrito francés con boina y baguette'),
+
+  /// Sunglasses: something earned (a word said well, a lesson finished).
+  cool('assets/images/mascot_cool.png', 'Perrito francés con gafas de sol'),
+
+  /// Reading glasses, paw on chin: the AI is working, or there is
+  /// something to think about.
+  thinking('assets/images/mascot_thinking.png',
+      'Perrito francés pensando, con gafas');
+
+  final String asset;
+  final String label;
+  const MascotPose(this.asset, this.label);
+}
+
+/// The FrenchPass mascot: a shiba in a beret with a moustache, cut out as a
+/// sticker.
 ///
-/// It only shows up when the learner has earned it -- a word said clearly,
-/// a conversation finished -- so it stays a reward rather than wallpaper.
+/// It shows up at moments that mean something -- a word said clearly, a
+/// conversation finished, the AI thinking -- so it never turns into
+/// wallpaper.
 class MascotSticker extends StatelessWidget {
   final double size;
+  final MascotPose pose;
 
   /// Resting tilt in radians; stickers are never stuck on perfectly
   /// straight.
   final double tilt;
 
-  const MascotSticker({super.key, this.size = 96, this.tilt = -0.08});
-
-  static const asset = 'assets/images/mascot.png';
+  const MascotSticker({
+    super.key,
+    this.size = 96,
+    this.pose = MascotPose.baguette,
+    this.tilt = -0.08,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: tilt,
       child: Image.asset(
-        asset,
+        pose.asset,
         width: size,
         height: size,
         filterQuality: FilterQuality.medium,
-        semanticLabel: 'Perrito francés con boina y baguette',
+        semanticLabel: pose.label,
       ),
     );
   }
@@ -76,7 +99,7 @@ class MascotCelebration extends StatelessWidget {
                     ),
               ),
             ),
-          MascotSticker(size: size),
+          MascotSticker(size: size, pose: MascotPose.cool),
         ],
       ),
     );
@@ -128,8 +151,8 @@ class _Bubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: Insets.lg, vertical: Insets.sm),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.sm),
       decoration: BoxDecoration(
         color: p.gold,
         borderRadius: BorderRadius.circular(Radii.pill),

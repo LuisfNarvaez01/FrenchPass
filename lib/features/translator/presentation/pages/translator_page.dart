@@ -7,6 +7,7 @@ import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
@@ -140,12 +141,7 @@ class _TranslatorViewState extends State<_TranslatorView> {
                         onDelete: context.read<TranslatorCubit>().delete,
                       )
                     else
-                      const InfoNotice(
-                        icon: Icons.lightbulb_outline_rounded,
-                        message: 'Prueba con algo que dirías hoy: "Quiero '
-                            'un café con leche, por favor" o "Llego tarde '
-                            'porque había tráfico".',
-                      ),
+                      const _FirstTime(),
                   ],
                 ),
               ),
@@ -485,4 +481,26 @@ class _History extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Before the first translation: an example to copy the idea from.
+class _FirstTime extends StatelessWidget {
+  const _FirstTime();
+
+  @override
+  Widget build(BuildContext context) => AppCard(
+        child: Row(
+          children: [
+            const MascotSticker(size: 64, pose: MascotPose.thinking, tilt: 0),
+            const SizedBox(width: Insets.md),
+            Expanded(
+              child: Text(
+                'Prueba con algo que dirías hoy: "Quiero un café con leche, '
+                'por favor" o "Llego tarde porque había tráfico".',
+                style: context.texts.bodySmall,
+              ),
+            ),
+          ],
+        ),
+      );
 }

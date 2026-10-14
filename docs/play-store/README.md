@@ -178,10 +178,6 @@ necesitan conexión a internet.
 
 ## 4. Decisiones pendientes
 
-- **Derechos de la imagen del perrito.** Es una foto que circula como meme.
-  Si no es tuya ni tienes permiso, Play puede rechazar la app por propiedad
-  intelectual. La salida segura es una ilustración propia del mismo
-  personaje.
 - **Medir el costo real** durante la prueba cerrada (Google Cloud ›
   Facturación › Informes) y ajustar minutos o precios si hace falta.
 
