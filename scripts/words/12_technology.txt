@@ -1,0 +1,38 @@
+# category: technology
+portable | pɔʁ.tabl | celular / portátil | mobile phone / laptop | J'ai oublié mon portable à la maison. | Olvidé mi celular en casa. | a1 | noun
+tablette | ta.blɛt | tableta | tablet | Les enfants regardent des dessins animés sur la tablette. | Los niños ven dibujos en la tableta. | a2 | noun
+clavier | kla.vje | teclado | keyboard | Le clavier français est différent. | El teclado francés es diferente. | a2 | noun
+souris d'ordinateur | su.ʁi dɔʁ.di.na.tœʁ | ratón (de computadora) | computer mouse | Ma souris d'ordinateur ne marche plus. | Mi ratón ya no funciona. | a2 | noun
+internet | ɛ̃.tɛʁ.nɛt | internet | internet | Il n'y a pas d'internet dans la chambre. | No hay internet en la habitación. | a1 | noun
+wifi | wi.fi | wifi | wifi | Quel est le mot de passe du wifi ? | ¿Cuál es la contraseña del wifi? | a1 | noun
+mot de passe | mo də pɑs | contraseña | password | J'ai oublié mon mot de passe. | Olvidé mi contraseña. | a2 | noun
+site | sit | sitio web | website | Réservez sur notre site. | Reserve en nuestra web. | a2 | noun
+application | a.pli.ka.sjɔ̃ | aplicación | app | Télécharge l'application pour payer. | Descarga la aplicación para pagar. | a2 | noun
+courriel | ku.ʁjɛl | correo electrónico | email | Je vous envoie un courriel ce soir. | Le envío un correo esta noche. | a2 | noun
+message | me.saʒ | mensaje | message | Je t'ai laissé un message. | Te dejé un mensaje. | a1 | noun
+envoyer | ɑ̃.vwa.je | enviar | to send | Envoie-moi la photo. | Mándame la foto. | a1 | verb
+recevoir | ʁə.sə.vwaʁ | recibir | to receive | Tu as reçu mon message ? | ¿Recibiste mi mensaje? | a2 | verb
+télécharger | te.le.ʃaʁ.ʒe | descargar | to download | Le fichier met longtemps à télécharger. | El archivo tarda en descargar. | a2 | verb
+cliquer | kli.ke | hacer clic | to click | Cliquez sur le bouton vert. | Haga clic en el botón verde. | a2 | verb
+appeler | a.ple | llamar | to call | Je t'appelle ce soir. | Te llamo esta noche. | a1 | verb
+allumer | a.ly.me | encender | to turn on | Allume l'ordinateur. | Enciende la computadora. | a2 | verb
+éteindre | e.tɛ̃dʁ | apagar | to turn off | Éteignez vos portables, s'il vous plaît. | Apaguen los celulares, por favor. | a2 | verb
+charger | ʃaʁ.ʒe | cargar | to charge / to load | Je dois charger mon téléphone. | Tengo que cargar el teléfono. | a2 | verb
+chargeur | ʃaʁ.ʒœʁ | cargador | charger | Tu as un chargeur ? | ¿Tienes un cargador? | a2 | noun
+batterie | ba.tʁi | batería | battery | Ma batterie est presque vide. | Me queda poca batería. | a2 | noun
+fichier | fi.ʃje | archivo | file | Enregistre le fichier avant de fermer. | Guarda el archivo antes de cerrar. | b1 | noun
+enregistrer | ɑ̃.ʁə.ʒis.tʁe | guardar / grabar | to save / to record | N'oublie pas d'enregistrer ton travail. | No olvides guardar tu trabajo. | b1 | verb
+supprimer | sy.pʁi.me | borrar / eliminar | to delete | J'ai supprimé la photo par erreur. | Borré la foto sin querer. | b1 | verb
+mettre à jour | mɛtʁ a ʒuʁ | actualizar | to update | Il faut mettre à jour l'application. | Hay que actualizar la aplicación. | b1 | phrase
+réseaux sociaux | ʁe.zo so.sjo | redes sociales | social media | Elle passe trop de temps sur les réseaux sociaux. | Pasa demasiado tiempo en las redes sociales. | b1 | noun
+en ligne | ɑ̃ liɲ | en línea | online | Je fais mes courses en ligne. | Hago la compra en línea. | a2 | phrase
+appareil photo | a.pa.ʁɛj fɔ.to | cámara de fotos | camera | J'ai acheté un nouvel appareil photo. | Me compré una cámara nueva. | a2 | noun
+imprimante | ɛ̃.pʁi.mɑ̃t | impresora | printer | L'imprimante n'a plus d'encre. | La impresora no tiene tinta. | b1 | noun
+écouteurs | e.ku.tœʁ | auriculares | earphones | J'écoute de la musique avec mes écouteurs. | Escucho música con los auriculares. | a2 | noun
+panne | pan | avería | breakdown | Mon ordinateur est en panne. | Mi computadora está averiada. | b1 | noun
+intelligence artificielle | ɛ̃.te.li.ʒɑ̃s aʁ.ti.fi.sjɛl | inteligencia artificial | artificial intelligence | L'intelligence artificielle change notre travail. | La inteligencia artificial cambia nuestro trabajo. | b2 | noun
+données | dɔ.ne | datos | data | Protégez vos données personnelles. | Proteja sus datos personales. | b2 | noun
+logiciel libre | lɔ.ʒi.sjɛl libʁ | software libre | free software | Ce logiciel libre est gratuit. | Este software libre es gratuito. | c1 | noun
+pirater | pi.ʁa.te | hackear / piratear | to hack | Son compte a été piraté. | Le hackearon la cuenta. | b2 | verb
+capture d'écran | kap.tyʁ de.kʁɑ̃ | captura de pantalla | screenshot | Fais une capture d'écran. | Haz una captura de pantalla. | b1 | noun
+ça ne marche pas | sa nə maʁʃ pa | no funciona | it doesn't work | J'ai redémarré, mais ça ne marche pas. | Reinicié, pero no funciona. | a2 | expression

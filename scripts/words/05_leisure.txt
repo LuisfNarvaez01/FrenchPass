@@ -1,0 +1,56 @@
+# category: leisure
+sport | spɔʁ | deporte | sport | Tu fais du sport ? | ¿Haces deporte? | a1 | noun
+football | fut.bol | fútbol | football / soccer | Le football est très populaire en France. | El fútbol es muy popular en Francia. | a1 | noun
+natation | na.ta.sjɔ̃ | natación | swimming | Je fais de la natation le mardi. | Hago natación los martes. | a2 | noun
+randonnée | ʁɑ̃.dɔ.ne | senderismo / excursión | hike | On a fait une randonnée en montagne. | Hicimos una caminata por la montaña. | a2 | noun
+course à pied | kuʁs a pje | correr / running | running | La course à pied, c'est bon pour le moral. | Salir a correr es bueno para el ánimo. | b1 | noun
+vélo | ve.lo | bicicleta | bike | Je vais au travail à vélo. | Voy al trabajo en bici. | a1 | noun
+ballon | ba.lɔ̃ | balón / globo | ball / balloon | Les enfants jouent au ballon. | Los niños juegan a la pelota. | a1 | noun
+équipe | e.kip | equipo | team | Notre équipe a gagné ! | ¡Nuestro equipo ganó! | a2 | noun
+match | matʃ | partido | match | On regarde le match ce soir ? | ¿Vemos el partido esta noche? | a1 | noun
+gagner | ɡa.ɲe | ganar | to win / to earn | Qui a gagné le match ? | ¿Quién ganó el partido? | a1 | verb
+perdre | pɛʁdʁ | perder | to lose | J'ai perdu mes clés. | Perdí mis llaves. | a1 | verb
+jouer | ʒwe | jugar / tocar (instrumento) | to play | Je joue de la guitare. | Toco la guitarra. | a1 | verb
+nager | na.ʒe | nadar | to swim | Tu sais nager ? | ¿Sabes nadar? | a1 | verb
+courir | ku.ʁiʁ | correr | to run | Je cours trois fois par semaine. | Corro tres veces por semana. | a1 | verb
+danser | dɑ̃.se | bailar | to dance | On va danser samedi soir ? | ¿Vamos a bailar el sábado por la noche? | a1 | verb
+chanter | ʃɑ̃.te | cantar | to sing | Elle chante dans une chorale. | Canta en un coro. | a1 | verb
+dessiner | de.si.ne | dibujar | to draw | Mon fils dessine des dinosaures. | Mi hijo dibuja dinosaurios. | a1 | verb
+s'amuser | sa.my.ze | divertirse | to have fun | Amusez-vous bien ! | ¡Que se diviertan! | a2 | verb
+se détendre | sə de.tɑ̃dʁ | relajarse | to relax | Le soir, je lis pour me détendre. | Por la noche leo para relajarme. | b1 | verb
+loisirs | lwa.ziʁ | ocio / pasatiempos | hobbies / leisure | Quels sont tes loisirs ? | ¿Cuáles son tus pasatiempos? | a2 | noun
+passe-temps | pɑs.tɑ̃ | pasatiempo | hobby | La photo est mon passe-temps préféré. | La fotografía es mi pasatiempo favorito. | a2 | noun
+cinéma | si.ne.ma | cine | cinema | On va au cinéma ce soir. | Vamos al cine esta noche. | a1 | noun
+film | film | película | film | C'est un film en version originale. | Es una película en versión original. | a1 | noun
+série | se.ʁi | serie | TV series | Je regarde une série française. | Veo una serie francesa. | a1 | noun
+concert | kɔ̃.sɛʁ | concierto | concert | Le concert était génial. | El concierto estuvo genial. | a1 | noun
+musique | my.zik | música | music | Quelle musique tu écoutes ? | ¿Qué música escuchas? | a1 | noun
+chanson | ʃɑ̃.sɔ̃ | canción | song | J'adore cette chanson. | Me encanta esta canción. | a1 | noun
+jeu | ʒø | juego | game | On fait un jeu de société ? | ¿Jugamos a un juego de mesa? | a1 | noun
+jeu vidéo | ʒø vi.de.o | videojuego | video game | Il joue aux jeux vidéo tout le week-end. | Juega a los videojuegos todo el fin de semana. | a2 | noun
+photo | fɔ.to | foto | photo | Tu peux prendre une photo de nous ? | ¿Nos puedes sacar una foto? | a1 | noun
+vacances | va.kɑ̃s | vacaciones | holidays | Bonnes vacances ! | ¡Buenas vacaciones! | a1 | noun
+plage | plaʒ | playa | beach | On passe la journée à la plage. | Pasamos el día en la playa. | a1 | noun
+piscine | pi.sin | piscina | swimming pool | La piscine est ouverte jusqu'à vingt heures. | La piscina abre hasta las ocho. | a1 | noun
+salle de sport | sal də spɔʁ | gimnasio | gym | Je vais à la salle de sport le matin. | Voy al gimnasio por la mañana. | a2 | noun
+pique-nique | pik.nik | pícnic | picnic | On fait un pique-nique au parc ? | ¿Hacemos un pícnic en el parque? | a2 | noun
+sortir | sɔʁ.tiʁ | salir | to go out | Tu veux sortir ce soir ? | ¿Quieres salir esta noche? | a1 | verb
+se promener | sə pʁɔm.ne | pasear | to go for a walk | On se promène au bord de la Seine. | Paseamos a orillas del Sena. | a2 | verb
+inviter | ɛ̃.vi.te | invitar | to invite | Je t'invite à dîner. | Te invito a cenar. | a1 | verb
+fête | fɛt | fiesta | party / celebration | On organise une fête pour son départ. | Organizamos una fiesta por su despedida. | a1 | noun
+billet | bi.jɛ | entrada / billete | ticket / banknote | J'ai deux billets pour le concert. | Tengo dos entradas para el concierto. | a1 | noun
+entraînement | ɑ̃.tʁɛn.mɑ̃ | entrenamiento | training | L'entraînement est le jeudi soir. | El entrenamiento es el jueves por la noche. | b1 | noun
+s'entraîner | sɑ̃.tʁɛ.ne | entrenar | to train | Elle s'entraîne pour un marathon. | Entrena para un maratón. | b1 | verb
+supporter | sy.pɔʁ.tɛʁ | hincha / aficionado | fan (sports) | Les supporters chantent dans le stade. | Los hinchas cantan en el estadio. | b1 | noun
+stade | stad | estadio | stadium | Le stade est plein. | El estadio está lleno. | a2 | noun
+arbitre | aʁ.bitʁ | árbitro | referee | L'arbitre a sifflé un penalty. | El árbitro pitó un penalti. | b1 | noun
+but | byt | gol / objetivo | goal | Il a marqué un but magnifique. | Marcó un gol magnífico. | a2 | noun
+ski | ski | esquí | skiing | On part au ski en février. | Nos vamos a esquiar en febrero. | a2 | noun
+pêche | pɛʃ | pesca / melocotón | fishing / peach | Mon grand-père adore la pêche. | A mi abuelo le encanta la pesca. | a2 | noun
+jardinage | ʒaʁ.di.naʒ | jardinería | gardening | Le jardinage me détend. | La jardinería me relaja. | b1 | noun
+bricolage | bʁi.kɔ.laʒ | bricolaje | DIY | Il passe ses week-ends à faire du bricolage. | Pasa los fines de semana haciendo bricolaje. | b1 | noun
+échecs | e.ʃɛk | ajedrez | chess | Tu joues aux échecs ? | ¿Juegas al ajedrez? | a2 | noun
+ça te dit ? | sa tə di | ¿te apetece? | do you fancy it? | On va au cinéma, ça te dit ? | Vamos al cine, ¿te apetece? | b1 | expression
+on se fait un ciné ? | ɔ̃ sə fɛ œ̃ si.ne | ¿vamos al cine? | shall we catch a movie? | Ce soir, on se fait un ciné ? | ¿Esta noche vamos al cine? | b1 | expression
+grasse matinée | ɡʁɑs ma.ti.ne | dormir hasta tarde | lie-in | Dimanche, je fais la grasse matinée. | El domingo me quedo durmiendo hasta tarde. | b1 | noun
+flemme | flɛm | pereza (coloquial) | laziness (slang) | J'ai la flemme de sortir. | Me da pereza salir. | b2 | noun

@@ -1,0 +1,57 @@
+# category: home
+appartement | a.paʁ.tə.mɑ̃ | apartamento | flat | Notre appartement a deux chambres. | Nuestro apartamento tiene dos habitaciones. | a1 | noun
+chambre | ʃɑ̃bʁ | habitación / dormitorio | bedroom | Ma chambre donne sur le jardin. | Mi habitación da al jardín. | a1 | noun
+cuisine | kɥi.zin | cocina | kitchen / cooking | La cuisine est petite mais pratique. | La cocina es pequeña pero práctica. | a1 | noun
+salon | sa.lɔ̃ | sala / salón | living room | On regarde la télé dans le salon. | Vemos la tele en la sala. | a1 | noun
+salle de bains | sal də bɛ̃ | baño (con ducha o tina) | bathroom | La salle de bains est à côté de la chambre. | El baño está al lado del dormitorio. | a1 | noun
+toilettes | twa.lɛt | inodoro / aseo | toilet | Les toilettes sont au fond du couloir. | El aseo está al fondo del pasillo. | a1 | noun
+jardin | ʒaʁ.dɛ̃ | jardín | garden | Les enfants jouent dans le jardin. | Los niños juegan en el jardín. | a1 | noun
+balcon | bal.kɔ̃ | balcón | balcony | On prend le café sur le balcon. | Tomamos el café en el balcón. | a2 | noun
+escalier | ɛs.ka.lje | escalera | stairs | L'ascenseur est en panne, prends l'escalier. | El ascensor no funciona, sube por la escalera. | a2 | noun
+ascenseur | a.sɑ̃.sœʁ | ascensor | lift / elevator | L'ascenseur est à droite. | El ascensor está a la derecha. | a2 | noun
+étage | e.taʒ | piso / planta | floor | J'habite au troisième étage. | Vivo en el tercer piso. | a1 | noun
+mur | myʁ | pared / muro | wall | Il y a un tableau sur le mur. | Hay un cuadro en la pared. | a1 | noun
+plafond | pla.fɔ̃ | techo (interior) | ceiling | Le plafond est très haut. | El techo es muy alto. | a2 | noun
+toit | twa | tejado | roof | Il y a un chat sur le toit. | Hay un gato en el tejado. | a2 | noun
+sol | sɔl | suelo | floor / ground | Ne laisse pas tes chaussures sur le sol. | No dejes los zapatos en el suelo. | a2 | noun
+canapé | ka.na.pe | sofá | sofa | Je me suis endormi sur le canapé. | Me quedé dormido en el sofá. | a1 | noun
+armoire | aʁ.mwaʁ | armario | wardrobe | Mes pulls sont dans l'armoire. | Mis suéteres están en el armario. | a2 | noun
+placard | pla.kaʁ | alacena / armario empotrado | cupboard | Les verres sont dans le placard. | Los vasos están en la alacena. | a2 | noun
+tiroir | ti.ʁwaʁ | cajón | drawer | Les cuillères sont dans le premier tiroir. | Las cucharas están en el primer cajón. | a2 | noun
+étagère | e.ta.ʒɛʁ | estante | shelf | Pose le livre sur l'étagère. | Pon el libro en el estante. | b1 | noun
+lampe | lɑ̃p | lámpara | lamp | Allume la lampe, il fait sombre. | Enciende la lámpara, está oscuro. | a1 | noun
+miroir | mi.ʁwaʁ | espejo | mirror | Il se regarde dans le miroir. | Se mira en el espejo. | a2 | noun
+réfrigérateur | ʁe.fʁi.ʒe.ʁa.tœʁ | nevera / refrigerador | fridge | Mets le lait au réfrigérateur. | Mete la leche en la nevera. | a2 | noun
+frigo | fʁi.ɡo | nevera (coloquial) | fridge (informal) | Il n'y a plus rien dans le frigo. | No queda nada en la nevera. | a2 | noun
+machine à laver | ma.ʃin a la.ve | lavadora | washing machine | La machine à laver fait du bruit. | La lavadora hace ruido. | a2 | noun
+lave-vaisselle | lav.vɛ.sɛl | lavavajillas | dishwasher | Vide le lave-vaisselle, s'il te plaît. | Vacía el lavavajillas, por favor. | b1 | noun
+douche | duʃ | ducha | shower | Je prends une douche le matin. | Me ducho por la mañana. | a1 | noun
+baignoire | bɛ.ɲwaʁ | bañera / tina | bathtub | La baignoire est pleine. | La bañera está llena. | b1 | noun
+lumière | ly.mjɛʁ | luz | light | Éteins la lumière en sortant. | Apaga la luz al salir. | a1 | noun
+chauffage | ʃo.faʒ | calefacción | heating | Le chauffage ne marche pas. | La calefacción no funciona. | a2 | noun
+ménage | me.naʒ | limpieza de la casa | housework | Je fais le ménage le samedi. | Hago la limpieza los sábados. | a2 | noun
+nettoyer | nɛ.twa.je | limpiar | to clean | Il faut nettoyer la cuisine. | Hay que limpiar la cocina. | a2 | verb
+ranger | ʁɑ̃.ʒe | ordenar | to tidy | Range ta chambre ! | ¡Ordena tu cuarto! | a2 | verb
+laver | la.ve | lavar | to wash | Je lave la voiture le dimanche. | Lavo el coche los domingos. | a1 | verb
+faire la vaisselle | fɛʁ la vɛ.sɛl | lavar los platos | to do the dishes | C'est ton tour de faire la vaisselle. | Te toca lavar los platos. | a2 | phrase
+faire le lit | fɛʁ lə li | hacer la cama | to make the bed | Fais ton lit avant de partir. | Haz la cama antes de irte. | a2 | phrase
+habiter | a.bi.te | vivir (en un lugar) | to live | J'habite près de la gare. | Vivo cerca de la estación. | a1 | verb
+déménager | de.me.na.ʒe | mudarse | to move house | On déménage le mois prochain. | Nos mudamos el mes que viene. | b1 | verb
+louer | lwe | alquilar | to rent | Nous louons un studio à Paris. | Alquilamos un estudio en París. | a2 | verb
+propriétaire | pʁɔ.pʁi.je.tɛʁ | propietario / casero | owner / landlord | Le propriétaire passe demain. | El casero pasa mañana. | b1 | noun
+locataire | lɔ.ka.tɛʁ | inquilino | tenant | Les locataires paient le loyer le 1er. | Los inquilinos pagan el alquiler el día 1. | b1 | noun
+colocation | kɔ.lɔ.ka.sjɔ̃ | piso compartido | flatshare | Je vis en colocation avec deux amis. | Comparto piso con dos amigos. | b1 | noun
+voisinage | vwa.zi.naʒ | vecindario | neighbourhood | Le voisinage est très calme. | El vecindario es muy tranquilo. | b2 | noun
+meublé | mœ.ble | amueblado | furnished | Je cherche un appartement meublé. | Busco un apartamento amueblado. | b1 | adjective
+spacieux | spa.sjø | espacioso | spacious | Le salon est lumineux et spacieux. | El salón es luminoso y espacioso. | b1 | adjective
+lumineux | ly.mi.nø | luminoso | bright | Cet appartement est très lumineux. | Este apartamento es muy luminoso. | b1 | adjective
+bruyant | bʁɥi.jɑ̃ | ruidoso | noisy | La rue est trop bruyante la nuit. | La calle es demasiado ruidosa de noche. | b1 | adjective
+travaux | tʁa.vo | obras | building work | Il y a des travaux chez le voisin. | El vecino está de obras. | b1 | noun
+fuite | fɥit | fuga / escape | leak | Il y a une fuite d'eau sous l'évier. | Hay una fuga de agua debajo del fregadero. | b2 | noun
+bricoler | bʁi.kɔ.le | hacer arreglos | to do DIY | Mon père adore bricoler. | A mi padre le encanta hacer arreglos. | b1 | verb
+poubelle | pu.bɛl | basura / cubo de basura | bin | Tu peux sortir la poubelle ? | ¿Puedes sacar la basura? | a2 | noun
+oreiller | ɔ.ʁɛ.je | almohada | pillow | Cet oreiller est trop dur. | Esta almohada es demasiado dura. | b1 | noun
+couverture | ku.vɛʁ.tyʁ | manta / cobija | blanket | Il fait froid, prends une couverture. | Hace frío, coge una manta. | b1 | noun
+draps | dʁa | sábanas | sheets | Je change les draps chaque semaine. | Cambio las sábanas cada semana. | b1 | noun
+se sentir chez soi | sə sɑ̃.tiʁ ʃe swa | sentirse como en casa | to feel at home | Fais comme chez toi ! | ¡Siéntete como en tu casa! | b1 | expression
+pendre la crémaillère | pɑ̃dʁ la kʁe.ma.jɛʁ | celebrar la casa nueva | to have a housewarming | On pend la crémaillère samedi. | Celebramos la casa nueva el sábado. | c1 | expression

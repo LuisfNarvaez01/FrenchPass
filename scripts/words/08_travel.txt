@@ -1,0 +1,58 @@
+# category: travel
+avion | a.vjɔ̃ | avión | plane | L'avion décolle à midi. | El avión despega al mediodía. | a1 | noun
+bus | bys | autobús | bus | Je prends le bus pour aller au centre. | Tomo el autobús para ir al centro. | a1 | noun
+métro | me.tʁo | metro | underground | Le métro est plus rapide. | El metro es más rápido. | a1 | noun
+taxi | tak.si | taxi | taxi | On prend un taxi pour l'aéroport. | Tomamos un taxi al aeropuerto. | a1 | noun
+bateau | ba.to | barco | boat | On traverse la Manche en bateau. | Cruzamos el canal de la Mancha en barco. | a1 | noun
+billet aller-retour | bi.jɛ a.le.ʁə.tuʁ | billete de ida y vuelta | return ticket | Un billet aller-retour pour Lyon, s'il vous plaît. | Un billete de ida y vuelta a Lyon, por favor. | a2 | noun
+valise | va.liz | maleta | suitcase | Ma valise est trop lourde. | Mi maleta pesa demasiado. | a1 | noun
+bagages | ba.ɡaʒ | equipaje | luggage | Où récupère-t-on les bagages ? | ¿Dónde se recoge el equipaje? | a2 | noun
+passeport | pas.pɔʁ | pasaporte | passport | N'oublie pas ton passeport ! | ¡No olvides el pasaporte! | a1 | noun
+carte d'identité | kaʁt di.dɑ̃.ti.te | documento de identidad | ID card | Votre carte d'identité, s'il vous plaît. | Su documento de identidad, por favor. | a2 | noun
+vol | vɔl | vuelo / robo | flight / theft | Le vol a deux heures de retard. | El vuelo tiene dos horas de retraso. | a2 | noun
+départ | de.paʁ | salida | departure | Le départ est prévu à huit heures. | La salida está prevista a las ocho. | a2 | noun
+arrivée | a.ʁi.ve | llegada | arrival | Appelle-moi à ton arrivée. | Llámame cuando llegues. | a2 | noun
+quai | ke | andén / muelle | platform / quay | Le train part du quai numéro trois. | El tren sale del andén tres. | a2 | noun
+correspondance | kɔ.ʁɛs.pɔ̃.dɑ̃s | transbordo / conexión | connection (transport) | J'ai une correspondance à Paris. | Tengo una conexión en París. | b1 | noun
+réservation | ʁe.zɛʁ.va.sjɔ̃ | reserva | booking | J'ai une réservation au nom de Garcia. | Tengo una reserva a nombre de García. | a2 | noun
+réserver | ʁe.zɛʁ.ve | reservar | to book | Il faut réserver la table. | Hay que reservar la mesa. | a2 | verb
+partir | paʁ.tiʁ | irse / salir | to leave | Nous partons demain matin. | Nos vamos mañana por la mañana. | a1 | verb
+arriver | a.ʁi.ve | llegar | to arrive | Le train arrive à quelle heure ? | ¿A qué hora llega el tren? | a1 | verb
+visiter | vi.zi.te | visitar (un lugar) | to visit | On a visité le Louvre. | Visitamos el Louvre. | a1 | verb
+se perdre | sə pɛʁdʁ | perderse | to get lost | On s'est perdus dans la vieille ville. | Nos perdimos en el casco antiguo. | a2 | verb
+plan | plɑ̃ | mapa / plano | map | Vous avez un plan de la ville ? | ¿Tiene un plano de la ciudad? | a2 | noun
+ville | vil | ciudad | town / city | Bordeaux est une ville magnifique. | Burdeos es una ciudad magnífica. | a1 | noun
+village | vi.laʒ | pueblo | village | Ce village a trois cents habitants. | Este pueblo tiene trescientos habitantes. | a1 | noun
+pays | pe.i | país | country | Quel pays veux-tu visiter ? | ¿Qué país quieres visitar? | a1 | noun
+centre-ville | sɑ̃.tʁə.vil | centro de la ciudad | town centre | L'hôtel est en plein centre-ville. | El hotel está en pleno centro. | a2 | noun
+place | plas | plaza / sitio | square / seat | On se retrouve sur la place. | Quedamos en la plaza. | a1 | noun
+pont | pɔ̃ | puente | bridge | Il y a trente-sept ponts à Paris. | Hay treinta y siete puentes en París. | a2 | noun
+église | e.ɡliz | iglesia | church | L'église date du Moyen Âge. | La iglesia es de la Edad Media. | a2 | noun
+château | ʃɑ.to | castillo | castle | Les châteaux de la Loire sont célèbres. | Los castillos del Loira son famosos. | a2 | noun
+à gauche | a ɡoʃ | a la izquierda | on the left | Tournez à gauche au feu. | Gire a la izquierda en el semáforo. | a1 | phrase
+à droite | a dʁwat | a la derecha | on the right | La pharmacie est à droite. | La farmacia está a la derecha. | a1 | phrase
+tout droit | tu dʁwa | todo recto | straight ahead | Continuez tout droit. | Siga todo recto. | a1 | phrase
+près de | pʁɛ də | cerca de | near | L'hôtel est près de la gare. | El hotel está cerca de la estación. | a1 | phrase
+loin de | lwɛ̃ də | lejos de | far from | C'est loin d'ici ? | ¿Está lejos de aquí? | a1 | phrase
+à côté de | a ko.te də | al lado de | next to | La boulangerie est à côté de la poste. | La panadería está al lado de correos. | a1 | phrase
+en face de | ɑ̃ fas də | enfrente de | opposite | Le café est en face de la mairie. | El café está enfrente del ayuntamiento. | a2 | phrase
+feu rouge | fø ʁuʒ | semáforo | traffic light | Arrête-toi au feu rouge. | Para en el semáforo. | a2 | noun
+carrefour | kaʁ.fuʁ | cruce | crossroads | Au carrefour, prenez la deuxième rue. | En el cruce, tome la segunda calle. | a2 | noun
+trottoir | tʁɔ.twaʁ | acera | pavement | Marche sur le trottoir ! | ¡Camina por la acera! | b1 | noun
+office de tourisme | ɔ.fis də tu.ʁism | oficina de turismo | tourist office | L'office de tourisme donne des plans gratuits. | La oficina de turismo da planos gratis. | a2 | noun
+touriste | tu.ʁist | turista | tourist | Il y a beaucoup de touristes en été. | Hay muchos turistas en verano. | a1 | noun
+étranger | e.tʁɑ̃.ʒe | extranjero | foreigner / abroad | Elle a vécu à l'étranger. | Vivió en el extranjero. | a2 | noun
+frontière | fʁɔ̃.tjɛʁ | frontera | border | On a passé la frontière sans contrôle. | Cruzamos la frontera sin control. | b1 | noun
+douane | dwan | aduana | customs | Vous avez quelque chose à déclarer à la douane ? | ¿Tiene algo que declarar en la aduana? | b1 | noun
+location de voiture | lɔ.ka.sjɔ̃ də vwa.tyʁ | alquiler de coches | car rental | Où est l'agence de location de voiture ? | ¿Dónde está la agencia de alquiler de coches? | b1 | noun
+permis de conduire | pɛʁ.mi də kɔ̃.dɥiʁ | licencia de conducir | driving licence | J'ai mon permis de conduire depuis deux ans. | Tengo licencia de conducir desde hace dos años. | b1 | noun
+conduire | kɔ̃.dɥiʁ | conducir / manejar | to drive | Tu sais conduire ? | ¿Sabes manejar? | a2 | verb
+essence | e.sɑ̃s | gasolina | petrol | Il faut faire le plein d'essence. | Hay que llenar el tanque de gasolina. | b1 | noun
+auberge de jeunesse | o.bɛʁʒ də ʒœ.nɛs | albergue juvenil | youth hostel | On dort dans une auberge de jeunesse. | Dormimos en un albergue juvenil. | b1 | noun
+séjour | se.ʒuʁ | estancia | stay | Bon séjour à Paris ! | ¡Buena estancia en París! | a2 | noun
+souvenir de voyage | su.və.niʁ də vwa.jaʒ | recuerdo de viaje | souvenir | J'ai acheté des souvenirs de voyage pour ma famille. | Compré recuerdos para mi familia. | a2 | noun
+décalage horaire | de.ka.laʒ ɔ.ʁɛʁ | diferencia horaria / jet lag | jet lag / time difference | Avec le décalage horaire, je suis épuisé. | Con el cambio de hora, estoy agotado. | b1 | noun
+composter | kɔ̃.pɔs.te | validar (un billete) | to validate (a ticket) | N'oubliez pas de composter votre billet. | No olvide validar su billete. | b2 | verb
+à quelle heure part le train ? | a kɛ.l‿œʁ paʁ lə tʁɛ̃ | ¿a qué hora sale el tren? | what time does the train leave? | Excusez-moi, à quelle heure part le train pour Nice ? | Disculpe, ¿a qué hora sale el tren a Niza? | a1 | expression
+c'est loin à pied ? | sɛ lwɛ̃ a pje | ¿está lejos a pie? | is it far on foot? | Le musée, c'est loin à pied ? | El museo, ¿está lejos a pie? | a2 | expression
+je voudrais un aller simple | ʒə vu.dʁɛ œ̃.n‿a.le sɛ̃pl | quisiera un billete de ida | I'd like a one-way ticket | Je voudrais un aller simple pour Genève. | Quisiera un billete de ida a Ginebra. | a2 | expression

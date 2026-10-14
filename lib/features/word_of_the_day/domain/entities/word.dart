@@ -14,6 +14,11 @@ enum WordCategory {
   health,
   home,
   conversation,
+  people,
+  time,
+  shopping,
+  education,
+  leisure,
 }
 
 enum WordType { noun, verb, adjective, adverb, phrase, expression }
@@ -53,6 +58,11 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.health => 'Salud',
         WordCategory.home => 'Hogar',
         WordCategory.conversation => 'Conversación',
+        WordCategory.people => 'Personas y familia',
+        WordCategory.time => 'Tiempo y números',
+        WordCategory.shopping => 'Compras y ropa',
+        WordCategory.education => 'Estudios',
+        WordCategory.leisure => 'Ocio y deporte',
       };
 
   /// Snake-case key as stored in the seed dataset.
@@ -68,6 +78,11 @@ extension WordCategoryExtension on WordCategory {
         WordCategory.health => 'health',
         WordCategory.home => 'home',
         WordCategory.conversation => 'conversation',
+        WordCategory.people => 'people',
+        WordCategory.time => 'time',
+        WordCategory.shopping => 'shopping',
+        WordCategory.education => 'education',
+        WordCategory.leisure => 'leisure',
       };
 
   static WordCategory? parse(String raw) {

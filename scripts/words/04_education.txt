@@ -1,0 +1,59 @@
+# category: education
+professeur | pʁɔ.fe.sœʁ | profesor | teacher | Notre professeur est très patient. | Nuestro profesor es muy paciente. | a1 | noun
+élève | e.lɛv | alumno | pupil | Il y a trente élèves dans la classe. | Hay treinta alumnos en la clase. | a1 | noun
+étudiant | e.ty.djɑ̃ | estudiante (universitario) | student | Les étudiants mangent à la cantine. | Los estudiantes comen en el comedor. | a1 | noun
+classe | klas | clase / aula | class / classroom | La classe est au premier étage. | El aula está en el primer piso. | a1 | noun
+cours | kuʁ | clase / curso | lesson / course | J'ai un cours de français ce soir. | Tengo clase de francés esta noche. | a1 | noun
+devoirs | də.vwaʁ | deberes / tareas | homework | Tu as fait tes devoirs ? | ¿Hiciste los deberes? | a1 | noun
+cahier | ka.je | cuaderno | notebook | Écrivez dans votre cahier. | Escriban en su cuaderno. | a1 | noun
+stylo | sti.lo | bolígrafo | pen | Tu peux me prêter un stylo ? | ¿Me prestas un bolígrafo? | a1 | noun
+crayon | kʁɛ.jɔ̃ | lápiz | pencil | Dessine avec un crayon. | Dibuja con un lápiz. | a1 | noun
+tableau | ta.blo | pizarra / cuadro | board / painting | Le professeur écrit au tableau. | El profesor escribe en la pizarra. | a1 | noun
+leçon | lə.sɔ̃ | lección | lesson | Révisez la leçon trois. | Repasen la lección tres. | a1 | noun
+exercice | ɛɡ.zɛʁ.sis | ejercicio | exercise | Faites l'exercice page vingt. | Hagan el ejercicio de la página veinte. | a1 | noun
+examen | ɛɡ.za.mɛ̃ | examen | exam | J'ai un examen demain. | Tengo un examen mañana. | a1 | noun
+note | nɔt | nota | grade / note | J'ai eu une bonne note en maths. | Saqué buena nota en matemáticas. | a2 | noun
+université | y.ni.vɛʁ.si.te | universidad | university | Elle étudie à l'université de Lille. | Estudia en la universidad de Lille. | a1 | noun
+bibliothèque | bi.bli.jɔ.tɛk | biblioteca | library | Je travaille à la bibliothèque. | Trabajo en la biblioteca. | a1 | noun
+dictionnaire | dik.sjɔ.nɛʁ | diccionario | dictionary | Cherche ce mot dans le dictionnaire. | Busca esa palabra en el diccionario. | a1 | noun
+mot | mo | palabra | word | Je ne connais pas ce mot. | No conozco esa palabra. | a1 | noun
+phrase | fʁaz | oración / frase | sentence | Répétez la phrase, s'il vous plaît. | Repita la frase, por favor. | a1 | noun
+langue | lɑ̃ɡ | idioma / lengua | language / tongue | Le français est une belle langue. | El francés es un idioma bonito. | a1 | noun
+apprendre | a.pʁɑ̃dʁ | aprender | to learn | J'apprends le français avec une appli. | Aprendo francés con una aplicación. | a1 | verb
+étudier | e.ty.dje | estudiar | to study | J'étudie le soir après le travail. | Estudio por la noche después del trabajo. | a1 | verb
+comprendre | kɔ̃.pʁɑ̃dʁ | entender | to understand | Je comprends mieux quand tu parles lentement. | Entiendo mejor cuando hablas despacio. | a1 | verb
+savoir | sa.vwaʁ | saber | to know | Je ne sais pas la réponse. | No sé la respuesta. | a1 | verb
+connaître | kɔ.nɛtʁ | conocer | to know (be familiar with) | Tu connais ce restaurant ? | ¿Conoces este restaurante? | a1 | verb
+lire | liʁ | leer | to read | J'aime lire au lit. | Me gusta leer en la cama. | a1 | verb
+écrire | e.kʁiʁ | escribir | to write | Écris-moi quand tu arrives. | Escríbeme cuando llegues. | a1 | verb
+répéter | ʁe.pe.te | repetir | to repeat | Pouvez-vous répéter plus lentement ? | ¿Puede repetir más despacio? | a1 | verb
+expliquer | ɛks.pli.ke | explicar | to explain | Le prof explique très bien. | El profe explica muy bien. | a2 | verb
+réviser | ʁe.vi.ze | repasar | to revise | Je révise pour l'examen. | Repaso para el examen. | a2 | verb
+réussir | ʁe.y.siʁ | aprobar / lograr | to pass / to succeed | Elle a réussi son examen. | Aprobó su examen. | a2 | verb
+échouer | e.ʃwe | suspender / fracasar | to fail | Il a échoué au permis de conduire. | Suspendió el examen de conducir. | b1 | verb
+se tromper | sə tʁɔ̃.pe | equivocarse | to make a mistake | Pardon, je me suis trompé. | Perdón, me equivoqué. | a2 | verb
+erreur | e.ʁœʁ | error | mistake | Ce n'est pas grave, tout le monde fait des erreurs. | No pasa nada, todo el mundo comete errores. | a2 | noun
+question | kɛs.tjɔ̃ | pregunta | question | J'ai une question. | Tengo una pregunta. | a1 | noun
+réponse | ʁe.pɔ̃s | respuesta | answer | La bonne réponse est B. | La respuesta correcta es la B. | a1 | noun
+diplôme | di.plom | título / diploma | degree / diploma | Il a obtenu son diplôme en juin. | Obtuvo su título en junio. | a2 | noun
+bourse | buʁs | beca | scholarship | Elle a reçu une bourse pour étudier à Paris. | Recibió una beca para estudiar en París. | b1 | noun
+matière | ma.tjɛʁ | asignatura / materia | subject | Ma matière préférée, c'est l'histoire. | Mi asignatura favorita es historia. | a2 | noun
+mathématiques | ma.te.ma.tik | matemáticas | mathematics | Les mathématiques, c'est difficile pour moi. | Las matemáticas me cuestan. | a2 | noun
+histoire | is.twaʁ | historia | history / story | Raconte-moi une histoire. | Cuéntame una historia. | a1 | noun
+géographie | ʒe.ɔ.ɡʁa.fi | geografía | geography | En géographie, on étudie les fleuves. | En geografía estudiamos los ríos. | a2 | noun
+recherche | ʁə.ʃɛʁʃ | investigación / búsqueda | research / search | Il fait de la recherche en biologie. | Hace investigación en biología. | b1 | noun
+mémoire | me.mwaʁ | memoria / trabajo final (masc.) | memory / thesis | J'ai une bonne mémoire des visages. | Tengo buena memoria para las caras. | b1 | noun
+conférence | kɔ̃.fe.ʁɑ̃s | conferencia | lecture / conference | La conférence commence à dix heures. | La conferencia empieza a las diez. | b1 | noun
+inscription | ɛ̃s.kʁip.sjɔ̃ | inscripción / matrícula | enrolment | Les inscriptions sont ouvertes jusqu'à vendredi. | Las inscripciones están abiertas hasta el viernes. | b1 | noun
+s'inscrire | sɛ̃s.kʁiʁ | inscribirse | to sign up | Je me suis inscrit à un cours de cuisine. | Me inscribí en un curso de cocina. | b1 | verb
+rentrée | ʁɑ̃.tʁe | vuelta a clases | back to school | La rentrée, c'est le 2 septembre. | La vuelta a clases es el 2 de septiembre. | a2 | noun
+cantine | kɑ̃.tin | comedor escolar | canteen | Les enfants mangent à la cantine. | Los niños comen en el comedor. | a2 | noun
+récréation | ʁe.kʁe.a.sjɔ̃ | recreo | break (school) | Pendant la récréation, ils jouent au ballon. | En el recreo juegan a la pelota. | a2 | noun
+lycée | li.se | instituto / bachillerato | high school | Mon fils entre au lycée cette année. | Mi hijo empieza el bachillerato este año. | a2 | noun
+collège | kɔ.lɛʒ | secundaria (de 11 a 15 años) | middle school | Au collège, j'apprenais l'espagnol. | En la secundaria aprendía español. | a2 | noun
+maternelle | ma.tɛʁ.nɛl | preescolar / jardín infantil | nursery school | Ma fille va à la maternelle. | Mi hija va al preescolar. | b1 | noun
+sécher un cours | se.ʃe œ̃ kuʁ | saltarse una clase | to skip a class | Il a séché le cours de chimie. | Se saltó la clase de química. | b2 | expression
+bosser | bɔ.se | estudiar / trabajar (coloquial) | to work hard (slang) | Je dois bosser pour mon partiel. | Tengo que estudiar para mi parcial. | b2 | verb
+partiel | paʁ.sjɛl | examen parcial | mid-term exam | Les partiels commencent lundi. | Los parciales empiezan el lunes. | b2 | noun
+apprentissage | a.pʁɑ̃.ti.saʒ | aprendizaje | learning / apprenticeship | L'apprentissage d'une langue demande du temps. | Aprender un idioma lleva tiempo. | b2 | noun
+acquérir | a.ke.ʁiʁ | adquirir | to acquire | Il a acquis beaucoup d'expérience. | Adquirió mucha experiencia. | c1 | verb

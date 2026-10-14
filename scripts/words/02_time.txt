@@ -1,0 +1,74 @@
+# category: time
+un | œ̃ | uno | one | J'ai un frère. | Tengo un hermano. | a1 | noun
+deux | dø | dos | two | Deux cafés, s'il vous plaît. | Dos cafés, por favor. | a1 | noun
+trois | tʁwa | tres | three | Le film dure trois heures. | La película dura tres horas. | a1 | noun
+quatre | katʁ | cuatro | four | Nous sommes quatre à table. | Somos cuatro en la mesa. | a1 | noun
+cinq | sɛ̃k | cinco | five | Il est cinq heures. | Son las cinco. | a1 | noun
+six | sis | seis | six | J'ai six cousins. | Tengo seis primos. | a1 | noun
+sept | sɛt | siete | seven | La semaine a sept jours. | La semana tiene siete días. | a1 | noun
+huit | ɥit | ocho | eight | Le cours commence à huit heures. | La clase empieza a las ocho. | a1 | noun
+neuf | nœf | nueve / nuevo | nine / new | Il a neuf ans. | Tiene nueve años. | a1 | noun
+dix | dis | diez | ten | Dix minutes à pied. | Diez minutos a pie. | a1 | noun
+vingt | vɛ̃ | veinte | twenty | Ça coûte vingt euros. | Cuesta veinte euros. | a1 | noun
+trente | tʁɑ̃t | treinta | thirty | Le mois a trente jours. | El mes tiene treinta días. | a1 | noun
+cinquante | sɛ̃.kɑ̃t | cincuenta | fifty | Mon père a cinquante ans. | Mi padre tiene cincuenta años. | a1 | noun
+soixante-dix | swa.sɑ̃t.dis | setenta | seventy | Elle a soixante-dix ans. | Tiene setenta años. | a2 | noun
+quatre-vingts | ka.tʁə.vɛ̃ | ochenta | eighty | Quatre-vingts personnes sont venues. | Vinieron ochenta personas. | a2 | noun
+quatre-vingt-dix | ka.tʁə.vɛ̃.dis | noventa | ninety | Il roule à quatre-vingt-dix. | Va a noventa. | a2 | noun
+cent | sɑ̃ | cien | hundred | Il y a cent pages. | Hay cien páginas. | a1 | noun
+mille | mil | mil | thousand | Mille mercis ! | ¡Mil gracias! | a1 | noun
+premier | pʁə.mje | primero | first | C'est mon premier voyage en France. | Es mi primer viaje a Francia. | a1 | adjective
+dernier | dɛʁ.nje | último | last | C'est le dernier train ce soir. | Es el último tren esta noche. | a1 | adjective
+lundi | lœ̃.di | lunes | Monday | Le musée est fermé le lundi. | El museo cierra los lunes. | a1 | noun
+mardi | maʁ.di | martes | Tuesday | On se voit mardi ? | ¿Nos vemos el martes? | a1 | noun
+mercredi | mɛʁ.kʁə.di | miércoles | Wednesday | Les enfants n'ont pas école le mercredi. | Los niños no tienen clase los miércoles. | a1 | noun
+jeudi | ʒø.di | jueves | Thursday | J'ai une réunion jeudi matin. | Tengo una reunión el jueves por la mañana. | a1 | noun
+vendredi | vɑ̃.dʁə.di | viernes | Friday | Vendredi soir, on va au cinéma. | El viernes por la noche vamos al cine. | a1 | noun
+samedi | sam.di | sábado | Saturday | Le marché a lieu le samedi. | El mercado es los sábados. | a1 | noun
+dimanche | di.mɑ̃ʃ | domingo | Sunday | Le dimanche, je me repose. | Los domingos descanso. | a1 | noun
+janvier | ʒɑ̃.vje | enero | January | Il neige souvent en janvier. | Suele nevar en enero. | a1 | noun
+février | fe.vʁi.je | febrero | February | Février est un mois court. | Febrero es un mes corto. | a1 | noun
+mars | maʁs | marzo | March | Le printemps commence en mars. | La primavera empieza en marzo. | a1 | noun
+avril | a.vʁil | abril | April | En avril, ne te découvre pas d'un fil. | En abril, no te quites ni un hilo. | a1 | noun
+mai | mɛ | mayo | May | Le premier mai est un jour férié. | El primero de mayo es festivo. | a1 | noun
+juin | ʒɥɛ̃ | junio | June | Les examens finissent en juin. | Los exámenes terminan en junio. | a1 | noun
+juillet | ʒɥi.jɛ | julio | July | Le 14 juillet, il y a des feux d'artifice. | El 14 de julio hay fuegos artificiales. | a1 | noun
+août | ut | agosto | August | Paris est calme en août. | París está tranquilo en agosto. | a1 | noun
+septembre | sɛp.tɑ̃bʁ | septiembre | September | La rentrée est en septembre. | La vuelta a clase es en septiembre. | a1 | noun
+octobre | ɔk.tɔbʁ | octubre | October | Les feuilles tombent en octobre. | Las hojas caen en octubre. | a1 | noun
+novembre | nɔ.vɑ̃bʁ | noviembre | November | Il pleut beaucoup en novembre. | Llueve mucho en noviembre. | a1 | noun
+décembre | de.sɑ̃bʁ | diciembre | December | Noël est en décembre. | La Navidad es en diciembre. | a1 | noun
+printemps | pʁɛ̃.tɑ̃ | primavera | spring | Au printemps, les arbres fleurissent. | En primavera, los árboles florecen. | a1 | noun
+été | e.te | verano | summer | Cet été, on part à la mer. | Este verano nos vamos al mar. | a1 | noun
+automne | o.tɔn | otoño | autumn | J'adore les couleurs de l'automne. | Me encantan los colores del otoño. | a1 | noun
+hiver | i.vɛʁ | invierno | winter | L'hiver est long à Montréal. | El invierno es largo en Montreal. | a1 | noun
+heure | œʁ | hora | hour / time | Quelle heure est-il ? | ¿Qué hora es? | a1 | noun
+minute | mi.nyt | minuto | minute | J'arrive dans cinq minutes. | Llego en cinco minutos. | a1 | noun
+seconde | sə.ɡɔ̃d | segundo | second | Attends une seconde ! | ¡Espera un segundo! | a1 | noun
+midi | mi.di | mediodía | noon | On mange à midi. | Comemos al mediodía. | a1 | noun
+minuit | mi.nɥi | medianoche | midnight | La fête finit à minuit. | La fiesta termina a medianoche. | a1 | noun
+soir | swaʁ | tarde-noche | evening | Je lis le soir avant de dormir. | Leo por la noche antes de dormir. | a1 | noun
+nuit | nɥi | noche | night | Bonne nuit, à demain ! | ¡Buenas noches, hasta mañana! | a1 | noun
+après-midi | a.pʁɛ.mi.di | tarde | afternoon | Je travaille l'après-midi. | Trabajo por la tarde. | a1 | noun
+mois | mwa | mes | month | Je pars dans un mois. | Me voy dentro de un mes. | a1 | noun
+siècle | sjɛkl | siglo | century | Ce château date du XVIe siècle. | Este castillo es del siglo XVI. | a2 | noun
+week-end | wi.kɛnd | fin de semana | weekend | Bon week-end ! | ¡Buen fin de semana! | a1 | noun
+tôt | to | temprano | early | Je me lève tôt. | Me levanto temprano. | a1 | adverb
+tard | taʁ | tarde | late | Il est tard, je rentre. | Es tarde, me voy a casa. | a1 | adverb
+bientôt | bjɛ̃.to | pronto | soon | Les vacances arrivent bientôt. | Las vacaciones llegan pronto. | a1 | adverb
+déjà | de.ʒa | ya | already | Tu as déjà mangé ? | ¿Ya comiste? | a1 | adverb
+encore | ɑ̃.kɔʁ | todavía / otra vez | still / again | Il pleut encore. | Todavía llueve. | a1 | adverb
+pendant | pɑ̃.dɑ̃ | durante | during / for | J'ai dormi pendant le film. | Me dormí durante la película. | a2 | phrase
+depuis | də.pɥi | desde / desde hace | since / for | J'apprends le français depuis un an. | Aprendo francés desde hace un año. | a2 | phrase
+il y a | il i a | hace (tiempo) / hay | ago / there is | Je suis arrivé il y a deux jours. | Llegué hace dos días. | a2 | phrase
+à l'heure | a lœʁ | a tiempo | on time | Le train est à l'heure. | El tren llega a tiempo. | a2 | phrase
+en retard | ɑ̃ ʁə.taʁ | tarde (con retraso) | late | Désolé, je suis en retard. | Perdón, llego tarde. | a1 | phrase
+en avance | ɑ̃.n‿a.vɑ̃s | con antelación / temprano | early | Elle arrive toujours en avance. | Siempre llega con antelación. | a2 | phrase
+la veille | la vɛj | la víspera / el día anterior | the day before | La veille du départ, j'ai fait ma valise. | El día antes de salir, hice la maleta. | b1 | noun
+le lendemain | lə lɑ̃d.mɛ̃ | el día siguiente | the next day | Le lendemain, il faisait beau. | Al día siguiente hacía buen tiempo. | b1 | noun
+quinzaine | kɛ̃.zɛn | quincena | fortnight | Je pars une quinzaine de jours. | Me voy unos quince días. | b1 | noun
+dorénavant | dɔ.ʁe.na.vɑ̃ | de ahora en adelante | from now on | Dorénavant, je me lève à six heures. | De ahora en adelante, me levanto a las seis. | b2 | adverb
+autrefois | o.tʁə.fwa | antiguamente | in the past | Autrefois, ce quartier était calme. | Antiguamente, este barrio era tranquilo. | b1 | adverb
+désormais | de.zɔʁ.mɛ | en adelante / ya | from now on | Le magasin est désormais ouvert le dimanche. | La tienda ya abre los domingos. | b2 | adverb
+tout de suite | tu.t‿sɥit | enseguida | right away | J'arrive tout de suite ! | ¡Voy enseguida! | a2 | phrase
+de temps en temps | də tɑ̃.z‿ɑ̃ tɑ̃ | de vez en cuando | from time to time | Je vais au théâtre de temps en temps. | Voy al teatro de vez en cuando. | a2 | phrase

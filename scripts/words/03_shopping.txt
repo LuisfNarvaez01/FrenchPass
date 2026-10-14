@@ -1,0 +1,63 @@
+# category: shopping
+magasin | ma.ɡa.zɛ̃ | tienda | shop | Ce magasin ferme à vingt heures. | Esta tienda cierra a las ocho. | a1 | noun
+boutique | bu.tik | tienda pequeña / boutique | small shop | Il y a une jolie boutique au coin de la rue. | Hay una tienda bonita en la esquina. | a2 | noun
+centre commercial | sɑ̃.tʁə kɔ.mɛʁ.sjal | centro comercial | shopping mall | On va au centre commercial samedi. | Vamos al centro comercial el sábado. | a2 | noun
+caisse | kɛs | caja | checkout | Payez à la caisse, s'il vous plaît. | Pague en caja, por favor. | a2 | noun
+vendeur | vɑ̃.dœʁ | vendedor / dependiente | shop assistant | Le vendeur m'a bien conseillé. | El dependiente me aconsejó bien. | a2 | noun
+client | kli.jɑ̃ | cliente | customer | Le client a toujours raison. | El cliente siempre tiene la razón. | a2 | noun
+prix | pʁi | precio | price | Les prix ont beaucoup augmenté. | Los precios han subido mucho. | a1 | noun
+cher | ʃɛʁ | caro / querido | expensive / dear | Ce restaurant est trop cher. | Este restaurante es demasiado caro. | a1 | adjective
+bon marché | bɔ̃ maʁ.ʃe | barato | cheap | Les fruits sont bon marché au marché. | La fruta es barata en el mercado. | a2 | adjective
+soldes | sɔld | rebajas | sales | Les soldes commencent en janvier. | Las rebajas empiezan en enero. | a2 | noun
+réduction | ʁe.dyk.sjɔ̃ | descuento | discount | Il y a une réduction de vingt pour cent. | Hay un descuento del veinte por ciento. | a2 | noun
+ticket de caisse | ti.kɛ də kɛs | recibo / tique | receipt | Gardez votre ticket de caisse. | Guarde su recibo. | a2 | noun
+porte-monnaie | pɔʁt.mɔ.nɛ | monedero | purse | J'ai oublié mon porte-monnaie. | Olvidé mi monedero. | a2 | noun
+portefeuille | pɔʁ.tə.fœj | billetera / cartera | wallet | Mon portefeuille est dans ma poche. | Mi billetera está en mi bolsillo. | a2 | noun
+carte bancaire | kaʁt bɑ̃.kɛʁ | tarjeta bancaria | bank card | Vous acceptez la carte bancaire ? | ¿Acepta tarjeta? | a2 | noun
+acheter | aʃ.te | comprar | to buy | Je dois acheter du lait. | Tengo que comprar leche. | a1 | verb
+vendre | vɑ̃dʁ | vender | to sell | Ils vendent leur maison. | Venden su casa. | a1 | verb
+payer | pe.je | pagar | to pay | Je peux payer en plusieurs fois ? | ¿Puedo pagar a plazos? | a1 | verb
+coûter | ku.te | costar | to cost | Combien coûte ce pull ? | ¿Cuánto cuesta este jersey? | a1 | verb
+essayer | e.se.je | probar(se) / intentar | to try (on) | Je peux essayer cette veste ? | ¿Puedo probarme esta chaqueta? | a1 | verb
+rembourser | ʁɑ̃.buʁ.se | devolver el dinero / reembolsar | to refund | Le magasin m'a remboursé. | La tienda me devolvió el dinero. | b1 | verb
+échanger | e.ʃɑ̃.ʒe | cambiar (un artículo) | to exchange | Je voudrais échanger cette chemise. | Quisiera cambiar esta camisa. | b1 | verb
+faire les courses | fɛʁ le kuʁs | hacer la compra | to go grocery shopping | Je fais les courses le samedi. | Hago la compra los sábados. | a1 | phrase
+faire du shopping | fɛʁ dy ʃɔ.piŋ | ir de compras | to go shopping | Elle adore faire du shopping. | Le encanta ir de compras. | a2 | phrase
+vêtements | vɛt.mɑ̃ | ropa | clothes | Je range mes vêtements. | Ordeno mi ropa. | a1 | noun
+chemise | ʃə.miz | camisa | shirt | Il porte une chemise blanche. | Lleva una camisa blanca. | a1 | noun
+pantalon | pɑ̃.ta.lɔ̃ | pantalón | trousers | Ce pantalon est trop long. | Este pantalón es demasiado largo. | a1 | noun
+jupe | ʒyp | falda | skirt | Elle a acheté une jupe rouge. | Se compró una falda roja. | a1 | noun
+robe | ʁɔb | vestido | dress | Quelle belle robe ! | ¡Qué vestido tan bonito! | a1 | noun
+pull | pyl | jersey / suéter | jumper / sweater | Mets un pull, il fait froid. | Ponte un suéter, hace frío. | a1 | noun
+manteau | mɑ̃.to | abrigo | coat | Mon manteau est au vestiaire. | Mi abrigo está en el guardarropa. | a1 | noun
+veste | vɛst | chaqueta | jacket | Cette veste te va bien. | Esa chaqueta te queda bien. | a1 | noun
+chaussures | ʃo.syʁ | zapatos | shoes | J'ai mal aux pieds avec ces chaussures. | Me duelen los pies con estos zapatos. | a1 | noun
+chaussettes | ʃo.sɛt | calcetines | socks | Où sont mes chaussettes ? | ¿Dónde están mis calcetines? | a1 | noun
+chapeau | ʃa.po | sombrero | hat | Il porte un chapeau de paille. | Lleva un sombrero de paja. | a1 | noun
+écharpe | e.ʃaʁp | bufanda | scarf | Prends ton écharpe, il y a du vent. | Coge la bufanda, hace viento. | a2 | noun
+gants | ɡɑ̃ | guantes | gloves | J'ai perdu un gant. | Perdí un guante. | a2 | noun
+ceinture | sɛ̃.tyʁ | cinturón | belt | Cette ceinture est en cuir. | Este cinturón es de cuero. | a2 | noun
+taille | taj | talla / estatura | size / height | Vous faites quelle taille ? | ¿Qué talla usa? | a2 | noun
+pointure | pwɛ̃.tyʁ | número (de calzado) | shoe size | Je fais du trente-neuf de pointure. | Calzo un treinta y nueve. | a2 | noun
+cabine d'essayage | ka.bin de.sɛ.jaʒ | probador | fitting room | Les cabines d'essayage sont au fond. | Los probadores están al fondo. | a2 | noun
+à la mode | a la mɔd | de moda | fashionable | Cette couleur est à la mode. | Ese color está de moda. | a2 | phrase
+serré | se.ʁe | ajustado / apretado | tight | Ce jean est un peu serré. | Este vaquero está un poco apretado. | b1 | adjective
+large | laʁʒ | ancho / holgado | wide / loose | Je préfère les pulls larges. | Prefiero los suéteres anchos. | a2 | adjective
+rouge | ʁuʒ | rojo | red | J'ai une voiture rouge. | Tengo un coche rojo. | a1 | adjective
+bleu | blø | azul | blue | Le ciel est bleu. | El cielo es azul. | a1 | adjective
+vert | vɛʁ | verde | green | Elle a les yeux verts. | Tiene los ojos verdes. | a1 | adjective
+jaune | ʒon | amarillo | yellow | Les taxis sont jaunes à New York. | Los taxis son amarillos en Nueva York. | a1 | adjective
+noir | nwaʁ | negro | black | Je bois mon café noir. | Tomo el café solo. | a1 | adjective
+blanc | blɑ̃ | blanco | white | Il a les cheveux blancs. | Tiene el pelo blanco. | a1 | adjective
+gris | ɡʁi | gris | grey | Le ciel est gris aujourd'hui. | Hoy el cielo está gris. | a1 | adjective
+rose | ʁoz | rosa | pink | Elle a peint sa chambre en rose. | Pintó su cuarto de rosa. | a1 | adjective
+marron | ma.ʁɔ̃ | marrón | brown | J'ai des chaussures marron. | Tengo zapatos marrones. | a1 | adjective
+violet | vjɔ.lɛ | morado / violeta | purple | Les lavandes sont violettes. | La lavanda es morada. | a2 | adjective
+orange | ɔ.ʁɑ̃ʒ | naranja | orange | Il porte un gilet orange. | Lleva un chaleco naranja. | a1 | adjective
+livraison | li.vʁɛ.zɔ̃ | entrega / envío | delivery | La livraison est gratuite. | El envío es gratis. | b1 | noun
+commander | kɔ.mɑ̃.de | pedir / encargar | to order | J'ai commandé un livre en ligne. | Pedí un libro por internet. | a2 | verb
+reçu | ʁə.sy | recibo | receipt | Pouvez-vous me donner un reçu ? | ¿Me puede dar un recibo? | b1 | noun
+c'est une bonne affaire | sɛ.t‿yn bɔ.n‿a.fɛʁ | es una ganga | it's a bargain | À ce prix-là, c'est une bonne affaire. | A ese precio, es una ganga. | b1 | expression
+je regarde seulement | ʒə ʁə.ɡaʁd sœl.mɑ̃ | solo estoy mirando | I'm just looking | Merci, je regarde seulement. | Gracias, solo estoy mirando. | a2 | expression
+vous l'avez en plus petit ? | vu la.ve ɑ̃ ply pə.ti | ¿lo tiene más pequeño? | do you have it in a smaller size? | Cette veste est jolie, vous l'avez en plus petit ? | Esta chaqueta es bonita, ¿la tiene más pequeña? | a2 | expression
+lèche-vitrines | lɛʃ.vi.tʁin | mirar escaparates | window-shopping | On fait du lèche-vitrines ? | ¿Vamos a mirar escaparates? | b1 | noun

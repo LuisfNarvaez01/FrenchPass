@@ -1,0 +1,51 @@
+# category: conversation
+et | e | y | and | Un café et un croissant. | Un café y un cruasán. | a1 | phrase
+mais | mɛ | pero | but | C'est cher, mais c'est bon. | Es caro, pero está bueno. | a1 | phrase
+ou | u | o | or | Thé ou café ? | ¿Té o café? | a1 | phrase
+parce que | paʁs kə | porque | because | Je reste parce qu'il pleut. | Me quedo porque llueve. | a1 | phrase
+donc | dɔ̃k | así que / entonces | so | Il pleut, donc je prends un taxi. | Llueve, así que tomo un taxi. | a2 | phrase
+alors | a.lɔʁ | entonces / pues | so / then | Alors, on y va ? | Entonces, ¿vamos? | a1 | phrase
+quand | kɑ̃ | cuando / cuándo | when | Quand est-ce que tu arrives ? | ¿Cuándo llegas? | a1 | phrase
+pourquoi | puʁ.kwa | por qué | why | Pourquoi tu ris ? | ¿Por qué te ríes? | a1 | phrase
+comment | kɔ.mɑ̃ | cómo | how | Comment on dit « gracias » en français ? | ¿Cómo se dice «gracias» en francés? | a1 | phrase
+combien | kɔ̃.bjɛ̃ | cuánto | how much / how many | Combien de frères as-tu ? | ¿Cuántos hermanos tienes? | a1 | phrase
+qui | ki | quién / que | who | Qui est-ce ? | ¿Quién es? | a1 | phrase
+où | u | dónde | where | Où est la poste ? | ¿Dónde está correos? | a1 | phrase
+quel | kɛl | qué / cuál | which / what | Quel jour sommes-nous ? | ¿Qué día es hoy? | a1 | phrase
+avec | a.vɛk | con | with | Je viens avec ma sœur. | Vengo con mi hermana. | a1 | phrase
+sans | sɑ̃ | sin | without | Un café sans sucre. | Un café sin azúcar. | a1 | phrase
+pour | puʁ | para / por | for | C'est un cadeau pour toi. | Es un regalo para ti. | a1 | phrase
+chez | ʃe | en casa de | at (someone's place) | On dîne chez Paul. | Cenamos en casa de Paul. | a1 | phrase
+aussi | o.si | también | also / too | Moi aussi ! | ¡Yo también! | a1 | adverb
+non plus | nɔ̃ ply | tampoco | neither | Moi non plus. | Yo tampoco. | a2 | phrase
+peut-être | pø.tɛtʁ | quizás | maybe | Peut-être demain. | Quizás mañana. | a1 | adverb
+vraiment | vʁɛ.mɑ̃ | de verdad / realmente | really | C'est vraiment gentil. | Es muy amable, de verdad. | a2 | adverb
+beaucoup | bo.ku | mucho | a lot | Merci beaucoup ! | ¡Muchas gracias! | a1 | adverb
+un peu | œ̃ pø | un poco | a little | Je parle un peu français. | Hablo un poco de francés. | a1 | phrase
+très | tʁɛ | muy | very | Il fait très chaud. | Hace mucho calor. | a1 | adverb
+trop | tʁo | demasiado | too / too much | C'est trop cher. | Es demasiado caro. | a1 | adverb
+assez | a.se | bastante / suficiente | enough / quite | J'ai assez mangé. | Ya comí bastante. | a2 | adverb
+d'accord | da.kɔʁ | de acuerdo / vale | OK / agreed | D'accord, à demain. | Vale, hasta mañana. | a1 | expression
+bien sûr | bjɛ̃ syʁ | claro / por supuesto | of course | Bien sûr, je t'aide. | Claro, te ayudo. | a1 | expression
+pas de problème | pa də pʁɔ.blɛm | no hay problema | no problem | Pas de problème, je t'attends. | No hay problema, te espero. | a1 | expression
+ça dépend | sa de.pɑ̃ | depende | it depends | Tu viens ? — Ça dépend. | ¿Vienes? —Depende. | a2 | expression
+je pense que | ʒə pɑ̃s kə | creo que | I think that | Je pense que tu as raison. | Creo que tienes razón. | a2 | expression
+à mon avis | a mɔ̃.n‿a.vi | en mi opinión | in my opinion | À mon avis, c'est une bonne idée. | En mi opinión, es una buena idea. | b1 | expression
+par exemple | paʁ ɛɡ.zɑ̃pl | por ejemplo | for example | J'aime les fruits, par exemple les fraises. | Me gustan las frutas, por ejemplo las fresas. | a2 | phrase
+en fait | ɑ̃ fɛt | en realidad | actually | En fait, je ne suis pas d'accord. | En realidad, no estoy de acuerdo. | b1 | phrase
+quand même | kɑ̃ mɛm | aun así / de todas formas | still / anyway | Il pleut, mais on sort quand même. | Llueve, pero salimos de todas formas. | b1 | phrase
+pourtant | puʁ.tɑ̃ | sin embargo | yet / however | C'est simple, pourtant il ne comprend pas. | Es sencillo, sin embargo no lo entiende. | b1 | adverb
+cependant | sə.pɑ̃.dɑ̃ | no obstante | however | Le projet est bon ; cependant, il coûte cher. | El proyecto es bueno; no obstante, es caro. | b2 | adverb
+d'ailleurs | da.jœʁ | por cierto / además | besides / by the way | D'ailleurs, tu as vu Marie ? | Por cierto, ¿has visto a Marie? | b2 | adverb
+du coup | dy ku | así que / entonces (coloquial) | so (informal) | Il était malade, du coup il n'est pas venu. | Estaba enfermo, así que no vino. | b1 | phrase
+bref | bʁɛf | en fin / en resumen | anyway / in short | Bref, on a raté le train. | En fin, perdimos el tren. | b1 | adverb
+tant pis | tɑ̃ pi | qué le vamos a hacer | too bad / never mind | Il n'y a plus de place ? Tant pis. | ¿Ya no hay sitio? Qué le vamos a hacer. | b1 | expression
+tant mieux | tɑ̃ mjø | mejor / me alegro | so much the better | Tu as trouvé ? Tant mieux ! | ¿Lo encontraste? ¡Me alegro! | b1 | expression
+ça ne fait rien | sa nə fɛ ʁjɛ̃ | no importa | it doesn't matter | Ça ne fait rien, ce n'est pas grave. | No importa, no es grave. | a2 | expression
+je suis désolé | ʒə sɥi de.zɔ.le | lo siento | I'm sorry | Je suis désolé pour le retard. | Siento el retraso. | a1 | expression
+volontiers | vɔ.lɔ̃.tje | con gusto | gladly | Un café ? — Volontiers ! | ¿Un café? —¡Con gusto! | b1 | adverb
+ça marche | sa maʁʃ | vale / hecho | sounds good | On se voit à huit heures ? — Ça marche ! | ¿Nos vemos a las ocho? —¡Hecho! | b1 | expression
+c'est pas grave | sɛ pa ɡʁav | no pasa nada | it's no big deal | Tu as oublié ? C'est pas grave. | ¿Se te olvidó? No pasa nada. | a2 | expression
+ça me dit quelque chose | sa mə di kɛl.kə ʃoz | me suena | it rings a bell | Ce nom me dit quelque chose. | Ese nombre me suena. | b2 | expression
+c'est pas la peine | sɛ pa la pɛn | no hace falta | there's no need | C'est pas la peine de venir. | No hace falta que vengas. | b2 | expression
+j'hallucine | ʒa.ly.sin | no me lo puedo creer | I can't believe it | Tu as gagné ? J'hallucine ! | ¿Ganaste? ¡No me lo puedo creer! | c1 | expression

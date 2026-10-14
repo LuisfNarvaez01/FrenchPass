@@ -1,0 +1,52 @@
+# category: nature
+temps | tɑ̃ | tiempo (clima y duración) | weather / time | Quel temps fait-il ? | ¿Qué tiempo hace? | a1 | noun
+pluie | plɥi | lluvia | rain | La pluie ne s'arrête pas. | La lluvia no para. | a1 | noun
+pleuvoir | plø.vwaʁ | llover | to rain | Il pleut depuis ce matin. | Llueve desde esta mañana. | a1 | verb
+neige | nɛʒ | nieve | snow | Les enfants jouent dans la neige. | Los niños juegan en la nieve. | a1 | noun
+neiger | ne.ʒe | nevar | to snow | Il neige en montagne. | Nieva en la montaña. | a1 | verb
+vent | vɑ̃ | viento | wind | Il y a beaucoup de vent aujourd'hui. | Hoy hace mucho viento. | a1 | noun
+nuage | nɥaʒ | nube | cloud | Il n'y a pas un nuage dans le ciel. | No hay ni una nube en el cielo. | a1 | noun
+ciel | sjɛl | cielo | sky | Le ciel est tout bleu. | El cielo está completamente azul. | a1 | noun
+chaud | ʃo | caliente / caluroso | hot / warm | Il fait chaud en été. | Hace calor en verano. | a1 | adjective
+froid | fʁwa | frío | cold | J'ai froid aux mains. | Tengo frío en las manos. | a1 | adjective
+il fait beau | il fɛ bo | hace buen tiempo | the weather is nice | Il fait beau, on sort ? | Hace buen tiempo, ¿salimos? | a1 | expression
+il fait mauvais | il fɛ mo.vɛ | hace mal tiempo | the weather is bad | Il fait mauvais, restons à la maison. | Hace mal tiempo, quedémonos en casa. | a1 | expression
+température | tɑ̃.pe.ʁa.tyʁ | temperatura | temperature | La température baisse la nuit. | La temperatura baja por la noche. | a2 | noun
+météo | me.te.o | pronóstico del tiempo | weather forecast | La météo annonce de la pluie. | El pronóstico anuncia lluvia. | a2 | noun
+mer | mɛʁ | mar | sea | La mer est calme ce matin. | El mar está en calma esta mañana. | a1 | noun
+montagne | mɔ̃.taɲ | montaña | mountain | On passe nos vacances à la montagne. | Pasamos las vacaciones en la montaña. | a1 | noun
+lac | lak | lago | lake | Le lac d'Annecy est très pur. | El lago de Annecy es muy limpio. | a1 | noun
+rivière | ʁi.vjɛʁ | río | river | On se baigne dans la rivière. | Nos bañamos en el río. | a2 | noun
+fleuve | flœv | río (que desemboca en el mar) | river (major) | La Loire est le plus long fleuve de France. | El Loira es el río más largo de Francia. | b1 | noun
+île | il | isla | island | La Corse est une île magnifique. | Córcega es una isla magnífica. | a2 | noun
+campagne | kɑ̃.paɲ | campo | countryside | Mes grands-parents vivent à la campagne. | Mis abuelos viven en el campo. | a1 | noun
+arbre | aʁbʁ | árbol | tree | Il y a un vieil arbre devant la maison. | Hay un árbol viejo delante de la casa. | a1 | noun
+fleur | flœʁ | flor | flower | Je t'ai apporté des fleurs. | Te traje flores. | a1 | noun
+herbe | ɛʁb | hierba / césped | grass | Les vaches mangent de l'herbe. | Las vacas comen hierba. | a2 | noun
+feuille | fœj | hoja | leaf / sheet | Les feuilles deviennent rouges. | Las hojas se vuelven rojas. | a2 | noun
+pierre | pjɛʁ | piedra | stone | La maison est en pierre. | La casa es de piedra. | a2 | noun
+sable | sabl | arena | sand | Le sable est chaud. | La arena está caliente. | a2 | noun
+chien | ʃjɛ̃ | perro | dog | Mon chien s'appelle Max. | Mi perro se llama Max. | a1 | noun
+oiseau | wa.zo | pájaro | bird | Un oiseau chante dans le jardin. | Un pájaro canta en el jardín. | a1 | noun
+cheval | ʃə.val | caballo | horse | Elle monte à cheval le samedi. | Monta a caballo los sábados. | a1 | noun
+vache | vaʃ | vaca | cow | Les vaches donnent du lait. | Las vacas dan leche. | a1 | noun
+lapin | la.pɛ̃ | conejo | rabbit | Le lapin mange une carotte. | El conejo come una zanahoria. | a1 | noun
+souris | su.ʁi | ratón | mouse | Le chat chasse une souris. | El gato caza un ratón. | a2 | noun
+papillon | pa.pi.jɔ̃ | mariposa | butterfly | Un papillon s'est posé sur la fleur. | Una mariposa se posó en la flor. | a2 | noun
+animal | a.ni.mal | animal | animal | Tu as un animal de compagnie ? | ¿Tienes una mascota? | a1 | noun
+lune | lyn | luna | moon | La lune est pleine ce soir. | Esta noche hay luna llena. | a1 | noun
+étoile | e.twal | estrella | star | On voit les étoiles à la campagne. | En el campo se ven las estrellas. | a1 | noun
+terre | tɛʁ | tierra | earth / soil | La terre est sèche cet été. | La tierra está seca este verano. | a2 | noun
+environnement | ɑ̃.vi.ʁɔn.mɑ̃ | medio ambiente | environment | Il faut protéger l'environnement. | Hay que proteger el medio ambiente. | b1 | noun
+pollution | pɔ.ly.sjɔ̃ | contaminación | pollution | La pollution est forte en ville. | La contaminación es fuerte en la ciudad. | b1 | noun
+recycler | ʁə.si.kle | reciclar | to recycle | On recycle le verre et le papier. | Reciclamos el vidrio y el papel. | b1 | verb
+réchauffement climatique | ʁe.ʃof.mɑ̃ kli.ma.tik | calentamiento global | global warming | Le réchauffement climatique fait fondre les glaciers. | El calentamiento global derrite los glaciares. | b2 | noun
+sécheresse | se.ʃʁɛs | sequía | drought | La sécheresse menace les récoltes. | La sequía amenaza las cosechas. | b2 | noun
+inondation | i.nɔ̃.da.sjɔ̃ | inundación | flood | Les inondations ont coupé la route. | Las inundaciones cortaron la carretera. | b2 | noun
+tempête | tɑ̃.pɛt | tormenta / temporal | storm | La tempête a arraché des arbres. | La tormenta arrancó árboles. | b1 | noun
+arc-en-ciel | aʁ.kɑ̃.sjɛl | arcoíris | rainbow | Regarde, un arc-en-ciel ! | ¡Mira, un arcoíris! | a2 | noun
+brouillard | bʁu.jaʁ | niebla | fog | Il y a du brouillard sur l'autoroute. | Hay niebla en la autopista. | b1 | noun
+coucher de soleil | ku.ʃe də sɔ.lɛj | atardecer | sunset | Le coucher de soleil sur la mer est magnifique. | El atardecer sobre el mar es magnífico. | a2 | noun
+lever du soleil | lə.ve dy sɔ.lɛj | amanecer | sunrise | On s'est levés tôt pour voir le lever du soleil. | Madrugamos para ver el amanecer. | b1 | noun
+il pleut des cordes | il plø de kɔʁd | llueve a cántaros | it's raining cats and dogs | Prends un parapluie, il pleut des cordes ! | ¡Coge un paraguas, llueve a cántaros! | b2 | expression
+un froid de canard | œ̃ fʁwa də ka.naʁ | un frío que pela | freezing cold | Ce matin, il fait un froid de canard. | Esta mañana hace un frío que pela. | c1 | expression

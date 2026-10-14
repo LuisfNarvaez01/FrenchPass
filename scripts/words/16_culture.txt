@@ -1,0 +1,34 @@
+# category: culture
+art | aʁ | arte | art | Elle étudie l'histoire de l'art. | Estudia historia del arte. | a2 | noun
+tableau célèbre | ta.blo se.lɛbʁ | cuadro famoso | famous painting | La Joconde est un tableau célèbre. | La Gioconda es un cuadro famoso. | a2 | noun
+exposition | ɛks.po.zi.sjɔ̃ | exposición | exhibition | On va voir l'exposition Monet. | Vamos a ver la exposición de Monet. | a2 | noun
+théâtre | te.ɑtʁ | teatro | theatre | On a des places pour le théâtre. | Tenemos entradas para el teatro. | a1 | noun
+pièce de théâtre | pjɛs də te.ɑtʁ | obra de teatro | play | Cette pièce de théâtre est de Molière. | Esta obra de teatro es de Molière. | a2 | noun
+roman | ʁɔ.mɑ̃ | novela | novel | Je lis un roman policier. | Leo una novela policiaca. | a2 | noun
+poésie | pɔ.e.zi | poesía | poetry | Il écrit de la poésie. | Escribe poesía. | b1 | noun
+écrivain | e.kʁi.vɛ̃ | escritor | writer | Victor Hugo est un grand écrivain. | Victor Hugo es un gran escritor. | a2 | noun
+acteur | ak.tœʁ | actor | actor | Cet acteur joue dans plusieurs films. | Este actor sale en varias películas. | a2 | noun
+chanteur | ʃɑ̃.tœʁ | cantante | singer | Édith Piaf était une chanteuse célèbre. | Édith Piaf fue una cantante famosa. | a2 | noun
+festival | fɛs.ti.val | festival | festival | Le festival de Cannes a lieu en mai. | El festival de Cannes es en mayo. | a2 | noun
+fête nationale | fɛt na.sjɔ.nal | fiesta nacional | national holiday | Le 14 juillet est la fête nationale. | El 14 de julio es la fiesta nacional. | b1 | noun
+Noël | nɔ.ɛl | Navidad | Christmas | Joyeux Noël ! | ¡Feliz Navidad! | a1 | noun
+Pâques | pɑk | Pascua / Semana Santa | Easter | À Pâques, on cherche des œufs en chocolat. | En Pascua buscamos huevos de chocolate. | a2 | noun
+nouvel an | nu.vɛ.l‿ɑ̃ | año nuevo | New Year | Bonne année et bonne santé ! | ¡Feliz año y mucha salud! | a1 | noun
+tradition | tʁa.di.sjɔ̃ | tradición | tradition | La galette des rois est une tradition de janvier. | El roscón es una tradición de enero. | b1 | noun
+coutume | ku.tym | costumbre | custom | C'est une coutume de faire la bise. | Es costumbre saludar con besos. | b1 | noun
+faire la bise | fɛʁ la biz | dar besos de saludo | to greet with a kiss | En France, on fait la bise. | En Francia se saluda con besos. | b1 | expression
+religion | ʁə.li.ʒjɔ̃ | religión | religion | La France est un pays laïc. | Francia es un país laico. | b1 | noun
+francophonie | fʁɑ̃.kɔ.fɔ.ni | francofonía | French-speaking world | La francophonie compte plus de trois cents millions de locuteurs. | La francofonía tiene más de trescientos millones de hablantes. | b2 | noun
+cinéma d'auteur | si.ne.ma do.tœʁ | cine de autor | arthouse cinema | Il préfère le cinéma d'auteur. | Prefiere el cine de autor. | b2 | noun
+bande dessinée | bɑ̃d de.si.ne | cómic / historieta | comic book | Tintin est une bande dessinée belge. | Tintín es un cómic belga. | a2 | noun
+critique | kʁi.tik | crítica / crítico | review / critic | Le film a reçu de bonnes critiques. | La película recibió buenas críticas. | b1 | noun
+sculpture | skyl.tyʁ | escultura | sculpture | Le musée Rodin expose ses sculptures. | El museo Rodin expone sus esculturas. | b1 | noun
+architecture | aʁ.ʃi.tɛk.tyʁ | arquitectura | architecture | L'architecture gothique est impressionnante. | La arquitectura gótica impresiona. | b1 | noun
+siècle des Lumières | sjɛkl de ly.mjɛʁ | Siglo de las Luces | Age of Enlightenment | Voltaire est un auteur du siècle des Lumières. | Voltaire es un autor del Siglo de las Luces. | c1 | noun
+chef-lieu | ʃɛf.ljø | capital (de región) | administrative centre | Lyon est le chef-lieu du Rhône. | Lyon es la capital del Ródano. | c1 | noun
+patrimoine mondial | pa.tʁi.mwan mɔ̃.djal | patrimonio mundial | world heritage | Le Mont-Saint-Michel est au patrimoine mondial. | El Monte Saint-Michel es patrimonio mundial. | b2 | noun
+avant-première | a.vɑ̃.pʁə.mjɛʁ | preestreno | premiere | J'ai vu le film en avant-première. | Vi la película en el preestreno. | b2 | noun
+c'est la vie | sɛ la vi | así es la vida | that's life | On a perdu, c'est la vie. | Perdimos, así es la vida. | a2 | expression
+joie de vivre | ʒwa də vivʁ | alegría de vivir | zest for life | Elle a une vraie joie de vivre. | Tiene verdaderas ganas de vivir. | b1 | expression
+savoir-vivre | sa.vwaʁ.vivʁ | buenos modales | good manners | Le savoir-vivre, c'est dire bonjour. | Los buenos modales empiezan por saludar. | b2 | noun
+art de vivre | aʁ də vivʁ | estilo de vida | way of life | L'art de vivre à la française attire les touristes. | El estilo de vida francés atrae a los turistas. | b2 | noun

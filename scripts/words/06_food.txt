@@ -1,0 +1,69 @@
+# category: food
+petit-déjeuner | pə.ti.de.ʒœ.ne | desayuno | breakfast | Le petit-déjeuner est servi jusqu'à dix heures. | El desayuno se sirve hasta las diez. | a1 | noun
+dîner | di.ne | cena / cenar | dinner / to have dinner | On dîne à vingt heures. | Cenamos a las ocho. | a1 | noun
+repas | ʁə.pa | comida (de cada momento) | meal | C'est le repas le plus important de la journée. | Es la comida más importante del día. | a1 | noun
+viande | vjɑ̃d | carne | meat | Je ne mange pas de viande. | No como carne. | a1 | noun
+poisson | pwa.sɔ̃ | pescado / pez | fish | Le poisson est très frais ici. | El pescado está muy fresco aquí. | a1 | noun
+poulet | pu.lɛ | pollo | chicken | On mange du poulet rôti le dimanche. | Los domingos comemos pollo asado. | a1 | noun
+porc | pɔʁ | cerdo | pork | Je ne mange pas de porc. | No como cerdo. | a2 | noun
+bœuf | bœf | res / ternera | beef | Le bœuf bourguignon mijote trois heures. | El bœuf bourguignon se cuece a fuego lento tres horas. | a2 | noun
+œuf | œf | huevo | egg | Je voudrais deux œufs au plat. | Quisiera dos huevos fritos. | a1 | noun
+lait | lɛ | leche | milk | Un café au lait, s'il vous plaît. | Un café con leche, por favor. | a1 | noun
+beurre | bœʁ | mantequilla | butter | Les croissants sont faits au beurre. | Los cruasanes se hacen con mantequilla. | a1 | noun
+sucre | sykʁ | azúcar | sugar | Tu prends du sucre dans ton thé ? | ¿Le pones azúcar al té? | a1 | noun
+sel | sɛl | sal | salt | Il manque un peu de sel. | Le falta un poco de sal. | a1 | noun
+poivre | pwavʁ | pimienta | pepper | Passe-moi le poivre, s'il te plaît. | Pásame la pimienta, por favor. | a2 | noun
+huile | ɥil | aceite | oil | On cuisine à l'huile d'olive. | Cocinamos con aceite de oliva. | a2 | noun
+riz | ʁi | arroz | rice | Le riz est prêt dans dix minutes. | El arroz está listo en diez minutos. | a1 | noun
+pâtes | pɑt | pasta | pasta | Ce soir, on mange des pâtes. | Esta noche comemos pasta. | a1 | noun
+légumes | le.ɡym | verduras | vegetables | Mange tes légumes ! | ¡Cómete la verdura! | a1 | noun
+fruits | fʁɥi | frutas | fruit | J'achète des fruits au marché. | Compro fruta en el mercado. | a1 | noun
+pomme | pɔm | manzana | apple | Une pomme par jour. | Una manzana al día. | a1 | noun
+poire | pwaʁ | pera | pear | Cette tarte aux poires est délicieuse. | Esta tarta de pera está deliciosa. | a1 | noun
+banane | ba.nan | plátano / banana | banana | Les bananes sont trop mûres. | Los plátanos están demasiado maduros. | a1 | noun
+fraise | fʁɛz | fresa | strawberry | Les fraises arrivent en mai. | Las fresas llegan en mayo. | a1 | noun
+citron | si.tʁɔ̃ | limón | lemon | Un thé au citron, s'il vous plaît. | Un té con limón, por favor. | a1 | noun
+tomate | tɔ.mat | tomate | tomato | Une salade de tomates avec du basilic. | Una ensalada de tomate con albahaca. | a1 | noun
+pomme de terre | pɔm də tɛʁ | papa / patata | potato | Les frites sont faites avec des pommes de terre. | Las papas fritas se hacen con papas. | a1 | noun
+oignon | ɔ.ɲɔ̃ | cebolla | onion | La soupe à l'oignon est un classique. | La sopa de cebolla es un clásico. | a2 | noun
+carotte | ka.ʁɔt | zanahoria | carrot | Le lapin mange une carotte. | El conejo come una zanahoria. | a1 | noun
+salade | sa.lad | ensalada / lechuga | salad / lettuce | Je prends une salade verte. | Tomo una ensalada verde. | a1 | noun
+soupe | sup | sopa | soup | La soupe est trop chaude. | La sopa está demasiado caliente. | a1 | noun
+gâteau | ɡɑ.to | pastel / torta | cake | Elle a fait un gâteau au chocolat. | Hizo un pastel de chocolate. | a1 | noun
+dessert | de.sɛʁ | postre | dessert | Qu'est-ce que vous avez comme dessert ? | ¿Qué tienen de postre? | a1 | noun
+glace | ɡlas | helado / hielo | ice cream / ice | Une glace à la vanille, s'il vous plaît. | Un helado de vainilla, por favor. | a1 | noun
+thé | te | té | tea | Je bois du thé le matin. | Tomo té por la mañana. | a1 | noun
+jus | ʒy | jugo / zumo | juice | Un jus d'orange pressé. | Un jugo de naranja natural. | a1 | noun
+bière | bjɛʁ | cerveza | beer | Une bière pression, s'il vous plaît. | Una cerveza de barril, por favor. | a1 | noun
+vin | vɛ̃ | vino | wine | Ce vin vient de Bordeaux. | Este vino es de Burdeos. | a1 | noun
+boire | bwaʁ | beber | to drink | Qu'est-ce que tu veux boire ? | ¿Qué quieres beber? | a1 | verb
+cuisiner | kɥi.zi.ne | cocinar | to cook | J'aime cuisiner pour mes amis. | Me gusta cocinar para mis amigos. | a1 | verb
+couper | ku.pe | cortar | to cut | Coupe le pain, s'il te plaît. | Corta el pan, por favor. | a1 | verb
+goûter | ɡu.te | probar / merienda | to taste / afternoon snack | Goûte cette sauce ! | ¡Prueba esta salsa! | a2 | verb
+avoir faim | a.vwaʁ fɛ̃ | tener hambre | to be hungry | J'ai faim, on mange ? | Tengo hambre, ¿comemos? | a1 | expression
+avoir soif | a.vwaʁ swaf | tener sed | to be thirsty | Tu as soif ? Il y a de l'eau. | ¿Tienes sed? Hay agua. | a1 | expression
+délicieux | de.li.sjø | delicioso | delicious | Ce plat est délicieux. | Este plato está delicioso. | a1 | adjective
+sucré | sy.kʁe | dulce / azucarado | sweet | Je n'aime pas les boissons sucrées. | No me gustan las bebidas azucaradas. | a2 | adjective
+salé | sa.le | salado | salty / savoury | Tu préfères le sucré ou le salé ? | ¿Prefieres lo dulce o lo salado? | a2 | adjective
+épicé | e.pi.se | picante / especiado | spicy | Ce plat est un peu épicé. | Este plato pica un poco. | a2 | adjective
+végétarien | ve.ʒe.ta.ʁjɛ̃ | vegetariano | vegetarian | Vous avez un menu végétarien ? | ¿Tienen menú vegetariano? | a2 | adjective
+la carte | la kaʁt | la carta / el menú | the menu | La carte, s'il vous plaît. | La carta, por favor. | a1 | noun
+plat du jour | pla dy ʒuʁ | plato del día | dish of the day | Quel est le plat du jour ? | ¿Cuál es el plato del día? | a2 | noun
+serveur | sɛʁ.vœʁ | mesero / camarero | waiter | Le serveur apporte la carte. | El mesero trae la carta. | a1 | noun
+pourboire | puʁ.bwaʁ | propina | tip | On laisse un pourboire ? | ¿Dejamos propina? | a2 | noun
+saignant | sɛ.ɲɑ̃ | poco hecho / término rojo | rare (meat) | Je voudrais mon steak saignant. | Quisiera mi filete poco hecho. | b1 | adjective
+à point | a pwɛ̃ | en su punto / término medio | medium (meat) | Le steak, à point, s'il vous plaît. | El filete, en su punto, por favor. | b1 | phrase
+recette | ʁə.sɛt | receta | recipe | Tu me donnes ta recette ? | ¿Me das tu receta? | a2 | noun
+four | fuʁ | horno | oven | Mets le gâteau au four. | Mete el pastel al horno. | a2 | noun
+casserole | kas.ʁɔl | olla / cacerola | saucepan | Fais chauffer l'eau dans une casserole. | Calienta el agua en una olla. | b1 | noun
+poêle | pwal | sartén | frying pan | Fais cuire les œufs à la poêle. | Fríe los huevos en la sartén. | b1 | noun
+assiette | a.sjɛt | plato (vajilla) | plate | Pose les assiettes sur la table. | Pon los platos en la mesa. | a2 | noun
+fourchette | fuʁ.ʃɛt | tenedor | fork | Il me manque une fourchette. | Me falta un tenedor. | a2 | noun
+couteau | ku.to | cuchillo | knife | Ce couteau ne coupe pas. | Este cuchillo no corta. | a2 | noun
+cuillère | kɥi.jɛʁ | cuchara | spoon | Une cuillère de sucre suffit. | Una cucharada de azúcar basta. | a2 | noun
+verre | vɛʁ | vaso / vidrio | glass | Un verre d'eau, s'il vous plaît. | Un vaso de agua, por favor. | a1 | noun
+bouteille | bu.tɛj | botella | bottle | On commande une bouteille de vin ? | ¿Pedimos una botella de vino? | a1 | noun
+apéro | a.pe.ʁo | aperitivo (coloquial) | pre-dinner drinks | Tu viens à l'apéro ce soir ? | ¿Vienes al aperitivo esta noche? | b1 | noun
+casse-croûte | kas.kʁut | tentempié | snack | On prend un casse-croûte avant de partir. | Tomamos un tentempié antes de salir. | b2 | noun
+avoir un petit creux | a.vwaʁ œ̃ pə.ti kʁø | tener un poco de hambre | to feel peckish | J'ai un petit creux, il reste du pain ? | Tengo un poco de hambre, ¿queda pan? | b2 | expression
+se régaler | sə ʁe.ɡa.le | disfrutar comiendo | to enjoy a meal | On s'est régalés chez ta mère. | Comimos de maravilla en casa de tu madre. | b2 | verb

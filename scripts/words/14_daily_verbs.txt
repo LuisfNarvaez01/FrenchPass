@@ -1,0 +1,76 @@
+# category: daily_life
+être | ɛtʁ | ser / estar | to be | Je suis colombien. | Soy colombiano. | a1 | verb
+avoir | a.vwaʁ | tener / haber | to have | J'ai deux sœurs. | Tengo dos hermanas. | a1 | verb
+aller | a.le | ir | to go | Je vais au marché. | Voy al mercado. | a1 | verb
+faire | fɛʁ | hacer | to do / to make | Qu'est-ce que tu fais ce soir ? | ¿Qué haces esta noche? | a1 | verb
+venir | və.niʁ | venir | to come | Tu viens avec nous ? | ¿Vienes con nosotros? | a1 | verb
+pouvoir | pu.vwaʁ | poder | can / to be able to | Je peux entrer ? | ¿Puedo entrar? | a1 | verb
+vouloir | vu.lwaʁ | querer | to want | Je veux apprendre le français. | Quiero aprender francés. | a1 | verb
+devoir | də.vwaʁ | deber / tener que | must / to have to | Je dois partir maintenant. | Tengo que irme ya. | a1 | verb
+dire | diʁ | decir | to say | Qu'est-ce que tu dis ? | ¿Qué dices? | a1 | verb
+voir | vwaʁ | ver | to see | On se voit demain ? | ¿Nos vemos mañana? | a1 | verb
+prendre | pʁɑ̃dʁ | tomar / coger | to take | Je prends le métro tous les jours. | Tomo el metro todos los días. | a1 | verb
+donner | dɔ.ne | dar | to give | Donne-moi ta main. | Dame la mano. | a1 | verb
+mettre | mɛtʁ | poner / ponerse | to put / to put on | Mets ton manteau. | Ponte el abrigo. | a1 | verb
+trouver | tʁu.ve | encontrar | to find | Je ne trouve pas mes lunettes. | No encuentro mis gafas. | a1 | verb
+penser | pɑ̃.se | pensar | to think | Je pense à toi. | Pienso en ti. | a1 | verb
+croire | kʁwaʁ | creer | to believe | Je crois qu'il a raison. | Creo que tiene razón. | a2 | verb
+attendre | a.tɑ̃dʁ | esperar | to wait | Attends-moi ici. | Espérame aquí. | a1 | verb
+chercher | ʃɛʁ.ʃe | buscar | to look for | Je cherche la gare. | Busco la estación. | a1 | verb
+regarder | ʁə.ɡaʁ.de | mirar / ver | to watch / to look at | Je regarde la télé. | Veo la tele. | a1 | verb
+écouter | e.ku.te | escuchar | to listen | Écoute bien. | Escucha bien. | a1 | verb
+entendre | ɑ̃.tɑ̃dʁ | oír | to hear | Je ne t'entends pas. | No te oigo. | a2 | verb
+ouvrir | u.vʁiʁ | abrir | to open | Tu peux ouvrir la fenêtre ? | ¿Puedes abrir la ventana? | a1 | verb
+fermer | fɛʁ.me | cerrar | to close | Ferme la porte, s'il te plaît. | Cierra la puerta, por favor. | a1 | verb
+commencer | kɔ.mɑ̃.se | empezar | to start | Le film commence à vingt heures. | La película empieza a las ocho. | a1 | verb
+finir | fi.niʁ | terminar | to finish | J'ai fini mon travail. | Terminé mi trabajo. | a1 | verb
+continuer | kɔ̃.ti.nɥe | continuar | to continue | Continue, tu y es presque ! | ¡Sigue, ya casi lo tienes! | a2 | verb
+rester | ʁɛs.te | quedarse | to stay | Je reste à la maison ce soir. | Me quedo en casa esta noche. | a1 | verb
+rentrer | ʁɑ̃.tʁe | volver (a casa) | to go home | Je rentre tard ce soir. | Vuelvo tarde esta noche. | a1 | verb
+revenir | ʁəv.niʁ | volver / regresar | to come back | Reviens vite ! | ¡Vuelve pronto! | a2 | verb
+entrer | ɑ̃.tʁe | entrar | to enter | Entrez, je vous en prie. | Pase, por favor. | a1 | verb
+monter | mɔ̃.te | subir | to go up | On monte à pied ? | ¿Subimos a pie? | a2 | verb
+descendre | de.sɑ̃dʁ | bajar | to go down | Je descends à la prochaine station. | Me bajo en la próxima estación. | a2 | verb
+tomber | tɔ̃.be | caer(se) | to fall | Attention, tu vas tomber ! | ¡Cuidado, te vas a caer! | a2 | verb
+marcher | maʁ.ʃe | caminar / funcionar | to walk / to work | On marche jusqu'au parc. | Caminamos hasta el parque. | a1 | verb
+porter | pɔʁ.te | llevar (puesto o en brazos) | to wear / to carry | Je porte toujours des lunettes. | Siempre llevo gafas. | a2 | verb
+apporter | a.pɔʁ.te | traer | to bring | J'apporte le dessert. | Yo traigo el postre. | a2 | verb
+aider | e.de | ayudar | to help | Je peux t'aider ? | ¿Te puedo ayudar? | a1 | verb
+demander | də.mɑ̃.de | pedir / preguntar | to ask | Je vais demander le chemin. | Voy a preguntar el camino. | a1 | verb
+répondre | ʁe.pɔ̃dʁ | responder | to answer | Il ne répond pas au téléphone. | No contesta el teléfono. | a1 | verb
+se lever | sə lə.ve | levantarse | to get up | Je me lève à sept heures. | Me levanto a las siete. | a1 | verb
+se coucher | sə ku.ʃe | acostarse | to go to bed | Les enfants se couchent tôt. | Los niños se acuestan temprano. | a1 | verb
+se laver | sə la.ve | lavarse | to wash oneself | Je me lave les mains. | Me lavo las manos. | a1 | verb
+s'habiller | sa.bi.je | vestirse | to get dressed | Habille-toi vite, on part ! | ¡Vístete rápido, nos vamos! | a2 | verb
+se réveiller | sə ʁe.ve.je | despertarse | to wake up | Je me réveille sans réveil. | Me despierto sin despertador. | a2 | verb
+se dépêcher | sə de.pɛ.ʃe | darse prisa | to hurry | Dépêche-toi, le bus arrive ! | ¡Date prisa, que llega el bus! | a2 | verb
+oublier | u.bli.je | olvidar | to forget | J'ai oublié ton anniversaire. | Olvidé tu cumpleaños. | a1 | verb
+se souvenir | sə su.və.niʁ | acordarse | to remember | Tu te souviens de moi ? | ¿Te acuerdas de mí? | a2 | verb
+changer | ʃɑ̃.ʒe | cambiar | to change | Le temps change vite ici. | El tiempo cambia rápido aquí. | a2 | verb
+utiliser | y.ti.li.ze | usar / utilizar | to use | Tu utilises quelle application ? | ¿Qué aplicación usas? | a2 | verb
+montrer | mɔ̃.tʁe | mostrar | to show | Montre-moi tes photos. | Enséñame tus fotos. | a2 | verb
+expliquer à | ɛks.pli.ke a | explicarle a | to explain to | Explique-moi comment ça marche. | Explícame cómo funciona. | a2 | verb
+vivre | vivʁ | vivir | to live | Il vit seul depuis un an. | Vive solo desde hace un año. | a1 | verb
+mourir | mu.ʁiʁ | morir | to die | Je meurs de faim ! | ¡Me muero de hambre! | a2 | verb
+naître | nɛtʁ | nacer | to be born | Je suis né à Bogotá. | Nací en Bogotá. | a2 | verb
+connaître quelqu'un | kɔ.nɛtʁ kɛl.kœ̃ | conocer a alguien | to know someone | Tu connais quelqu'un à Lyon ? | ¿Conoces a alguien en Lyon? | a2 | phrase
+rencontrer | ʁɑ̃.kɔ̃.tʁe | conocer / encontrarse con | to meet | J'ai rencontré ma femme à Paris. | Conocí a mi mujer en París. | a2 | verb
+partager | paʁ.ta.ʒe | compartir | to share | On partage un dessert ? | ¿Compartimos un postre? | a2 | verb
+garder | ɡaʁ.de | guardar / cuidar | to keep / to look after | Tu peux garder mon chat ce week-end ? | ¿Puedes cuidar a mi gato este fin de semana? | b1 | verb
+laisser | le.se | dejar | to leave / to let | Laisse-moi tranquille ! | ¡Déjame en paz! | a2 | verb
+essayer de | e.se.je də | intentar | to try to | J'essaie de parler plus lentement. | Intento hablar más despacio. | a2 | verb
+réfléchir | ʁe.fle.ʃiʁ | reflexionar / pensarlo | to think it over | Je vais réfléchir. | Me lo voy a pensar. | b1 | verb
+décider | de.si.de | decidir | to decide | On a décidé de partir plus tôt. | Decidimos irnos antes. | b1 | verb
+choisir | ʃwa.ziʁ | elegir | to choose | Choisis un dessert. | Elige un postre. | a2 | verb
+arrêter | a.ʁɛ.te | parar / dejar de | to stop | J'ai arrêté de fumer. | Dejé de fumar. | a2 | verb
+se passer | sə pɑ.se | pasar / ocurrir | to happen | Qu'est-ce qui se passe ? | ¿Qué pasa? | a2 | verb
+falloir | fa.lwaʁ | hacer falta / tener que | to be necessary | Il faut partir maintenant. | Hay que irse ya. | a2 | verb
+plaire | plɛʁ | gustar | to please | Ce livre me plaît beaucoup. | Este libro me gusta mucho. | b1 | verb
+servir | sɛʁ.viʁ | servir | to serve | À quoi ça sert ? | ¿Para qué sirve? | b1 | verb
+tenir | tə.niʁ | sostener / aguantar | to hold | Tiens, c'est pour toi. | Toma, es para ti. | b1 | verb
+s'occuper de | sɔ.ky.pe də | ocuparse de | to take care of | Je m'occupe des enfants. | Yo me ocupo de los niños. | b1 | verb
+avoir besoin de | a.vwaʁ bə.zwɛ̃ də | necesitar | to need | J'ai besoin d'aide. | Necesito ayuda. | a2 | expression
+avoir raison | a.vwaʁ ʁɛ.zɔ̃ | tener razón | to be right | Tu as raison. | Tienes razón. | a2 | expression
+avoir tort | a.vwaʁ tɔʁ | estar equivocado | to be wrong | Il a tort de s'inquiéter. | Se equivoca al preocuparse. | b1 | expression
+avoir l'air | a.vwaʁ lɛʁ | parecer | to seem | Tu as l'air fatigué. | Pareces cansado. | b1 | expression
+faire attention | fɛʁ a.tɑ̃.sjɔ̃ | tener cuidado | to be careful | Fais attention en traversant. | Ten cuidado al cruzar. | a2 | expression

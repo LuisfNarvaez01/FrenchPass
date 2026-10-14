@@ -19,6 +19,11 @@ extension WordCategoryIcon on WordCategory {
         WordCategory.health => Icons.healing_outlined,
         WordCategory.home => Icons.chair_outlined,
         WordCategory.conversation => Icons.chat_bubble_outline_rounded,
+        WordCategory.people => Icons.people_outline_rounded,
+        WordCategory.time => Icons.schedule_rounded,
+        WordCategory.shopping => Icons.shopping_bag_outlined,
+        WordCategory.education => Icons.school_outlined,
+        WordCategory.leisure => Icons.sports_soccer_outlined,
       };
 
   /// Alternates the two brand hues so a grid of tiles has rhythm without

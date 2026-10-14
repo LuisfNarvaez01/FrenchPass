@@ -1,0 +1,62 @@
+# category: people
+mère | mɛʁ | madre | mother | Ma mère travaille à l'hôpital. | Mi madre trabaja en el hospital. | a1 | noun
+père | pɛʁ | padre | father | Mon père cuisine très bien. | Mi padre cocina muy bien. | a1 | noun
+parents | pa.ʁɑ̃ | padres | parents | Mes parents habitent à Lyon. | Mis padres viven en Lyon. | a1 | noun
+fils | fis | hijo | son | Leur fils a cinq ans. | Su hijo tiene cinco años. | a1 | noun
+fille | fij | hija / chica | daughter / girl | Sa fille apprend le piano. | Su hija aprende piano. | a1 | noun
+enfant | ɑ̃.fɑ̃ | niño / niña | child | Cet enfant pose beaucoup de questions. | Este niño hace muchas preguntas. | a1 | noun
+bébé | be.be | bebé | baby | Le bébé dort enfin. | El bebé por fin duerme. | a1 | noun
+grand-mère | ɡʁɑ̃.mɛʁ | abuela | grandmother | Ma grand-mère fait des crêpes le dimanche. | Mi abuela hace crepes los domingos. | a1 | noun
+grand-père | ɡʁɑ̃.pɛʁ | abuelo | grandfather | Mon grand-père raconte des histoires. | Mi abuelo cuenta historias. | a1 | noun
+oncle | ɔ̃kl | tío | uncle | Mon oncle vit au Canada. | Mi tío vive en Canadá. | a1 | noun
+tante | tɑ̃t | tía | aunt | Ma tante a un chien énorme. | Mi tía tiene un perro enorme. | a1 | noun
+cousin | ku.zɛ̃ | primo | cousin (male) | Mon cousin vient dîner ce soir. | Mi primo viene a cenar esta noche. | a1 | noun
+cousine | ku.zin | prima | cousin (female) | Ma cousine se marie en juin. | Mi prima se casa en junio. | a1 | noun
+mari | ma.ʁi | esposo | husband | Son mari est professeur. | Su esposo es profesor. | a1 | noun
+femme | fam | mujer / esposa | woman / wife | Cette femme parle quatre langues. | Esta mujer habla cuatro idiomas. | a1 | noun
+homme | ɔm | hombre | man | Un homme attend devant la porte. | Un hombre espera delante de la puerta. | a1 | noun
+garçon | ɡaʁ.sɔ̃ | niño / chico | boy | Le garçon court vers l'école. | El niño corre hacia la escuela. | a1 | noun
+copain | kɔ.pɛ̃ | amigo / novio | friend / boyfriend | Je sors avec mes copains samedi. | Salgo con mis amigos el sábado. | a2 | noun
+copine | kɔ.pin | amiga / novia | friend / girlfriend | Sa copine est italienne. | Su novia es italiana. | a2 | noun
+voisin | vwa.zɛ̃ | vecino | neighbour | Mon voisin joue de la guitare la nuit. | Mi vecino toca la guitarra de noche. | a2 | noun
+gens | ʒɑ̃ | gente | people | Les gens sont très gentils ici. | La gente es muy amable aquí. | a1 | noun
+personne | pɛʁ.sɔn | persona / nadie | person / nobody | Il n'y a personne dans la salle. | No hay nadie en la sala. | a1 | noun
+âge | ɑʒ | edad | age | À ton âge, je voyageais beaucoup. | A tu edad, yo viajaba mucho. | a1 | noun
+jeune | ʒœn | joven | young | Elle est jeune mais très sage. | Es joven pero muy sensata. | a1 | adjective
+vieux | vjø | viejo | old | Ce vieux monsieur nourrit les pigeons. | Este señor mayor les da de comer a las palomas. | a1 | adjective
+grand | ɡʁɑ̃ | alto / grande | tall / big | Mon frère est très grand. | Mi hermano es muy alto. | a1 | adjective
+petit | pə.ti | pequeño / bajo | small / short | Nous avons un petit appartement. | Tenemos un apartamento pequeño. | a1 | adjective
+gentil | ʒɑ̃.ti | amable | kind | Merci, c'est très gentil. | Gracias, es muy amable. | a1 | adjective
+sympa | sɛ̃.pa | simpático / majo | nice | Ton ami est vraiment sympa. | Tu amigo es muy simpático. | a1 | adjective
+drôle | dʁol | gracioso | funny | Ce film est très drôle. | Esta película es muy graciosa. | a2 | adjective
+timide | ti.mid | tímido | shy | Il est timide au début. | Es tímido al principio. | a2 | adjective
+bavard | ba.vaʁ | hablador | talkative | Mon collègue est trop bavard. | Mi colega es demasiado hablador. | b1 | adjective
+travailleur | tʁa.va.jœʁ | trabajador | hard-working | C'est une étudiante très travailleuse. | Es una estudiante muy trabajadora. | a2 | adjective
+paresseux | pa.ʁɛ.sø | perezoso | lazy | Le dimanche, je suis paresseux. | Los domingos soy perezoso. | a2 | adjective
+marié | ma.ʁje | casado | married | Ils sont mariés depuis dix ans. | Están casados desde hace diez años. | a1 | adjective
+célibataire | se.li.ba.tɛʁ | soltero | single | Mon cousin est encore célibataire. | Mi primo todavía está soltero. | a2 | adjective
+divorcé | di.vɔʁ.se | divorciado | divorced | Ses parents sont divorcés. | Sus padres están divorciados. | b1 | adjective
+naissance | nɛ.sɑ̃s | nacimiento | birth | Quelle est ta date de naissance ? | ¿Cuál es tu fecha de nacimiento? | a2 | noun
+anniversaire | a.ni.vɛʁ.sɛʁ | cumpleaños / aniversario | birthday / anniversary | Joyeux anniversaire, Marie ! | ¡Feliz cumpleaños, Marie! | a1 | noun
+mariage | ma.ʁjaʒ | boda / matrimonio | wedding / marriage | Le mariage aura lieu en août. | La boda será en agosto. | a2 | noun
+prénom | pʁe.nɔ̃ | nombre de pila | first name | Quel est ton prénom ? | ¿Cuál es tu nombre? | a1 | noun
+nom de famille | nɔ̃ də fa.mij | apellido | surname | Écrivez votre nom de famille ici. | Escriba su apellido aquí. | a1 | noun
+beau-père | bo.pɛʁ | suegro / padrastro | father-in-law / stepfather | Mon beau-père adore le jardinage. | A mi suegro le encanta la jardinería. | b1 | noun
+belle-mère | bɛl.mɛʁ | suegra / madrastra | mother-in-law / stepmother | Ma belle-mère vient pour Noël. | Mi suegra viene en Navidad. | b1 | noun
+petit-fils | pə.ti.fis | nieto | grandson | Son petit-fils l'appelle tous les jours. | Su nieto la llama todos los días. | a2 | noun
+petite-fille | pə.tit.fij | nieta | granddaughter | Leur petite-fille commence l'école. | Su nieta empieza la escuela. | a2 | noun
+neveu | nə.vø | sobrino | nephew | Mon neveu veut devenir pilote. | Mi sobrino quiere ser piloto. | a2 | noun
+nièce | njɛs | sobrina | niece | Ma nièce habite à Marseille. | Mi sobrina vive en Marsella. | a2 | noun
+jumeaux | ʒy.mo | gemelos | twins | Les jumeaux se ressemblent beaucoup. | Los gemelos se parecen mucho. | b1 | noun
+se marier | sə ma.ʁje | casarse | to get married | Ils vont se marier l'année prochaine. | Se van a casar el año que viene. | a2 | verb
+s'entendre | sɑ̃.tɑ̃dʁ | llevarse bien | to get along | Je m'entends bien avec ma sœur. | Me llevo bien con mi hermana. | b1 | verb
+ressembler à | ʁə.sɑ̃.ble a | parecerse a | to look like | Tu ressembles beaucoup à ton père. | Te pareces mucho a tu padre. | b1 | verb
+élever | el.ve | criar | to raise | Elle a élevé trois enfants seule. | Crio sola a tres hijos. | b1 | verb
+grandir | ɡʁɑ̃.diʁ | crecer | to grow up | J'ai grandi à la campagne. | Crecí en el campo. | a2 | verb
+compter sur | kɔ̃.te syʁ | contar con | to count on | Tu peux compter sur moi. | Puedes contar conmigo. | b1 | verb
+caractère | ka.ʁak.tɛʁ | carácter | personality | Elle a un caractère bien trempé. | Tiene un carácter fuerte. | b1 | noun
+entourage | ɑ̃.tu.ʁaʒ | entorno / círculo cercano | circle (of people) | Son entourage la soutient beaucoup. | Su entorno la apoya mucho. | b2 | noun
+fiancé | fjɑ̃.se | prometido | fiancé | Je te présente mon fiancé. | Te presento a mi prometido. | b1 | noun
+adolescent | a.dɔ.le.sɑ̃ | adolescente | teenager | Les adolescents dorment beaucoup. | Los adolescentes duermen mucho. | a2 | noun
+retraité | ʁə.tʁɛ.te | jubilado | retired person | Mon père est retraité depuis mars. | Mi padre está jubilado desde marzo. | b1 | noun
+foyer | fwa.je | hogar / familia | household | C'est un foyer de quatre personnes. | Es un hogar de cuatro personas. | b2 | noun

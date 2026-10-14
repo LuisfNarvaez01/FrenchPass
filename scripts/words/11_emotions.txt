@@ -1,0 +1,47 @@
+# category: emotions
+content | kɔ̃.tɑ̃ | contento | happy / glad | Je suis content de te voir. | Me alegra verte. | a1 | adjective
+triste | tʁist | triste | sad | Ce film est très triste. | Esta película es muy triste. | a1 | adjective
+en colère | ɑ̃ kɔ.lɛʁ | enfadado | angry | Pourquoi tu es en colère ? | ¿Por qué estás enfadado? | a2 | phrase
+fâché | fa.ʃe | enojado | cross / upset | Elle est fâchée contre moi. | Está enojada conmigo. | a2 | adjective
+surpris | syʁ.pʁi | sorprendido | surprised | J'ai été surpris par sa réponse. | Me sorprendió su respuesta. | a2 | adjective
+peur | pœʁ | miedo | fear | J'ai peur des araignées. | Les tengo miedo a las arañas. | a1 | noun
+avoir peur | a.vwaʁ pœʁ | tener miedo | to be afraid | N'aie pas peur, ce n'est rien. | No tengas miedo, no es nada. | a1 | expression
+joie | ʒwa | alegría | joy | Elle a sauté de joie. | Saltó de alegría. | a2 | noun
+bonheur | bɔ.nœʁ | felicidad | happiness | Le bonheur, c'est simple. | La felicidad es sencilla. | a2 | noun
+tristesse | tʁis.tɛs | tristeza | sadness | Il y avait de la tristesse dans ses yeux. | Había tristeza en sus ojos. | b1 | noun
+colère | kɔ.lɛʁ | ira / enfado | anger | Il a du mal à contrôler sa colère. | Le cuesta controlar su enfado. | b1 | noun
+amour | a.muʁ | amor | love | C'est une histoire d'amour. | Es una historia de amor. | a1 | noun
+détester | de.tɛs.te | odiar | to hate | Je déteste attendre. | Odio esperar. | a1 | verb
+adorer | a.dɔ.ʁe | encantar / adorar | to love / adore | J'adore le chocolat. | Me encanta el chocolate. | a1 | verb
+préférer | pʁe.fe.ʁe | preferir | to prefer | Je préfère le thé au café. | Prefiero el té al café. | a1 | verb
+espérer | ɛs.pe.ʁe | esperar (desear) | to hope | J'espère que tu vas bien. | Espero que estés bien. | a2 | verb
+rire | ʁiʁ | reír | to laugh | On a beaucoup ri hier soir. | Nos reímos mucho anoche. | a2 | verb
+pleurer | plœ.ʁe | llorar | to cry | Le bébé pleure. | El bebé llora. | a2 | verb
+sourire | su.ʁiʁ | sonreír / sonrisa | to smile / smile | Elle a un beau sourire. | Tiene una sonrisa bonita. | a2 | verb
+s'ennuyer | sɑ̃.nɥi.je | aburrirse | to be bored | Je m'ennuie à la maison. | Me aburro en casa. | b1 | verb
+s'inquiéter | sɛ̃.kje.te | preocuparse | to worry | Ne t'inquiète pas ! | ¡No te preocupes! | b1 | verb
+se fâcher | sə fa.ʃe | enfadarse | to get angry | Ne te fâche pas, c'était une blague. | No te enfades, era una broma. | b1 | verb
+avoir honte | a.vwaʁ ɔ̃t | tener vergüenza | to be ashamed | J'ai honte de mon accent. | Me da vergüenza mi acento. | b1 | expression
+fier | fjɛʁ | orgulloso | proud | Je suis fier de toi. | Estoy orgulloso de ti. | a2 | adjective
+jaloux | ʒa.lu | celoso | jealous | Il est jaloux de son frère. | Tiene celos de su hermano. | b1 | adjective
+nerveux | nɛʁ.vø | nervioso | nervous | Je suis nerveux avant l'examen. | Estoy nervioso antes del examen. | a2 | adjective
+calme | kalm | tranquilo | calm | Reste calme, tout va bien. | Tranquilo, todo va bien. | a2 | adjective
+seul | sœl | solo | alone / lonely | Je me sens seul ici. | Me siento solo aquí. | a2 | adjective
+amoureux | a.mu.ʁø | enamorado | in love | Il est tombé amoureux d'elle. | Se enamoró de ella. | a2 | adjective
+ravi | ʁa.vi | encantado | delighted | Je suis ravi de faire votre connaissance. | Encantado de conocerle. | b1 | adjective
+déprimé | de.pʁi.me | deprimido | depressed | Il se sent déprimé en hiver. | Se siente deprimido en invierno. | b1 | adjective
+soulagé | su.la.ʒe | aliviado | relieved | Je suis soulagé que tu sois arrivé. | Me alivia que hayas llegado. | b1 | adjective
+gêné | ʒɛ.ne | incómodo / avergonzado | embarrassed | J'étais gêné devant tout le monde. | Me sentí incómodo delante de todos. | b1 | adjective
+ému | e.my | conmovido / emocionado | moved | Elle était très émue par le discours. | Estaba muy conmovida por el discurso. | b1 | adjective
+reconnaissant | ʁə.kɔ.nɛ.sɑ̃ | agradecido | grateful | Je te suis très reconnaissant. | Te estoy muy agradecido. | b2 | adjective
+angoissé | ɑ̃.ɡwa.se | angustiado | anxious | Il est angoissé par l'avenir. | Le angustia el futuro. | b2 | adjective
+envie | ɑ̃.vi | ganas / envidia | desire / envy | J'ai envie d'un café. | Tengo ganas de un café. | a2 | noun
+avoir envie de | a.vwaʁ ɑ̃.vi də | tener ganas de | to feel like | Tu as envie de sortir ? | ¿Tienes ganas de salir? | a2 | expression
+manquer | mɑ̃.ke | echar de menos / faltar | to miss / to lack | Tu me manques. | Te echo de menos. | b1 | verb
+confiance | kɔ̃.fjɑ̃s | confianza | trust | J'ai confiance en toi. | Confío en ti. | b1 | noun
+humeur | y.mœʁ | humor / estado de ánimo | mood | Il est de bonne humeur ce matin. | Está de buen humor esta mañana. | b1 | noun
+sentiment | sɑ̃.ti.mɑ̃ | sentimiento | feeling | C'est difficile d'exprimer ses sentiments. | Es difícil expresar los sentimientos. | b1 | noun
+avoir le cafard | a.vwaʁ lə ka.faʁ | estar de bajón | to feel down | J'ai le cafard depuis la rentrée. | Estoy de bajón desde la vuelta. | c1 | expression
+en avoir marre | ɑ̃.n‿a.vwaʁ maʁ | estar harto | to be fed up | J'en ai marre de cette pluie ! | ¡Estoy harto de esta lluvia! | b2 | expression
+être aux anges | ɛtʁ o.z‿ɑ̃ʒ | estar en la gloria | to be over the moon | Depuis la naissance, ils sont aux anges. | Desde el nacimiento, están felices. | c1 | expression
+avoir le moral | a.vwaʁ lə mɔ.ʁal | estar animado | to be in good spirits | Malgré tout, il a le moral. | A pesar de todo, está animado. | b2 | expression

@@ -1,0 +1,50 @@
+# category: health
+corps | kɔʁ | cuerpo | body | Le sport est bon pour le corps. | El deporte es bueno para el cuerpo. | a1 | noun
+tête | tɛt | cabeza | head | J'ai mal à la tête. | Me duele la cabeza. | a1 | noun
+yeux | jø | ojos | eyes | Elle a les yeux bleus. | Tiene los ojos azules. | a1 | noun
+oreille | ɔ.ʁɛj | oreja / oído | ear | J'ai mal à l'oreille. | Me duele el oído. | a1 | noun
+nez | ne | nariz | nose | J'ai le nez qui coule. | Me gotea la nariz. | a1 | noun
+bouche | buʃ | boca | mouth | Ouvrez la bouche, s'il vous plaît. | Abra la boca, por favor. | a1 | noun
+dent | dɑ̃ | diente | tooth | Brosse-toi les dents ! | ¡Cepíllate los dientes! | a1 | noun
+cheveux | ʃə.vø | pelo / cabello | hair | Elle a les cheveux longs. | Tiene el pelo largo. | a1 | noun
+main | mɛ̃ | mano | hand | Lave-toi les mains avant de manger. | Lávate las manos antes de comer. | a1 | noun
+bras | bʁa | brazo | arm | Il s'est cassé le bras. | Se rompió el brazo. | a1 | noun
+jambe | ʒɑ̃b | pierna | leg | J'ai mal aux jambes après la course. | Me duelen las piernas después de correr. | a1 | noun
+pied | pje | pie | foot | Je vais au travail à pied. | Voy al trabajo a pie. | a1 | noun
+dos | do | espalda | back | J'ai mal au dos. | Me duele la espalda. | a1 | noun
+ventre | vɑ̃tʁ | vientre / barriga | stomach / belly | J'ai mal au ventre. | Me duele la barriga. | a1 | noun
+cœur | kœʁ | corazón | heart | Son cœur bat très vite. | Su corazón late muy rápido. | a1 | noun
+gorge | ɡɔʁʒ | garganta | throat | J'ai mal à la gorge. | Me duele la garganta. | a2 | noun
+épaule | e.pol | hombro | shoulder | Il a une douleur à l'épaule. | Tiene un dolor en el hombro. | a2 | noun
+genou | ʒə.nu | rodilla | knee | Je me suis fait mal au genou. | Me hice daño en la rodilla. | a2 | noun
+peau | po | piel | skin | Mets de la crème, tu as la peau sèche. | Ponte crema, tienes la piel seca. | a2 | noun
+avoir mal | a.vwaʁ mal | doler / tener dolor | to hurt | Où avez-vous mal ? | ¿Dónde le duele? | a1 | expression
+malade | ma.lad | enfermo | ill / sick | Je suis malade, je reste au lit. | Estoy enfermo, me quedo en cama. | a1 | adjective
+rhume | ʁym | resfriado | cold (illness) | J'ai attrapé un rhume. | Pillé un resfriado. | a2 | noun
+grippe | ɡʁip | gripe | flu | Il a la grippe depuis lundi. | Tiene gripe desde el lunes. | a2 | noun
+fièvre | fjɛvʁ | fiebre | fever | L'enfant a de la fièvre. | El niño tiene fiebre. | a2 | noun
+toux | tu | tos | cough | Ce sirop calme la toux. | Este jarabe calma la tos. | b1 | noun
+tousser | tu.se | toser | to cough | Il tousse toute la nuit. | Tose toda la noche. | b1 | verb
+blessure | ble.syʁ | herida / lesión | injury | La blessure n'est pas grave. | La herida no es grave. | b1 | noun
+se blesser | sə ble.se | herirse / lesionarse | to get hurt | Il s'est blessé en jouant au foot. | Se lesionó jugando al fútbol. | b1 | verb
+médicament | me.di.ka.mɑ̃ | medicamento | medicine | Prenez ce médicament trois fois par jour. | Tome este medicamento tres veces al día. | a2 | noun
+ordonnance | ɔʁ.dɔ.nɑ̃s | receta médica | prescription | Il me faut une ordonnance pour ces antibiotiques. | Necesito receta para estos antibióticos. | b1 | noun
+rendez-vous | ʁɑ̃.de.vu | cita | appointment | J'ai rendez-vous chez le dentiste. | Tengo cita con el dentista. | a2 | noun
+urgences | yʁ.ʒɑ̃s | urgencias | emergency room | On l'a emmené aux urgences. | Lo llevaron a urgencias. | b1 | noun
+ambulance | ɑ̃.by.lɑ̃s | ambulancia | ambulance | Appelez une ambulance ! | ¡Llamen a una ambulancia! | a2 | noun
+infirmier | ɛ̃.fiʁ.mje | enfermero | nurse | L'infirmière prend ma tension. | La enfermera me toma la tensión. | a2 | noun
+dentiste | dɑ̃.tist | dentista | dentist | J'ai peur du dentiste. | Le tengo miedo al dentista. | a2 | noun
+santé | sɑ̃.te | salud | health | Fumer est mauvais pour la santé. | Fumar es malo para la salud. | a1 | noun
+en forme | ɑ̃ fɔʁm | en forma | fit / well | Tu as l'air en forme ! | ¡Se te ve en forma! | a2 | phrase
+se reposer | sə ʁə.po.ze | descansar | to rest | Le médecin m'a dit de me reposer. | El médico me dijo que descansara. | a2 | verb
+dormir | dɔʁ.miʁ | dormir | to sleep | J'ai mal dormi cette nuit. | Dormí mal anoche. | a1 | verb
+se sentir | sə sɑ̃.tiʁ | sentirse | to feel | Je ne me sens pas bien. | No me siento bien. | a2 | verb
+respirer | ʁɛs.pi.ʁe | respirar | to breathe | Respirez profondément. | Respire hondo. | a2 | verb
+vacciner | vak.si.ne | vacunar | to vaccinate | Je me suis fait vacciner contre la grippe. | Me vacuné contra la gripe. | b1 | verb
+assurance maladie | a.sy.ʁɑ̃s ma.la.di | seguro médico | health insurance | Vous avez une assurance maladie ? | ¿Tiene seguro médico? | b1 | noun
+mutuelle | my.tɥɛl | seguro médico complementario | supplementary health insurance | Ma mutuelle rembourse les lunettes. | Mi seguro complementario cubre las gafas. | b2 | noun
+enceinte | ɑ̃.sɛ̃t | embarazada | pregnant | Elle est enceinte de six mois. | Está embarazada de seis meses. | b1 | adjective
+stress | stʁɛs | estrés | stress | Le stress m'empêche de dormir. | El estrés no me deja dormir. | b1 | noun
+épuisé | e.pɥi.ze | agotado | exhausted | Après le déménagement, je suis épuisé. | Después de la mudanza estoy agotado. | b1 | adjective
+avoir mal au cœur | a.vwaʁ mal o kœʁ | tener náuseas | to feel sick | En bateau, j'ai mal au cœur. | En barco me mareo. | b2 | expression
+être patraque | ɛtʁ pa.tʁak | estar pachucho | to feel under the weather | Je suis un peu patraque aujourd'hui. | Hoy estoy un poco pachucho. | c1 | expression

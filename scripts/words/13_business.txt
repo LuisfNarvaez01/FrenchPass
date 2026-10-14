@@ -1,0 +1,41 @@
+# category: business
+bureau | by.ʁo | oficina / escritorio | office / desk | Je suis au bureau jusqu'à dix-huit heures. | Estoy en la oficina hasta las seis. | a1 | noun
+patron | pa.tʁɔ̃ | jefe | boss | Mon patron est en vacances. | Mi jefe está de vacaciones. | a2 | noun
+chef | ʃɛf | jefe / chef | boss / chef | Le chef d'équipe organise la réunion. | El jefe de equipo organiza la reunión. | a2 | noun
+employé | ɑ̃.plwa.je | empleado | employee | L'entreprise a cinquante employés. | La empresa tiene cincuenta empleados. | a2 | noun
+salaire | sa.lɛʁ | sueldo | salary | Il a demandé une augmentation de salaire. | Pidió un aumento de sueldo. | a2 | noun
+métier | me.tje | oficio / profesión | job / trade | Quel est ton métier ? | ¿A qué te dedicas? | a2 | noun
+emploi | ɑ̃.plwa | empleo | job | Elle cherche un emploi à Paris. | Busca empleo en París. | a2 | noun
+chômage | ʃo.maʒ | desempleo / paro | unemployment | Il est au chômage depuis mars. | Está en paro desde marzo. | b1 | noun
+CV | se.ve | currículum | CV / résumé | Envoyez votre CV par courriel. | Envíe su currículum por correo. | a2 | noun
+entretien d'embauche | ɑ̃.tʁə.tjɛ̃ dɑ̃.boʃ | entrevista de trabajo | job interview | J'ai un entretien d'embauche demain. | Tengo una entrevista de trabajo mañana. | b1 | noun
+candidature | kɑ̃.di.da.tyʁ | candidatura / solicitud | application | J'ai envoyé ma candidature. | Envié mi solicitud. | b1 | noun
+contrat | kɔ̃.tʁa | contrato | contract | Il a signé un contrat de deux ans. | Firmó un contrato de dos años. | b1 | noun
+stage | staʒ | prácticas | internship | Je fais un stage dans une banque. | Hago prácticas en un banco. | b1 | noun
+démissionner | de.mi.sjɔ.ne | renunciar (al trabajo) | to resign | Elle a démissionné le mois dernier. | Renunció el mes pasado. | b1 | verb
+licencier | li.sɑ̃.sje | despedir | to dismiss / lay off | L'usine a licencié cent personnes. | La fábrica despidió a cien personas. | b2 | verb
+travailler | tʁa.va.je | trabajar | to work | Je travaille à mi-temps. | Trabajo a media jornada. | a1 | verb
+gagner sa vie | ɡa.ɲe sa vi | ganarse la vida | to earn a living | Il gagne sa vie comme traducteur. | Se gana la vida como traductor. | b1 | expression
+à temps plein | a tɑ̃ plɛ̃ | a tiempo completo | full-time | C'est un poste à temps plein. | Es un puesto a tiempo completo. | b1 | phrase
+télétravail | te.le.tʁa.vaj | teletrabajo | remote work | Je fais du télétravail le vendredi. | Teletrabajo los viernes. | b1 | noun
+projet | pʁɔ.ʒɛ | proyecto | project | On lance un nouveau projet. | Lanzamos un nuevo proyecto. | a2 | noun
+client fidèle | kli.jɑ̃ fi.dɛl | cliente habitual | loyal customer | C'est un client fidèle depuis dix ans. | Es un cliente habitual desde hace diez años. | b1 | noun
+facture | fak.tyʁ | factura | invoice / bill | Vous pouvez m'envoyer la facture ? | ¿Me puede enviar la factura? | b1 | noun
+devis | də.vi | presupuesto | quote / estimate | Le plombier m'a fait un devis. | El fontanero me hizo un presupuesto. | b2 | noun
+chiffre d'affaires | ʃifʁ da.fɛʁ | facturación / volumen de negocio | turnover | Le chiffre d'affaires a doublé. | La facturación se duplicó. | b2 | noun
+bénéfice | be.ne.fis | beneficio / ganancia | profit | L'entreprise fait des bénéfices. | La empresa tiene beneficios. | b2 | noun
+dépenses | de.pɑ̃s | gastos | expenses | Il faut réduire les dépenses. | Hay que reducir los gastos. | b1 | noun
+impôts | ɛ̃.po | impuestos | taxes | Je paie mes impôts en mai. | Pago mis impuestos en mayo. | b1 | noun
+compte bancaire | kɔ̃t bɑ̃.kɛʁ | cuenta bancaria | bank account | J'ai ouvert un compte bancaire. | Abrí una cuenta bancaria. | b1 | noun
+prêt | pʁɛ | préstamo / listo | loan / ready | La banque m'a accordé un prêt. | El banco me concedió un préstamo. | b1 | noun
+économiser | e.kɔ.nɔ.mi.ze | ahorrar | to save (money) | J'économise pour un voyage. | Ahorro para un viaje. | b1 | verb
+dépenser | de.pɑ̃.se | gastar | to spend | Il dépense tout son salaire. | Gasta todo su sueldo. | a2 | verb
+négocier | ne.ɡɔ.sje | negociar | to negotiate | Il faut négocier le prix. | Hay que negociar el precio. | b2 | verb
+ordre du jour | ɔʁ.dʁə dy ʒuʁ | orden del día | agenda | Quel est l'ordre du jour de la réunion ? | ¿Cuál es el orden del día de la reunión? | b2 | noun
+échéance | e.ʃe.ɑ̃s | plazo / vencimiento | deadline | L'échéance est fixée au 30 juin. | El plazo vence el 30 de junio. | c1 | noun
+concurrence | kɔ̃.ky.ʁɑ̃s | competencia | competition | La concurrence est forte sur ce marché. | La competencia es fuerte en este mercado. | b2 | noun
+gérer | ʒe.ʁe | gestionar / manejar | to manage | Elle gère une équipe de dix personnes. | Gestiona un equipo de diez personas. | b1 | verb
+collaborer | kɔ.la.bɔ.ʁe | colaborar | to collaborate | Nous collaborons avec une agence belge. | Colaboramos con una agencia belga. | b2 | verb
+faire le point | fɛʁ lə pwɛ̃ | hacer balance | to take stock | On fait le point lundi matin. | Hacemos balance el lunes por la mañana. | b2 | expression
+boulot | bu.lo | curro / trabajo (coloquial) | job (slang) | J'ai trouvé un petit boulot pour l'été. | Encontré un trabajito para el verano. | b1 | noun
+être débordé | ɛtʁ de.bɔʁ.de | estar desbordado de trabajo | to be swamped | Cette semaine, je suis débordé. | Esta semana estoy desbordado. | b2 | expression
