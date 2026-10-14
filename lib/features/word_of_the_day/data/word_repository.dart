@@ -43,6 +43,7 @@ class WordRepository {
     }
 
     _words = parsed;
+    _index = null;
     _loaded = true;
   }
 
@@ -64,13 +65,13 @@ class WordRepository {
 
   /// Free-text search over the French word and both translations.
   List<Word> search(String query) {
-    final q = _fold(query);
+    final q = fold(query);
     if (q.isEmpty) return _words;
     return _words
         .where((w) =>
-            _fold(w.french).contains(q) ||
-            _fold(w.translationEs).contains(q) ||
-            _fold(w.translationEn).contains(q))
+            fold(w.french).contains(q) ||
+            fold(w.translationEs).contains(q) ||
+            fold(w.translationEn).contains(q))
         .toList();
   }
 
@@ -147,8 +148,41 @@ class WordRepository {
           .inDays
           .abs();
 
+  Map<String, Word>? _index;
+
+  /// The catalog entry for a word as it appears in running text, if any:
+  /// "l'école" finds "école", "fleurs" finds "fleur", "Bonjour," finds
+  /// "bonjour". Used by the readings, so tapping a word needs no AI.
+  Word? lookup(String token) {
+    final index = _index ??= {
+      for (final w in _words) w.french.toLowerCase(): w,
+    };
+    var t = token
+        .toLowerCase()
+        .replaceAll('’', "'")
+        .replaceAll(RegExp(r"^[^\p{L}']+|[^\p{L}']+$", unicode: true), '');
+    if (t.isEmpty) return null;
+    final elided = RegExp(r"^(?:l|d|j|qu|n|s|m|t|c|jusqu|lorsqu|puisqu)'");
+    final candidates = <String>[t];
+    if (elided.hasMatch(t)) {
+      t = t.replaceFirst(elided, '');
+      candidates.add(t);
+    }
+    // Plural and feminine forms of the base word.
+    if (t.endsWith('s') || t.endsWith('x')) {
+      candidates.add(t.substring(0, t.length - 1));
+    }
+    if (t.endsWith('es')) candidates.add(t.substring(0, t.length - 2));
+    if (t.endsWith('e')) candidates.add(t.substring(0, t.length - 1));
+    for (final c in candidates) {
+      final hit = index[c];
+      if (hit != null) return hit;
+    }
+    return null;
+  }
+
   /// Lowercase + strip accents, so "cafe" matches "café".
-  static String _fold(String input) {
+  static String fold(String input) {
     const from = 'àâäéèêëîïôöùûüÿçñ';
     const to = 'aaaeeeeiioouuuycn';
     var out = input.toLowerCase().trim();

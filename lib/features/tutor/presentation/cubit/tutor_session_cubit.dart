@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
+import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_prompt.dart';
@@ -146,6 +147,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
   final TutorAudio _audio;
   final GeminiLiveClient _client;
   final UsageService _usage;
+  final ProgressRepository? _progress;
 
   TutorSessionCubit({
     required this.lesson,
@@ -154,7 +156,9 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     required TutorAudio audio,
     required GeminiLiveClient client,
     required UsageService usage,
-  })  : _repo = repository,
+    ProgressRepository? progress,
+  })  : _progress = progress,
+        _repo = repository,
         _reviewer = reviewer,
         _audio = audio,
         _client = client,
@@ -552,6 +556,8 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
       savedSessionId: hasConversation ? saved.id : null,
     ));
     if (!spoke) return;
+    // A lesson counts as five exercises towards the daily goal.
+    await _progress?.recordPractice(PracticeKind.tutor, count: 5);
 
     LessonReview? review;
     try {

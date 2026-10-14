@@ -42,6 +42,8 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
       score: widget.result.overallScore,
       kind: AttemptKind.pronunciation,
     );
+    await getIt<ProgressRepository>()
+        .recordPractice(PracticeKind.pronunciation);
     if (mounted) setState(() => _card = card);
   }
 

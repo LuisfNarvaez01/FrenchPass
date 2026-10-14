@@ -29,8 +29,8 @@ class SrsCard extends Equatable {
 
   int get daysUntilReview {
     final now = DateTime.now();
-    return DateTime(nextReviewDate.year, nextReviewDate.month,
-            nextReviewDate.day)
+    return DateTime(
+            nextReviewDate.year, nextReviewDate.month, nextReviewDate.day)
         .difference(DateTime(now.year, now.month, now.day))
         .inDays;
   }
@@ -82,5 +82,6 @@ class SrsCard extends Equatable {
   }
 
   @override
-  List<Object?> get props => [wordId, repetitions, intervalDays, nextReviewDate];
+  List<Object?> get props =>
+      [wordId, repetitions, intervalDays, nextReviewDate];
 }

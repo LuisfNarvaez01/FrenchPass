@@ -5,6 +5,34 @@ import 'package:french_pass/features/progress/domain/usecases/sm2_algorithm.dart
 /// How a score was earned, so the history can be read by activity.
 enum AttemptKind { pronunciation, quiz }
 
+/// Every kind of exercise that counts towards the daily goal.
+enum PracticeKind {
+  quiz,
+  pronunciation,
+  conjugation,
+  dictation,
+  numbers,
+  falseFriends,
+  grammar,
+  reading,
+  order,
+  match,
+  placement,
+  tutor,
+}
+
+/// Daily goal sizes, in exercises.
+abstract final class DailyGoals {
+  static const options = [10, 20, 30];
+  static const fallback = 10;
+
+  static String labelEs(int goal) => switch (goal) {
+        10 => 'Tranquilo · 10 ejercicios',
+        20 => 'Constante · 20 ejercicios',
+        _ => 'Intenso · $goal ejercicios',
+      };
+}
+
 class Attempt {
   final String wordId;
   final double score;
@@ -61,8 +89,7 @@ class QuizRun {
     final correct = json['correct'];
     final total = json['total'];
     if (at == null || correct is! num || total is! num) return null;
-    return QuizRun(
-        at: at, correct: correct.toInt(), total: total.toInt());
+    return QuizRun(at: at, correct: correct.toInt(), total: total.toInt());
   }
 }
 
@@ -127,8 +154,7 @@ class ProgressRepository {
     return cards;
   }
 
-  Future<void> _saveCards(Map<String, SrsCard> cards) =>
-      _storage.setJsonMap(
+  Future<void> _saveCards(Map<String, SrsCard> cards) => _storage.setJsonMap(
         StorageKeys.srsCards,
         {for (final e in cards.entries) e.key: e.value.toJson()},
       );
@@ -153,10 +179,7 @@ class ProgressRepository {
   // ── Attempts ──────────────────────────────────────────────────────────────
   List<Attempt> loadAttempts() {
     final raw = _storage.getJsonList(StorageKeys.attempts);
-    return raw
-        .map(Attempt.tryFromJson)
-        .whereType<Attempt>()
-        .toList()
+    return raw.map(Attempt.tryFromJson).whereType<Attempt>().toList()
       ..sort((a, b) => a.at.compareTo(b.at));
   }
 
@@ -168,7 +191,8 @@ class ProgressRepository {
     required AttemptKind kind,
   }) async {
     final attempts = loadAttempts()
-      ..add(Attempt(wordId: wordId, score: score, at: DateTime.now(), kind: kind));
+      ..add(Attempt(
+          wordId: wordId, score: score, at: DateTime.now(), kind: kind));
     final trimmed = attempts.length > _maxAttempts
         ? attempts.sublist(attempts.length - _maxAttempts)
         : attempts;
@@ -214,9 +238,105 @@ class ProgressRepository {
   Set<String> loadStudiedDays() =>
       _storage.getStringSet(StorageKeys.studiedDays);
 
-  Future<void> markStudiedToday() async {
-    final days = loadStudiedDays()..add(dayKey(DateTime.now()));
+  Future<void> markStudiedToday({DateTime? now}) async {
+    final today = now ?? DateTime.now();
+    final days = loadStudiedDays()..add(dayKey(today));
     await _storage.setStringSet(StorageKeys.studiedDays, days);
+    await _awardFreeze(today);
+  }
+
+  // ── Streak freezes ────────────────────────────────────────────────────────
+  /// At most this many saved up: enough to survive a bad week, not enough
+  /// to stop studying.
+  static const maxFreezes = 2;
+
+  int get streakFreezes => _storage.getInt(StorageKeys.streakFreezes) ?? 0;
+
+  /// Days the streak survived thanks to a freeze.
+  Set<String> get frozenDays => _storage.getStringSet(StorageKeys.frozenDays);
+
+  /// Every 7 days in a row earns a freeze, once per milestone day.
+  Future<void> _awardFreeze(DateTime today) async {
+    final streak = currentStreak(now: today);
+    if (streak == 0 || streak % 7 != 0) return;
+    final awards = _storage.getStringSet(StorageKeys.freezeAwards);
+    final key = dayKey(today);
+    if (!awards.add(key)) return;
+    await _storage.setStringSet(StorageKeys.freezeAwards, awards);
+    final freezes = streakFreezes;
+    if (freezes < maxFreezes) {
+      await _storage.setInt(StorageKeys.streakFreezes, freezes + 1);
+    }
+  }
+
+  /// If yesterday was missed but the day before wasn't, spends a freeze
+  /// to fill yesterday in. Returns whether one was used. Call when the app
+  /// opens, before showing the streak.
+  Future<bool> protectStreak({DateTime? now}) async {
+    final today = now ?? DateTime.now();
+    final days = loadStudiedDays();
+    final yesterday = dayKey(_daysBefore(today, 1));
+    if (days.contains(dayKey(today)) || days.contains(yesterday)) return false;
+    if (!days.contains(dayKey(_daysBefore(today, 2)))) return false;
+    final freezes = streakFreezes;
+    if (freezes == 0) return false;
+    await _storage.setInt(StorageKeys.streakFreezes, freezes - 1);
+    await _storage.setStringSet(StorageKeys.studiedDays, days..add(yesterday));
+    await _storage.setStringSet(
+        StorageKeys.frozenDays, frozenDays..add(yesterday));
+    return true;
+  }
+
+  // ── Daily goal ────────────────────────────────────────────────────────────
+  int get dailyGoal =>
+      _storage.getInt(StorageKeys.dailyGoal) ?? DailyGoals.fallback;
+
+  Future<void> setDailyGoal(int goal) =>
+      _storage.setInt(StorageKeys.dailyGoal, goal);
+
+  /// Exercises done per day, by day key. Kept for 90 days.
+  Map<String, int> _practiceLog() => {
+        for (final e in _storage.getJsonMap(StorageKeys.practiceLog).entries)
+          if (e.value is num) e.key: (e.value as num).toInt(),
+      };
+
+  int practiceOn(DateTime day) => _practiceLog()[dayKey(day)] ?? 0;
+
+  int practiceToday({DateTime? now}) => practiceOn(now ?? DateTime.now());
+
+  bool goalMetToday({DateTime? now}) => practiceToday(now: now) >= dailyGoal;
+
+  /// Days on which the goal (as set today) was reached.
+  int goalDaysMet() =>
+      _practiceLog().values.where((count) => count >= dailyGoal).length;
+
+  /// Exercises done ever, by kind.
+  Map<PracticeKind, int> practiceTotals() {
+    final raw = _storage.getJsonMap(StorageKeys.practiceTotals);
+    return {
+      for (final kind in PracticeKind.values)
+        kind: (raw[kind.name] as num?)?.toInt() ?? 0,
+    };
+  }
+
+  /// The one call every exercise makes when the learner answers: counts
+  /// towards today's goal and the totals, and marks today as studied.
+  Future<void> recordPractice(PracticeKind kind,
+      {int count = 1, DateTime? now}) async {
+    if (count <= 0) return;
+    final today = now ?? DateTime.now();
+    final log = _practiceLog();
+    final key = dayKey(today);
+    log[key] = (log[key] ?? 0) + count;
+    final oldest = dayKey(_daysBefore(today, 90));
+    log.removeWhere((day, _) => day.compareTo(oldest) < 0);
+    await _storage.setJsonMap(StorageKeys.practiceLog, log);
+
+    final totals = _storage.getJsonMap(StorageKeys.practiceTotals);
+    totals[kind.name] = ((totals[kind.name] as num?)?.toInt() ?? 0) + count;
+    await _storage.setJsonMap(StorageKeys.practiceTotals, totals);
+
+    await markStudiedToday(now: today);
   }
 
   bool get studiedToday => loadStudiedDays().contains(dayKey(DateTime.now()));
@@ -272,9 +392,8 @@ class ProgressRepository {
   ProgressStats stats() {
     final cards = loadCards();
     final attempts = loadAttempts();
-    final mastered = cards.values
-        .where((c) => c.repetitions >= masteryRepetitions)
-        .length;
+    final mastered =
+        cards.values.where((c) => c.repetitions >= masteryRepetitions).length;
     final average = attempts.isEmpty
         ? 0.0
         : attempts.map((a) => a.score).reduce((a, b) => a + b) /
@@ -315,8 +434,7 @@ class ProgressRepository {
     final out = <({DateTime day, double score})>[];
     for (var i = days - 1; i >= 0; i--) {
       final day = _daysBefore(today, i);
-      final ofDay =
-          attempts.where((a) => dayKey(a.at) == dayKey(day)).toList();
+      final ofDay = attempts.where((a) => dayKey(a.at) == dayKey(day)).toList();
       if (ofDay.isEmpty) continue;
       final mean =
           ofDay.map((a) => a.score).reduce((a, b) => a + b) / ofDay.length;

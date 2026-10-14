@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:home_widget/home_widget.dart';
@@ -37,6 +39,29 @@ class WidgetService {
       await HomeWidget.updateWidget(androidName: _androidProvider);
     });
   }
+
+  /// The words of the coming days, so the widget can switch to the next
+  /// one at midnight on its own, without the app being opened.
+  Future<void> publishSchedule(List<(DateTime, Word)> days) =>
+      _guard('publishSchedule', () async {
+        String key(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
+            '${d.month.toString().padLeft(2, '0')}-'
+            '${d.day.toString().padLeft(2, '0')}';
+        await HomeWidget.saveWidgetData<String>(
+          'widget_schedule',
+          jsonEncode([
+            for (final (day, w) in days)
+              {
+                'd': key(day),
+                'f': w.french,
+                'i': w.ipaBare,
+                't': w.translationEs,
+                'e': w.exampleFr,
+              },
+          ]),
+        );
+        await HomeWidget.updateWidget(androidName: _androidProvider);
+      });
 
   /// The widget follows the app's own theme choice (not only the system's),
   /// and speaks at the same speed as the app.

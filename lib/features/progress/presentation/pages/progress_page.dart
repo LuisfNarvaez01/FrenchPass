@@ -7,6 +7,7 @@ import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/charts.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
+import 'package:french_pass/features/progress/domain/achievements.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
@@ -30,7 +31,8 @@ class _ProgressPageState extends State<ProgressPage> {
   Widget build(BuildContext context) {
     final p = context.palette;
     final stats = _progress.stats();
-    final hasData = stats.totalAttempts > 0;
+    final practiced = _progress.practiceTotals().values.fold(0, (a, b) => a + b);
+    final hasData = stats.totalAttempts > 0 || practiced > 0;
 
     return AppBackground(
       child: SafeArea(
@@ -79,6 +81,8 @@ class _ProgressPageState extends State<ProgressPage> {
                       Insets.page, Insets.xl, Insets.page, Insets.xxxl),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
+                      const _AchievementsSection(),
+                      const SizedBox(height: Insets.xxl),
                       // ── Headline numbers ──────────────────────────────
                       // Four single values with no shape to show: stat tiles,
                       // not charts.
@@ -237,6 +241,91 @@ class _ProgressPageState extends State<ProgressPage> {
     }
     entries.sort((a, b) => a.score.compareTo(b.score));
     return entries;
+  }
+}
+
+/// Every achievement: earned ones in colour with their date, the rest
+/// with how close they are.
+class _AchievementsSection extends StatelessWidget {
+  const _AchievementsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final service = getIt<AchievementService>();
+    final stats = service.stats();
+    final unlocked = service.unlocked();
+    final all = [...Achievements.all]..sort((a, b) {
+        final ua = unlocked.containsKey(a.id) ? 0 : 1;
+        final ub = unlocked.containsKey(b.id) ? 0 : 1;
+        return ua != ub
+            ? ua.compareTo(ub)
+            : b.progress(stats).compareTo(a.progress(stats));
+      });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionHeader(
+          title: 'Logros',
+          subtitle: '${unlocked.length} de ${Achievements.all.length}',
+        ),
+        const SizedBox(height: Insets.md),
+        GridView.count(
+          crossAxisCount: 3,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          mainAxisSpacing: Insets.sm,
+          crossAxisSpacing: Insets.sm,
+          childAspectRatio: 0.82,
+          children: [
+            for (final a in all)
+              Builder(builder: (context) {
+                final done = unlocked.containsKey(a.id);
+                final progress = a.progress(stats);
+                return Tooltip(
+                  message: a.description,
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: Container(
+                    padding: const EdgeInsets.all(Insets.sm),
+                    decoration: BoxDecoration(
+                      color: done ? p.gold.withValues(alpha: 0.10) : p.surface,
+                      borderRadius: BorderRadius.circular(Radii.md),
+                      border: Border.all(
+                          color: done ? p.gold.withValues(alpha: 0.5) : p.border),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(a.icon,
+                            size: 28, color: done ? p.gold : p.textMuted),
+                        const SizedBox(height: Insets.xs),
+                        Text(a.title,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.texts.labelMedium?.copyWith(
+                                color: done ? p.textPrimary : p.textMuted)),
+                        const SizedBox(height: Insets.xs),
+                        if (!done)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(2),
+                            child: LinearProgressIndicator(
+                              value: progress,
+                              minHeight: 3,
+                              color: p.gold,
+                              backgroundColor: p.surfaceAlt,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+          ],
+        ),
+      ],
+    );
   }
 }
 

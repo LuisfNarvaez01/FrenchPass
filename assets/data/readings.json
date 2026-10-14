@@ -1,0 +1,219 @@
+[
+  {
+    "id": "a1-matin",
+    "title": "Le matin de Léa",
+    "level": "a1",
+    "sentences": [
+      {"fr": "Léa habite à Lyon avec son chat.", "es": "Léa vive en Lyon con su gato."},
+      {"fr": "Elle se lève à sept heures.", "es": "Se levanta a las siete."},
+      {"fr": "Elle boit un café et elle mange du pain avec du beurre.", "es": "Toma un café y come pan con mantequilla."},
+      {"fr": "Ensuite, elle prend le bus pour aller au travail.", "es": "Luego toma el autobús para ir al trabajo."},
+      {"fr": "Le bus est souvent en retard, mais Léa est patiente.", "es": "El autobús suele llegar tarde, pero Léa es paciente."},
+      {"fr": "Au bureau, elle dit bonjour à ses collègues.", "es": "En la oficina, saluda a sus colegas."}
+    ],
+    "questions": [
+      {"q": "¿Dónde vive Léa?", "options": ["En París", "En Lyon", "En Marsella"], "answer": 1},
+      {"q": "¿Qué come por la mañana?", "options": ["Pan con mantequilla", "Fruta", "Nada"], "answer": 0},
+      {"q": "¿Cómo va al trabajo?", "options": ["En bici", "A pie", "En autobús"], "answer": 2}
+    ]
+  },
+  {
+    "id": "a1-famille",
+    "title": "Ma famille",
+    "level": "a1",
+    "sentences": [
+      {"fr": "Je m'appelle Tomás et j'ai vingt ans.", "es": "Me llamo Tomás y tengo veinte años."},
+      {"fr": "J'ai une sœur et deux frères.", "es": "Tengo una hermana y dos hermanos."},
+      {"fr": "Ma sœur s'appelle Ana, elle est étudiante.", "es": "Mi hermana se llama Ana, es estudiante."},
+      {"fr": "Mes parents travaillent dans un restaurant.", "es": "Mis padres trabajan en un restaurante."},
+      {"fr": "Le dimanche, nous mangeons tous ensemble chez ma grand-mère.", "es": "Los domingos comemos todos juntos en casa de mi abuela."},
+      {"fr": "Elle fait le meilleur gâteau du monde.", "es": "Hace el mejor pastel del mundo."}
+    ],
+    "questions": [
+      {"q": "¿Cuántos hermanos varones tiene Tomás?", "options": ["Uno", "Dos", "Ninguno"], "answer": 1},
+      {"q": "¿Dónde trabajan sus padres?", "options": ["En un restaurante", "En una escuela", "En un hospital"], "answer": 0},
+      {"q": "¿Qué pasa los domingos?", "options": ["Viajan", "Comen en casa de la abuela", "Van al cine"], "answer": 1}
+    ]
+  },
+  {
+    "id": "a1-cafe",
+    "title": "Au café",
+    "level": "a1",
+    "sentences": [
+      {"fr": "Il fait beau et Marc va au café de la place.", "es": "Hace buen tiempo y Marc va al café de la plaza."},
+      {"fr": "Le serveur arrive : « Bonjour, qu'est-ce que vous prenez ? »", "es": "Llega el mesero: «Buenos días, ¿qué va a tomar?»"},
+      {"fr": "« Un thé au citron, s'il vous plaît. »", "es": "«Un té con limón, por favor.»"},
+      {"fr": "Marc lit le journal et regarde les gens dans la rue.", "es": "Marc lee el periódico y mira a la gente en la calle."},
+      {"fr": "Après une heure, il demande l'addition.", "es": "Después de una hora, pide la cuenta."},
+      {"fr": "Le thé coûte trois euros.", "es": "El té cuesta tres euros."}
+    ],
+    "questions": [
+      {"q": "¿Qué pide Marc?", "options": ["Un café", "Un té con limón", "Un jugo"], "answer": 1},
+      {"q": "¿Qué hace mientras tanto?", "options": ["Lee el periódico", "Habla por teléfono", "Trabaja"], "answer": 0},
+      {"q": "¿Cuánto cuesta?", "options": ["Dos euros", "Tres euros", "Cinco euros"], "answer": 1}
+    ]
+  },
+  {
+    "id": "a1-weekend",
+    "title": "Le week-end",
+    "level": "a1",
+    "sentences": [
+      {"fr": "Le samedi, je fais les courses au marché.", "es": "Los sábados hago la compra en el mercado."},
+      {"fr": "J'achète des fruits, des légumes et du fromage.", "es": "Compro fruta, verdura y queso."},
+      {"fr": "L'après-midi, je joue au football avec mes amis.", "es": "Por la tarde juego al fútbol con mis amigos."},
+      {"fr": "Le dimanche, je reste à la maison.", "es": "Los domingos me quedo en casa."},
+      {"fr": "Je lis un livre ou je regarde une série.", "es": "Leo un libro o veo una serie."},
+      {"fr": "Le soir, j'appelle ma mère.", "es": "Por la noche llamo a mi madre."}
+    ],
+    "questions": [
+      {"q": "¿Qué hace el sábado por la mañana?", "options": ["Hace la compra", "Duerme", "Trabaja"], "answer": 0},
+      {"q": "¿Con quién juega al fútbol?", "options": ["Con su padre", "Con sus amigos", "Solo"], "answer": 1},
+      {"q": "¿A quién llama el domingo?", "options": ["A su madre", "A su jefe", "A su hermano"], "answer": 0}
+    ]
+  },
+  {
+    "id": "a2-voyage",
+    "title": "Un voyage à Paris",
+    "level": "a2",
+    "sentences": [
+      {"fr": "L'été dernier, je suis allée à Paris avec ma cousine.", "es": "El verano pasado fui a París con mi prima."},
+      {"fr": "Nous avons pris le train, et le voyage a duré trois heures.", "es": "Tomamos el tren y el viaje duró tres horas."},
+      {"fr": "Notre hôtel était petit mais très propre, près de la gare.", "es": "Nuestro hotel era pequeño pero muy limpio, cerca de la estación."},
+      {"fr": "Le premier jour, nous avons visité le Louvre.", "es": "El primer día visitamos el Louvre."},
+      {"fr": "Il y avait beaucoup de monde devant la Joconde !", "es": "¡Había muchísima gente delante de la Gioconda!"},
+      {"fr": "Le soir, nous avons dîné au bord de la Seine.", "es": "Por la noche cenamos a orillas del Sena."},
+      {"fr": "C'était un voyage inoubliable.", "es": "Fue un viaje inolvidable."}
+    ],
+    "questions": [
+      {"q": "¿Cómo viajaron a París?", "options": ["En avión", "En tren", "En coche"], "answer": 1},
+      {"q": "¿Cómo era el hotel?", "options": ["Grande y caro", "Pequeño pero limpio", "Lejos de todo"], "answer": 1},
+      {"q": "¿Dónde cenaron?", "options": ["En el hotel", "A orillas del Sena", "En el Louvre"], "answer": 1}
+    ]
+  },
+  {
+    "id": "a2-appartement",
+    "title": "Chercher un appartement",
+    "level": "a2",
+    "sentences": [
+      {"fr": "Julien cherche un appartement depuis deux mois.", "es": "Julien busca apartamento desde hace dos meses."},
+      {"fr": "Il veut deux chambres, un balcon et un loyer raisonnable.", "es": "Quiere dos habitaciones, un balcón y un alquiler razonable."},
+      {"fr": "Hier, il a visité un appartement au troisième étage.", "es": "Ayer visitó un apartamento en el tercer piso."},
+      {"fr": "Il était lumineux, mais la rue était très bruyante.", "es": "Era luminoso, pero la calle era muy ruidosa."},
+      {"fr": "Le propriétaire était sympa et le prix était correct.", "es": "El casero era simpático y el precio era correcto."},
+      {"fr": "Julien va réfléchir jusqu'à demain.", "es": "Julien se lo va a pensar hasta mañana."}
+    ],
+    "questions": [
+      {"q": "¿Desde cuándo busca apartamento?", "options": ["Una semana", "Dos meses", "Un año"], "answer": 1},
+      {"q": "¿Cuál era el problema del apartamento?", "options": ["Era oscuro", "Era caro", "La calle era ruidosa"], "answer": 2},
+      {"q": "¿Qué va a hacer Julien?", "options": ["Pensarlo hasta mañana", "Firmar enseguida", "Seguir buscando en otra ciudad"], "answer": 0}
+    ]
+  },
+  {
+    "id": "a2-medecin",
+    "title": "Chez le médecin",
+    "level": "a2",
+    "sentences": [
+      {"fr": "Ce matin, Sofia ne se sentait pas bien.", "es": "Esta mañana, Sofía no se sentía bien."},
+      {"fr": "Elle avait mal à la gorge et un peu de fièvre.", "es": "Le dolía la garganta y tenía un poco de fiebre."},
+      {"fr": "Elle a pris rendez-vous chez le médecin pour midi.", "es": "Pidió cita con el médico para el mediodía."},
+      {"fr": "Le médecin lui a dit : « C'est une petite grippe. »", "es": "El médico le dijo: «Es una gripe leve.»"},
+      {"fr": "Il lui a donné une ordonnance et trois jours de repos.", "es": "Le dio una receta y tres días de descanso."},
+      {"fr": "Sofia est passée à la pharmacie avant de rentrer.", "es": "Sofía pasó por la farmacia antes de volver a casa."}
+    ],
+    "questions": [
+      {"q": "¿Qué le dolía a Sofía?", "options": ["La cabeza", "La garganta", "La espalda"], "answer": 1},
+      {"q": "¿Qué tenía, según el médico?", "options": ["Una gripe leve", "Una alergia", "Nada"], "answer": 0},
+      {"q": "¿Adónde fue después?", "options": ["Al trabajo", "A la farmacia", "Al hospital"], "answer": 1}
+    ]
+  },
+  {
+    "id": "a2-anniversaire",
+    "title": "La fête surprise",
+    "level": "a2",
+    "sentences": [
+      {"fr": "Samedi, c'était l'anniversaire de Paul.", "es": "El sábado era el cumpleaños de Paul."},
+      {"fr": "Ses amis ont organisé une fête surprise chez lui.", "es": "Sus amigos organizaron una fiesta sorpresa en su casa."},
+      {"fr": "Sa copine l'a emmené au cinéma pendant que les autres décoraient l'appartement.", "es": "Su novia lo llevó al cine mientras los demás decoraban el apartamento."},
+      {"fr": "Quand Paul a ouvert la porte, tout le monde a crié « Surprise ! ».", "es": "Cuando Paul abrió la puerta, todos gritaron «¡Sorpresa!»."},
+      {"fr": "Il était tellement ému qu'il n'a rien dit pendant une minute.", "es": "Estaba tan emocionado que no dijo nada durante un minuto."},
+      {"fr": "Ensuite, ils ont dansé jusqu'à deux heures du matin.", "es": "Luego bailaron hasta las dos de la mañana."}
+    ],
+    "questions": [
+      {"q": "¿Dónde fue la fiesta?", "options": ["En un bar", "En casa de Paul", "En el cine"], "answer": 1},
+      {"q": "¿Qué hizo su novia?", "options": ["Lo llevó al cine", "Cocinó", "Llamó a sus padres"], "answer": 0},
+      {"q": "¿Hasta qué hora bailaron?", "options": ["Medianoche", "Las dos", "Las cuatro"], "answer": 1}
+    ]
+  },
+  {
+    "id": "b1-teletravail",
+    "title": "Le télétravail",
+    "level": "b1",
+    "sentences": [
+      {"fr": "Depuis la pandémie, de plus en plus de Français travaillent depuis chez eux.", "es": "Desde la pandemia, cada vez más franceses trabajan desde casa."},
+      {"fr": "Pour certains, c'est une libération : plus de transports bondés, plus de temps pour la famille.", "es": "Para algunos es una liberación: se acabaron los transportes abarrotados y hay más tiempo para la familia."},
+      {"fr": "Pour d'autres, l'isolement pèse sur le moral.", "es": "Para otros, el aislamiento afecta al ánimo."},
+      {"fr": "Beaucoup d'entreprises ont choisi un système hybride, avec deux ou trois jours au bureau.", "es": "Muchas empresas optaron por un sistema híbrido, con dos o tres días en la oficina."},
+      {"fr": "Selon les spécialistes, l'important est de bien séparer la vie privée et le travail.", "es": "Según los expertos, lo importante es separar bien la vida privada y el trabajo."},
+      {"fr": "Fermer l'ordinateur à heure fixe reste le meilleur conseil.", "es": "Cerrar la computadora a una hora fija sigue siendo el mejor consejo."}
+    ],
+    "questions": [
+      {"q": "¿Qué ventaja menciona el texto?", "options": ["Ganar más dinero", "Más tiempo para la familia", "Viajar más"], "answer": 1},
+      {"q": "¿Qué sistema eligieron muchas empresas?", "options": ["Todo en la oficina", "Todo en casa", "Un sistema híbrido"], "answer": 2},
+      {"q": "¿Cuál es el mejor consejo?", "options": ["Trabajar de noche", "Cerrar la computadora a hora fija", "Cambiar de trabajo"], "answer": 1}
+    ]
+  },
+  {
+    "id": "b1-boulangerie",
+    "title": "La boulangerie du quartier",
+    "level": "b1",
+    "sentences": [
+      {"fr": "En France, la boulangerie est bien plus qu'un magasin.", "es": "En Francia, la panadería es mucho más que una tienda."},
+      {"fr": "C'est un lieu où l'on se croise, où l'on échange quelques mots chaque matin.", "es": "Es un lugar donde la gente se cruza e intercambia unas palabras cada mañana."},
+      {"fr": "On y achète la baguette, mais aussi des croissants le dimanche.", "es": "Allí se compra la baguette, y también cruasanes los domingos."},
+      {"fr": "Dans les petits villages, quand la boulangerie ferme, c'est toute la vie du village qui s'éteint.", "es": "En los pueblos pequeños, cuando cierra la panadería, se apaga toda la vida del pueblo."},
+      {"fr": "C'est pourquoi certaines mairies aident les boulangers à s'installer.", "es": "Por eso algunos ayuntamientos ayudan a los panaderos a instalarse."},
+      {"fr": "La baguette est d'ailleurs inscrite au patrimoine de l'UNESCO depuis 2022.", "es": "Por cierto, la baguette es patrimonio de la UNESCO desde 2022."}
+    ],
+    "questions": [
+      {"q": "¿Por qué la panadería es más que una tienda?", "options": ["Porque es barata", "Porque la gente se encuentra allí", "Porque abre de noche"], "answer": 1},
+      {"q": "¿Qué hacen algunos ayuntamientos?", "options": ["Cierran panaderías", "Ayudan a los panaderos a instalarse", "Venden pan"], "answer": 1},
+      {"q": "¿Desde cuándo la baguette es patrimonio de la UNESCO?", "options": ["2002", "2012", "2022"], "answer": 2}
+    ]
+  },
+  {
+    "id": "b1-velo",
+    "title": "Paris à vélo",
+    "level": "b1",
+    "sentences": [
+      {"fr": "Il y a dix ans, traverser Paris à vélo semblait dangereux.", "es": "Hace diez años, cruzar París en bici parecía peligroso."},
+      {"fr": "Aujourd'hui, la ville compte des centaines de kilomètres de pistes cyclables.", "es": "Hoy la ciudad tiene cientos de kilómetros de carriles bici."},
+      {"fr": "Le matin, aux heures de pointe, on voit parfois plus de vélos que de voitures.", "es": "Por la mañana, en hora punta, a veces se ven más bicis que coches."},
+      {"fr": "Les commerçants avaient peur de perdre des clients, mais beaucoup ont changé d'avis.", "es": "Los comerciantes temían perder clientes, pero muchos cambiaron de opinión."},
+      {"fr": "Il reste des problèmes : les vols de vélos et le manque de places pour se garer.", "es": "Quedan problemas: los robos de bicis y la falta de sitios para aparcar."},
+      {"fr": "Malgré tout, la plupart des Parisiens ne reviendraient pas en arrière.", "es": "Aun así, la mayoría de los parisinos no daría marcha atrás."}
+    ],
+    "questions": [
+      {"q": "¿Cómo era ir en bici hace diez años?", "options": ["Parecía peligroso", "Era muy común", "Estaba prohibido"], "answer": 0},
+      {"q": "¿Qué temían los comerciantes?", "options": ["Los robos", "Perder clientes", "El ruido"], "answer": 1},
+      {"q": "¿Qué problema sigue existiendo?", "options": ["Los robos de bicis", "La falta de carriles", "El precio de las bicis"], "answer": 0}
+    ]
+  },
+  {
+    "id": "b1-langues",
+    "title": "Apprendre une langue à l'âge adulte",
+    "level": "b1",
+    "sentences": [
+      {"fr": "On entend souvent qu'il faut être enfant pour apprendre une langue.", "es": "A menudo se oye que hay que ser niño para aprender un idioma."},
+      {"fr": "C'est vrai que les enfants imitent mieux l'accent.", "es": "Es verdad que los niños imitan mejor el acento."},
+      {"fr": "Mais les adultes ont d'autres avantages : ils comprennent la grammaire et savent s'organiser.", "es": "Pero los adultos tienen otras ventajas: entienden la gramática y saben organizarse."},
+      {"fr": "Le secret, selon les chercheurs, c'est la régularité plutôt que l'intensité.", "es": "El secreto, según los investigadores, es la regularidad más que la intensidad."},
+      {"fr": "Quinze minutes par jour valent mieux que trois heures le dimanche.", "es": "Quince minutos al día valen más que tres horas el domingo."},
+      {"fr": "Et surtout, il ne faut pas avoir peur de se tromper.", "es": "Y sobre todo, no hay que tener miedo a equivocarse."}
+    ],
+    "questions": [
+      {"q": "¿Qué hacen mejor los niños?", "options": ["Imitar el acento", "Entender la gramática", "Organizarse"], "answer": 0},
+      {"q": "¿Cuál es el secreto según los investigadores?", "options": ["La intensidad", "La regularidad", "Vivir en el extranjero"], "answer": 1},
+      {"q": "¿Qué recomienda la última frase?", "options": ["Estudiar los domingos", "No tener miedo a equivocarse", "Hablar solo con nativos"], "answer": 1}
+    ]
+  }
+]

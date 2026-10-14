@@ -22,6 +22,9 @@ class NotificationService {
 
   bool get isAvailable => _available;
 
+  static const defaultTitle = 'Tu palabra del día te espera';
+  static const defaultBody = 'Un minuto hoy, una palabra más en tu francés.';
+
   Future<void> init() async {
     if (_initialised) return;
     _initialised = true;
@@ -62,20 +65,30 @@ class NotificationService {
     return status.isGranted;
   }
 
-  /// (Re)schedules the daily reminder at [hour]:00 local time.
-  Future<bool> scheduleDaily({required int hour}) async {
+  /// (Re)schedules the daily reminder at [hour]:00 local time, saying
+  /// [body] (see ReminderService for what it says). With [ask] false it
+  /// never shows the permission prompt: used for the silent refresh on
+  /// every app open.
+  Future<bool> scheduleDaily({
+    required int hour,
+    String title = defaultTitle,
+    String body = defaultBody,
+    bool ask = true,
+  }) async {
     await init();
     if (!_available) return false;
 
-    final granted = await requestPermission();
+    final granted = ask
+        ? await requestPermission()
+        : await Permission.notification.isGranted;
     if (!granted) return false;
 
     try {
       await cancelDaily();
       await _plugin.zonedSchedule(
         id: _dailyId,
-        title: 'Tu palabra del día te espera',
-        body: 'Un minuto hoy, una palabra más en tu francés.',
+        title: title,
+        body: body,
         scheduledDate: _nextInstanceOf(hour),
         notificationDetails: const NotificationDetails(
           android: AndroidNotificationDetails(

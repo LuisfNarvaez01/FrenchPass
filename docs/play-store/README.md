@@ -147,14 +147,23 @@ Al terminar puedes repasar la conversación frase por frase: escucharla otra
 vez, ver cada palabra con su pronunciación y su significado, y aprender
 cómo podrías haber respondido, de lo más sencillo a lo más natural.
 
-También incluye:
-- Un traductor que no se queda en traducir: te desarma la frase palabra por
-  palabra y te enseña otras formas de decirla según con quién hables.
-- La palabra del día, con audio y un widget para tu pantalla de inicio.
-- Práctica de pronunciación con puntuación.
-- Quiz con repaso espaciado, para que vuelvas a cada palabra justo cuando
-  la estás olvidando.
-- Tu racha y tu progreso, guardados en tu teléfono.
+Y gratis, sin conexión y sin límite:
+- Más de mil palabras en 16 temas, con pronunciación y ejemplos.
+- Conjugador de 100 verbos en presente, pasado, imperfecto y futuro, con
+  ejercicios.
+- Falsos amigos: "embarrassée" no es embarazada y "constipé" no es
+  resfriado. Los errores que más delatan a un hispanohablante.
+- Dictado, y los números y la hora, donde el francés cuenta raro
+  (soixante-dix, quatre-vingts).
+- Lecturas cortas por nivel: tocas una palabra y ves qué significa.
+- Gramática en tarjetas cortas, cada una con cinco ejercicios.
+- Quiz con repaso espaciado, para volver a cada palabra justo cuando la
+  estás olvidando.
+- Prueba de nivel, meta diaria, racha con congelador y logros.
+- La palabra del día, con audio y un widget que cambia solo cada día.
+
+Con la IA, además, un traductor que te desarma la frase palabra por
+palabra y te enseña otras formas de decirla.
 
 No necesitas cuenta y la app no tiene anuncios.
 
@@ -194,3 +203,7 @@ necesitan conexión a internet.
 - `google-services.json` fuera del repositorio público.
 - Plan gratis + Premium con suscripción de Google Play, contador de minutos
   y de consultas diarias.
+- Práctica gratuita sin IA: conjugador, gramática, falsos amigos, dictado,
+  números y hora, lecturas, ordenar frases, emparejar y prueba de nivel;
+  meta diaria, congelador de racha, logros, recordatorio con los repasos
+  pendientes y widget que cambia solo cada día.

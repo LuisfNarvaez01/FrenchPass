@@ -1,8 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:french_pass/features/progress/presentation/widgets/daily_goal_card.dart';
+import 'package:french_pass/features/progress/domain/achievements.dart';
+import 'package:french_pass/core/services/reminder_service.dart';
+import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
@@ -47,6 +53,7 @@ class _HomeViewState extends State<_HomeView>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _refresh());
   }
 
   @override
@@ -62,9 +69,24 @@ class _HomeViewState extends State<_HomeView>
     if (state == AppLifecycleState.resumed && mounted) _refresh();
   }
 
-  void _refresh() => context
-      .read<HomeCubit>()
-      .refresh(context.read<SettingsBloc>().state.levelFilter);
+  /// Spends a streak freeze if yesterday was missed, unlocks whatever
+  /// was earned, then redraws.
+  Future<void> _refresh() async {
+    final cubit = context.read<HomeCubit>();
+    final filter = context.read<SettingsBloc>().state.levelFilter;
+    final froze = await getIt<ProgressRepository>().protectStreak();
+    await getIt<AchievementService>().refresh();
+    // The reminder's text follows the reviews due and the streak.
+    unawaited(getIt<ReminderService>().refresh());
+    if (!mounted) return;
+    cubit.refresh(filter);
+    setState(() {});
+    if (froze) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Ayer no practicaste: un congelador salvó tu racha.'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +139,36 @@ class _HomeViewState extends State<_HomeView>
                                 .fadeIn(duration: Motion.base),
                             const SizedBox(height: Insets.xxl),
                           ],
+
+                          if (_showPlacement) ...[
+                            _PlacementPrompt(
+                              onStart: () async {
+                                await context.push('/practice/placement');
+                                if (mounted) await _refresh();
+                              },
+                              onDismiss: () async {
+                                await getIt<StorageService>().setBool(
+                                    StorageKeys.placementDismissed, true);
+                                if (mounted) setState(() {});
+                              },
+                            ),
+                            const SizedBox(height: Insets.lg),
+                          ],
+                          DailyGoalCard(onTap: () => context.go('/quiz')),
+                          if (getIt<AchievementService>().unseen()
+                              case final fresh when fresh.isNotEmpty) ...[
+                            const SizedBox(height: Insets.md),
+                            _NewAchievements(
+                              achievements: fresh,
+                              onOpen: () async {
+                                await getIt<AchievementService>()
+                                    .markAllSeen();
+                                if (!context.mounted) return;
+                                context.go('/progress');
+                              },
+                            ),
+                          ],
+                          const SizedBox(height: Insets.xxl),
 
                           Text('Palabra del día',
                               style: AppTheme.eyebrow(context)),
@@ -259,6 +311,95 @@ class _HomeViewState extends State<_HomeView>
   }
 }
 
+/// Offered until the learner takes the placement test or says no.
+bool get _showPlacement {
+  final storage = getIt<StorageService>();
+  return storage.getString(StorageKeys.placementLevel) == null &&
+      !(storage.getBool(StorageKeys.placementDismissed) ?? false);
+}
+
+class _PlacementPrompt extends StatelessWidget {
+  final VoidCallback onStart;
+  final VoidCallback onDismiss;
+  const _PlacementPrompt({required this.onStart, required this.onDismiss});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return AppCard(
+      accent: true,
+      child: Row(
+        children: [
+          const MascotSticker(size: 56, pose: MascotPose.thinking, tilt: 0),
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('¿Cuál es tu nivel?', style: context.texts.titleMedium),
+                Text('Tres minutos y la app se ajusta a ti.',
+                    style: context.texts.bodySmall),
+                const SizedBox(height: Insets.xs),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: onStart,
+                        child: const Text('Hacer la prueba')),
+                    TextButton(
+                      onPressed: onDismiss,
+                      child: Text('Ahora no',
+                          style: TextStyle(color: p.textMuted)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NewAchievements extends StatelessWidget {
+  final List<Achievement> achievements;
+  final VoidCallback onOpen;
+  const _NewAchievements({required this.achievements, required this.onOpen});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final first = achievements.first;
+    return AppCard(
+      onTap: onOpen,
+      padding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.md),
+      child: Row(
+        children: [
+          const MascotSticker(size: 48, pose: MascotPose.cool, tilt: 0),
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  achievements.length == 1
+                      ? 'Logro nuevo: ${first.title}'
+                      : '${achievements.length} logros nuevos',
+                  style: context.texts.titleMedium,
+                ),
+                Text(first.description, style: context.texts.bodySmall),
+              ],
+            ),
+          ),
+          Icon(first.icon, color: p.gold),
+        ],
+      ),
+    ).animate().fadeIn(duration: Motion.base).scaleXY(
+        begin: 0.96, end: 1, duration: Motion.base, curve: Curves.easeOutBack);
+  }
+}
+
 class _Masthead extends StatelessWidget {
   final int streak;
   const _Masthead({required this.streak});
@@ -355,7 +496,7 @@ class _DueBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     return AppCard(
-      onTap: () => context.go('/quiz'),
+      onTap: () => context.push('/practice/quiz'),
       padding: const EdgeInsets.symmetric(
           horizontal: Insets.lg, vertical: Insets.md),
       child: Row(
@@ -495,7 +636,7 @@ class _ReviewQueue extends StatelessWidget {
           title: 'Tu cola de repaso',
           subtitle: 'Toca una palabra para verla antes del quiz',
           trailing: TextButton(
-            onPressed: () => context.go('/quiz'),
+            onPressed: () => context.push('/practice/quiz'),
             child: const Text('Quiz'),
           ),
         ),

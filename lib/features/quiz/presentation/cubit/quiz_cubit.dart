@@ -52,8 +52,7 @@ class QuizState extends Equatable {
       );
 
   @override
-  List<Object?> get props =>
-      [status, questions, answers, index, selectedIndex];
+  List<Object?> get props => [status, questions, answers, index, selectedIndex];
 }
 
 class QuizCubit extends Cubit<QuizState> {
@@ -100,8 +99,7 @@ class QuizCubit extends Cubit<QuizState> {
 
       // A distractor shortage would make the question unanswerable.
       if (options.length < optionCount) continue;
-      questions.add(
-          QuizQuestion(target: target, mode: mode, options: options));
+      questions.add(QuizQuestion(target: target, mode: mode, options: options));
     }
 
     if (questions.isEmpty) {
@@ -161,6 +159,8 @@ class QuizCubit extends Cubit<QuizState> {
       correct: state.correct,
       total: state.answers.length,
     );
+    await _progress.recordPractice(PracticeKind.quiz,
+        count: state.answers.length);
   }
 
   void reset() => emit(const QuizState());

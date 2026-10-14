@@ -71,8 +71,9 @@ class LearnerProfile {
         'sessions': sessions,
       };
 
-  LearnerProfile copyWith({int? sessions}) => LearnerProfile(
-        levelEstimate: levelEstimate,
+  LearnerProfile copyWith({int? sessions, String? levelEstimate}) =>
+      LearnerProfile(
+        levelEstimate: levelEstimate ?? this.levelEstimate,
         recurringMistakes: recurringMistakes,
         pronunciation: pronunciation,
         strengths: strengths,

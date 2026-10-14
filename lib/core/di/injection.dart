@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/config/app_channel.dart';
 import 'package:french_pass/core/services/notification_service.dart';
+import 'package:french_pass/core/services/reminder_service.dart';
 import 'package:french_pass/core/services/speech_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
@@ -12,7 +13,9 @@ import 'package:french_pass/core/services/update_service.dart';
 import 'package:french_pass/core/services/widget_service.dart';
 import 'package:french_pass/features/premium/data/billing_service.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
+import 'package:french_pass/features/practice/data/learning_content.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
+import 'package:french_pass/features/progress/domain/achievements.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/translator/data/translator_repository.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -38,8 +41,21 @@ Future<void> configureDependencies() async {
   final words = WordRepository();
   await words.load();
   getIt.registerSingleton<WordRepository>(words);
+  final content = LearningContent();
+  await content.load();
+  getIt.registerSingleton<LearningContent>(content);
   getIt.registerSingleton<ProgressRepository>(ProgressRepository(storage));
   getIt.registerSingleton<TutorRepository>(TutorRepository(storage));
+  getIt.registerSingleton<ReminderService>(ReminderService(
+    storage,
+    getIt<NotificationService>(),
+    getIt<ProgressRepository>(),
+  ));
+  getIt.registerSingleton<AchievementService>(AchievementService(
+    storage,
+    getIt<ProgressRepository>(),
+    tutorLessons: () => getIt<TutorRepository>().history().length,
+  ));
   getIt.registerSingleton<TutorReviewService>(TutorReviewService());
   getIt.registerSingleton<TranslatorRepository>(TranslatorRepository(storage));
   final billing = BillingService(storage);

@@ -112,6 +112,20 @@ class HomeCubit extends Cubit<HomeState> {
     // The widget always mirrors today's actual word, not an explored pick,
     // so it stays a reliable "what's today's word" surface at a glance.
     if (word != null) unawaited(_widget.publishWordOfTheDay(word));
+    unawaited(_widget.publishSchedule(_schedule(filter)));
+  }
+
+  /// The next [days] words of the day, today first, for the widget.
+  List<(DateTime, Word)> _schedule(LevelFilter filter, {int days = 60}) {
+    final today = DateTime.now();
+    return [
+      for (var i = 0; i < days; i++)
+        if (_words.wordOfTheDay(
+                DateTime(today.year, today.month, today.day + i),
+                levels: filter.levels)
+            case final w?)
+          (DateTime(today.year, today.month, today.day + i), w),
+    ];
   }
 
   /// Swaps the card for a different random word from the same level pool —

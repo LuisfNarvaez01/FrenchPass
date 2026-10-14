@@ -15,15 +15,19 @@ import androidx.core.content.ContextCompat
 import es.antonborri.home_widget.HomeWidgetLaunchIntent
 import es.antonborri.home_widget.HomeWidgetPlugin
 import es.antonborri.home_widget.HomeWidgetProvider
+import org.json.JSONArray
+import java.util.Calendar
 import java.util.Locale
 
 /**
  * Home-screen widget showing today's word without opening the app.
  *
- * Reads whatever [WidgetService] (Dart side) last wrote to the shared
- * `home_widget` preferences -- this class never computes the word itself, it
- * only renders the last value it was handed and redraws on launcher resize
- * or the periodic update window declared in `word_widget_info.xml`.
+ * Reads what [WidgetService] (Dart side) wrote to the shared `home_widget`
+ * preferences: a schedule of the next 60 days' words, from which it picks
+ * today's on every redraw -- so the word changes after midnight even if the
+ * app isn't opened (the periodic update in `word_widget_info.xml` is 30
+ * minutes). Without a schedule it falls back to the single word last
+ * written.
  *
  * The speaker button plays the word with Android's own text-to-speech right
  * here in the receiver, so hearing it never has to start the Flutter app.
@@ -47,6 +51,54 @@ class WordOfTheDayWidgetProvider : HomeWidgetProvider() {
             return
         }
         super.onReceive(context, intent)
+    }
+
+    // ── Today's word ──────────────────────────────────────────────────────
+
+    private class Entry(
+        val french: String,
+        val ipa: String,
+        val translation: String,
+        val example: String,
+        val date: String,
+    )
+
+    private val months = arrayOf(
+        "ene", "feb", "mar", "abr", "may", "jun",
+        "jul", "ago", "sep", "oct", "nov", "dic",
+    )
+
+    /** Today's entry from the schedule, else the last single word written. */
+    private fun today(data: SharedPreferences): Entry? {
+        val now = Calendar.getInstance()
+        val key = String.format(
+            Locale.ROOT, "%04d-%02d-%02d",
+            now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH),
+        )
+        try {
+            val schedule = JSONArray(data.getString("widget_schedule", "[]") ?: "[]")
+            for (i in 0 until schedule.length()) {
+                val day = schedule.getJSONObject(i)
+                if (day.optString("d") == key) {
+                    return Entry(
+                        day.optString("f"), day.optString("i"), day.optString("t"),
+                        day.optString("e"),
+                        "${now.get(Calendar.DAY_OF_MONTH)} ${months[now.get(Calendar.MONTH)]}",
+                    )
+                }
+            }
+        } catch (_: Exception) {
+            // A malformed schedule falls through to the single word.
+        }
+        val french = data.getString("widget_word_french", null)
+        if (french.isNullOrEmpty()) return null
+        return Entry(
+            french,
+            data.getString("widget_word_ipa", "") ?: "",
+            data.getString("widget_word_translation", "") ?: "",
+            data.getString("widget_word_example", "") ?: "",
+            data.getString("widget_word_date", "") ?: "",
+        )
     }
 
     // ── Rendering ─────────────────────────────────────────────────────────
@@ -87,22 +139,21 @@ class WordOfTheDayWidgetProvider : HomeWidgetProvider() {
 
     private fun render(context: Context, data: SharedPreferences, speaking: Boolean): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_word)
-        val french = data.getString("widget_word_french", null)
+        val entry = today(data)
+        val french = entry?.french
 
-        if (french.isNullOrEmpty()) {
+        if (entry == null) {
             views.setTextViewText(R.id.widget_date, "")
             views.setTextViewText(R.id.widget_word, "Bonjour !")
             views.setTextViewText(R.id.widget_ipa, "bɔ̃.ʒuʁ")
             views.setTextViewText(R.id.widget_translation, "Abre FrenchPass para ver tu palabra del día")
             views.setTextViewText(R.id.widget_example, "")
         } else {
-            views.setTextViewText(R.id.widget_date, "· " + (data.getString("widget_word_date", "") ?: ""))
-            views.setTextViewText(R.id.widget_word, french)
-            val ipa = data.getString("widget_word_ipa", "") ?: ""
-            views.setTextViewText(R.id.widget_ipa, if (ipa.isEmpty()) "" else "/$ipa/")
-            views.setTextViewText(R.id.widget_translation, data.getString("widget_word_translation", "") ?: "")
-            val example = data.getString("widget_word_example", "") ?: ""
-            views.setTextViewText(R.id.widget_example, if (example.isEmpty()) "" else "« $example »")
+            views.setTextViewText(R.id.widget_date, "· " + entry.date)
+            views.setTextViewText(R.id.widget_word, entry.french)
+            views.setTextViewText(R.id.widget_ipa, if (entry.ipa.isEmpty()) "" else "/${entry.ipa}/")
+            views.setTextViewText(R.id.widget_translation, entry.translation)
+            views.setTextViewText(R.id.widget_example, if (entry.example.isEmpty()) "" else "« ${entry.example} »")
         }
 
         val palette = forcedPalette(context, data.getString("widget_theme", null))
@@ -161,7 +212,7 @@ class WordOfTheDayWidgetProvider : HomeWidgetProvider() {
     private fun speak(context: Context) {
         val app = context.applicationContext
         val data = HomeWidgetPlugin.getData(app)
-        val word = data.getString("widget_word_french", null)
+        val word = today(data)?.french
         if (word.isNullOrEmpty()) return
 
         // The app stores its rate as a percentage of flutter_tts's scale,

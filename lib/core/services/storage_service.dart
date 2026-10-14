@@ -95,6 +95,19 @@ abstract final class StorageKeys {
   static const quizRuns = '${prefix}progress.quizRuns';
   static const onboardingDone = '${prefix}onboarding.done';
 
+  static const dailyGoal = '${prefix}goals.daily';
+  static const practiceLog = '${prefix}goals.log';
+  static const practiceTotals = '${prefix}goals.totals';
+  static const streakFreezes = '${prefix}goals.freezes';
+  static const frozenDays = '${prefix}goals.frozenDays';
+  static const freezeAwards = '${prefix}goals.freezeAwards';
+  static const achievements = '${prefix}goals.achievements';
+  static const achievementsSeen = '${prefix}goals.achievementsSeen';
+  static const placementLevel = '${prefix}goals.placementLevel';
+  static const placementDismissed = '${prefix}goals.placementDismissed';
+  static const grammarDone = '${prefix}goals.grammarDone';
+  static const readingsDone = '${prefix}goals.readingsDone';
+
   static const tutorVoice = '${prefix}tutor.voice';
   static const tutorProfile = '${prefix}tutor.profile';
   static const tutorHistory = '${prefix}tutor.history';

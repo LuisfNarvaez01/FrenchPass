@@ -31,22 +31,23 @@ class _QuizView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBackground(
-      child: SafeArea(
-        bottom: false,
-        child: BlocBuilder<QuizCubit, QuizState>(
-          builder: (context, state) => switch (state.status) {
-            QuizStatus.setup => const _QuizIntro(),
-            QuizStatus.notEnoughWords => EmptyState(
-                icon: Icons.filter_alt_off_outlined,
-                title: 'Pocas palabras para un quiz',
-                message: 'Amplía el filtro de nivel en Ajustes y vuelve.',
-                actionLabel: 'Ir a Ajustes',
-                onAction: () => context.push('/settings'),
-              ),
-            QuizStatus.running || QuizStatus.revealing => _QuizRound(state),
-            QuizStatus.finished => _QuizSummary(state),
-          },
+    return Scaffold(
+      body: AppBackground(
+        child: SafeArea(
+          child: BlocBuilder<QuizCubit, QuizState>(
+            builder: (context, state) => switch (state.status) {
+              QuizStatus.setup => const _QuizIntro(),
+              QuizStatus.notEnoughWords => EmptyState(
+                  icon: Icons.filter_alt_off_outlined,
+                  title: 'Pocas palabras para un quiz',
+                  message: 'Amplía el filtro de nivel en Ajustes y vuelve.',
+                  actionLabel: 'Ir a Ajustes',
+                  onAction: () => context.push('/settings'),
+                ),
+              QuizStatus.running || QuizStatus.revealing => _QuizRound(state),
+              QuizStatus.finished => _QuizSummary(state),
+            },
+          ),
         ),
       ),
     );
@@ -62,70 +63,76 @@ class _QuizIntro extends StatelessWidget {
     final filter = context.watch<SettingsBloc>().state.levelFilter;
     final dueCount = getIt<ProgressRepository>().dueCards().length;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(
-          Insets.page, Insets.xl, Insets.page, Insets.xxxl),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Quiz', style: context.texts.headlineLarge),
-          const SizedBox(height: Insets.xs),
-          Text(
-            '${QuizCubit.questionCount} preguntas mezclando traducción, '
-            'escucha y transcripción fonética.',
-            style: context.texts.bodyMedium,
-          ),
-          const SizedBox(height: Insets.xxl),
-          AppCard(
-            accent: true,
+    return Column(
+      children: [
+        const AppTopBar(title: 'Quiz de vocabulario'),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(
+                Insets.page, Insets.md, Insets.page, Insets.xxxl),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('ESTA SESIÓN', style: AppTheme.eyebrow(context)),
-                const SizedBox(height: Insets.lg),
-                _IntroRow(
-                  icon: Icons.layers_outlined,
-                  label: 'Nivel',
-                  value: filter.labelEs,
+                const SizedBox(height: Insets.xs),
+                Text(
+                  '${QuizCubit.questionCount} preguntas mezclando traducción, '
+                  'escucha y transcripción fonética.',
+                  style: context.texts.bodyMedium,
                 ),
-                const SizedBox(height: Insets.md),
-                _IntroRow(
-                  icon: Icons.event_repeat_rounded,
-                  label: 'Repasos pendientes',
-                  value: dueCount == 0
-                      ? 'ninguno · se elegirán al azar'
-                      : '$dueCount con prioridad',
+                const SizedBox(height: Insets.xxl),
+                AppCard(
+                  accent: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('ESTA SESIÓN', style: AppTheme.eyebrow(context)),
+                      const SizedBox(height: Insets.lg),
+                      _IntroRow(
+                        icon: Icons.layers_outlined,
+                        label: 'Nivel',
+                        value: filter.labelEs,
+                      ),
+                      const SizedBox(height: Insets.md),
+                      _IntroRow(
+                        icon: Icons.event_repeat_rounded,
+                        label: 'Repasos pendientes',
+                        value: dueCount == 0
+                            ? 'ninguno · se elegirán al azar'
+                            : '$dueCount con prioridad',
+                      ),
+                      const SizedBox(height: Insets.md),
+                      const _IntroRow(
+                        icon: Icons.insights_outlined,
+                        label: 'Cuenta para',
+                        value: 'tu racha y tu progreso',
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(height: Insets.xl),
+                Text('MODOS DE PREGUNTA', style: AppTheme.eyebrow(context)),
                 const SizedBox(height: Insets.md),
-                const _IntroRow(
-                  icon: Icons.insights_outlined,
-                  label: 'Cuenta para',
-                  value: 'tu racha y tu progreso',
+                Wrap(
+                  spacing: Insets.sm,
+                  runSpacing: Insets.sm,
+                  children: [
+                    for (final mode in QuizMode.values)
+                      Pill(label: mode.promptEs, tone: p.textSecondary),
+                  ],
+                ),
+                const SizedBox(height: Insets.xxl),
+                ElevatedButton.icon(
+                  onPressed: () => context.read<QuizCubit>().start(filter),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text('Empezar el quiz'),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56)),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: Insets.xl),
-          Text('MODOS DE PREGUNTA', style: AppTheme.eyebrow(context)),
-          const SizedBox(height: Insets.md),
-          Wrap(
-            spacing: Insets.sm,
-            runSpacing: Insets.sm,
-            children: [
-              for (final mode in QuizMode.values)
-                Pill(label: mode.promptEs, tone: p.textSecondary),
-            ],
-          ),
-          const SizedBox(height: Insets.xxl),
-          ElevatedButton.icon(
-            onPressed: () => context.read<QuizCubit>().start(filter),
-            icon: const Icon(Icons.play_arrow_rounded),
-            label: const Text('Empezar el quiz'),
-            style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(56)),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -325,7 +332,6 @@ class _QuizRoundState extends State<_QuizRound> {
   }
 
   Future<void> _confirmExit(BuildContext context) async {
-    final cubit = context.read<QuizCubit>();
     final leave = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -344,7 +350,7 @@ class _QuizRoundState extends State<_QuizRound> {
         ],
       ),
     );
-    if (leave ?? false) cubit.reset();
+    if ((leave ?? false) && context.mounted) Navigator.of(context).pop();
   }
 }
 

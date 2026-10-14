@@ -104,6 +104,18 @@ class TtsService {
     }
   }
 
+  /// [speak] at 60 % of the learner's speed, for dictation; the usual
+  /// speed comes back afterwards.
+  Future<bool> speakSlowly(String text) async {
+    final normal = _rate;
+    await setRate(normal * 0.6);
+    try {
+      return await speak(text);
+    } finally {
+      await setRate(normal);
+    }
+  }
+
   /// Speaks each of [parts] in turn, pausing briefly between them, so a
   /// learner can hear a sentence broken into its words before hearing it at
   /// natural speed. Returns false immediately if no voice is available —

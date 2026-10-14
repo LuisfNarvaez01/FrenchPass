@@ -1,0 +1,324 @@
+[
+  {
+    "id": "gender",
+    "title": "El género: le, la, un, une",
+    "level": "a1",
+    "summary": "Todo sustantivo francés es masculino o femenino, y el artículo te lo dice.",
+    "explanation": [
+      "En francés no hay neutro: cada sustantivo es masculino o femenino, y muchas veces no coincide con el español (la mer es femenino, el mar es masculino).",
+      "El artículo definido es le para masculino y la para femenino. Ante vocal o h muda los dos se vuelven l': l'école, l'hôtel. En plural siempre es les.",
+      "El indefinido es un (masculino) y une (femenino); en plural, des. Aprende cada palabra nueva con su artículo, así el género se queda solo."
+    ],
+    "examples": [
+      {"fr": "le livre, la table", "es": "el libro, la mesa"},
+      {"fr": "l'ami, l'amie", "es": "el amigo, la amiga"},
+      {"fr": "un café, une bière, des croissants", "es": "un café, una cerveza, unos cruasanes"}
+    ],
+    "exercises": [
+      {"prompt": "___ maison est grande.", "options": ["Le", "La", "L'"], "answer": 1, "why": "Maison es femenino: la maison."},
+      {"prompt": "J'ai ___ frère et deux sœurs.", "options": ["un", "une", "des"], "answer": 0, "why": "Frère es masculino singular: un frère."},
+      {"prompt": "___ école est fermée.", "options": ["Le", "La", "L'"], "answer": 2, "why": "École empieza por vocal: l'école."},
+      {"prompt": "Je voudrais ___ pommes.", "options": ["un", "une", "des"], "answer": 2, "why": "En plural, el indefinido es des."},
+      {"prompt": "___ mer est calme aujourd'hui.", "options": ["Le", "La", "L'"], "answer": 1, "why": "Mer es femenino en francés: la mer."}
+    ]
+  },
+  {
+    "id": "partitive",
+    "title": "Du, de la, des: una parte de algo",
+    "level": "a1",
+    "summary": "Para comida y cosas que no se cuentan, el francés pone un artículo donde el español no pone nada.",
+    "explanation": [
+      "En español decimos «bebo agua» sin artículo. En francés hace falta el partitivo: je bois de l'eau.",
+      "Se usa du (masculino), de la (femenino), de l' (ante vocal) y des (plural): du pain, de la confiture, de l'eau, des légumes.",
+      "En negativo todos se reducen a de (o d'): je ne bois pas de café. Y tras cantidades también: beaucoup de sucre, un kilo de pommes."
+    ],
+    "examples": [
+      {"fr": "Je mange du fromage.", "es": "Como queso."},
+      {"fr": "Tu veux de la soupe ?", "es": "¿Quieres sopa?"},
+      {"fr": "Il n'a pas d'argent.", "es": "No tiene dinero."}
+    ],
+    "exercises": [
+      {"prompt": "Le matin, je bois ___ café.", "options": ["du", "de la", "des"], "answer": 0, "why": "Café es masculino: du café."},
+      {"prompt": "Tu veux ___ eau ?", "options": ["du", "de la", "de l'"], "answer": 2, "why": "Eau empieza por vocal: de l'eau."},
+      {"prompt": "Je ne mange pas ___ viande.", "options": ["de la", "de", "du"], "answer": 1, "why": "En negativo el partitivo se reduce a de."},
+      {"prompt": "Elle achète ___ légumes au marché.", "options": ["du", "de la", "des"], "answer": 2, "why": "Légumes está en plural: des légumes."},
+      {"prompt": "Il y a beaucoup ___ monde.", "options": ["de", "du", "des"], "answer": 0, "why": "Tras beaucoup va siempre de: beaucoup de monde."}
+    ]
+  },
+  {
+    "id": "negation",
+    "title": "La negación: ne... pas",
+    "level": "a1",
+    "summary": "El francés escrito niega en dos piezas que rodean al verbo.",
+    "explanation": [
+      "Ne va antes del verbo y pas después: je ne parle pas allemand. Ante vocal, ne se vuelve n': je n'aime pas.",
+      "Con tiempos compuestos, la negación rodea al auxiliar: je n'ai pas mangé.",
+      "Otras negaciones funcionan igual: ne... jamais (nunca), ne... rien (nada), ne... plus (ya no), ne... personne (nadie). Al hablar, mucha gente se salta el ne: je sais pas."
+    ],
+    "examples": [
+      {"fr": "Je ne fume pas.", "es": "No fumo."},
+      {"fr": "Il n'est jamais en retard.", "es": "Nunca llega tarde."},
+      {"fr": "Nous n'avons rien vu.", "es": "No vimos nada."}
+    ],
+    "exercises": [
+      {"prompt": "Je ___ aime pas les épinards.", "options": ["ne", "n'", "pas"], "answer": 1, "why": "Aime empieza por vocal: n'aime."},
+      {"prompt": "Il ne travaille ___ le dimanche.", "options": ["pas", "ne", "non"], "answer": 0, "why": "La negación completa es ne... pas."},
+      {"prompt": "Nous n'avons ___ mangé.", "options": ["pas", "ne", "rien de"], "answer": 0, "why": "En passé composé, pas va tras el auxiliar."},
+      {"prompt": "Elle ne fume ___ : elle a arrêté.", "options": ["jamais", "plus", "rien"], "answer": 1, "why": "Ne... plus significa «ya no»."},
+      {"prompt": "Je ne vois ___ dans la rue.", "options": ["personne", "plus", "jamais"], "answer": 0, "why": "Ne... personne es «nadie»."}
+    ]
+  },
+  {
+    "id": "questions",
+    "title": "Hacer preguntas",
+    "level": "a1",
+    "summary": "Hay tres formas de preguntar, de la más casual a la más formal.",
+    "explanation": [
+      "La más fácil: subir la entonación al final de la frase afirmativa. Tu viens ? Es lo que más oirás en la calle.",
+      "La neutra: poner est-ce que delante. Est-ce que tu viens ? Con palabra interrogativa: Où est-ce que tu habites ?",
+      "La formal: invertir sujeto y verbo con guion. Viens-tu ? Si el verbo acaba en vocal y el sujeto es il o elle, se añade -t-: Parle-t-il français ?"
+    ],
+    "examples": [
+      {"fr": "Tu as faim ?", "es": "¿Tienes hambre?"},
+      {"fr": "Est-ce que vous parlez espagnol ?", "es": "¿Habla usted español?"},
+      {"fr": "Où habitez-vous ?", "es": "¿Dónde vive usted?"}
+    ],
+    "exercises": [
+      {"prompt": "___ tu aimes le cinéma ?", "options": ["Est-ce que", "Qu'est-ce que", "Est-ce"], "answer": 0, "why": "Para una pregunta de sí o no: est-ce que."},
+      {"prompt": "___ tu fais ce soir ?", "options": ["Est-ce que", "Qu'est-ce que", "Quel"], "answer": 1, "why": "Para preguntar «qué»: qu'est-ce que."},
+      {"prompt": "Parle-___-il anglais ?", "options": ["t", "s", "il"], "answer": 0, "why": "Entre dos vocales se añade -t-: parle-t-il."},
+      {"prompt": "___ habites-tu ?", "options": ["Où", "Qui", "Quand"], "answer": 0, "why": "Où pregunta por el lugar."},
+      {"prompt": "___ heure est-il ?", "options": ["Quel", "Quelle", "Quels"], "answer": 1, "why": "Heure es femenino: quelle heure."}
+    ]
+  },
+  {
+    "id": "adjectives",
+    "title": "Los adjetivos: concordancia y lugar",
+    "level": "a1",
+    "summary": "El adjetivo concuerda con el sustantivo y casi siempre va detrás.",
+    "explanation": [
+      "Para el femenino se añade -e (petit → petite) y para el plural -s (petits, petites). Si ya acaba en -e, no cambia en femenino: un livre rouge, une robe rouge.",
+      "Algunos cambian más: heureux → heureuse, beau → belle, nouveau → nouvelle, blanc → blanche.",
+      "Casi todos van detrás del sustantivo, como en español. Un grupo corto va delante: beau, bon, grand, petit, jeune, vieux, nouveau, joli. Une jolie maison, un grand jardin."
+    ],
+    "examples": [
+      {"fr": "un chat noir, une voiture noire", "es": "un gato negro, un coche negro"},
+      {"fr": "une belle journée", "es": "un día bonito"},
+      {"fr": "des amis heureux", "es": "amigos felices"}
+    ],
+    "exercises": [
+      {"prompt": "Ma sœur est très ___.", "options": ["grand", "grande", "grands"], "answer": 1, "why": "Sœur es femenino singular: grande."},
+      {"prompt": "C'est une ___ idée.", "options": ["bon", "bonne", "bonnes"], "answer": 1, "why": "Bon hace el femenino doblando la n: bonne."},
+      {"prompt": "J'ai acheté une voiture ___.", "options": ["nouveau", "nouvelle", "nouvel"], "answer": 1, "why": "Voiture es femenino: nouvelle."},
+      {"prompt": "Ils sont ___ de te voir.", "options": ["heureux", "heureuse", "heureuses"], "answer": 0, "why": "Ils es masculino plural, y heureux no cambia en plural."},
+      {"prompt": "«Una casa pequeña» se dice:", "options": ["une maison petite", "une petite maison"], "answer": 1, "why": "Petit es de los cortos que van delante."}
+    ]
+  },
+  {
+    "id": "contractions",
+    "title": "Au, aux, du, des: à y de con artículo",
+    "level": "a2",
+    "summary": "À y de se funden con le y les, igual que «a + el = al» en español.",
+    "explanation": [
+      "À + le = au, à + les = aux. À la y à l' no cambian: je vais au cinéma, à la plage, à l'école, aux États-Unis.",
+      "De + le = du, de + les = des. De la y de l' no cambian: je viens du marché, de la gare, de l'hôpital, des toilettes.",
+      "Es el mismo mecanismo que nuestro «al» y «del», solo que en francés también ocurre en plural."
+    ],
+    "examples": [
+      {"fr": "On va au restaurant.", "es": "Vamos al restaurante."},
+      {"fr": "Je parle aux enfants.", "es": "Hablo con los niños."},
+      {"fr": "C'est le livre du professeur.", "es": "Es el libro del profesor."}
+    ],
+    "exercises": [
+      {"prompt": "Je vais ___ marché.", "options": ["à le", "au", "aux"], "answer": 1, "why": "À + le = au."},
+      {"prompt": "Elle téléphone ___ parents.", "options": ["au", "aux", "à les"], "answer": 1, "why": "À + les = aux."},
+      {"prompt": "Je reviens ___ bureau.", "options": ["du", "de le", "des"], "answer": 0, "why": "De + le = du."},
+      {"prompt": "Il va ___ piscine.", "options": ["au", "à la", "aux"], "answer": 1, "why": "Con femenino no hay contracción: à la."},
+      {"prompt": "La couleur ___ fleurs est jolie.", "options": ["des", "du", "de les"], "answer": 0, "why": "De + les = des."}
+    ]
+  },
+  {
+    "id": "near-future",
+    "title": "El futuro próximo: aller + infinitivo",
+    "level": "a1",
+    "summary": "Igual que «voy a + infinitivo»: la forma más fácil de hablar del futuro.",
+    "explanation": [
+      "Se conjuga aller en presente y se añade el verbo en infinitivo: je vais manger, tu vas partir, nous allons voir.",
+      "Sirve para planes y para lo que está a punto de pasar: attention, tu vas tomber.",
+      "En negativo, la negación rodea a aller: je ne vais pas sortir."
+    ],
+    "examples": [
+      {"fr": "Je vais apprendre le français.", "es": "Voy a aprender francés."},
+      {"fr": "Il va pleuvoir.", "es": "Va a llover."},
+      {"fr": "On ne va pas rester.", "es": "No nos vamos a quedar."}
+    ],
+    "exercises": [
+      {"prompt": "Demain, je ___ visiter le musée.", "options": ["vais", "va", "vas"], "answer": 0, "why": "Con je: je vais."},
+      {"prompt": "Nous ___ partir à huit heures.", "options": ["allez", "allons", "vont"], "answer": 1, "why": "Con nous: nous allons."},
+      {"prompt": "Ils vont ___ au cinéma.", "options": ["aller", "vont", "allé"], "answer": 0, "why": "Tras aller va el infinitivo."},
+      {"prompt": "Tu ___ voir, c'est génial.", "options": ["vas", "va", "vais"], "answer": 0, "why": "Con tu: tu vas."},
+      {"prompt": "Je ___ vais pas sortir ce soir.", "options": ["ne", "pas", "n'"], "answer": 0, "why": "La negación rodea al verbo aller: je ne vais pas."}
+    ]
+  },
+  {
+    "id": "passe-compose",
+    "title": "Passé composé: ¿avoir o être?",
+    "level": "a2",
+    "summary": "El pasado de las acciones terminadas se forma con un auxiliar y el participio.",
+    "explanation": [
+      "La mayoría de los verbos usan avoir: j'ai mangé, tu as fini, il a vendu.",
+      "Usan être unos 15 verbos de movimiento o cambio de estado (aller, venir, arriver, partir, entrer, sortir, monter, descendre, naître, mourir, rester, tomber...) y todos los pronominales: je me suis levé.",
+      "Con être el participio concuerda con el sujeto como un adjetivo: elle est allée, ils sont partis, elles sont arrivées."
+    ],
+    "examples": [
+      {"fr": "J'ai visité Paris.", "es": "Visité París."},
+      {"fr": "Elle est partie hier.", "es": "Se fue ayer."},
+      {"fr": "Nous nous sommes levés tôt.", "es": "Nos levantamos temprano."}
+    ],
+    "exercises": [
+      {"prompt": "Hier, j'___ regardé un film.", "options": ["ai", "suis", "a"], "answer": 0, "why": "Regarder usa avoir: j'ai regardé."},
+      {"prompt": "Elle ___ arrivée à midi.", "options": ["a", "est", "ai"], "answer": 1, "why": "Arriver es de los verbos con être."},
+      {"prompt": "Ils sont ___ en vacances.", "options": ["parti", "partis", "partie"], "answer": 1, "why": "Con être concuerda: ils sont partis."},
+      {"prompt": "Je me ___ couché tard.", "options": ["suis", "ai", "es"], "answer": 0, "why": "Los pronominales usan être."},
+      {"prompt": "Nous ___ fini nos devoirs.", "options": ["sommes", "avons", "avez"], "answer": 1, "why": "Finir usa avoir: nous avons fini."}
+    ]
+  },
+  {
+    "id": "imparfait-vs-pc",
+    "title": "Imparfait o passé composé",
+    "level": "b1",
+    "summary": "Uno cuenta los hechos; el otro pinta el fondo.",
+    "explanation": [
+      "El passé composé cuenta acciones puntuales y terminadas: hier, j'ai pris le train.",
+      "El imparfait describe el decorado y los hábitos: il faisait beau, j'étais fatigué, quand j'étais petit, je jouais au foot.",
+      "Juntos: el imparfait es lo que estaba pasando y el passé composé lo que interrumpe. Je dormais quand le téléphone a sonné. Funciona casi igual que el imperfecto y el indefinido del español."
+    ],
+    "examples": [
+      {"fr": "Il pleuvait quand je suis sorti.", "es": "Llovía cuando salí."},
+      {"fr": "Avant, je fumais.", "es": "Antes fumaba."},
+      {"fr": "Samedi, nous avons dîné chez Paul.", "es": "El sábado cenamos en casa de Paul."}
+    ],
+    "exercises": [
+      {"prompt": "Quand j'étais petit, je ___ au foot tous les jours.", "options": ["jouais", "ai joué"], "answer": 0, "why": "Un hábito del pasado: imparfait."},
+      {"prompt": "Hier soir, nous ___ un bon film.", "options": ["regardions", "avons regardé"], "answer": 1, "why": "Una acción puntual y terminada: passé composé."},
+      {"prompt": "Il ___ beau quand nous sommes arrivés.", "options": ["faisait", "a fait"], "answer": 0, "why": "La descripción del momento: imparfait."},
+      {"prompt": "Je lisais quand tu ___.", "options": ["appelais", "as appelé"], "answer": 1, "why": "La acción que interrumpe: passé composé."},
+      {"prompt": "Elle ___ fatiguée, alors elle est rentrée.", "options": ["était", "a été"], "answer": 0, "why": "Un estado de fondo: imparfait."}
+    ]
+  },
+  {
+    "id": "object-pronouns",
+    "title": "Le, la, les: no repetir el objeto",
+    "level": "a2",
+    "summary": "Para no repetir el complemento, se usa un pronombre delante del verbo.",
+    "explanation": [
+      "Le (masculino), la (femenino), l' (ante vocal) y les (plural) reemplazan al objeto directo: Tu vois Marie ? Oui, je la vois.",
+      "Van delante del verbo conjugado, no detrás como en «véla»: je le connais, je ne le connais pas.",
+      "Para personas como objeto indirecto (a alguien) se usa lui y leur: je lui parle, je leur téléphone."
+    ],
+    "examples": [
+      {"fr": "Ce livre ? Je le lis.", "es": "¿Este libro? Lo estoy leyendo."},
+      {"fr": "Les clés ? Je les ai.", "es": "¿Las llaves? Las tengo yo."},
+      {"fr": "Je lui écris souvent.", "es": "Le escribo a menudo."}
+    ],
+    "exercises": [
+      {"prompt": "Tu connais Paul ? Oui, je ___ connais.", "options": ["le", "la", "lui"], "answer": 0, "why": "Paul es masculino y objeto directo: le."},
+      {"prompt": "La télé ? Je ___ regarde le soir.", "options": ["le", "la", "les"], "answer": 1, "why": "Télé es femenino: la."},
+      {"prompt": "Mes amis ? Je ___ vois samedi.", "options": ["les", "leur", "lui"], "answer": 0, "why": "Objeto directo plural: les."},
+      {"prompt": "Je téléphone à ma mère : je ___ téléphone.", "options": ["la", "lui", "le"], "answer": 1, "why": "Téléphoner à: objeto indirecto, lui."},
+      {"prompt": "Cette chanson ? Je ___ adore !", "options": ["la", "l'", "le"], "answer": 1, "why": "Adore empieza por vocal: l'adore."}
+    ]
+  },
+  {
+    "id": "y-en",
+    "title": "Los pronombres y y en",
+    "level": "b1",
+    "summary": "Dos palabras cortas que sustituyen un lugar o una cantidad.",
+    "explanation": [
+      "Y reemplaza un lugar (o algo introducido por à): Tu vas à Paris ? Oui, j'y vais. Je pense à mon examen → j'y pense.",
+      "En reemplaza algo introducido por de, sobre todo cantidades: Tu veux du café ? Oui, j'en veux. J'ai trois frères → j'en ai trois.",
+      "Los dos van delante del verbo, como los demás pronombres. Expresiones fijas: il y a, on y va, je m'en vais."
+    ],
+    "examples": [
+      {"fr": "On y va ?", "es": "¿Vamos?"},
+      {"fr": "Des pommes ? J'en achète deux kilos.", "es": "¿Manzanas? Compro dos kilos."},
+      {"fr": "Il n'y a plus de pain.", "es": "Ya no hay pan."}
+    ],
+    "exercises": [
+      {"prompt": "Tu vas au marché ? Oui, j'___ vais.", "options": ["y", "en", "le"], "answer": 0, "why": "Un lugar con à: y."},
+      {"prompt": "Tu veux du thé ? Oui, j'___ veux bien.", "options": ["y", "en", "le"], "answer": 1, "why": "Una cantidad con de: en."},
+      {"prompt": "Combien d'enfants a-t-elle ? Elle ___ a deux.", "options": ["y", "en", "les"], "answer": 1, "why": "Con números se usa en."},
+      {"prompt": "Tu penses à ton voyage ? Oui, j'___ pense.", "options": ["y", "en", "lui"], "answer": 0, "why": "Penser à + cosa: y."},
+      {"prompt": "Il ___ a beaucoup de monde ici.", "options": ["y", "en", "le"], "answer": 0, "why": "Es la expresión fija il y a."}
+    ]
+  },
+  {
+    "id": "comparisons",
+    "title": "Comparar: plus, moins, aussi",
+    "level": "a2",
+    "summary": "Más que, menos que, tan como.",
+    "explanation": [
+      "Plus + adjetivo + que (más... que), moins + adjetivo + que (menos... que), aussi + adjetivo + que (tan... como): Paris est plus grand que Lyon.",
+      "Con sustantivos se usa plus de, moins de, autant de: j'ai plus de travail que toi.",
+      "Bon no dice plus bon sino meilleur (mejor), y bien pasa a mieux: ce gâteau est meilleur, tu chantes mieux que moi."
+    ],
+    "examples": [
+      {"fr": "Le train est plus rapide que le bus.", "es": "El tren es más rápido que el autobús."},
+      {"fr": "Elle est aussi grande que sa mère.", "es": "Es tan alta como su madre."},
+      {"fr": "C'est le meilleur restaurant du quartier.", "es": "Es el mejor restaurante del barrio."}
+    ],
+    "exercises": [
+      {"prompt": "Le TGV est ___ rapide que la voiture.", "options": ["plus", "plus de", "meilleur"], "answer": 0, "why": "Con adjetivo: plus + rapide."},
+      {"prompt": "Ce vin est ___ que l'autre.", "options": ["plus bon", "meilleur", "mieux"], "answer": 1, "why": "Bon tiene comparativo irregular: meilleur."},
+      {"prompt": "Il parle ___ français que moi.", "options": ["meilleur", "mieux", "plus bon"], "answer": 1, "why": "Con un verbo se usa mieux (de bien)."},
+      {"prompt": "J'ai ___ amis que toi.", "options": ["plus", "plus de", "aussi"], "answer": 1, "why": "Con sustantivo: plus de."},
+      {"prompt": "Marie est ___ gentille que sa sœur.", "options": ["aussi", "autant", "tant"], "answer": 0, "why": "Igualdad con adjetivo: aussi... que."}
+    ]
+  },
+  {
+    "id": "cest-il-est",
+    "title": "C'est o il est",
+    "level": "a2",
+    "summary": "Dos formas de decir «es» que no se intercambian.",
+    "explanation": [
+      "C'est va delante de un artículo o determinante y de un nombre propio: c'est un ami, c'est mon frère, c'est Paris.",
+      "Il est / elle est va delante de un adjetivo solo, o de una profesión sin artículo: il est médecin, elle est gentille.",
+      "Para comentar algo en general se usa c'est + adjetivo masculino: c'est beau, c'est difficile."
+    ],
+    "examples": [
+      {"fr": "C'est une bonne idée.", "es": "Es una buena idea."},
+      {"fr": "Elle est professeure.", "es": "Es profesora."},
+      {"fr": "Le français, c'est facile !", "es": "¡El francés es fácil!"}
+    ],
+    "exercises": [
+      {"prompt": "___ mon ami Pierre.", "options": ["C'est", "Il est"], "answer": 0, "why": "Delante de un determinante (mon): c'est."},
+      {"prompt": "Pierre ? ___ ingénieur.", "options": ["C'est", "Il est"], "answer": 1, "why": "Profesión sin artículo: il est."},
+      {"prompt": "___ un très bon film.", "options": ["C'est", "Il est"], "answer": 0, "why": "Delante de un artículo: c'est."},
+      {"prompt": "Ta sœur ? ___ très sympa.", "options": ["C'est", "Elle est"], "answer": 1, "why": "Adjetivo sobre una persona: elle est."},
+      {"prompt": "Paris en été, ___ magnifique.", "options": ["c'est", "il est"], "answer": 0, "why": "Comentario general: c'est + adjetivo."}
+    ]
+  },
+  {
+    "id": "countries",
+    "title": "En, au, aux con países y ciudades",
+    "level": "a2",
+    "summary": "Para decir «en» o «a» un país, la preposición depende del género del país.",
+    "explanation": [
+      "Ciudades: siempre à. J'habite à Lyon, je vais à Bogotá.",
+      "Países femeninos (la mayoría de los que acaban en -e) y los que empiezan por vocal: en. En France, en Colombie, en Espagne, en Iran.",
+      "Países masculinos: au (au Canada, au Mexique, au Pérou). Países en plural: aux (aux États-Unis, aux Pays-Bas)."
+    ],
+    "examples": [
+      {"fr": "Je vis en Colombie.", "es": "Vivo en Colombia."},
+      {"fr": "Elle part au Japon.", "es": "Se va a Japón."},
+      {"fr": "Nous sommes allés aux États-Unis.", "es": "Fuimos a Estados Unidos."}
+    ],
+    "exercises": [
+      {"prompt": "J'habite ___ Madrid.", "options": ["à", "en", "au"], "answer": 0, "why": "Con ciudades: à."},
+      {"prompt": "Il travaille ___ Canada.", "options": ["en", "au", "à"], "answer": 1, "why": "Le Canada es masculino: au Canada."},
+      {"prompt": "On part en vacances ___ Italie.", "options": ["en", "au", "aux"], "answer": 0, "why": "L'Italie es femenino: en Italie."},
+      {"prompt": "Mon frère vit ___ États-Unis.", "options": ["en", "au", "aux"], "answer": 2, "why": "País en plural: aux."},
+      {"prompt": "Elle est née ___ Mexique.", "options": ["en", "au", "à"], "answer": 1, "why": "Le Mexique es masculino: au Mexique."}
+    ]
+  }
+]

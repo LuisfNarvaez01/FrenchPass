@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
@@ -87,6 +89,10 @@ class SettingsPage extends StatelessWidget {
                     ],
                     onChanged: (filter) => bloc.add(ChangeLevelEvent(filter)),
                   ),
+                  const _Separator(),
+                  const _PlacementTile(),
+                  const _Separator(),
+                  const _GoalTile(),
                   const _Separator(),
                   _SpeechRateTile(
                     rate: settings.speechRate,
@@ -272,6 +278,60 @@ class _SegmentedRow<T> extends StatelessWidget {
 }
 
 /// Opens a sheet when there are too many options for a segmented control.
+/// The daily goal lives with the progress, not the settings bloc, so the
+/// tile keeps its own state.
+class _GoalTile extends StatefulWidget {
+  const _GoalTile();
+
+  @override
+  State<_GoalTile> createState() => _GoalTileState();
+}
+
+class _GoalTileState extends State<_GoalTile> {
+  final _progress = getIt<ProgressRepository>();
+
+  @override
+  Widget build(BuildContext context) {
+    final goal = _progress.dailyGoal;
+    return _ChoiceTile<int>(
+      icon: Icons.track_changes_rounded,
+      title: 'Meta diaria',
+      subtitle: DailyGoals.labelEs(goal),
+      value: goal,
+      options: [for (final g in DailyGoals.options) (g, DailyGoals.labelEs(g))],
+      onChanged: (g) async {
+        await _progress.setDailyGoal(g);
+        if (mounted) setState(() {});
+      },
+    );
+  }
+}
+
+class _PlacementTile extends StatelessWidget {
+  const _PlacementTile();
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final done =
+        getIt<StorageService>().getString(StorageKeys.placementLevel);
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.sm),
+      leading: Icon(Icons.school_outlined, size: 20, color: p.gold),
+      title: Text('Prueba de nivel', style: context.texts.titleMedium),
+      subtitle: Text(
+        done == null
+            ? 'Quince preguntas para ajustar la app a tu nivel'
+            : 'Tu último resultado: ${done.toUpperCase()}. Puedes repetirla.',
+        style: context.texts.bodySmall,
+      ),
+      trailing: Icon(Icons.chevron_right_rounded, size: 20, color: p.textMuted),
+      onTap: () => context.push('/practice/placement'),
+    );
+  }
+}
+
 class _ChoiceTile<T> extends StatelessWidget {
   final IconData icon;
   final String title;

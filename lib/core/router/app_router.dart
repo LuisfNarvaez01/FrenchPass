@@ -4,6 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:french_pass/core/shell/main_shell.dart';
 import 'package:french_pass/features/categories/presentation/pages/categories_page.dart';
 import 'package:french_pass/features/categories/presentation/pages/category_words_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/conjugation_pages.dart';
+import 'package:french_pass/features/practice/presentation/pages/dictation_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/false_friends_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/grammar_pages.dart';
+import 'package:french_pass/features/practice/presentation/pages/numbers_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/order_match_pages.dart';
+import 'package:french_pass/features/practice/presentation/pages/placement_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/practice_hub_page.dart';
+import 'package:french_pass/features/practice/presentation/pages/reading_pages.dart';
 import 'package:french_pass/features/premium/presentation/pages/premium_page.dart';
 import 'package:french_pass/features/progress/presentation/pages/progress_page.dart';
 import 'package:french_pass/features/pronunciation/presentation/pages/pronunciation_practice_page.dart';
@@ -37,9 +46,11 @@ class AppRouter {
             pageBuilder: (context, state) => _fade(state, const TutorPage()),
           ),
           GoRoute(
+            // The tab kept its old path so existing links still land.
             path: '/quiz',
-            name: 'quiz',
-            pageBuilder: (context, state) => _fade(state, const QuizPage()),
+            name: 'practice',
+            pageBuilder: (context, state) =>
+                _fade(state, const PracticeHubPage()),
           ),
           GoRoute(
             path: '/categories',
@@ -67,6 +78,68 @@ class AppRouter {
         name: 'tutor-session',
         builder: (context, state) =>
             TutorSessionPage(lessonId: state.pathParameters['lessonId']!),
+      ),
+      // ── Practice (full screen, opened from the Practicar tab) ─────────────
+      GoRoute(
+        path: '/practice/quiz',
+        builder: (context, state) => const QuizPage(),
+      ),
+      GoRoute(
+        path: '/practice/match',
+        builder: (context, state) => const MatchPairsPage(),
+      ),
+      GoRoute(
+        path: '/practice/order',
+        builder: (context, state) => const OrderSentencePage(),
+      ),
+      GoRoute(
+        path: '/practice/dictation',
+        builder: (context, state) => const DictationPage(),
+      ),
+      GoRoute(
+        path: '/practice/numbers',
+        builder: (context, state) => const NumbersPage(),
+      ),
+      GoRoute(
+        path: '/practice/false-friends',
+        builder: (context, state) => const FalseFriendsPage(),
+      ),
+      GoRoute(
+        path: '/practice/placement',
+        builder: (context, state) => const PlacementPage(),
+      ),
+      GoRoute(
+        path: '/practice/conjugation',
+        builder: (context, state) => const ConjugationPage(),
+        routes: [
+          GoRoute(
+            path: ':verb',
+            builder: (context, state) => VerbPage(
+                verb: Uri.decodeComponent(state.pathParameters['verb']!)),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/practice/grammar',
+        builder: (context, state) => const GrammarListPage(),
+        routes: [
+          GoRoute(
+            path: ':id',
+            builder: (context, state) =>
+                GrammarTopicPage(topicId: state.pathParameters['id']!),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/practice/readings',
+        builder: (context, state) => const ReadingListPage(),
+        routes: [
+          GoRoute(
+            path: ':id',
+            builder: (context, state) =>
+                ReadingPage(readingId: state.pathParameters['id']!),
+          ),
+        ],
       ),
       GoRoute(
         path: '/premium',

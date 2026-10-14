@@ -23,8 +23,8 @@ class SM2Algorithm {
       return card.copyWith(lastReviewDate: at, lastScore: score);
     }
 
-    double newEasiness = card.easinessFactor +
-        (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02));
+    double newEasiness =
+        card.easinessFactor + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02));
     newEasiness = newEasiness.clamp(_minEasiness, _maxEasiness);
 
     int newRepetitions;
@@ -49,8 +49,8 @@ class SM2Algorithm {
       intervalDays: newInterval,
       // Calendar days, not 24-hour blocks, so a daylight-saving change
       // can't move the review to the wrong date.
-      nextReviewDate: DateTime(at.year, at.month, at.day + newInterval,
-          at.hour, at.minute),
+      nextReviewDate:
+          DateTime(at.year, at.month, at.day + newInterval, at.hour, at.minute),
       lastReviewDate: at,
       lastScore: score,
     );

@@ -11,11 +11,36 @@ class MainShell extends StatefulWidget {
   const MainShell({super.key, required this.child});
 
   static const _tabs = [
-    (icon: Icons.auto_stories_outlined, activeIcon: Icons.auto_stories_rounded, label: 'Hoy',        path: '/home'),
-    (icon: Icons.forum_outlined,        activeIcon: Icons.forum_rounded,        label: 'Tutor',      path: '/tutor'),
-    (icon: Icons.psychology_outlined,   activeIcon: Icons.psychology_rounded,   label: 'Quiz',       path: '/quiz'),
-    (icon: Icons.grid_view_outlined,    activeIcon: Icons.grid_view_rounded,    label: 'Categorías', path: '/categories'),
-    (icon: Icons.insights_outlined,     activeIcon: Icons.insights_rounded,     label: 'Progreso',   path: '/progress'),
+    (
+      icon: Icons.auto_stories_outlined,
+      activeIcon: Icons.auto_stories_rounded,
+      label: 'Hoy',
+      path: '/home'
+    ),
+    (
+      icon: Icons.forum_outlined,
+      activeIcon: Icons.forum_rounded,
+      label: 'Tutor',
+      path: '/tutor'
+    ),
+    (
+      icon: Icons.fitness_center_outlined,
+      activeIcon: Icons.fitness_center_rounded,
+      label: 'Practicar',
+      path: '/quiz'
+    ),
+    (
+      icon: Icons.grid_view_outlined,
+      activeIcon: Icons.grid_view_rounded,
+      label: 'Categorías',
+      path: '/categories'
+    ),
+    (
+      icon: Icons.insights_outlined,
+      activeIcon: Icons.insights_rounded,
+      label: 'Progreso',
+      path: '/progress'
+    ),
   ];
 
   @override

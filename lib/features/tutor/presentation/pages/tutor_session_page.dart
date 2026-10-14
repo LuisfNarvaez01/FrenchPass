@@ -9,6 +9,7 @@ import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
+import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/tutor/data/gemini_live_client.dart';
 import 'package:french_pass/features/tutor/data/tutor_audio.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -46,6 +47,7 @@ class TutorSessionPage extends StatelessWidget {
         audio: DeviceTutorAudio(),
         client: GeminiLiveClient(),
         usage: getIt<UsageService>(),
+        progress: getIt<ProgressRepository>(),
       )..start(),
       child: _LifecycleGuard(child: _SessionView(lesson: lesson)),
     );
