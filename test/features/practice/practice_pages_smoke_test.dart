@@ -36,7 +36,6 @@ import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.da
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/pages/home_page.dart';
-import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -177,19 +176,19 @@ void main() {
 
   testWidgets('match pairs works starting from the meaning', (tester) async {
     await mount(tester, const MatchPairsPage());
-    final words = getIt<WordRepository>();
-    final french = tester
-        .widgetList<Text>(find.byType(Text))
-        .map((t) => t.data ?? '')
-        .map(words.lookup)
-        .whereType<Word>()
-        .toSet()
+    // Cells are keyed by word id: texts can repeat across the columns
+    // ("taxi" reads the same in French and Spanish).
+    final ids = tester
+        .widgetList(find.byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>).value.startsWith('fr-')))
+        .map((w) => (w.key! as ValueKey<String>).value.substring(3))
         .toList();
-    expect(french.length, 5);
-    for (final w in french) {
-      await tester.tap(find.text(w.translationEs).first);
+    expect(ids.length, 5);
+    for (final id in ids) {
+      await tester.tap(find.byKey(ValueKey('es-$id')));
       await tester.pump(const Duration(milliseconds: 100));
-      await tester.tap(find.text(w.french).first);
+      await tester.tap(find.byKey(ValueKey('fr-$id')));
       await tester.pump(const Duration(milliseconds: 100));
     }
     await tester.pump(const Duration(seconds: 2));

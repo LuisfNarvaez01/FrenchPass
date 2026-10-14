@@ -338,7 +338,8 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
     final p = context.palette;
 
     Widget cell(String text,
-        {required bool done,
+        {required Key key,
+        required bool done,
         required bool selected,
         required bool wrong,
         required VoidCallback onTap}) {
@@ -350,6 +351,7 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
                   ? p.gold
                   : p.border;
       return AnimatedOpacity(
+        key: key,
         duration: Motion.fast,
         opacity: done ? 0.35 : 1,
         child: Material(
@@ -396,6 +398,8 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
                 Expanded(
                   child: cell(
                     _words[i].french,
+                    // Some words read the same in both columns ("taxi").
+                    key: ValueKey('fr-${_words[i].id}'),
                     done: _matched.contains(_words[i].id),
                     selected: _left == _words[i].id,
                     wrong: false,
@@ -406,6 +410,7 @@ class _MatchPairsPageState extends State<MatchPairsPage> {
                 Expanded(
                   child: cell(
                     _right[i].translationEs,
+                    key: ValueKey('es-${_right[i].id}'),
                     done: _matched.contains(_right[i].id),
                     selected: _rightPick == _right[i].id,
                     wrong: _wrongFlash == _right[i].id,
