@@ -18,12 +18,17 @@ Lo que ya está hecho en el código va al final.
    archivo. Sin este secreto el workflow falla a propósito.
 5. En Firebase: **AI Logic › Get started › Gemini Developer API**. Firebase
    crea y guarda la clave de Gemini; tú no la ves ni la necesitas.
-6. Pasa el proyecto al plan **Blaze** (pago por uso) y crea una alerta de
-   presupuesto en Google Cloud Billing (por ejemplo, 10 USD al mes). Dos
-   motivos: la cuota gratuita se agota con pocos usuarios, y en el nivel
-   gratuito Google puede usar lo que envían tus usuarios para mejorar sus
-   productos, cosa que la política de privacidad no contempla. Ojo: la
-   alerta avisa, no corta el gasto.
+6. **Plan:** durante las pruebas basta el plan gratuito (Spark) con el
+   nivel gratuito de Gemini; no hace falta tarjeta. Tiene tres condiciones:
+   - la cuota es una sola para todo el proyecto, así que con muchos usuarios
+     a la vez aparecerá «Hay mucha gente usando la IA»;
+   - Google puede usar lo enviado para entrenar sus modelos (ya está dicho
+     en la política de privacidad);
+   - las condiciones de Gemini prohíben el nivel gratuito en apps para
+     usuarios del Espacio Económico Europeo, Reino Unido y Suiza: excluye
+     esos países en Play Console (paso 3.5).
+   Antes de abrir la app al público, pasa a **Blaze** con una alerta de
+   presupuesto y con la suscripción Premium ya funcionando.
 7. **App Check**:
    - App `…french_pass.dev`: proveedor *Debug*. Abre la versión de GitHub en
      tu teléfono, ve a Ajustes, copia el «Token de App Check» y pégalo en
@@ -39,8 +44,7 @@ Lo que ya está hecho en el código va al final.
 
 ## 2. Política de privacidad (URL pública)
 
-1. Cambia `[CORREO-DE-CONTACTO]` en `docs/privacidad.html` por el correo que
-   quieras mostrar (dos veces). Mejor uno dedicado a la app.
+1. El correo de contacto ya está puesto: frenchpass07@gmail.com.
 2. GitHub › *Settings › Pages › Deploy from a branch › main / docs*.
 3. La URL será `https://luisfnarvaez01.github.io/FrenchPass/privacidad.html`.
 
@@ -56,6 +60,9 @@ Lo que ya está hecho en el código va al final.
    personales nuevas antes de producción. Los 12 tienen que seguir inscritos
    los 14 días seguidos. Empieza a reunirlos ya.
 4. **Acceso a producción**: se solicita al terminar la prueba cerrada.
+5. **Países**: mientras uses el nivel gratuito de Gemini, en *Alcance y
+   dispositivos › Países/regiones* quita los del Espacio Económico Europeo,
+   Reino Unido y Suiza.
 
 ### Contenido de la app (formularios)
 
