@@ -8,6 +8,7 @@ import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/charts.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/achievements.dart';
+import 'package:french_pass/features/progress/presentation/widgets/daily_goal_card.dart';
 import 'package:french_pass/features/progress/presentation/widgets/review_queue.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
@@ -46,22 +47,11 @@ class _ProgressPageState extends State<ProgressPage> {
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      Insets.page, Insets.xl, Insets.page, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Progreso', style: context.texts.headlineLarge),
-                      const SizedBox(height: Insets.xs),
-                      Text(
-                        hasData
-                            ? '${stats.totalAttempts} prácticas registradas'
-                            : 'Tu historial aparecerá aquí',
-                        style: context.texts.bodyMedium,
-                      ),
-                    ],
-                  ),
+                child: PageHeader(
+                  title: 'Progreso',
+                  subtitle: hasData
+                      ? '${stats.totalAttempts} prácticas registradas'
+                      : 'Tu historial aparecerá aquí',
                 ),
               ),
               if (!hasData)
@@ -69,6 +59,7 @@ class _ProgressPageState extends State<ProgressPage> {
                   hasScrollBody: false,
                   child: EmptyState(
                     icon: Icons.insights_outlined,
+                    mascot: true,
                     title: 'Aún sin datos',
                     message:
                         'Practica la palabra del día o haz un quiz y volverás '
@@ -83,6 +74,10 @@ class _ProgressPageState extends State<ProgressPage> {
                       Insets.page, Insets.xl, Insets.page, Insets.xxxl),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
+                      // The Home chip opens here: today's goal, the streak
+                      // and the freezes saved up, explained.
+                      const DailyGoalCard(),
+                      const SizedBox(height: Insets.xl),
                       Builder(builder: (context) {
                         final due = _progress.dueCards();
                         return ReviewQueue(

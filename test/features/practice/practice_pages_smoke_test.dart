@@ -10,6 +10,7 @@ import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/reminder_service.dart';
 import 'package:french_pass/core/services/widget_service.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
@@ -23,6 +24,7 @@ import 'package:french_pass/features/practice/presentation/pages/order_match_pag
 import 'package:french_pass/features/practice/presentation/pages/placement_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/practice_hub_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/reading_pages.dart';
+import 'package:french_pass/features/categories/presentation/pages/categories_page.dart';
 import 'package:french_pass/features/conjugation/domain/conjugator.dart';
 import 'package:french_pass/features/premium/data/billing_service.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
@@ -64,6 +66,7 @@ void main() {
     getIt
       ..registerSingleton<NotificationService>(notifications)
       ..registerSingleton<WidgetService>(WidgetService())
+      ..registerSingleton<SoundService>(SoundService(storage))
       ..registerSingleton<ReminderService>(
           ReminderService(storage, notifications, getIt<ProgressRepository>()));
     final billing = BillingService(storage);
@@ -103,9 +106,13 @@ void main() {
   }
 
   testWidgets('practice hub', (tester) async {
+    SoundService.muted = true;
     await mount(tester, const PracticeHubPage());
     expect(find.text('Practicar'), findsOneWidget);
-    expect(find.text('Conjugación'), findsOneWidget);
+    expect(find.text('RECOMENDADO AHORA'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Conjugación'), 200);
+    expect(find.text('Conjugación'), findsWidgets);
+    expect(find.text('Lecturas'), findsWidgets);
   });
 
   testWidgets('grammar: list, rule, first exercise', (tester) async {
@@ -206,6 +213,19 @@ void main() {
     expect(find.text('CONTINÚA'), findsOneWidget);
     expect(find.textContaining('Meta de hoy'), findsOneWidget);
     expect(find.text('¿Cuál es tu nivel?'), findsOneWidget);
+  });
+
+  testWidgets('word catalogue: families, then filters turn it into a list',
+      (tester) async {
+    await mount(tester, const Scaffold(body: CategoriesPage()));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Palabras'), findsOneWidget);
+    expect(find.text('VIDA DIARIA'), findsOneWidget);
+    await tester.tap(find.text('A1'));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(tester.takeException(), isNull);
+    expect(find.textContaining('palabras'), findsWidgets);
+    expect(find.text('VIDA DIARIA'), findsNothing);
   });
 
   testWidgets('tutor tab, premium and settings', (tester) async {

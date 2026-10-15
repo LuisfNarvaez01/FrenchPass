@@ -26,9 +26,9 @@ extension WordCategoryIcon on WordCategory {
         WordCategory.leisure => Icons.sports_soccer_outlined,
       };
 
-  /// Alternates the two brand hues so a grid of tiles has rhythm without
-  /// borrowing the status colours.
-  Color toneIn(AppPalette p) => index.isEven ? p.gold : p.terracotta;
+  /// Topic icons are wayfinding, not decoration: one quiet ink for all of
+  /// them, so gold stays free for actions and achievements.
+  Color toneIn(AppPalette p) => p.textSecondary;
 }
 
 extension LessonIcon on Lesson {
@@ -49,8 +49,8 @@ extension LessonIcon on Lesson {
       };
 }
 
-/// An icon on a softly tinted rounded square -- the slot the emoji used to
-/// fill, at the same footprint.
+/// An icon on a softly tinted rounded square, without an outline: the tint
+/// is enough to set it apart.
 class TopicBadge extends StatelessWidget {
   final IconData icon;
   final Color tone;
@@ -72,7 +72,6 @@ class TopicBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: tone.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(size * 0.3),
-        border: Border.all(color: tone.withValues(alpha: 0.28)),
       ),
       child: Icon(icon, size: size * 0.5, color: tone),
     );

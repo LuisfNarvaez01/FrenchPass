@@ -7,6 +7,7 @@ import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
@@ -100,6 +101,11 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
+
+              const SizedBox(height: Insets.lg),
+
+              // ── Sounds ────────────────────────────────────────────────────
+              const _Group(eyebrow: 'Sonidos', children: [_SoundsTile()]),
 
               const SizedBox(height: Insets.lg),
 
@@ -557,6 +563,35 @@ class _ResetTile extends StatelessWidget {
           );
         }
       },
+    );
+  }
+}
+
+/// Turns the answer and celebration sounds on or off.
+class _SoundsTile extends StatefulWidget {
+  const _SoundsTile();
+
+  @override
+  State<_SoundsTile> createState() => _SoundsTileState();
+}
+
+class _SoundsTileState extends State<_SoundsTile> {
+  final _sounds = getIt<SoundService>();
+
+  @override
+  Widget build(BuildContext context) {
+    return SwitchListTile(
+      value: _sounds.enabled,
+      onChanged: (on) async {
+        await _sounds.setEnabled(on);
+        if (on) await _sounds.play(AppSound.correct);
+        if (mounted) setState(() {});
+      },
+      contentPadding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.xs),
+      title: Text('Sonidos de respuesta', style: context.texts.titleMedium),
+      subtitle:
+          Text('Aciertos, errores y logros', style: context.texts.bodySmall),
     );
   }
 }

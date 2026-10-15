@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/core/widgets/mascot.dart';
 
 /// Page shell: the night-blue ground with one soft lamp-light glow at the
 /// top, so every screen shares one atmosphere.
@@ -120,7 +121,12 @@ class AppCard extends StatelessWidget {
     final content = Padding(padding: padding, child: child);
 
     if (onTap == null) {
-      return DecoratedBox(decoration: decoration, child: content);
+      // Its own transparent Material, so the ripples of rows inside the
+      // card are painted on the card, not hidden beneath it.
+      return DecoratedBox(
+        decoration: decoration,
+        child: Material(type: MaterialType.transparency, child: content),
+      );
     }
     return _PressScale(
       child: DecoratedBox(
@@ -170,6 +176,194 @@ class _PressScaleState extends State<_PressScale> {
         duration: Motion.fast,
         curve: Curves.easeOut,
         child: widget.child,
+      ),
+    );
+  }
+}
+
+/// The top of every tab: its name in the serif and, at most, one line on
+/// what it holds. Same size, spacing and gutter on every tab.
+class PageHeader extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final Widget? trailing;
+
+  const PageHeader(
+      {super.key, required this.title, this.subtitle, this.trailing});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.fromLTRB(Insets.page, Insets.lg, Insets.page, 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: context.texts.headlineLarge),
+                if (subtitle != null) ...[
+                  const SizedBox(height: Insets.xs),
+                  Text(subtitle!,
+                      style: context.texts.bodyMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ],
+            ),
+          ),
+          if (trailing != null) trailing!,
+        ],
+      ),
+    );
+  }
+}
+
+/// A list of like items as rows inside one card, with hairline dividers:
+/// the alternative to a stack of separate cards.
+class RowGroup extends StatelessWidget {
+  final List<Widget> children;
+
+  /// Where the dividers start, so they line up with the rows' text.
+  final double indent;
+
+  const RowGroup({super.key, required this.children, this.indent = Insets.lg});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return AppCard(
+      padding: EdgeInsets.zero,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Radii.lg),
+        child: Column(
+          children: [
+            for (final (i, child) in children.indexed) ...[
+              if (i > 0) Divider(height: 1, indent: indent, color: p.border),
+              child,
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// One row of a [RowGroup]: a leading badge, a title, one line of detail,
+/// and a trailing hint (a count, a check, a chevron).
+class ListRow extends StatelessWidget {
+  final Widget leading;
+  final String title;
+  final String? detail;
+  final Widget? trailing;
+  final VoidCallback? onTap;
+
+  /// Shown, but switched off (dimmed, not tappable).
+  final bool enabled;
+
+  const ListRow({
+    super.key,
+    required this.leading,
+    required this.title,
+    this.detail,
+    this.trailing,
+    this.onTap,
+    this.enabled = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final row = Padding(
+      padding:
+          const EdgeInsets.fromLTRB(Insets.lg, Insets.md, Insets.md, Insets.md),
+      child: Row(
+        children: [
+          leading,
+          const SizedBox(width: Insets.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: context.texts.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
+                if (detail != null) ...[
+                  const SizedBox(height: 2),
+                  Text(detail!,
+                      style: context.texts.bodySmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ],
+            ),
+          ),
+          const SizedBox(width: Insets.sm),
+          trailing ??
+              Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
+        ],
+      ),
+    );
+    return Opacity(
+      opacity: enabled ? 1 : 0.45,
+      child: InkWell(
+        onTap: enabled ? onTap : null,
+        child: ConstrainedBox(
+          // Every row is a comfortable target.
+          constraints: const BoxConstraints(minHeight: 56),
+          child: row,
+        ),
+      ),
+    );
+  }
+}
+
+/// A filter choice. Selected, it inverts to solid ink, so filters never
+/// borrow the gold that marks actions.
+class ChoiceTag extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const ChoiceTag({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return Semantics(
+      selected: selected,
+      button: true,
+      child: Material(
+        color: selected ? p.textPrimary : p.surface,
+        borderRadius: BorderRadius.circular(Radii.pill),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(Radii.pill),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 44),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Insets.lg),
+              child: Center(
+                widthFactor: 1,
+                child: Text(
+                  label,
+                  style: context.texts.labelLarge?.copyWith(
+                    color: selected ? p.bg : p.textSecondary,
+                    fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -599,6 +793,10 @@ class EmptyState extends StatelessWidget {
   final String? actionLabel;
   final VoidCallback? onAction;
 
+  /// Nothing here yet (as opposed to something broken): the mascot,
+  /// thinking, takes the icon's place.
+  final bool mascot;
+
   const EmptyState({
     super.key,
     required this.icon,
@@ -606,6 +804,7 @@ class EmptyState extends StatelessWidget {
     required this.message,
     this.actionLabel,
     this.onAction,
+    this.mascot = false,
   });
 
   @override
@@ -617,16 +816,18 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: Sizes.emptyIcon,
-              height: Sizes.emptyIcon,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: p.surfaceAlt,
-                border: Border.all(color: p.border),
+            if (mascot)
+              const MascotSticker(size: 104, pose: MascotPose.thinking)
+            else
+              Container(
+                width: Sizes.emptyIcon,
+                height: Sizes.emptyIcon,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: p.surfaceAlt,
+                ),
+                child: Icon(icon, size: 30, color: p.textSecondary),
               ),
-              child: Icon(icon, size: 30, color: p.textMuted),
-            ),
             const SizedBox(height: Insets.xl),
             Text(title,
                 style: context.texts.headlineSmall,

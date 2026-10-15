@@ -2,20 +2,94 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:french_pass/core/di/injection.dart';
+import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/pass_card.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
-import 'package:french_pass/features/progress/presentation/widgets/daily_goal_card.dart';
+import 'package:french_pass/features/conjugation/domain/conjugator.dart';
+import 'package:french_pass/features/practice/data/learning_content.dart';
+import 'package:french_pass/features/progress/data/progress_repository.dart';
 
 typedef _Activity = ({
+  PracticeKind kind,
   IconData icon,
   String title,
-  String detail,
   String route,
 });
 
-/// Every exercise in one place, grouped by what it trains. All of them run
-/// on the phone, so none costs anything per use.
+const _quiz = (
+  kind: PracticeKind.quiz,
+  icon: Icons.psychology_rounded,
+  title: 'Quiz',
+  route: '/practice/quiz',
+);
+const _match = (
+  kind: PracticeKind.match,
+  icon: Icons.compare_arrows_rounded,
+  title: 'Emparejar',
+  route: '/practice/match',
+);
+const _dictation = (
+  kind: PracticeKind.dictation,
+  icon: Icons.hearing_rounded,
+  title: 'Dictado',
+  route: '/practice/dictation',
+);
+const _numbers = (
+  kind: PracticeKind.numbers,
+  icon: Icons.pin_rounded,
+  title: 'Números y hora',
+  route: '/practice/numbers',
+);
+const _conjugation = (
+  kind: PracticeKind.conjugation,
+  icon: Icons.edit_note_rounded,
+  title: 'Conjugación',
+  route: '/practice/conjugation',
+);
+const _grammar = (
+  kind: PracticeKind.grammar,
+  icon: Icons.rule_rounded,
+  title: 'Gramática',
+  route: '/practice/grammar',
+);
+const _order = (
+  kind: PracticeKind.order,
+  icon: Icons.reorder_rounded,
+  title: 'Ordenar frases',
+  route: '/practice/order',
+);
+const _readings = (
+  kind: PracticeKind.reading,
+  icon: Icons.menu_book_rounded,
+  title: 'Lecturas',
+  route: '/practice/readings',
+);
+const _falseFriends = (
+  kind: PracticeKind.falseFriends,
+  icon: Icons.masks_rounded,
+  title: 'Falsos amigos',
+  route: '/practice/false-friends',
+);
+const _placement = (
+  kind: PracticeKind.placement,
+  icon: Icons.school_outlined,
+  title: 'Prueba de nivel',
+  route: '/practice/placement',
+);
+
+/// What each group trains, in the order a learner needs it.
+const _groups = <(String, List<_Activity>)>[
+  ('Vocabulario', [_quiz, _match, _dictation, _numbers]),
+  ('Gramática y verbos', [_conjugation, _grammar, _order]),
+  ('Comprensión', [_readings, _falseFriends]),
+];
+
+/// Every exercise, with one picked out for the learner: reviews when they
+/// are due, otherwise whatever they have practised least. All of it runs on
+/// the phone, so none costs anything per use.
 class PracticeHubPage extends StatefulWidget {
   const PracticeHubPage({super.key});
 
@@ -24,149 +98,210 @@ class PracticeHubPage extends StatefulWidget {
 }
 
 class _PracticeHubPageState extends State<PracticeHubPage> {
-  static const _sections = <(String, List<_Activity>)>[
-    (
-      'Vocabulario',
-      [
-        (
-          icon: Icons.psychology_rounded,
-          title: 'Quiz',
-          detail: 'Diez preguntas que priorizan tus repasos pendientes.',
-          route: '/practice/quiz',
-        ),
-        (
-          icon: Icons.compare_arrows_rounded,
-          title: 'Emparejar',
-          detail: 'Une cada palabra con su significado.',
-          route: '/practice/match',
-        ),
-        (
-          icon: Icons.hearing_rounded,
-          title: 'Dictado',
-          detail: 'Escucha y escribe palabras y frases.',
-          route: '/practice/dictation',
-        ),
-        (
-          icon: Icons.reorder_rounded,
-          title: 'Ordenar frases',
-          detail: 'Arma la frase con las palabras desordenadas.',
-          route: '/practice/order',
-        ),
-      ],
-    ),
-    (
-      'Verbos y gramática',
-      [
-        (
-          icon: Icons.edit_note_rounded,
-          title: 'Conjugación',
-          detail: '100 verbos en presente, pasado, imperfecto y futuro.',
-          route: '/practice/conjugation',
-        ),
-        (
-          icon: Icons.rule_rounded,
-          title: 'Gramática',
-          detail: 'Una regla por tarjeta, con cinco ejercicios.',
-          route: '/practice/grammar',
-        ),
-        (
-          icon: Icons.masks_rounded,
-          title: 'Falsos amigos',
-          detail: 'Parecen español y significan otra cosa.',
-          route: '/practice/false-friends',
-        ),
-      ],
-    ),
-    (
-      'Escuchar y leer',
-      [
-        (
-          icon: Icons.menu_book_rounded,
-          title: 'Lecturas',
-          detail: 'Historias cortas de A1 a B1, palabra por palabra.',
-          route: '/practice/readings',
-        ),
-        (
-          icon: Icons.pin_rounded,
-          title: 'Números y hora',
-          detail: 'Setenta, ochenta, noventa y los horarios.',
-          route: '/practice/numbers',
-        ),
-      ],
-    ),
-    (
-      'Tu nivel',
-      [
-        (
-          icon: Icons.school_outlined,
-          title: 'Prueba de nivel',
-          detail: 'Quince preguntas para ajustar la app a tu nivel.',
-          route: '/practice/placement',
-        ),
-      ],
-    ),
-  ];
+  final _progress = getIt<ProgressRepository>();
 
   Future<void> _open(String route) async {
     await context.push(route);
-    // Coming back, today's goal has moved.
+    // Coming back, today's goal and the recommendation have moved.
     if (mounted) setState(() {});
+  }
+
+  /// One line per activity: how much there is, or how much is waiting.
+  String _detail(_Activity a, int due) {
+    final content =
+        getIt.isRegistered<LearningContent>() ? getIt<LearningContent>() : null;
+    final storage = getIt<StorageService>();
+    return switch (a.kind) {
+      PracticeKind.quiz =>
+        due > 0 ? '$due por repasar hoy' : '10 preguntas, con tus repasos',
+      PracticeKind.match => 'Une palabra y significado',
+      PracticeKind.dictation => 'Escucha y escribe',
+      PracticeKind.numbers => 'Del 0 al 1000, y la hora',
+      PracticeKind.conjugation => '${Verbs.all.length} verbos, 4 tiempos',
+      PracticeKind.grammar => content == null
+          ? 'Reglas con ejercicios'
+          : '${storage.getStringSet(StorageKeys.grammarDone).length} de '
+              '${content.grammar.length} temas hechos',
+      PracticeKind.order => 'Arma la frase',
+      PracticeKind.reading => content == null
+          ? 'Historias cortas'
+          : '${storage.getStringSet(StorageKeys.readingsDone).length} de '
+              '${content.readings.length} historias leídas',
+      PracticeKind.falseFriends => content == null
+          ? 'Parecen español y no lo son'
+          : '${content.falseFriends.length} trampas para hispanohablantes',
+      PracticeKind.placement => '15 preguntas, unos 3 minutos',
+      _ => '',
+    };
+  }
+
+  /// Reviews first when any are due; otherwise the activity practised
+  /// least, so the week covers everything.
+  (_Activity, String) _recommend(int due) {
+    if (due > 0) {
+      return (
+        _quiz,
+        due == 1
+            ? 'Tienes 1 palabra por repasar hoy.'
+            : 'Tienes $due palabras por repasar hoy.'
+      );
+    }
+    final storage = getIt<StorageService>();
+    final totals = _progress.practiceTotals();
+    final everything = totals.values.fold(0, (a, b) => a + b);
+    if (everything == 0 &&
+        storage.getString(StorageKeys.placementLevel) == null) {
+      return (_placement, 'Empieza por saber tu nivel.');
+    }
+    final pool = [for (final (_, list) in _groups) ...list];
+    pool.sort((a, b) => totals[a.kind]!.compareTo(totals[b.kind]!));
+    final pick = pool.first;
+    return (
+      pick,
+      totals[pick.kind] == 0
+          ? 'Aún no lo has probado.'
+          : 'Es lo que menos has practicado.'
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    var n = 0;
+    final due = _progress.dueCards().length;
+    final (pick, reason) = _recommend(due);
+    final done = _progress.practiceToday();
+    final goal = _progress.dailyGoal;
+
     return AppBackground(
       child: SafeArea(
         bottom: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-              Insets.page, Insets.xl, Insets.page, Insets.xxxl),
+          padding: const EdgeInsets.only(bottom: Insets.xxxl),
           children: [
-            Text('Practicar', style: context.texts.headlineLarge),
-            const SizedBox(height: Insets.xs),
-            Text('Cada respuesta cuenta para tu meta de hoy.',
-                style: context.texts.bodySmall),
-            const SizedBox(height: Insets.xl),
-            const DailyGoalCard(),
-            for (final (title, activities) in _sections) ...[
-              const SizedBox(height: Insets.xxl),
-              SectionHeader(title: title),
-              const SizedBox(height: Insets.md),
-              for (final a in activities) ...[
-                AppCard(
-                  onTap: () => _open(a.route),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Insets.lg, vertical: Insets.md),
-                  child: Row(
-                    children: [
-                      TopicBadge(
-                        icon: a.icon,
-                        tone: (n++).isEven ? p.gold : p.terracotta,
-                      ),
-                      const SizedBox(width: Insets.md),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(a.title, style: context.texts.titleMedium),
-                            const SizedBox(height: 2),
-                            Text(a.detail,
-                                style: context.texts.bodySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis),
-                          ],
+            const PageHeader(
+              title: 'Practicar',
+              subtitle: 'Gratis y sin conexión',
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  Insets.page, Insets.lg, Insets.page, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _GoalLine(done: done, goal: goal),
+                  const SizedBox(height: Insets.lg),
+                  PassCard(
+                    accent: true,
+                    main: Row(
+                      children: [
+                        TopicBadge(icon: pick.icon, tone: p.gold, size: 48),
+                        const SizedBox(width: Insets.lg),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('RECOMENDADO AHORA',
+                                  style: AppTheme.eyebrow(context)),
+                              const SizedBox(height: Insets.xs),
+                              Text(pick.title,
+                                  style: context.texts.headlineSmall),
+                              const SizedBox(height: 2),
+                              Text(reason, style: context.texts.bodySmall),
+                            ],
+                          ),
                         ),
+                      ],
+                    ),
+                    stub: SizedBox(
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () => _open(pick.route),
+                        child: const Text('Empezar'),
                       ),
-                      Icon(Icons.chevron_right_rounded,
-                          color: p.textMuted, size: 20),
+                    ),
+                  )
+                      .animate()
+                      .fadeIn(duration: Motion.base)
+                      .moveY(begin: 10, end: 0, curve: Curves.easeOutCubic),
+                  for (final (i, (title, activities)) in _groups.indexed) ...[
+                    const SizedBox(height: Insets.xl),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: Insets.xs, bottom: Insets.sm),
+                      child: Text(title.toUpperCase(),
+                          style: AppTheme.eyebrow(context)),
+                    ),
+                    RowGroup(
+                      indent: 64,
+                      children: [
+                        for (final a in activities)
+                          ListRow(
+                            leading: TopicBadge(
+                                icon: a.icon, tone: p.textSecondary, size: 36),
+                            title: a.title,
+                            detail: _detail(a, due),
+                            onTap: () => _open(a.route),
+                          ),
+                      ],
+                    ).animate().fadeIn(
+                        delay: Motion.stagger(i + 2), duration: Motion.base),
+                  ],
+                  const SizedBox(height: Insets.xl),
+                  RowGroup(
+                    indent: 64,
+                    children: [
+                      ListRow(
+                        leading: TopicBadge(
+                            icon: _placement.icon,
+                            tone: p.textSecondary,
+                            size: 36),
+                        title: _placement.title,
+                        detail: _detail(_placement, due),
+                        onTap: () => _open(_placement.route),
+                      ),
                     ],
                   ),
-                ).animate().fadeIn(delay: Motion.stagger(n.clamp(0, 10))),
-                const SizedBox(height: Insets.sm),
-              ],
-            ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Today's goal as one thin line: enough to know where you stand.
+class _GoalLine extends StatelessWidget {
+  final int done;
+  final int goal;
+  const _GoalLine({required this.done, required this.goal});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final met = done >= goal;
+    return Semantics(
+      label: 'Meta de hoy: $done de $goal ejercicios',
+      child: ExcludeSemantics(
+        child: Row(
+          children: [
+            Text(met ? 'Meta de hoy cumplida' : 'Meta de hoy',
+                style: context.texts.labelLarge),
+            const SizedBox(width: Insets.md),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(Radii.pill),
+                child: LinearProgressIndicator(
+                  value: (done / goal).clamp(0, 1).toDouble(),
+                  minHeight: 6,
+                  color: met ? p.good : p.gold,
+                  backgroundColor: p.surfaceAlt,
+                ),
+              ),
+            ),
+            const SizedBox(width: Insets.md),
+            Text('$done/$goal', style: context.texts.labelLarge),
           ],
         ),
       ),

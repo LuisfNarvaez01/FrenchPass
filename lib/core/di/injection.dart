@@ -7,6 +7,7 @@ import 'package:french_pass/core/config/app_channel.dart';
 import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/reminder_service.dart';
 import 'package:french_pass/core/services/speech_service.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/services/update_service.dart';
@@ -34,6 +35,7 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<NotificationService>(NotificationService());
   getIt.registerSingleton<UpdateService>(UpdateService());
   getIt.registerSingleton<WidgetService>(WidgetService());
+  getIt.registerSingleton<SoundService>(SoundService(storage));
 
   // ─── Repositories ─────────────────────────────────────────────────────────
   // The corpus is loaded up front: it is a single bundled asset and every

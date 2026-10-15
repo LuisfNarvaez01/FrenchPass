@@ -7,6 +7,7 @@ import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/categories/presentation/pages/categories_page.dart'
     show WordRow;
+import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
@@ -43,6 +44,7 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
     }
 
     final all = getIt<WordRepository>().byCategory(category);
+    final cards = getIt<ProgressRepository>().loadCards();
     final levelsPresent = (all.map((w) => w.level).toSet().toList()
       ..sort((a, b) => a.index.compareTo(b.index)));
     final words = (_levelFilter == null
@@ -85,14 +87,14 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _FilterChip(
+                        ChoiceTag(
                           label: 'Todos · ${all.length}',
                           selected: _levelFilter == null,
                           onTap: () => setState(() => _levelFilter = null),
                         ),
                         for (final level in levelsPresent) ...[
                           const SizedBox(width: Insets.sm),
-                          _FilterChip(
+                          ChoiceTag(
                             label: level.label,
                             selected: _levelFilter == level,
                             onTap: () => setState(() => _levelFilter = level),
@@ -117,53 +119,16 @@ class _CategoryWordsPageState extends State<CategoryWordsPage> {
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(
                       Insets.page, 0, Insets.page, Insets.xxxl),
-                  sliver: SliverList.separated(
-                    itemCount: words.length,
-                    separatorBuilder: (_, __) =>
-                        const SizedBox(height: Insets.sm),
-                    itemBuilder: (context, i) => WordRow(word: words[i]),
+                  sliver: SliverToBoxAdapter(
+                    child: RowGroup(
+                      children: [
+                        for (final w in words)
+                          WordRow(word: w, card: cards[w.id]),
+                      ],
+                    ),
                   ),
                 ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FilterChip extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _FilterChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return Material(
-      color: selected ? p.gold.withValues(alpha: 0.16) : p.surface,
-      borderRadius: BorderRadius.circular(Radii.pill),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(Radii.pill),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: Insets.lg, vertical: Insets.sm),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Radii.pill),
-            border: Border.all(color: selected ? p.gold : p.border),
-          ),
-          child: Text(
-            label,
-            style: context.texts.labelMedium?.copyWith(
-              color: selected ? p.gold : p.textSecondary,
-            ),
           ),
         ),
       ),

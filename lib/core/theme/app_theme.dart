@@ -41,6 +41,12 @@ class AppTheme {
       ),
       textTheme: texts,
       splashFactory: InkSparkle.splashFactory,
+      // Pages slide in a little and fade over the night ground, instead of
+      // the default zoom.
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+        TargetPlatform.android:
+            FadeForwardsPageTransitionsBuilder(backgroundColor: p.bg),
+      }),
       dividerTheme: DividerThemeData(color: p.border, thickness: 1, space: 1),
       iconTheme: IconThemeData(color: p.textSecondary, size: 22),
 
@@ -69,8 +75,10 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: p.gold,
           foregroundColor: p.onGold,
-          disabledBackgroundColor: p.surfaceAlt,
-          disabledForegroundColor: p.textMuted,
+          // Disabled reads as switched off, not as secondary text: faded
+          // and on a flat ground.
+          disabledBackgroundColor: p.surfaceAlt.withValues(alpha: 0.6),
+          disabledForegroundColor: p.textMuted.withValues(alpha: 0.55),
           elevation: 0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.md)),
@@ -84,6 +92,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: p.textPrimary,
+          disabledForegroundColor: p.textMuted.withValues(alpha: 0.55),
           side: BorderSide(color: p.borderStrong),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.md)),
@@ -96,6 +105,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: p.gold,
+          disabledForegroundColor: p.textMuted.withValues(alpha: 0.55),
           textStyle: GoogleFonts.lato(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),
@@ -253,8 +263,10 @@ class AppTheme {
             fontSize: 16, height: 1.45, color: p.textPrimary),
         bodyMedium: GoogleFonts.lato(
             fontSize: 14, height: 1.45, color: p.textSecondary),
+        // Secondary lines are read, not skimmed: they take the secondary
+        // ink. textMuted is kept for metadata (labelSmall, eyebrows).
         bodySmall: GoogleFonts.lato(
-            fontSize: 13, height: 1.4, color: p.textMuted),
+            fontSize: 13, height: 1.4, color: p.textSecondary),
         labelLarge: GoogleFonts.lato(
             fontSize: 14, fontWeight: FontWeight.w700, color: p.textPrimary),
         labelMedium: GoogleFonts.lato(

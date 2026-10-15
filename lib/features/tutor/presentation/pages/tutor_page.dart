@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/ai/ai_backend.dart';
 import 'package:french_pass/core/di/injection.dart';
+import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/pass_card.dart';
 import 'package:french_pass/features/premium/data/billing_service.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -68,93 +70,353 @@ class _TutorPageState extends State<TutorPage> {
     _reload();
   }
 
+  /// The learner's level, from the placement test or the tutor's own
+  /// estimate; null until either exists.
+  CefrLevel? get _level {
+    final placed =
+        getIt<StorageService>().getString(StorageKeys.placementLevel);
+    final guess = (placed ?? _profile.levelEstimate).trim().toLowerCase();
+    for (final level in CefrLevel.values) {
+      if (guess.startsWith(level.name)) return level;
+    }
+    return null;
+  }
+
+  /// The guided situation to do next: the first one not done yet at the
+  /// learner's level or above.
+  Lesson? _nextLesson(CefrLevel? level) {
+    final guided = Lessons.all.where((l) => !l.isFreeTalk);
+    for (final l in guided) {
+      if (_completed.contains(l.id)) continue;
+      if (level == null || l.level.index >= level.index) return l;
+    }
+    for (final l in guided) {
+      if (!_completed.contains(l.id)) return l;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final p = context.palette;
     final byLevel = <CefrLevel, List<Lesson>>{};
     for (final lesson in Lessons.all.where((l) => !l.isFreeTalk)) {
       byLevel.putIfAbsent(lesson.level, () => []).add(lesson);
     }
     final freeTalk = Lessons.byId(Lessons.freeTalkId)!;
+    final level = _level;
+    // Open conversation suits someone past the basics; a beginner gets the
+    // guided situations first.
+    final freeFirst = level != null && level.index >= CefrLevel.b1.index;
+    final next = _nextLesson(level);
+    final last = _sessions.isEmpty ? null : _sessions.first;
+    final lastLesson = last == null ? null : Lessons.byId(last.lessonId);
+
+    final freeTalkGroup = [
+      const _Eyebrow('Conversación libre'),
+      RowGroup(indent: 64, children: [
+        ListRow(
+          leading:
+              TopicBadge(icon: freeTalk.icon, tone: p.textSecondary, size: 36),
+          title: freeTalk.titleEs,
+          detail: freeFirst
+              ? 'De lo que quieras, a tu ritmo'
+              : 'Cuando te sientas cómodo: de lo que quieras',
+          enabled: _aiReady,
+          onTap: () => _open(freeTalk),
+        ),
+      ]),
+      const SizedBox(height: Insets.xl),
+    ];
 
     return AppBackground(
       child: SafeArea(
         bottom: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-              Insets.page, Insets.xl, Insets.page, Insets.xxxl),
+          padding: const EdgeInsets.only(bottom: Insets.xxxl),
           children: [
-            Text('Tutor', style: context.texts.headlineLarge),
-            const SizedBox(height: Insets.xs),
-            Text(
-              'Conversa en francés por voz. Te corrige por escrito sin '
-              'cortar la charla.',
-              style: context.texts.bodySmall,
+            PageHeader(
+              title: 'Tutor',
+              subtitle:
+                  _aiReady ? _planLine() : 'Conversación por voz en francés',
+              trailing: _aiReady && !_usage.isPremium
+                  ? TextButton(
+                      onPressed: () async {
+                        await context.push('/premium');
+                        _reload();
+                      },
+                      child: const Text('Premium'),
+                    )
+                  : null,
             ),
-            const SizedBox(height: Insets.xl),
-            if (_aiReady) ...[
-              _PlanCard(
-                premium: _usage.isPremium,
-                timeLeft: _usage.tutorTimeLeft(),
-                onPremium: () async {
-                  await context.push('/premium');
-                  _reload();
-                },
-              ).animate().fadeIn(duration: Motion.base),
-              const SizedBox(height: Insets.xl),
-            ],
-            if (!_aiReady) ...[
-              InfoNotice(
-                icon: Icons.cloud_off_rounded,
-                iconColor: context.palette.warning,
-                message: const AiException(issue: AiIssue.setup).messageEs,
-              ).animate().fadeIn(duration: Motion.base),
-              const SizedBox(height: Insets.xl),
-            ] else if (!_profile.isEmpty) ...[
-              _ProfileCard(
-                profile: _profile,
-                onReset: () async {
-                  await _repo.resetProfile();
-                  _reload();
-                },
-              ).animate().fadeIn(duration: Motion.base),
-              const SizedBox(height: Insets.xl),
-            ],
-            if (_sessions.isNotEmpty) ...[
-              _LastSessions(sessions: _sessions, onOpen: _review)
-                  .animate()
-                  .fadeIn(duration: Motion.base)
-                  .moveY(begin: 8, end: 0, curve: Curves.easeOutCubic),
-              const SizedBox(height: Insets.xl),
-            ],
-            _TranslatorTile(onTap: () => context.push('/translator'))
-                .animate()
-                .fadeIn(delay: Motion.stagger(1)),
-            const SizedBox(height: Insets.sm),
-            _LessonTile(
-              lesson: freeTalk,
-              done: false,
-              enabled: _aiReady,
-              onTap: () => _open(freeTalk),
-            ).animate().fadeIn(delay: Motion.stagger(1)),
-            for (final (i, entry) in byLevel.entries.indexed) ...[
-              const SizedBox(height: Insets.xxl),
-              SectionHeader(
-                eyebrow: 'Nivel ${entry.key.label}',
-                title: entry.key.descriptionEs,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  Insets.page, Insets.lg, Insets.page, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (!_aiReady) ...[
+                    InfoNotice(
+                      icon: Icons.cloud_off_rounded,
+                      iconColor: p.warning,
+                      message:
+                          const AiException(issue: AiIssue.setup).messageEs,
+                    ),
+                    const SizedBox(height: Insets.xl),
+                  ],
+
+                  // ── Pick up where you left off ─────────────────────────
+                  if (_aiReady && (last != null || next != null)) ...[
+                    const _Eyebrow('Continúa'),
+                    _ContinuePass(
+                      last: last,
+                      lastLesson: lastLesson,
+                      next: next,
+                      onReview: last == null ? null : () => _review(last),
+                      onStart: next == null ? null : () => _open(next),
+                    )
+                        .animate()
+                        .fadeIn(duration: Motion.base)
+                        .moveY(begin: 10, end: 0, curve: Curves.easeOutCubic),
+                    const SizedBox(height: Insets.xl),
+                  ],
+
+                  if (freeFirst) ...freeTalkGroup,
+
+                  // ── Guided situations, by level ────────────────────────
+                  for (final (i, entry) in byLevel.entries.indexed) ...[
+                    _Eyebrow('Situaciones · ${entry.key.label}',
+                        detail: entry.key.descriptionEs),
+                    RowGroup(
+                      indent: 64,
+                      children: [
+                        for (final lesson in entry.value)
+                          ListRow(
+                            leading: TopicBadge(
+                                icon: lesson.icon,
+                                tone: p.textSecondary,
+                                size: 36),
+                            title: lesson.titleEs,
+                            detail: '${_minutes(lesson)} min · '
+                                '${lesson.subtitleEs}',
+                            enabled: _aiReady,
+                            onTap: () => _open(lesson),
+                            trailing: _completed.contains(lesson.id)
+                                ? Semantics(
+                                    label: 'Completada',
+                                    child: Icon(Icons.check_circle_rounded,
+                                        color: p.good, size: 20),
+                                  )
+                                : null,
+                          ),
+                      ],
+                    ).animate().fadeIn(
+                        delay: Motion.stagger(i + 1), duration: Motion.base),
+                    const SizedBox(height: Insets.xl),
+                  ],
+
+                  if (!freeFirst) ...freeTalkGroup,
+
+                  if (_aiReady && !_profile.isEmpty) ...[
+                    _ProfileCard(
+                      profile: _profile,
+                      onReset: () async {
+                        await _repo.resetProfile();
+                        _reload();
+                      },
+                    ),
+                    const SizedBox(height: Insets.xl),
+                  ],
+
+                  // ── Tools and history ──────────────────────────────────
+                  const _Eyebrow('Herramientas'),
+                  RowGroup(
+                    indent: 64,
+                    children: [
+                      ListRow(
+                        leading: TopicBadge(
+                            icon: Icons.translate_rounded,
+                            tone: p.textSecondary,
+                            size: 36),
+                        title: 'Traductor',
+                        detail: 'Del español al francés, palabra por palabra',
+                        onTap: () => context.push('/translator'),
+                      ),
+                      for (final s in _sessions.skip(1).take(3))
+                        ListRow(
+                          leading: TopicBadge(
+                              icon: Lessons.byId(s.lessonId)?.icon ??
+                                  Icons.forum_outlined,
+                              tone: p.textSecondary,
+                              size: 36),
+                          title: Lessons.byId(s.lessonId)?.titleEs ??
+                              'Conversación',
+                          detail: 'Repasar · ${sessionDateEs(s.date)}',
+                          onTap: () => _review(s),
+                        ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(height: Insets.md),
-              for (final lesson in entry.value) ...[
-                _LessonTile(
-                  lesson: lesson,
-                  done: _completed.contains(lesson.id),
-                  enabled: _aiReady,
-                  onTap: () => _open(lesson),
-                ).animate().fadeIn(delay: Motion.stagger(2 + i)),
-                const SizedBox(height: Insets.sm),
-              ],
-            ],
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// A guided lesson's rough length, which grows with the level.
+  static int _minutes(Lesson lesson) => switch (lesson.level) {
+        CefrLevel.a1 => 4,
+        CefrLevel.a2 => 5,
+        _ => 6,
+      };
+
+  String _planLine() {
+    final minutes = _usage.tutorTimeLeft().inMinutes;
+    if (_usage.isPremium) {
+      return minutes < 1
+          ? 'Premium · sin minutos hasta el día 1'
+          : 'Premium · $minutes min este mes';
+    }
+    return minutes < 1
+        ? 'Tu prueba gratis terminó'
+        : 'Prueba gratis · te quedan $minutes min';
+  }
+}
+
+class _Eyebrow extends StatelessWidget {
+  final String text;
+  final String? detail;
+  const _Eyebrow(this.text, {this.detail});
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: Insets.xs, bottom: Insets.sm),
+        child: Text.rich(
+          TextSpan(children: [
+            TextSpan(text: text.toUpperCase()),
+            if (detail != null)
+              TextSpan(
+                text: '  ·  $detail',
+                style: context.texts.labelMedium,
+              ),
+          ]),
+          style: AppTheme.eyebrow(context),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+}
+
+/// What to do next with the tutor, as a pass: the last conversation to go
+/// over, and the next situation to try.
+class _ContinuePass extends StatelessWidget {
+  final SavedSession? last;
+  final Lesson? lastLesson;
+  final Lesson? next;
+  final VoidCallback? onReview;
+  final VoidCallback? onStart;
+
+  const _ContinuePass({
+    required this.last,
+    required this.lastLesson,
+    required this.next,
+    required this.onReview,
+    required this.onStart,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final session = last;
+    final upcoming = next;
+    return PassCard(
+      accent: true,
+      main: Row(
+        children: [
+          TopicBadge(
+            icon: (session != null ? lastLesson?.icon : upcoming?.icon) ??
+                Icons.forum_outlined,
+            tone: p.gold,
+            size: 48,
+          ),
+          const SizedBox(width: Insets.lg),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  session != null
+                      ? 'TU ÚLTIMA CONVERSACIÓN'
+                      : 'TU PRIMERA CONVERSACIÓN',
+                  style: AppTheme.eyebrow(context),
+                ),
+                const SizedBox(height: Insets.xs),
+                Text(
+                  session != null
+                      ? (lastLesson?.titleEs ?? 'Conversación')
+                      : (upcoming?.titleEs ?? 'Conversación'),
+                  style: context.texts.headlineSmall,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  session != null
+                      ? '${sessionDateEs(session.date)} · '
+                          '${session.spokenLines} frases tuyas'
+                      : (upcoming?.subtitleEs ?? ''),
+                  style: context.texts.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      stub: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (session != null && upcoming != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: Insets.md),
+              child: Text.rich(
+                TextSpan(children: [
+                  const TextSpan(text: 'Siguiente situación: '),
+                  TextSpan(
+                    text: upcoming.titleEs,
+                    style: TextStyle(
+                        color: p.textPrimary, fontWeight: FontWeight.w700),
+                  ),
+                ]),
+                style: context.texts.bodySmall,
+              ),
+            ),
+          Row(
+            children: [
+              if (onReview != null) ...[
+                Expanded(
+                  child: SizedBox(
+                    height: 48,
+                    child: OutlinedButton(
+                      onPressed: onReview,
+                      child: const Text('Repasar'),
+                    ),
+                  ),
+                ),
+                if (onStart != null) const SizedBox(width: Insets.md),
+              ],
+              if (onStart != null)
+                Expanded(
+                  child: SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: onStart,
+                      child: Text(session != null ? 'Siguiente' : 'Empezar'),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -181,7 +443,10 @@ class _ProfileCard extends StatelessWidget {
                     Text('LO QUE SÉ DE TI', style: AppTheme.eyebrow(context)),
               ),
               if (profile.levelEstimate.isNotEmpty)
-                Pill(label: profile.levelEstimate, tone: p.textSecondary, dense: true),
+                Pill(
+                    label: profile.levelEstimate,
+                    tone: p.textSecondary,
+                    dense: true),
             ],
           ),
           const SizedBox(height: Insets.xs),
@@ -287,288 +552,6 @@ class _Bullets extends StatelessWidget {
             child: Text('· $item', style: context.texts.bodySmall),
           ),
       ],
-    );
-  }
-}
-
-/// Which plan the learner is on and how much tutor time is left, with the
-/// way to Premium when the free trial is short or spent.
-class _PlanCard extends StatelessWidget {
-  final bool premium;
-  final Duration timeLeft;
-  final VoidCallback onPremium;
-
-  const _PlanCard({
-    required this.premium,
-    required this.timeLeft,
-    required this.onPremium,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    final minutes = timeLeft.inMinutes;
-    final spent = timeLeft < const Duration(seconds: 30);
-    final (title, detail) = premium
-        ? (
-            'Premium',
-            spent
-                ? 'Usaste tus minutos de este mes. El día 1 se renuevan.'
-                : 'Te quedan $minutes min con el tutor este mes.',
-          )
-        : spent
-            ? (
-                'Tu prueba gratis terminó',
-                'Con Premium hablas con el tutor '
-                    '${UsageLimits.premiumTutorPerMonth.inMinutes} minutos al '
-                    'mes.',
-              )
-            : (
-                'Prueba gratis',
-                minutes == 1
-                    ? 'Te queda 1 minuto para hablar con el tutor.'
-                    : 'Te quedan $minutes minutos para hablar con el tutor.',
-              );
-
-    return AppCard(
-      accent: !premium && spent,
-      onTap: premium ? null : onPremium,
-      padding: const EdgeInsets.symmetric(
-          horizontal: Insets.lg, vertical: Insets.md),
-      child: Row(
-        children: [
-          Icon(
-            premium ? Icons.verified_rounded : Icons.timer_outlined,
-            color: premium ? p.good : p.gold,
-            size: 22,
-          ),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: context.texts.titleMedium),
-                const SizedBox(height: 2),
-                Text(detail, style: context.texts.bodySmall),
-              ],
-            ),
-          ),
-          if (!premium) ...[
-            const SizedBox(width: Insets.sm),
-            Text('Ver Premium',
-                style: context.texts.labelLarge?.copyWith(color: p.gold)),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-/// The translator lives here because it teaches the same way the tutor
-/// review does; it works with the key alone, no lesson needed.
-class _TranslatorTile extends StatelessWidget {
-  final VoidCallback onTap;
-  const _TranslatorTile({required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return AppCard(
-      onTap: onTap,
-      padding: const EdgeInsets.symmetric(
-          horizontal: Insets.lg, vertical: Insets.md),
-      child: Row(
-        children: [
-          TopicBadge(icon: Icons.translate_rounded, tone: p.gold),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Traductor',
-                    style: context.texts.titleMedium,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 2),
-                Text(
-                  'Escribe en español y te explico el francés palabra por '
-                  'palabra.',
-                  style: context.texts.bodySmall,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: Insets.sm),
-          Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
-        ],
-      ),
-    );
-  }
-}
-
-class _LessonTile extends StatelessWidget {
-  final Lesson lesson;
-  final bool done;
-  final bool enabled;
-  final VoidCallback onTap;
-
-  const _LessonTile({
-    required this.lesson,
-    required this.done,
-    required this.enabled,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return Opacity(
-      opacity: enabled ? 1 : 0.55,
-      child: AppCard(
-        onTap: enabled ? onTap : null,
-        padding: const EdgeInsets.symmetric(
-            horizontal: Insets.lg, vertical: Insets.md),
-        child: Row(
-          children: [
-            TopicBadge(
-              icon: lesson.icon,
-              tone: lesson.isFreeTalk ? p.terracotta : p.gold,
-            ),
-            const SizedBox(width: Insets.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(lesson.titleEs,
-                      style: context.texts.titleMedium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 2),
-                  Text(lesson.subtitleEs,
-                      style: context.texts.bodySmall,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
-                ],
-              ),
-            ),
-            const SizedBox(width: Insets.sm),
-            if (done)
-              Semantics(
-                label: 'Completada',
-                child:
-                    Icon(Icons.check_circle_rounded, color: p.good, size: 20),
-              )
-            else
-              Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// The most recent conversation, front and centre, so going over it is one
-/// tap away; older ones sit underneath in a quieter list.
-class _LastSessions extends StatelessWidget {
-  final List<SavedSession> sessions;
-  final ValueChanged<SavedSession> onOpen;
-
-  const _LastSessions({required this.sessions, required this.onOpen});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    final last = sessions.first;
-    final lesson = Lessons.byId(last.lessonId);
-    final older = sessions.skip(1).take(3).toList();
-
-    return AppCard(
-      accent: true,
-      padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-                Insets.lg, Insets.lg, Insets.lg, Insets.md),
-            child: Row(
-              children: [
-                TopicBadge(
-                  icon: lesson?.icon ?? Icons.forum_outlined,
-                  tone: p.gold,
-                  size: 48,
-                ),
-                const SizedBox(width: Insets.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Tu última conversación',
-                          style: context.texts.titleMedium),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${lesson?.titleEs ?? 'Conversación'} · '
-                        '${sessionDateEs(last.date)} · '
-                        '${last.spokenLines} frases',
-                        style: context.texts.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.fromLTRB(Insets.lg, 0, Insets.lg, Insets.lg),
-            child: ElevatedButton.icon(
-              onPressed: () => onOpen(last),
-              icon: const Icon(Icons.menu_book_rounded, size: 20),
-              label: const Text('Repasar palabra por palabra'),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(48)),
-            ),
-          ),
-          if (older.isNotEmpty) ...[
-            Divider(color: p.border, height: 1),
-            for (final s in older)
-              InkWell(
-                onTap: () => onOpen(s),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Insets.lg, vertical: Insets.md),
-                  child: Row(
-                    children: [
-                      Icon(
-                          Lessons.byId(s.lessonId)?.icon ??
-                              Icons.forum_outlined,
-                          size: 18,
-                          color: p.textMuted),
-                      const SizedBox(width: Insets.md),
-                      Expanded(
-                        child: Text(
-                          Lessons.byId(s.lessonId)?.titleEs ?? 'Conversación',
-                          style: context.texts.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Text(sessionDateEs(s.date),
-                          style: context.texts.bodySmall),
-                      const SizedBox(width: Insets.xs),
-                      Icon(Icons.chevron_right_rounded,
-                          size: 18, color: p.textMuted),
-                    ],
-                  ),
-                ),
-              ),
-          ],
-        ],
-      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
+import 'package:french_pass/core/widgets/pass_card.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 /// A word as the hero of the screen: set like a magazine headline, with its
@@ -35,11 +36,10 @@ class WordHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    return AppCard(
-      radius: Radii.xl,
-      padding:
-          const EdgeInsets.fromLTRB(Insets.xl, Insets.xl, Insets.xl, Insets.lg),
-      child: Column(
+    // The word is the pass itself; the example is the stub you tear off.
+    return PassCard(
+      accent: true,
+      main: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -79,15 +79,14 @@ class WordHero extends StatelessWidget {
           const SizedBox(height: Insets.md),
           Text(word.translationEs,
               style: context.texts.titleLarge?.copyWith(fontSize: 20)),
-          const SizedBox(height: Insets.xl),
-          _Example(
-            word: word,
-            speaking: speaking,
-            sequenceSpeaking: sequenceSpeaking,
-            onSentence: onSentence,
-            onWordByWord: onWordByWord,
-          ),
         ],
+      ),
+      stub: _Example(
+        word: word,
+        speaking: speaking,
+        sequenceSpeaking: sequenceSpeaking,
+        onSentence: onSentence,
+        onWordByWord: onWordByWord,
       ),
     );
   }
@@ -134,8 +133,8 @@ class _ListenButton extends StatelessWidget {
   }
 }
 
-/// The example sentence, marked by a thin rule rather than boxed in, with
-/// its two ways to listen as quiet text links.
+/// The example sentence on the pass's stub, with its two ways to listen as
+/// quiet text links.
 class _Example extends StatelessWidget {
   final Word word;
   final bool speaking;
@@ -160,52 +159,44 @@ class _Example extends StatelessWidget {
       minimumSize: const Size(0, 40),
       tapTargetSize: MaterialTapTargetSize.padded,
     );
-    return Container(
-      padding: const EdgeInsets.only(left: Insets.md),
-      decoration: BoxDecoration(
-        border: Border(
-            left: BorderSide(color: p.gold.withValues(alpha: 0.55), width: 2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            word.exampleFr,
-            style: context.texts.bodyLarge?.copyWith(
-              color: p.textPrimary,
-              fontStyle: FontStyle.italic,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          word.exampleFr,
+          style: context.texts.bodyLarge?.copyWith(
+            color: p.textPrimary,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        const SizedBox(height: Insets.xs),
+        Text(word.exampleEs, style: context.texts.bodySmall),
+        const SizedBox(height: Insets.xs),
+        Wrap(
+          children: [
+            TextButton.icon(
+              style: link,
+              onPressed: sequenceSpeaking ? null : onSentence,
+              icon: Icon(
+                  speaking
+                      ? Icons.graphic_eq_rounded
+                      : Icons.play_arrow_rounded,
+                  size: 18),
+              label: const Text('Escuchar frase'),
             ),
-          ),
-          const SizedBox(height: Insets.xs),
-          Text(word.exampleEs, style: context.texts.bodySmall),
-          const SizedBox(height: Insets.xs),
-          Wrap(
-            children: [
-              TextButton.icon(
-                style: link,
-                onPressed: sequenceSpeaking ? null : onSentence,
-                icon: Icon(
-                    speaking
-                        ? Icons.graphic_eq_rounded
-                        : Icons.play_arrow_rounded,
-                    size: 18),
-                label: const Text('Escuchar frase'),
-              ),
-              TextButton.icon(
-                style: link,
-                onPressed: speaking && !sequenceSpeaking ? null : onWordByWord,
-                icon: Icon(
-                    sequenceSpeaking
-                        ? Icons.stop_rounded
-                        : Icons.slow_motion_video_rounded,
-                    size: 18),
-                label:
-                    Text(sequenceSpeaking ? 'Detener' : 'Palabra por palabra'),
-              ),
-            ],
-          ),
-        ],
-      ),
+            TextButton.icon(
+              style: link,
+              onPressed: speaking && !sequenceSpeaking ? null : onWordByWord,
+              icon: Icon(
+                  sequenceSpeaking
+                      ? Icons.stop_rounded
+                      : Icons.slow_motion_video_rounded,
+                  size: 18),
+              label: Text(sequenceSpeaking ? 'Detener' : 'Palabra por palabra'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

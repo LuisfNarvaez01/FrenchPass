@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/text/answer_check.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
@@ -287,7 +288,7 @@ class _OptionButton extends StatelessWidget {
 }
 
 /// Right or wrong, with the reason, after an answer.
-class FeedbackBanner extends StatelessWidget {
+class FeedbackBanner extends StatefulWidget {
   final bool right;
   final String title;
   final String detail;
@@ -308,8 +309,25 @@ class FeedbackBanner extends StatelessWidget {
   });
 
   @override
+  State<FeedbackBanner> createState() => _FeedbackBannerState();
+}
+
+class _FeedbackBannerState extends State<FeedbackBanner> {
+  @override
+  void initState() {
+    super.initState();
+    // The banner appears once per answer, so this is the moment to sound.
+    playSound(widget.right ? AppSound.correct : AppSound.wrong);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final p = context.palette;
+    final right = widget.right;
+    final almost = widget.almost;
+    final title = widget.title;
+    final detail = widget.detail;
+    final speak = widget.speak;
     final tone = !right
         ? p.critical
         : almost
@@ -342,7 +360,7 @@ class FeedbackBanner extends StatelessWidget {
               ],
             ),
           ),
-          if (speak != null) SpeakButton(text: speak!, size: 40),
+          if (speak != null) SpeakButton(text: speak, size: 40),
         ],
       ),
     );
@@ -478,7 +496,7 @@ class _TypedAnswerState extends State<TypedAnswer> {
 
 /// The end of a session: score, the mascot when it went well, and what
 /// to do next.
-class SessionSummary extends StatelessWidget {
+class SessionSummary extends StatefulWidget {
   final int correct;
   final int total;
   final VoidCallback onAgain;
@@ -493,7 +511,22 @@ class SessionSummary extends StatelessWidget {
   });
 
   @override
+  State<SessionSummary> createState() => _SessionSummaryState();
+}
+
+class _SessionSummaryState extends State<SessionSummary> {
+  @override
+  void initState() {
+    super.initState();
+    playSound(AppSound.complete);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final correct = widget.correct;
+    final total = widget.total;
+    final onAgain = widget.onAgain;
+    final againLabel = widget.againLabel;
     final ratio = total == 0 ? 0.0 : correct / total;
     final good = ratio >= 0.7;
     return ListView(

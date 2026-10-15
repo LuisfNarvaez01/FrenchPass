@@ -87,6 +87,7 @@ abstract final class StorageKeys {
   static const notificationsEnabled = '${prefix}settings.notifications';
   static const notificationHour = '${prefix}settings.notificationHour';
   static const speechRate = '${prefix}settings.speechRate';
+  static const soundsEnabled = '${prefix}settings.sounds';
 
   static const srsCards = '${prefix}progress.srsCards';
   static const attempts = '${prefix}progress.attempts';

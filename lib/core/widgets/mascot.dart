@@ -37,16 +37,22 @@ class MascotSticker extends StatelessWidget {
   /// straight.
   final double tilt;
 
+  /// Whether it moves on its own: breathing at rest, swaying while it
+  /// thinks. The mascot is the one thing in the app that plays, so it
+  /// does so by default; pass false where it sits beside dense content.
+  final bool alive;
+
   const MascotSticker({
     super.key,
     this.size = 96,
     this.pose = MascotPose.baguette,
     this.tilt = -0.08,
+    this.alive = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
+    final image = Transform.rotate(
       angle: tilt,
       child: Image.asset(
         pose.asset,
@@ -56,6 +62,28 @@ class MascotSticker extends StatelessWidget {
         semanticLabel: pose.label,
       ),
     );
+    if (!alive || MediaQuery.disableAnimationsOf(context)) return image;
+    return switch (pose) {
+      // Thinking: a slow side-to-side sway, paw on chin.
+      MascotPose.thinking => image
+          .animate(onPlay: (c) => c.repeat(reverse: true))
+          .rotate(
+              begin: -0.025,
+              end: 0.025,
+              duration: 1600.ms,
+              curve: Curves.easeInOutSine,
+              alignment: Alignment.bottomCenter),
+      // At rest: breathing, a little rise and fall from the feet.
+      _ => image
+          .animate(onPlay: (c) => c.repeat(reverse: true))
+          .scaleY(
+              begin: 1,
+              end: 1.035,
+              duration: 1400.ms,
+              curve: Curves.easeInOutSine,
+              alignment: Alignment.bottomCenter)
+          .moveY(begin: 0, end: -1.5, duration: 1400.ms),
+    };
   }
 }
 
@@ -99,7 +127,7 @@ class MascotCelebration extends StatelessWidget {
                     ),
               ),
             ),
-          MascotSticker(size: size, pose: MascotPose.cool),
+          MascotSticker(size: size, pose: MascotPose.cool, alive: false),
         ],
       ),
     );
@@ -126,7 +154,16 @@ class MascotCelebration extends StatelessWidget {
             .then(delay: 200.ms)
             .rotate(begin: 0, end: 0.012, duration: 140.ms)
             .then()
-            .rotate(begin: 0, end: -0.012, duration: 160.ms);
+            .rotate(begin: 0, end: -0.012, duration: 160.ms)
+            // Two happy hops.
+            .then(delay: 80.ms)
+            .moveY(begin: 0, end: -12, duration: 170.ms, curve: Curves.easeOut)
+            .then()
+            .moveY(begin: 0, end: 12, duration: 230.ms, curve: Curves.bounceOut)
+            .then(delay: 60.ms)
+            .moveY(begin: 0, end: -7, duration: 150.ms, curve: Curves.easeOut)
+            .then()
+            .moveY(begin: 0, end: 7, duration: 200.ms, curve: Curves.bounceOut);
 
     if (caption == null) return animated;
 

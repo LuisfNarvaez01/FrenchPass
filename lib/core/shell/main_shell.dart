@@ -12,31 +12,31 @@ class MainShell extends StatefulWidget {
 
   static const _tabs = [
     (
-      icon: Icons.auto_stories_outlined,
-      activeIcon: Icons.auto_stories_rounded,
+      icon: Icons.wb_sunny_outlined,
+      activeIcon: Icons.wb_sunny_rounded,
       label: 'Hoy',
       path: '/home'
     ),
     (
-      icon: Icons.forum_outlined,
-      activeIcon: Icons.forum_rounded,
+      icon: Icons.record_voice_over_outlined,
+      activeIcon: Icons.record_voice_over_rounded,
       label: 'Tutor',
       path: '/tutor'
     ),
     (
-      icon: Icons.fitness_center_outlined,
-      activeIcon: Icons.fitness_center_rounded,
+      icon: Icons.extension_outlined,
+      activeIcon: Icons.extension_rounded,
       label: 'Practicar',
       path: '/quiz'
     ),
     (
-      icon: Icons.grid_view_outlined,
-      activeIcon: Icons.grid_view_rounded,
-      label: 'Categorías',
+      icon: Icons.menu_book_outlined,
+      activeIcon: Icons.menu_book_rounded,
+      label: 'Palabras',
       path: '/categories'
     ),
     (
-      icon: Icons.insights_outlined,
+      icon: Icons.show_chart_rounded,
       activeIcon: Icons.insights_rounded,
       label: 'Progreso',
       path: '/progress'
@@ -90,7 +90,22 @@ class _MainShellState extends State<MainShell> {
     final selected = _selectedIndex(context);
 
     return Scaffold(
-      body: widget.child,
+      // Switching tabs cross-fades with a short rise, so it reads as moving
+      // between rooms rather than a hard cut.
+      body: AnimatedSwitcher(
+        duration: Motion.base,
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: Tween(begin: const Offset(0, 0.012), end: Offset.zero)
+                .animate(animation),
+            child: child,
+          ),
+        ),
+        child: KeyedSubtree(key: ValueKey(selected), child: widget.child),
+      ),
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: p.border)),

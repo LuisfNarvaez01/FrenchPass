@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:french_pass/core/di/injection.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
@@ -78,26 +79,29 @@ class _PronunciationResultPageState extends State<PronunciationResultPage> {
 
                       // Said clearly: the mascot is stuck onto the score,
                       // like a gold star on homework.
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          ScoreRing(score: result.overallScore)
-                              .animate()
-                              .fadeIn(delay: Motion.stagger(3))
-                              .scale(
-                                  delay: Motion.stagger(3),
-                                  begin: const Offset(0.85, 0.85),
-                                  curve: Curves.easeOutCubic),
-                          if (result.isSuccess)
-                            const Positioned(
-                              right: -86,
-                              bottom: -34,
-                              child: MascotCelebration(
-                                size: 92,
-                                delay: Duration(milliseconds: 520),
+                      SoundOnMount(
+                        sound: result.isSuccess ? AppSound.correct : null,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            ScoreRing(score: result.overallScore)
+                                .animate()
+                                .fadeIn(delay: Motion.stagger(3))
+                                .scale(
+                                    delay: Motion.stagger(3),
+                                    begin: const Offset(0.85, 0.85),
+                                    curve: Curves.easeOutCubic),
+                            if (result.isSuccess)
+                              const Positioned(
+                                right: -86,
+                                bottom: -34,
+                                child: MascotCelebration(
+                                  size: 92,
+                                  delay: Duration(milliseconds: 520),
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
 
                       const SizedBox(height: Insets.xl),

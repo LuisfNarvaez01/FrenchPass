@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/tts_service.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
@@ -296,7 +297,12 @@ class _QuizRoundState extends State<_QuizRound> {
                         : _OptionState.idle,
                     onTap: revealing
                         ? null
-                        : () => context.read<QuizCubit>().answer(i),
+                        : () {
+                            playSound(i == question.correctIndex
+                                ? AppSound.correct
+                                : AppSound.wrong);
+                            context.read<QuizCubit>().answer(i);
+                          },
                   ),
                   const SizedBox(height: Insets.md),
                 ],
@@ -547,97 +553,101 @@ class _QuizSummary extends StatelessWidget {
     final p = context.palette;
     final wrong = state.answers.where((a) => !a.isCorrect).toList();
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(
-          Insets.page, Insets.xl, Insets.page, Insets.xxxl),
-      child: Column(
-        children: [
-          Text('Resultado', style: AppTheme.eyebrow(context)),
-          const SizedBox(height: Insets.xl),
-          ScoreRing(
-            score: state.accuracy,
-            caption: '${state.correct}/${state.total} correctas',
-          ).animate().fadeIn().scale(
-              begin: const Offset(0.85, 0.85), curve: Curves.easeOutBack),
-          const SizedBox(height: Insets.xl),
-          Text(
-            switch (state.accuracy) {
-              >= 0.9 => '¡Impecable !',
-              >= 0.7 => '¡Très bien !',
-              >= 0.5 => 'Vas por buen camino',
-              _ => 'A repasar con calma',
-            },
-            style: context.texts.headlineMedium,
-          ),
-          const SizedBox(height: Insets.xs),
-          Text(
-            'Guardado en tu progreso y en el calendario de repasos.',
-            style: context.texts.bodySmall,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: Insets.xxl),
-          if (wrong.isNotEmpty) ...[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('PARA REFORZAR', style: AppTheme.eyebrow(context)),
+    return SoundOnMount(
+      sound: AppSound.complete,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(
+            Insets.page, Insets.xl, Insets.page, Insets.xxxl),
+        child: Column(
+          children: [
+            Text('Resultado', style: AppTheme.eyebrow(context)),
+            const SizedBox(height: Insets.xl),
+            ScoreRing(
+              score: state.accuracy,
+              caption: '${state.correct}/${state.total} correctas',
+            ).animate().fadeIn().scale(
+                begin: const Offset(0.85, 0.85), curve: Curves.easeOutBack),
+            const SizedBox(height: Insets.xl),
+            Text(
+              switch (state.accuracy) {
+                >= 0.9 => '¡Impecable !',
+                >= 0.7 => '¡Très bien !',
+                >= 0.5 => 'Vas por buen camino',
+                _ => 'A repasar con calma',
+              },
+              style: context.texts.headlineMedium,
             ),
-            const SizedBox(height: Insets.md),
-            for (final answer in wrong) ...[
-              AppCard(
-                onTap: () => context.push('/word/${answer.question.target.id}'),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Insets.lg, vertical: Insets.md),
-                child: Row(
-                  children: [
-                    Icon(Icons.error_outline_rounded,
-                        size: 18, color: p.warning),
-                    const SizedBox(width: Insets.md),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(answer.question.target.french,
-                              style: context.texts.titleMedium),
-                          Text(answer.question.target.translationEs,
-                              style: context.texts.bodySmall,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
-                        ],
+            const SizedBox(height: Insets.xs),
+            Text(
+              'Guardado en tu progreso y en el calendario de repasos.',
+              style: context.texts.bodySmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: Insets.xxl),
+            if (wrong.isNotEmpty) ...[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text('PARA REFORZAR', style: AppTheme.eyebrow(context)),
+              ),
+              const SizedBox(height: Insets.md),
+              for (final answer in wrong) ...[
+                AppCard(
+                  onTap: () =>
+                      context.push('/word/${answer.question.target.id}'),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Insets.lg, vertical: Insets.md),
+                  child: Row(
+                    children: [
+                      Icon(Icons.error_outline_rounded,
+                          size: 18, color: p.warning),
+                      const SizedBox(width: Insets.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(answer.question.target.french,
+                                style: context.texts.titleMedium),
+                            Text(answer.question.target.translationEs,
+                                style: context.texts.bodySmall,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
                       ),
-                    ),
-                    Icon(Icons.chevron_right_rounded,
-                        size: 20, color: p.textMuted),
-                  ],
+                      Icon(Icons.chevron_right_rounded,
+                          size: 20, color: p.textMuted),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: Insets.sm),
+                const SizedBox(height: Insets.sm),
+              ],
+              const SizedBox(height: Insets.lg),
             ],
-            const SizedBox(height: Insets.lg),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => context.go('/progress'),
+                    style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52)),
+                    child: const Text('Ver progreso'),
+                  ),
+                ),
+                const SizedBox(width: Insets.md),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => context
+                        .read<QuizCubit>()
+                        .start(context.read<SettingsBloc>().state.levelFilter),
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52)),
+                    child: const Text('Otra ronda'),
+                  ),
+                ),
+              ],
+            ),
           ],
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () => context.go('/progress'),
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(52)),
-                  child: const Text('Ver progreso'),
-                ),
-              ),
-              const SizedBox(width: Insets.md),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => context
-                      .read<QuizCubit>()
-                      .start(context.read<SettingsBloc>().state.levelFilter),
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(52)),
-                  child: const Text('Otra ronda'),
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

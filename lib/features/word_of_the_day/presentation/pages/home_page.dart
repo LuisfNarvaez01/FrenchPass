@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:french_pass/features/progress/domain/achievements.dart';
 import 'package:french_pass/core/services/reminder_service.dart';
+import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/services/widget_service.dart';
@@ -264,10 +265,17 @@ class _HomeViewState extends State<_HomeView>
   }
 }
 
-/// Offered until the learner takes the placement test or says no.
+/// Offered to a newcomer until they take the placement test or say no;
+/// after twenty exercises they have found their level by doing, and it
+/// stops asking (it stays under Practicar).
 bool get _showPlacement {
   final storage = getIt<StorageService>();
-  return storage.getString(StorageKeys.placementLevel) == null &&
+  final practised = getIt<ProgressRepository>()
+      .practiceTotals()
+      .values
+      .fold(0, (a, b) => a + b);
+  return practised < 20 &&
+      storage.getString(StorageKeys.placementLevel) == null &&
       !(storage.getBool(StorageKeys.placementDismissed) ?? false);
 }
 
@@ -280,37 +288,45 @@ class _NewAchievements extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     final first = achievements.first;
-    return AppCard(
-      onTap: onOpen,
-      accent: true,
-      padding: const EdgeInsets.symmetric(
-          horizontal: Insets.lg, vertical: Insets.md),
-      child: Row(
-        children: [
-          const MascotSticker(size: 48, pose: MascotPose.cool, tilt: 0),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  achievements.length == 1
-                      ? 'Logro nuevo: ${first.title}'
-                      : '${achievements.length} logros nuevos',
-                  style: context.texts.titleMedium,
-                ),
-                Text(first.description,
-                    style: context.texts.bodySmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis),
-              ],
-            ),
-          ),
-          Icon(first.icon, color: p.gold),
-        ],
-      ),
-    ).animate().fadeIn(duration: Motion.base).scaleXY(
-        begin: 0.96, end: 1, duration: Motion.base, curve: Curves.easeOutBack);
+    return SoundOnMount(
+            sound: AppSound.achievement,
+            child: AppCard(
+              onTap: onOpen,
+              accent: true,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Insets.lg, vertical: Insets.md),
+              child: Row(
+                children: [
+                  const MascotSticker(size: 48, pose: MascotPose.cool, tilt: 0),
+                  const SizedBox(width: Insets.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          achievements.length == 1
+                              ? 'Logro nuevo: ${first.title}'
+                              : '${achievements.length} logros nuevos',
+                          style: context.texts.titleMedium,
+                        ),
+                        Text(first.description,
+                            style: context.texts.bodySmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                  ),
+                  Icon(first.icon, color: p.gold),
+                ],
+              ),
+            ))
+        .animate()
+        .fadeIn(duration: Motion.base)
+        .scaleXY(
+            begin: 0.96,
+            end: 1,
+            duration: Motion.base,
+            curve: Curves.easeOutBack);
   }
 }
 
