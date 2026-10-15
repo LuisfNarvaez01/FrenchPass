@@ -152,8 +152,8 @@ class _PracticeHubPageState extends State<PracticeHubPage> {
     if (getIt.isRegistered<PathRepository>()) {
       final path = getIt<PathRepository>();
       final stop = path.next;
-      final premium = getIt.isRegistered<UsageService>() &&
-          getIt<UsageService>().isPremium;
+      final premium =
+          getIt.isRegistered<UsageService>() && getIt<UsageService>().isPremium;
       if (stop != null && path.canStartNew(premium: premium)) {
         return (
           (
@@ -232,8 +232,8 @@ class _PracticeHubPageState extends State<PracticeHubPage> {
                         ),
                       ],
                     ),
-                    stub: SizedBox(
-                      height: 48,
+                    stub: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 48),
                       child: ElevatedButton(
                         onPressed: () => _open(pick.route),
                         child: const Text('Empezar'),

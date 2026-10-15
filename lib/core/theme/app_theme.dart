@@ -82,8 +82,11 @@ class AppTheme {
           elevation: 0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.md)),
+          // A minimum height, never a fixed one: with a large system font
+          // the button grows instead of cutting its label in half.
+          minimumSize: const Size(64, 48),
           padding: const EdgeInsets.symmetric(
-              horizontal: Insets.xl, vertical: Insets.lg),
+              horizontal: Insets.xl, vertical: Insets.md),
           textStyle: GoogleFonts.lato(
               fontWeight: FontWeight.w700, fontSize: 15, letterSpacing: 0.2),
         ),
@@ -96,8 +99,9 @@ class AppTheme {
           side: BorderSide(color: p.borderStrong),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.md)),
+          minimumSize: const Size(64, 48),
           padding: const EdgeInsets.symmetric(
-              horizontal: Insets.lg, vertical: Insets.lg),
+              horizontal: Insets.lg, vertical: Insets.md),
           textStyle: GoogleFonts.lato(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),

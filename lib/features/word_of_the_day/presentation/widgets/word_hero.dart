@@ -226,8 +226,8 @@ class WordActions extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: SizedBox(
-            height: 56,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: ElevatedButton.icon(
               onPressed: onPractice,
               icon: Icon(icon, size: 20),

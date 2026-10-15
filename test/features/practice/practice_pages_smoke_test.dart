@@ -1,6 +1,7 @@
 // Mounts every practice screen and walks into its exercise, to catch
 // layout and wiring errors that only show up at runtime.
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -185,6 +186,22 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.text('Prueba de nivel · A1'), findsOneWidget);
     expect(find.byType(FeedbackBanner), findsNothing);
+  });
+
+  testWidgets('with a large system font, button labels are never clipped',
+      (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await mount(tester, const PracticeHubPage());
+    expect(tester.takeException(), isNull);
+    // The label gets at least the height its text needs; a fixed-height
+    // button squeezes it and the glyphs are cut.
+    final paragraph =
+        tester.renderObject<RenderParagraph>(find.text('Empezar'));
+    final needed = paragraph.getMinIntrinsicHeight(paragraph.size.width);
+    expect(paragraph.size.height, greaterThanOrEqualTo(needed - 0.5),
+        reason: 'the label needs $needed px and gets '
+            '${paragraph.size.height}');
   });
 
   testWidgets('welcome: the promise and the two ways in', (tester) async {

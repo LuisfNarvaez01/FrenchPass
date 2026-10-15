@@ -323,8 +323,10 @@ class _SearchField extends StatelessWidget {
       borderRadius: BorderRadius.circular(Radii.pill),
       borderSide: BorderSide.none,
     );
-    return SizedBox(
-      height: 48,
+    // No fixed height: the padding sets it, so a large system font grows
+    // the field instead of clipping the text.
+    return Material(
+      type: MaterialType.transparency,
       child: TextField(
         controller: controller,
         onChanged: onChanged,
@@ -346,7 +348,7 @@ class _SearchField extends StatelessWidget {
                 ),
           filled: true,
           fillColor: p.surface,
-          contentPadding: EdgeInsets.zero,
+          contentPadding: const EdgeInsets.symmetric(vertical: Insets.md),
           border: shape,
           enabledBorder: shape,
           focusedBorder: OutlineInputBorder(

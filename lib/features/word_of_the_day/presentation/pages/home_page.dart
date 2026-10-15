@@ -173,8 +173,7 @@ class _HomeViewState extends State<_HomeView>
                                   : state.stop?.keyItem != null
                                       ? 'Palabra del día · '
                                           '${state.stop!.titleEs}'
-                                      : 'Palabra del día · '
-                                          '${_todayFormatted()}',
+                                      : 'Palabra del día',
                               speaking: speaking,
                               sequenceSpeaking: sequenceSpeaking,
                               onListen: () => speak(word.french),
@@ -319,35 +318,6 @@ class _HomeViewState extends State<_HomeView>
         ],
       ],
     ).animate().fadeIn(delay: Motion.stagger(3));
-  }
-
-  String _todayFormatted() {
-    final now = DateTime.now();
-    const months = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre',
-    ];
-    const weekdays = [
-      'lunes',
-      'martes',
-      'miércoles',
-      'jueves',
-      'viernes',
-      'sábado',
-      'domingo',
-    ];
-    final weekday = weekdays[now.weekday - 1];
-    return '$weekday ${now.day} de ${months[now.month - 1]}';
   }
 }
 

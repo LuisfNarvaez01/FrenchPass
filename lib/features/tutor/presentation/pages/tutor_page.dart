@@ -363,7 +363,8 @@ class _ContinuePass extends StatelessWidget {
                 Text(
                   session != null
                       ? '${sessionDateEs(session.date)} · '
-                          '${session.spokenLines} frases tuyas'
+                          '${session.spokenLines} '
+                          '${session.spokenLines == 1 ? 'frase tuya' : 'frases tuyas'}'
                       : (upcoming?.subtitleEs ?? ''),
                   style: context.texts.bodySmall,
                 ),
@@ -394,8 +395,8 @@ class _ContinuePass extends StatelessWidget {
             children: [
               if (onReview != null) ...[
                 Expanded(
-                  child: SizedBox(
-                    height: 48,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 48),
                     child: OutlinedButton(
                       onPressed: onReview,
                       child: const Text('Repasar'),
@@ -406,8 +407,8 @@ class _ContinuePass extends StatelessWidget {
               ],
               if (onStart != null)
                 Expanded(
-                  child: SizedBox(
-                    height: 48,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 48),
                     child: ElevatedButton(
                       onPressed: onStart,
                       child: Text(session != null ? 'Siguiente' : 'Empezar'),
