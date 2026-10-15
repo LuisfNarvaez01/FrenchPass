@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:french_pass/core/services/storage_service.dart';
+import 'package:french_pass/features/path/data/journey_format.dart';
 import 'package:french_pass/features/path/domain/journey.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 
@@ -20,16 +19,22 @@ class PathRepository {
   List<PathStop> _stops = const [];
   List<PathStop> get stops => _stops;
 
+  /// Loads every stage's file, in journey order. A stage without a file
+  /// (none today) shows as coming soon.
   Future<void> load({AssetBundle? bundle}) async {
-    final raw =
-        await (bundle ?? rootBundle).loadString('assets/data/journey.json');
-    _stops = parse(raw);
+    final assets = bundle ?? rootBundle;
+    final stops = <PathStop>[];
+    for (final stage in Stage.values) {
+      try {
+        final raw =
+            await assets.loadString('assets/data/journey/${stage.key}.json');
+        stops.addAll(JourneyFormat.parseStage(raw));
+      } on FlutterError {
+        // Not bundled in this version.
+      }
+    }
+    _stops = stops;
   }
-
-  static List<PathStop> parse(String raw) => [
-        for (final j in (jsonDecode(raw) as List).cast<Map<String, dynamic>>())
-          PathStop.fromJson(j),
-      ];
 
   @visibleForTesting
   set stopsForTesting(List<PathStop> stops) => _stops = stops;

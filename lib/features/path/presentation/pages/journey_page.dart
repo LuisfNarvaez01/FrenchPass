@@ -239,8 +239,9 @@ class _StageStation extends StatelessWidget {
   }
 }
 
-/// The stops of a stage, grouped by week.
-class _StopList extends StatelessWidget {
+/// The weeks of a stage. The week in progress is open, showing its stops;
+/// the others fold into one line with their theme and open on a tap.
+class _StopList extends StatefulWidget {
   final Stage stage;
   final PathRepository path;
   final ValueChanged<PathStop> onOpen;
@@ -252,48 +253,123 @@ class _StopList extends StatelessWidget {
   });
 
   @override
+  State<_StopList> createState() => _StopListState();
+}
+
+class _StopListState extends State<_StopList> {
+  final Set<int> _open = {};
+
+  @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final stops = path.stopsIn(stage);
+    final path = widget.path;
+    final stops = path.stopsIn(widget.stage);
     final weeks = {for (final s in stops) s.week}.toList()..sort();
     final next = path.next;
+    final current = next?.stage == widget.stage ? next!.week : null;
+
+    String themeOf(int week) {
+      final checkpoint = stops.lastWhere(
+          (s) => s.week == week && s.kind == StopKind.checkpoint,
+          orElse: () => stops.firstWhere((s) => s.week == week));
+      return checkpoint.titleEs.replaceFirst('Reto: ', '');
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final week in weeks) ...[
-          Padding(
-            padding: const EdgeInsets.only(bottom: Insets.sm),
-            child: Text('SEMANA $week', style: AppTheme.eyebrow(context)),
-          ),
-          RowGroup(
-            indent: 60,
-            children: [
-              for (final (i, stop)
-                  in stops.where((s) => s.week == week).indexed)
-                ListRow(
-                  enabled: path.isOpen(stop),
-                  leading: _StopNode(
-                    number: i + 1,
-                    kind: stop.kind,
-                    done: path.isDone(stop),
-                    next: stop.id == next?.id,
+          if (week == current || _open.contains(week)) ...[
+            Padding(
+              padding: const EdgeInsets.only(bottom: Insets.sm),
+              child: Text('SEMANA $week · ${themeOf(week).toUpperCase()}',
+                  style: AppTheme.eyebrow(context),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis),
+            ),
+            RowGroup(
+              indent: 60,
+              children: [
+                for (final (i, stop)
+                    in stops.where((s) => s.week == week).indexed)
+                  ListRow(
+                    enabled: path.isOpen(stop),
+                    leading: _StopNode(
+                      number: i + 1,
+                      kind: stop.kind,
+                      done: path.isDone(stop),
+                      next: stop.id == next?.id,
+                    ),
+                    title: stop.titleEs,
+                    detail: switch (stop.kind) {
+                      StopKind.lesson => stop.goalEs,
+                      StopKind.review => 'Repaso · ${stop.goalEs}',
+                      StopKind.checkpoint => 'Reto · ${stop.goalEs}',
+                    },
+                    trailing: path.isOpen(stop)
+                        ? null
+                        : Icon(Icons.lock_outline_rounded,
+                            size: 18, color: p.textMuted),
+                    onTap: () => widget.onOpen(stop),
                   ),
-                  title: stop.titleEs,
-                  detail: switch (stop.kind) {
-                    StopKind.lesson => stop.goalEs,
-                    StopKind.review => 'Repaso · ${stop.goalEs}',
-                    StopKind.checkpoint => 'Reto · ${stop.goalEs}',
-                  },
-                  trailing: path.isOpen(stop)
-                      ? null
-                      : Icon(Icons.lock_outline_rounded,
-                          size: 18, color: p.textMuted),
-                  onTap: () => onOpen(stop),
-                ),
-            ],
-          ),
+              ],
+            ),
+          ] else
+            _WeekRow(
+              week: week,
+              theme: themeOf(week),
+              done: stops
+                  .where((s) => s.week == week)
+                  .every((s) => path.isDone(s)),
+              onTap: () => setState(() => _open.add(week)),
+            ),
           const SizedBox(height: Insets.md),
         ],
+      ],
+    );
+  }
+}
+
+/// A folded week: its number, its theme, and whether it is done.
+class _WeekRow extends StatelessWidget {
+  final int week;
+  final String theme;
+  final bool done;
+  final VoidCallback onTap;
+
+  const _WeekRow({
+    required this.week,
+    required this.theme,
+    required this.done,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return RowGroup(
+      children: [
+        ListRow(
+          leading: Container(
+            width: 32,
+            height: 32,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: done ? p.good.withValues(alpha: 0.16) : p.surfaceAlt,
+            ),
+            child: done
+                ? Icon(Icons.check_rounded, size: 18, color: p.good)
+                : Text('$week',
+                    style: context.texts.labelLarge
+                        ?.copyWith(color: p.textSecondary)),
+          ),
+          title: 'Semana $week',
+          detail: theme,
+          trailing:
+              Icon(Icons.expand_more_rounded, size: 20, color: p.textMuted),
+          onTap: onTap,
+        ),
       ],
     );
   }

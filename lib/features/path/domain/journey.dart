@@ -3,48 +3,57 @@
 /// the stage is what the learner lives.
 enum Stage {
   depart(
+    'depart',
     'Départ',
     'Desde cero',
     'Saludar, despedirte y decir tu nombre. Tus primeras 30 palabras.',
     null,
   ),
   premiersPas(
+    'premiers',
     'Premiers pas',
     'Principiante',
     'Presentarte, contar y decir qué te gusta, en frases cortas.',
     'A1 inicial',
   ),
   auCafe(
+    'cafe',
     'Au café',
     'Básico',
     'Pedir, preguntar precios y caminos, y hablar de tu día.',
     'A1',
   ),
   enVille(
+    'ville',
     'En ville',
     'Pre-intermedio',
     'Contar lo que hiciste, hacer planes y resolver problemas sencillos.',
     'A2',
   ),
   conversations(
+    'conversations',
     'Conversations',
     'Intermedio',
     'Dar tu opinión, contar una historia y charlar cinco minutos.',
     'B1',
   ),
   debats(
+    'debats',
     'Débats',
     'Intermedio avanzado',
     'Argumentar, matizar y entender noticias sin subtítulos.',
     'B2',
   ),
   parisien(
+    'parisien',
     'Comme un Parisien',
     'Avanzado y dominio',
     'Registro formal e informal, expresiones e ironía.',
     'C1–C2',
   );
 
+  /// Short id: the stage's file name and the prefix of its stop ids.
+  final String key;
   final String nameFr;
   final String nameEs;
 
@@ -54,7 +63,7 @@ enum Stage {
   /// The CEFR level it matches, if any.
   final String? cefr;
 
-  const Stage(this.nameFr, this.nameEs, this.canDoEs, this.cefr);
+  const Stage(this.key, this.nameFr, this.nameEs, this.canDoEs, this.cefr);
 
   static Stage? parse(String? raw) {
     for (final s in Stage.values) {

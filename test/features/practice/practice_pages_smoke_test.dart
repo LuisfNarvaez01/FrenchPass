@@ -218,7 +218,9 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.text('Départ'), findsOneWidget);
     expect(find.text('Saludar'), findsOneWidget);
-    expect(find.text('SEMANA 1'), findsOneWidget);
+    expect(find.textContaining('SEMANA 1'), findsOneWidget);
+    // Later weeks are folded into one line each.
+    expect(find.text('Semana 2'), findsOneWidget);
   });
 
   testWidgets('a lesson: learn a word, then answer, then the conversation',

@@ -1,0 +1,244 @@
+{
+  "stage": "depart",
+  "weeks": [
+    {
+      "theme": "Primeros saludos",
+      "goal": "Saludar, decir tu nombre y despedirte en una charla corta",
+      "tutor": "presentarse",
+      "lessons": [
+        {
+          "t": "Saludar",
+          "g": "Saludar a cualquier hora del día",
+          "i": [
+            ["bonjour", "/bɔ̃.ʒuʁ/", "hola, buenos días", "Bonjour, madame !", "¡Buenos días, señora!"],
+            ["salut", "/sa.ly/", "hola (con amigos)", "Salut, Paul !", "¡Hola, Paul!"],
+            ["bonsoir", "/bɔ̃.swaʁ/", "buenas tardes, buenas noches (al llegar)", "Bonsoir, monsieur.", "Buenas noches, señor."]
+          ],
+          "x": [
+            ["c", "Por la mañana saludas a tu profesora. ¿Qué dices?", ["Bonjour, madame !", "Salut !", "Bonsoir !", "Merci !"], "«Bonjour» es el saludo cortés durante el día. «Salut» es solo para amigos."],
+            ["l", "Bonsoir", ["buenas noches (al llegar)", "hola (con amigos)", "buenos días", "adiós"]],
+            ["c", "Te encuentras a un amigo en la calle. ¿Cuál es el saludo más natural?", ["Salut !", "Bonsoir, monsieur.", "Bonjour, madame !", "Au revoir !"], "Entre amigos, «salut» suena cercano."],
+            ["d", [
+              ["Camille", "Salut ! Moi, c'est Camille.", "¡Hola! Yo soy Camille."],
+              ["", ["Salut, Camille !", "Bonsoir, monsieur.", "Merci."], "¡Hola, Camille!"],
+              ["Camille", "Bonjour à toi !", "¡Hola a ti!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Despedirse",
+          "g": "Despedirte con educación",
+          "i": [
+            ["au revoir", "/o ʁə.vwaʁ/", "adiós", "Au revoir, madame.", "Adiós, señora."],
+            ["à bientôt", "/a bjɛ̃.to/", "hasta pronto", "Merci, à bientôt !", "¡Gracias, hasta pronto!"],
+            ["bonne journée", "/bɔn ʒuʁ.ne/", "que tengas buen día", "Au revoir, bonne journée !", "¡Adiós, que tengas buen día!"],
+            ["bonne nuit", "/bɔn nɥi/", "buenas noches (al irse a dormir)", "Bonne nuit, maman.", "Buenas noches, mamá."]
+          ],
+          "x": [
+            ["c", "Sales de una panadería a las 10 de la mañana. ¿Qué dices al irte?", ["Au revoir, bonne journée !", "Bonne nuit !", "Bonsoir !", "Salut !"], "«Bonne journée» desea un buen día; «bonne nuit» es solo antes de dormir."],
+            ["l", "À bientôt", ["hasta pronto", "adiós", "buenas noches", "hola"]],
+            ["c", "¿Cuándo se dice «bonne nuit»?", ["Antes de irse a dormir", "Al llegar a una cena", "Al saludar por la tarde", "Al pedir algo"], "Para saludar por la noche al llegar se usa «bonsoir»."],
+            ["o", "Au revoir, à bientôt !", "¡Adiós, hasta pronto!"],
+            ["d", [
+              ["Le boulanger", "Merci, au revoir !", "¡Gracias, adiós!"],
+              ["", ["Au revoir, bonne journée !", "Bonne nuit !", "Bonjour !"], "¡Adiós, que tenga buen día!"],
+              ["Le boulanger", "À bientôt !", "¡Hasta pronto!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Decir tu nombre",
+          "g": "Decir cómo te llamas y preguntarlo",
+          "i": [
+            ["je m'appelle", "/ʒə ma.pɛl/", "me llamo", "Je m'appelle Lucas.", "Me llamo Lucas."],
+            ["comment tu t'appelles ?", "/kɔ.mɑ̃ ty ta.pɛl/", "¿cómo te llamas?", "Salut ! Comment tu t'appelles ?", "¡Hola! ¿Cómo te llamas?"],
+            ["enchanté", "/ɑ̃.ʃɑ̃.te/", "encantado, mucho gusto", "Enchanté, Camille !", "¡Mucho gusto, Camille!"],
+            ["moi, c'est…", "/mwa sɛ/", "yo soy…", "Moi, c'est Sofia.", "Yo soy Sofía."]
+          ],
+          "x": [
+            ["c", "Alguien te pregunta «Comment tu t'appelles ?». ¿Qué respondes?", ["Je m'appelle Ana.", "Bonne nuit.", "Au revoir.", "Merci."], "«Comment tu t'appelles ?» significa «¿cómo te llamas?»."],
+            ["l", "Enchanté", ["mucho gusto", "me llamo", "hasta pronto", "buenas noches"]],
+            ["o", "Je m'appelle Camille.", "Me llamo Camille."],
+            ["c", "Elige la forma más informal de decir tu nombre.", ["Moi, c'est Tom.", "Je m'appelle Tom, madame.", "Bonsoir, je suis monsieur Tom.", "Enchanté, madame."], "«Moi, c'est…» es la forma relajada entre jóvenes y amigos."],
+            ["d", [
+              ["Camille", "Bonjour ! Je m'appelle Camille. Et toi, comment tu t'appelles ?", "¡Hola! Me llamo Camille. ¿Y tú, cómo te llamas?"],
+              ["", ["Je m'appelle Luis.", "Au revoir, Camille.", "Bonne nuit."], "Me llamo Luis."],
+              ["Camille", "Enchantée, Luis !", "¡Mucho gusto, Luis!"],
+              ["", ["Enchanté !", "Bonsoir, monsieur.", "Comment tu t'appelles ?"], "¡Mucho gusto!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Por favor y gracias",
+          "g": "Pedir, agradecer y disculparte",
+          "i": [
+            ["s'il vous plaît", "/sil vu plɛ/", "por favor", "Un café, s'il vous plaît.", "Un café, por favor."],
+            ["merci", "/mɛʁ.si/", "gracias", "Merci beaucoup !", "¡Muchas gracias!"],
+            ["de rien", "/də ʁjɛ̃/", "de nada", "— Merci ! — De rien.", "—¡Gracias! —De nada."],
+            ["pardon", "/paʁ.dɔ̃/", "perdón, disculpe", "Pardon, madame.", "Disculpe, señora."]
+          ],
+          "x": [
+            ["c", "Pides un café en París. ¿Qué añades al final?", ["s'il vous plaît", "de rien", "bonne nuit", "enchanté"], "En Francia, pedir sin «s'il vous plaît» suena brusco."],
+            ["l", "De rien", ["de nada", "gracias", "perdón", "por favor"]],
+            ["c", "Chocas sin querer con alguien en el metro. ¿Qué dices?", ["Pardon !", "Merci !", "Salut !", "De rien !"]],
+            ["o", "Un café, s'il vous plaît.", "Un café, por favor."],
+            ["d", [
+              ["Le serveur", "Bonjour ! Vous désirez ?", "¡Buenos días! ¿Qué desea?"],
+              ["", ["Un café, s'il vous plaît.", "De rien.", "Bonne nuit."], "Un café, por favor."],
+              ["Le serveur", "Voilà !", "¡Aquí tiene!"],
+              ["", ["Merci !", "Pardon !", "Enchanté !"], "¡Gracias!"],
+              ["Le serveur", "De rien !", "¡De nada!"]
+            ]]
+          ]
+        },
+        {
+          "t": "¿Qué tal?",
+          "g": "Preguntar cómo está alguien y responder",
+          "i": [
+            ["ça va ?", "/sa va/", "¿qué tal?, ¿cómo estás?", "Salut, Léa ! Ça va ?", "¡Hola, Léa! ¿Qué tal?"],
+            ["ça va bien", "/sa va bjɛ̃/", "estoy bien", "Ça va bien, merci.", "Estoy bien, gracias."],
+            ["et toi ?", "/e twa/", "¿y tú?", "Ça va, et toi ?", "Bien, ¿y tú?"],
+            ["pas mal", "/pa mal/", "no está mal, bastante bien", "— Ça va ? — Pas mal !", "—¿Qué tal? —¡Bastante bien!"]
+          ],
+          "x": [
+            ["c", "Te preguntan «Ça va ?». ¿Cuál NO es una respuesta?", ["Je m'appelle Ana.", "Ça va bien, merci.", "Pas mal, et toi ?", "Ça va !"]],
+            ["l", "Et toi ?", ["¿y tú?", "¿qué tal?", "gracias", "estoy bien"]],
+            ["o", "Ça va bien, et toi ?", "Estoy bien, ¿y tú?"],
+            ["d", [
+              ["Léa", "Salut ! Ça va ?", "¡Hola! ¿Qué tal?"],
+              ["", ["Ça va bien, et toi ?", "Au revoir !", "S'il vous plaît."], "Bien, ¿y tú?"],
+              ["Léa", "Pas mal, merci !", "¡Bastante bien, gracias!"]
+            ]]
+          ]
+        }
+      ],
+      "cp": [
+        ["Hugo", "Bonsoir !", "¡Buenas noches!"],
+        ["", ["Bonsoir !", "Bonne nuit !", "De rien !"], "¡Buenas noches!"],
+        ["Hugo", "Je m'appelle Hugo. Et toi ?", "Me llamo Hugo. ¿Y tú?"],
+        ["", ["Moi, c'est Marta. Enchantée !", "Merci beaucoup !", "Ça va bien."], "Yo soy Marta. ¡Mucho gusto!"],
+        ["Hugo", "Enchanté ! Ça va ?", "¡Mucho gusto! ¿Qué tal?"],
+        ["", ["Pas mal, et toi ?", "Pardon, madame.", "Au revoir."], "Bastante bien, ¿y tú?"],
+        ["Hugo", "Ça va bien. Bon, à bientôt !", "Bien. Bueno, ¡hasta pronto!"],
+        ["", ["Au revoir, à bientôt !", "Bonjour !", "S'il vous plaît."], "¡Adiós, hasta pronto!"]
+      ]
+    },
+    {
+      "theme": "Salir del paso",
+      "goal": "Pedir ayuda, decir que no entiendes y ubicarte en la semana",
+      "tutor": "direcciones",
+      "lessons": [
+        {
+          "t": "No entiendo",
+          "g": "Pedir que te repitan sin pasar vergüenza",
+          "i": [
+            ["je ne comprends pas", "/ʒə nə kɔ̃.pʁɑ̃ pa/", "no entiendo", "Pardon, je ne comprends pas.", "Perdón, no entiendo."],
+            ["vous pouvez répéter ?", "/vu pu.ve ʁe.pe.te/", "¿puede repetir?", "Vous pouvez répéter, s'il vous plaît ?", "¿Puede repetir, por favor?"],
+            ["plus lentement", "/ply lɑ̃t.mɑ̃/", "más despacio", "Plus lentement, s'il vous plaît.", "Más despacio, por favor."],
+            ["je ne sais pas", "/ʒə nə sɛ pa/", "no sé", "Je ne sais pas, désolé.", "No sé, lo siento."]
+          ],
+          "x": [
+            ["c", "Alguien te habla muy rápido. ¿Qué le pides?", ["Plus lentement, s'il vous plaît.", "Bonne nuit, madame.", "Je m'appelle Ana.", "Pas mal, merci."]],
+            ["l", "Je ne comprends pas", ["no entiendo", "no sé", "no me gusta", "no hablo"]],
+            ["c", "«Je ne sais pas» significa…", ["no sé", "no entiendo", "no puedo", "no quiero"], "«Savoir» es saber; «comprendre», entender."],
+            ["o", "Vous pouvez répéter, s'il vous plaît ?", "¿Puede repetir, por favor?"],
+            ["d", [
+              ["La dame", "Le musée est à droite, après le pont, au bout de la rue.", "El museo está a la derecha, después del puente, al final de la calle."],
+              ["", ["Pardon, je ne comprends pas. Plus lentement, s'il vous plaît.", "Bonne nuit !", "Je m'appelle Paul."], "Perdón, no entiendo. Más despacio, por favor."],
+              ["La dame", "Le musée… est… à droite.", "El museo… está… a la derecha."],
+              ["", ["Merci beaucoup !", "Je ne sais pas.", "Au revoir, salut."], "¡Muchas gracias!"]
+            ]]
+          ]
+        },
+        {
+          "t": "¿Hablas francés?",
+          "g": "Decir qué idiomas hablas",
+          "i": [
+            ["je parle", "/ʒə paʁl/", "hablo", "Je parle espagnol.", "Hablo español."],
+            ["un peu", "/œ̃ pø/", "un poco", "Je parle un peu français.", "Hablo un poco de francés."],
+            ["le français", "/lə fʁɑ̃.sɛ/", "el francés", "J'apprends le français.", "Aprendo francés."],
+            ["vous parlez anglais ?", "/vu paʁ.le ɑ̃.ɡlɛ/", "¿habla usted inglés?", "Pardon, vous parlez anglais ?", "Perdón, ¿habla inglés?"]
+          ],
+          "x": [
+            ["c", "¿Cómo dices «hablo un poco de francés»?", ["Je parle un peu français.", "Je parle peu un français.", "Je un peu parle français.", "Je parle peu de un français."]],
+            ["l", "Vous parlez anglais ?", ["¿habla usted inglés?", "¿es usted inglés?", "¿le gusta el inglés?", "¿aprende inglés?"]],
+            ["c", "Los idiomas en francés se escriben…", ["en minúscula: le français, l'espagnol", "en mayúscula: le Français", "siempre con «de»", "sin artículo"], "Como en español, los idiomas van en minúscula."],
+            ["o", "Je parle un peu français.", "Hablo un poco de francés."],
+            ["d", [
+              ["Marc", "Tu parles français ?", "¿Hablas francés?"],
+              ["", ["Oui, un peu. Je parle espagnol.", "Non, je m'appelle Marc.", "Bonne journée !"], "Sí, un poco. Hablo español."],
+              ["Marc", "Super ! Ton français est bien !", "¡Genial! ¡Tu francés está bien!"],
+              ["", ["Merci beaucoup !", "De rien !", "Pardon !"], "¡Muchas gracias!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Señor, señora",
+          "g": "Dirigirte a las personas con respeto",
+          "i": [
+            ["monsieur", "/mə.sjø/", "señor", "Bonjour, monsieur !", "¡Buenos días, señor!"],
+            ["madame", "/ma.dam/", "señora", "Merci, madame.", "Gracias, señora."],
+            ["un ami", "/œ̃.n‿a.mi/", "un amigo", "C'est un ami.", "Es un amigo."],
+            ["une amie", "/yn a.mi/", "una amiga", "C'est une amie de Paris.", "Es una amiga de París."]
+          ],
+          "x": [
+            ["c", "Entras en una tienda y te atiende un hombre. ¿Cómo saludas?", ["Bonjour, monsieur.", "Salut, madame.", "Bonsoir, une amie.", "Bonjour, ami."], "En Francia es muy cortés añadir «monsieur» o «madame» al saludo."],
+            ["l", "une amie", ["una amiga", "un amigo", "una señora", "una hermana"]],
+            ["c", "«Un ami» y «une amie» suenan…", ["igual", "muy distinto", "solo cambia la primera letra", "una lleva acento"], "Se pronuncian igual; la diferencia está en «un» / «une»."],
+            ["d", [
+              ["La vendeuse", "Bonjour !", "¡Buenos días!"],
+              ["", ["Bonjour, madame !", "Salut, monsieur !", "Bonne nuit, amie !"], "¡Buenos días, señora!"],
+              ["La vendeuse", "Vous êtes avec un ami ?", "¿Viene con un amigo?"],
+              ["", ["Oui, avec une amie.", "Non, je ne sais pas.", "De rien, madame."], "Sí, con una amiga."]
+            ]]
+          ]
+        },
+        {
+          "t": "Pedir ayuda",
+          "g": "Preguntar dónde está algo",
+          "i": [
+            ["excusez-moi", "/ɛk.sky.ze mwa/", "disculpe", "Excusez-moi, madame…", "Disculpe, señora…"],
+            ["où est… ?", "/u ɛ/", "¿dónde está…?", "Où est la gare ?", "¿Dónde está la estación?"],
+            ["les toilettes", "/le twa.lɛt/", "el baño", "Où sont les toilettes ?", "¿Dónde está el baño?"],
+            ["ici", "/i.si/", "aquí", "C'est ici !", "¡Es aquí!"]
+          ],
+          "x": [
+            ["c", "Quieres preguntar dónde está el baño en un restaurante.", ["Excusez-moi, où sont les toilettes ?", "Bonne nuit, les toilettes.", "Je m'appelle toilettes.", "Les toilettes, merci beaucoup."], "«Toilettes» va en plural en francés: où SONT les toilettes."],
+            ["l", "Où est la gare ?", ["¿dónde está la estación?", "¿qué hora es?", "¿dónde vives?", "¿cómo te llamas?"]],
+            ["o", "Excusez-moi, où est le métro ?", "Disculpe, ¿dónde está el metro?"],
+            ["d", [
+              ["", ["Excusez-moi, monsieur. Où est le métro ?", "Salut ! Ça va ?", "Bonne nuit, monsieur."], "Disculpe, señor. ¿Dónde está el metro?"],
+              ["Le passant", "Le métro ? C'est ici, à côté.", "¿El metro? Es aquí, al lado."],
+              ["", ["Merci beaucoup, monsieur !", "Je ne parle pas.", "Enchanté, le métro."], "¡Muchas gracias, señor!"],
+              ["Le passant", "De rien, bonne journée !", "¡De nada, buen día!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Los días de la semana",
+          "g": "Decir qué día es",
+          "i": [
+            ["lundi", "/lœ̃.di/", "lunes", "Lundi, je travaille.", "El lunes trabajo."],
+            ["mardi", "/maʁ.di/", "martes", "À mardi !", "¡Hasta el martes!"],
+            ["mercredi", "/mɛʁ.kʁə.di/", "miércoles", "Mercredi, c'est le cinéma.", "El miércoles es el cine."],
+            ["jeudi", "/ʒø.di/", "jueves", "On se voit jeudi ?", "¿Nos vemos el jueves?"],
+            ["vendredi", "/vɑ̃.dʁə.di/", "viernes", "Vendredi soir, je sors.", "El viernes por la noche salgo."],
+            ["le week-end", "/lə wi.kɛnd/", "el fin de semana", "Bon week-end !", "¡Buen fin de semana!"]
+          ],
+          "x": [
+            ["c", "¿Qué día va después de «mardi»?", ["mercredi", "lundi", "jeudi", "vendredi"]],
+            ["l", "jeudi", ["jueves", "martes", "lunes", "viernes"]],
+            ["c", "«À vendredi !» significa…", ["¡Hasta el viernes!", "¡Es viernes!", "¡Buen viernes!", "¡El viernes no!"], "«À» + momento = hasta ese momento: à demain, à lundi."],
+            ["o", "On se voit jeudi ?", "¿Nos vemos el jueves?"],
+            ["d", [
+              ["Inès", "On va au cinéma mercredi ?", "¿Vamos al cine el miércoles?"],
+              ["", ["Non, mercredi je travaille. Jeudi ?", "Oui, je ne comprends pas.", "Bonne nuit, mercredi."], "No, el miércoles trabajo. ¿El jueves?"],
+              ["Inès", "D'accord, jeudi ! À jeudi !", "¡Vale, el jueves! ¡Hasta el jueves!"],
+              ["", ["À jeudi !", "À lundi !", "Pardon, madame."], "¡Hasta el jueves!"]
+            ]]
+          ]
+        }
+      ]
+    }
+  ]
+}

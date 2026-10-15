@@ -3,23 +3,46 @@ import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:french_pass/core/services/storage_service.dart';
+import 'package:french_pass/features/path/data/journey_format.dart';
 import 'package:french_pass/features/path/data/path_repository.dart';
 import 'package:french_pass/features/path/domain/journey.dart';
 import 'package:french_pass/features/path/domain/lesson_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  final stops =
-      PathRepository.parse(File('assets/data/journey.json').readAsStringSync());
+  final stops = [
+    for (final stage in Stage.values)
+      ...JourneyFormat.parseStage(
+          File('assets/data/journey/${stage.key}.json').readAsStringSync()),
+  ];
 
   group('the content', () {
-    test('each built week has five lessons, a review and a checkpoint', () {
-      for (final stage in {for (final s in stops) s.stage}) {
-        final week = stops.where((s) => s.stage == stage && s.week == 1);
-        expect(week.length, 7, reason: stage.name);
-        expect(week.where((s) => s.kind == StopKind.lesson).length, 5);
-        expect(week.last.kind, StopKind.checkpoint);
+    test('every stage is built, with weeks of five lessons, review, checkpoint',
+        () {
+      for (final stage in Stage.values) {
+        final mine = stops.where((s) => s.stage == stage).toList();
+        expect(mine, isNotEmpty, reason: '${stage.name} has no lessons');
+        final weeks = {for (final s in mine) s.week};
+        expect(weeks.length, greaterThanOrEqualTo(2), reason: stage.name);
+        for (final w in weeks) {
+          final week = mine.where((s) => s.week == w).toList();
+          expect(week.length, 7, reason: '${stage.name} week $w');
+          expect(week.where((s) => s.kind == StopKind.lesson).length, 5);
+          expect(week[5].kind, StopKind.review);
+          expect(week[6].kind, StopKind.checkpoint);
+        }
       }
+      expect(stops.where((s) => s.kind == StopKind.lesson).length,
+          greaterThanOrEqualTo(150));
+    });
+
+    test('ids are unique and the first week keeps its old ids', () {
+      expect({for (final s in stops) s.id}.length, stops.length);
+      expect(stops.first.id, 'depart-1');
+      expect(stops.firstWhere((s) => s.stage == Stage.premiersPas).id,
+          'premiers-1');
+      expect(stops[6].id, 'depart-7');
+      expect(stops[6].kind, StopKind.checkpoint);
     });
 
     test('every lesson teaches words and ends on a conversation', () {
@@ -31,19 +54,24 @@ void main() {
       }
     });
 
-    test('answers point at a real option and options do not repeat', () {
-      for (final stop in stops) {
-        for (final step in stop.exercises) {
+    test('after shuffling, every answer still points at the right option',
+        () {
+      for (final stop in stops.where((s) => s.kind == StopKind.lesson)) {
+        final authored = {
+          for (final e in stop.exercises)
+            if (e case ChoiceStep(:final prompt, :final options))
+              prompt: options.first,
+        };
+        for (final step in LessonBuilder.build(stop, stops, random: Random(7))) {
           switch (step) {
-            case ChoiceStep(:final options, :final answer):
-            case ListenStep(:final options, :final answer):
-              expect(answer, inInclusiveRange(0, options.length - 1),
-                  reason: stop.id);
-              expect(options.toSet().length, options.length, reason: stop.id);
+            case ChoiceStep(:final prompt, :final options, :final answer):
+              expect(answer, inInclusiveRange(0, options.length - 1));
+              if (authored[prompt] case final right?) {
+                expect(options[answer], right, reason: stop.id);
+              }
             case DialogueStep(:final lines):
               for (final l in lines.where((l) => l.isLearner)) {
-                expect(l.answer, inInclusiveRange(0, l.options.length - 1),
-                    reason: stop.id);
+                expect(l.answer, inInclusiveRange(0, l.options.length - 1));
               }
             default:
           }
@@ -51,23 +79,27 @@ void main() {
       }
     });
 
-    test('a review and a checkpoint quiz only what the week taught', () {
-      final review = stops.firstWhere((s) => s.kind == StopKind.review);
-      final taught = {
-        for (final s in stops)
-          if (s.stage == review.stage && s.kind == StopKind.lesson)
-            for (final i in s.items) i.es,
-      };
-      final steps = LessonBuilder.build(review, stops, random: Random(2));
-      expect(steps.length, greaterThanOrEqualTo(6));
-      for (final step in steps) {
-        if (step case ChoiceStep(:final options, :final answer)) {
-          expect(taught, contains(options[answer]));
+    test('reviews and checkpoints quiz only what their week taught', () {
+      for (final stop in stops.where((s) => s.kind != StopKind.lesson)) {
+        final taught = {
+          for (final s in stops)
+            if (s.stage == stop.stage &&
+                s.week == stop.week &&
+                s.kind == StopKind.lesson)
+              for (final i in s.items) i.es,
+        };
+        final steps = LessonBuilder.build(stop, stops, random: Random(2));
+        expect(steps.length, greaterThanOrEqualTo(6), reason: stop.id);
+        for (final step in steps) {
+          if (step case ChoiceStep(:final options, :final answer, :final about)
+              when about != null) {
+            expect(taught, contains(options[answer]), reason: stop.id);
+          }
+        }
+        if (stop.kind == StopKind.checkpoint) {
+          expect(steps.last, isA<DialogueStep>(), reason: stop.id);
         }
       }
-      final checkpoint = stops.firstWhere((s) => s.kind == StopKind.checkpoint);
-      final cpSteps = LessonBuilder.build(checkpoint, stops, random: Random(2));
-      expect(cpSteps.last, isA<DialogueStep>());
     });
   });
 
@@ -98,22 +130,19 @@ void main() {
       expect(path.newToday(now: day), 3);
       expect(path.canStartNew(premium: false, now: day), isFalse);
       expect(path.canStartNew(premium: true, now: day), isTrue);
-      // Going over a stop already done doesn't count.
       await path.complete(stops.first, now: day);
-      expect(path.newToday(now: day), 3);
-      // A new day, a new allowance.
+      expect(path.newToday(now: day), 3, reason: 'a done stop does not count');
       expect(
           path.canStartNew(
               premium: false, now: day.add(const Duration(days: 1))),
           isTrue);
     });
 
-    test('a placement past the built stages skips them', () async {
-      await path.setStartStage(Stage.premiersPas);
-      expect(path.next?.stage, Stage.premiersPas);
-      expect(path.progressIn(Stage.depart), 1);
+    test('the placement stage skips everything before it', () async {
       await path.setStartStage(Stage.enVille);
-      expect(path.next, isNull, reason: 'that stage is not built yet');
+      expect(path.next?.stage, Stage.enVille);
+      expect(path.next?.id, 'ville-1');
+      expect(path.progressIn(Stage.auCafe), 1);
       expect(path.currentStage, Stage.enVille);
     });
 

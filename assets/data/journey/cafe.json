@@ -1,0 +1,552 @@
+{
+  "stage": "auCafe",
+  "weeks": [
+    {
+      "theme": "En el café",
+      "goal": "Pedir, preguntar el precio y pagar en un café o una panadería",
+      "tutor": "cafe",
+      "lessons": [
+        {
+          "t": "Quisiera…",
+          "g": "Pedir con la fórmula cortés",
+          "i": [
+            ["je voudrais", "/ʒə vu.dʁɛ/", "quisiera", "Je voudrais un thé, s'il vous plaît.", "Quisiera un té, por favor."],
+            ["un thé", "/œ̃ te/", "un té", "Un thé au citron.", "Un té con limón."],
+            ["un jus d'orange", "/œ̃ ʒy dɔ.ʁɑ̃ʒ/", "un zumo de naranja", "Un jus d'orange pressé.", "Un zumo de naranja natural."],
+            ["c'est tout", "/sɛ tu/", "eso es todo", "Non merci, c'est tout.", "No, gracias, eso es todo."]
+          ],
+          "x": [
+            ["c", "¿Cuál es la forma más educada de pedir?", ["Je voudrais un café.", "Je veux un café.", "Donne un café.", "Un café, vite."], "«Je voudrais» (quisiera) es la fórmula cortés; «je veux» suena exigente."],
+            ["l", "C'est tout", ["eso es todo", "es todo tuyo", "todo bien", "es poco"]],
+            ["o", "Je voudrais un thé, s'il vous plaît.", "Quisiera un té, por favor."],
+            ["d", [
+              ["Le serveur", "Bonjour, vous désirez ?", "Buenos días, ¿qué desea?"],
+              ["", ["Je voudrais un jus d'orange, s'il vous plaît.", "Je veux orange.", "Bonne nuit, un jus."], "Quisiera un zumo de naranja, por favor."],
+              ["Le serveur", "Et avec ça ?", "¿Algo más?"],
+              ["", ["C'est tout, merci.", "C'est jus.", "Moi aussi."], "Eso es todo, gracias."]
+            ]]
+          ]
+        },
+        {
+          "t": "En la panadería",
+          "g": "Comprar pan y bollería",
+          "i": [
+            ["une baguette", "/yn ba.ɡɛt/", "una barra de pan", "Une baguette bien cuite.", "Una barra bien hecha."],
+            ["un croissant", "/œ̃ kʁwa.sɑ̃/", "un cruasán", "Deux croissants, s'il vous plaît.", "Dos cruasanes, por favor."],
+            ["un pain au chocolat", "/œ̃ pɛ̃ o ʃɔ.kɔ.la/", "una napolitana de chocolate", "Un pain au chocolat, c'est délicieux.", "Una napolitana de chocolate está deliciosa."],
+            ["combien ça coûte ?", "/kɔ̃.bjɛ̃ sa kut/", "¿cuánto cuesta?", "Combien ça coûte, la baguette ?", "¿Cuánto cuesta la barra?"]
+          ],
+          "x": [
+            ["c", "Quieres saber el precio. ¿Qué preguntas?", ["Combien ça coûte ?", "Combien tu as ?", "C'est quand ?", "Où est le prix ?"]],
+            ["l", "Un pain au chocolat", ["una napolitana de chocolate", "un pan con chocolate negro", "un chocolate caliente", "un pastel de chocolate"]],
+            ["o", "Deux croissants, s'il vous plaît.", "Dos cruasanes, por favor."],
+            ["d", [
+              ["La boulangère", "Bonjour monsieur !", "¡Buenos días, señor!"],
+              ["", ["Bonjour ! Une baguette et deux croissants, s'il vous plaît.", "Salut ! Donne baguette.", "Bonsoir, je suis baguette."], "¡Buenos días! Una barra y dos cruasanes, por favor."],
+              ["La boulangère", "Voilà. Ça fait trois euros dix.", "Aquí tiene. Son tres euros con diez."],
+              ["", ["Voilà. Merci, bonne journée !", "Combien tu as ?", "C'est tout, madame ?"], "Aquí tiene. ¡Gracias, buen día!"]
+            ]]
+          ]
+        },
+        {
+          "t": "En el restaurante",
+          "g": "Leer la carta y pedir un menú",
+          "i": [
+            ["la carte", "/la kaʁt/", "la carta, el menú", "La carte, s'il vous plaît.", "La carta, por favor."],
+            ["une entrée", "/yn ɑ̃.tʁe/", "un entrante", "Comme entrée, une salade.", "De entrante, una ensalada."],
+            ["le plat", "/lə pla/", "el plato principal", "Le plat du jour, c'est le poulet.", "El plato del día es el pollo."],
+            ["le dessert", "/lə de.sɛʁ/", "el postre", "Et comme dessert ?", "¿Y de postre?"]
+          ],
+          "x": [
+            ["c", "En un restaurante francés, «l'entrée» es…", ["el entrante", "la entrada del local", "el plato principal", "la bebida"], "Falso amigo: «l'entrée» es el primer plato, no el plato principal."],
+            ["l", "Le plat du jour", ["el plato del día", "la carta del día", "el postre del día", "el día del plato"]],
+            ["o", "Comme dessert, une mousse au chocolat.", "De postre, una mousse de chocolate."],
+            ["d", [
+              ["La serveuse", "Vous avez choisi ?", "¿Ya ha elegido?"],
+              ["", ["Oui. Comme entrée, une soupe, et comme plat, le poisson.", "Oui, la carte est entrée.", "Non, je suis dessert."], "Sí. De entrante, una sopa, y de plato principal, el pescado."],
+              ["La serveuse", "Très bien. Et comme dessert ?", "Muy bien. ¿Y de postre?"],
+              ["", ["Une tarte aux pommes, s'il vous plaît.", "Une baguette, merci.", "Le dessert, c'est tout."], "Una tarta de manzana, por favor."]
+            ]]
+          ]
+        },
+        {
+          "t": "¿Tienen…?",
+          "g": "Preguntar si hay algo y reaccionar",
+          "i": [
+            ["vous avez… ?", "/vu.z‿a.ve/", "¿tienen…?", "Vous avez du lait ?", "¿Tienen leche?"],
+            ["il n'y a plus de…", "/il nja ply də/", "ya no queda…", "Désolé, il n'y a plus de croissants.", "Lo siento, ya no quedan cruasanes."],
+            ["sans", "/sɑ̃/", "sin", "Un café sans sucre.", "Un café sin azúcar."],
+            ["avec", "/a.vɛk/", "con", "Un thé avec du lait.", "Un té con leche."]
+          ],
+          "x": [
+            ["c", "Pides un café sin azúcar.", ["Un café sans sucre, s'il vous plaît.", "Un café avec sans sucre.", "Un café non sucre.", "Un café pas de sucre avec."]],
+            ["l", "Il n'y a plus de croissants", ["ya no quedan cruasanes", "hay muchos cruasanes", "no me gustan los cruasanes", "quedan dos cruasanes"]],
+            ["o", "Vous avez du lait ?", "¿Tienen leche?"],
+            ["d", [
+              ["", ["Vous avez des pains au chocolat ?", "Vous êtes pain au chocolat ?", "Il n'y a plus de vous."], "¿Tienen napolitanas de chocolate?"],
+              ["Le boulanger", "Désolé, il n'y a plus de pains au chocolat. J'ai des croissants.", "Lo siento, ya no quedan napolitanas. Tengo cruasanes."],
+              ["", ["D'accord, un croissant alors.", "Non, sans moi.", "Avec plus de rien."], "Vale, un cruasán entonces."]
+            ]]
+          ]
+        },
+        {
+          "t": "Pagar",
+          "g": "Pedir la cuenta y elegir cómo pagar",
+          "i": [
+            ["l'addition", "/la.di.sjɔ̃/", "la cuenta", "L'addition, s'il vous plaît.", "La cuenta, por favor."],
+            ["par carte", "/paʁ kaʁt/", "con tarjeta", "Je peux payer par carte ?", "¿Puedo pagar con tarjeta?"],
+            ["en espèces", "/ɑ̃.n‿ɛs.pɛs/", "en efectivo", "Je paie en espèces.", "Pago en efectivo."],
+            ["gardez la monnaie", "/ɡaʁ.de la mɔ.nɛ/", "quédese con el cambio", "Merci, gardez la monnaie.", "Gracias, quédese con el cambio."]
+          ],
+          "x": [
+            ["c", "Terminaste de comer. ¿Qué pides?", ["L'addition, s'il vous plaît.", "La carte, s'il vous plaît.", "Le dessert, c'est tout.", "La monnaie, merci."], "«La carte» es el menú; la cuenta es «l'addition»."],
+            ["l", "Je paie en espèces", ["pago en efectivo", "pago con tarjeta", "pago después", "pago la mitad"]],
+            ["o", "Je peux payer par carte ?", "¿Puedo pagar con tarjeta?"],
+            ["d", [
+              ["", ["L'addition, s'il vous plaît.", "La carte, merci.", "Le plat, c'est tout."], "La cuenta, por favor."],
+              ["Le serveur", "Voilà. Vous payez comment ?", "Aquí tiene. ¿Cómo paga?"],
+              ["", ["Par carte, s'il vous plaît.", "Par addition.", "Avec espèces carte."], "Con tarjeta, por favor."],
+              ["Le serveur", "Parfait. Merci et bonne soirée !", "Perfecto. ¡Gracias y buena noche!"]
+            ]]
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "La ciudad",
+      "goal": "Encontrar un lugar preguntando el camino y moverte en transporte",
+      "tutor": "direcciones",
+      "lessons": [
+        {
+          "t": "Lugares de la ciudad",
+          "g": "Nombrar los sitios que necesitas",
+          "i": [
+            ["la gare", "/la ɡaʁ/", "la estación de tren", "La gare est loin ?", "¿La estación está lejos?"],
+            ["la pharmacie", "/la faʁ.ma.si/", "la farmacia", "Il y a une pharmacie ici ?", "¿Hay una farmacia aquí?"],
+            ["la banque", "/la bɑ̃k/", "el banco", "La banque ferme à cinq heures.", "El banco cierra a las cinco."],
+            ["le supermarché", "/lə sy.pɛʁ.maʁ.ʃe/", "el supermercado", "Je vais au supermarché.", "Voy al supermercado."]
+          ],
+          "x": [
+            ["c", "Completa: «Je vais ___ supermarché.»", ["au", "à le", "à la", "en"], "À + le = au: je vais au cinéma, au parc."],
+            ["c", "Completa: «Je vais ___ pharmacie.»", ["à la", "au", "à le", "aux"]],
+            ["l", "La gare est loin ?", ["¿la estación está lejos?", "¿la estación está cerca?", "¿dónde está el banco?", "¿a qué hora sale el tren?"]],
+            ["d", [
+              ["", ["Excusez-moi, il y a une pharmacie près d'ici ?", "Pardon, je suis pharmacie.", "Où est loin ?"], "Disculpe, ¿hay una farmacia cerca de aquí?"],
+              ["La dame", "Oui, à côté de la banque.", "Sí, al lado del banco."],
+              ["", ["Merci beaucoup, madame !", "Moi non plus.", "Bonne nuit, banque."], "¡Muchas gracias, señora!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Izquierda, derecha",
+          "g": "Entender indicaciones",
+          "i": [
+            ["à gauche", "/a ɡoʃ/", "a la izquierda", "Tournez à gauche.", "Gire a la izquierda."],
+            ["à droite", "/a dʁwat/", "a la derecha", "C'est à droite.", "Está a la derecha."],
+            ["tout droit", "/tu dʁwa/", "todo recto", "Allez tout droit.", "Siga todo recto."],
+            ["la rue", "/la ʁy/", "la calle", "Prenez la deuxième rue.", "Tome la segunda calle."]
+          ],
+          "x": [
+            ["c", "«Tout droit» significa…", ["todo recto", "a la derecha", "todo bien", "enseguida"], "¡Cuidado! «Droite» es derecha, pero «tout droit» es recto."],
+            ["l", "Tournez à gauche", ["gire a la izquierda", "gire a la derecha", "siga recto", "vuelva atrás"]],
+            ["o", "Allez tout droit, puis à droite.", "Siga recto y luego a la derecha."],
+            ["d", [
+              ["", ["Pardon, pour aller à la gare ?", "Pardon, la gare est moi ?", "Bonjour, je suis gare."], "Perdón, ¿para ir a la estación?"],
+              ["Le monsieur", "Allez tout droit, puis prenez la première rue à gauche.", "Siga recto y luego tome la primera calle a la izquierda."],
+              ["", ["Tout droit, puis à gauche. Merci !", "À droite, puis tout gauche.", "Je ne sais pas, merci."], "Recto y luego a la izquierda. ¡Gracias!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Cerca y lejos",
+          "g": "Situar las cosas en el espacio",
+          "i": [
+            ["près de", "/pʁɛ də/", "cerca de", "J'habite près de la gare.", "Vivo cerca de la estación."],
+            ["loin de", "/lwɛ̃ də/", "lejos de", "C'est loin d'ici ?", "¿Está lejos de aquí?"],
+            ["à côté de", "/a ko.te də/", "al lado de", "À côté de la banque.", "Al lado del banco."],
+            ["en face de", "/ɑ̃ fas də/", "enfrente de", "En face du musée.", "Enfrente del museo."]
+          ],
+          "x": [
+            ["c", "Completa: «La poste est en face ___ musée.»", ["du", "de le", "de la", "des"], "De + le = du: en face du musée, à côté du parc."],
+            ["l", "C'est loin d'ici ?", ["¿está lejos de aquí?", "¿está cerca de aquí?", "¿está por aquí?", "¿es de aquí?"]],
+            ["o", "J'habite près de la gare.", "Vivo cerca de la estación."],
+            ["d", [
+              ["Maxime", "Ton hôtel est où ?", "¿Dónde está tu hotel?"],
+              ["", ["Près de la gare, en face d'un café.", "Loin de moi, merci.", "À côté de bonjour."], "Cerca de la estación, enfrente de un café."],
+              ["Maxime", "Ah, c'est à côté de chez moi !", "¡Ah, está al lado de mi casa!"]
+            ]]
+          ]
+        },
+        {
+          "t": "En metro y en bus",
+          "g": "Moverte en transporte público",
+          "i": [
+            ["le métro", "/lə me.tʁo/", "el metro", "Je prends le métro.", "Tomo el metro."],
+            ["le bus", "/lə bys/", "el autobús", "Le bus numéro 21.", "El autobús número 21."],
+            ["à pied", "/a pje/", "a pie, andando", "J'y vais à pied.", "Voy andando."],
+            ["un ticket", "/œ̃ ti.kɛ/", "un billete (de metro o bus)", "Un ticket de métro, s'il vous plaît.", "Un billete de metro, por favor."]
+          ],
+          "x": [
+            ["c", "Completa: «Je vais au travail ___ métro.»", ["en", "à", "par le", "dans"], "Con transportes cerrados se usa «en»: en métro, en bus; pero «à pied», «à vélo»."],
+            ["l", "J'y vais à pied", ["voy andando", "voy en bici", "voy en metro", "no voy"]],
+            ["o", "Je prends le métro tous les jours.", "Tomo el metro todos los días."],
+            ["d", [
+              ["", ["Bonjour, deux tickets de métro, s'il vous plaît.", "Bonjour, je suis métro.", "Deux pieds, merci."], "Hola, dos billetes de metro, por favor."],
+              ["Le guichetier", "Ça fait quatre euros vingt.", "Son cuatro euros con veinte."],
+              ["", ["Voilà. C'est quelle ligne pour la tour Eiffel ?", "Voilà, à pied.", "Merci, bonne nuit, métro."], "Aquí tiene. ¿Qué línea es para la torre Eiffel?"],
+              ["Le guichetier", "La ligne six.", "La línea seis."]
+            ]]
+          ]
+        },
+        {
+          "t": "Hay, no hay",
+          "g": "Usar «il y a»",
+          "i": [
+            ["il y a", "/il ja/", "hay", "Il y a un parc près d'ici.", "Hay un parque cerca de aquí."],
+            ["il n'y a pas de", "/il nja pa də/", "no hay", "Il n'y a pas de métro ici.", "Aquí no hay metro."],
+            ["beaucoup de", "/bo.ku də/", "mucho, muchos", "Il y a beaucoup de touristes.", "Hay muchos turistas."],
+            ["le quartier", "/lə kaʁ.tje/", "el barrio", "J'aime mon quartier.", "Me gusta mi barrio."]
+          ],
+          "x": [
+            ["c", "Completa: «Il n'y a pas ___ banque.»", ["de", "une", "la", "des"], "Tras la negación, un/une/des se vuelve «de»."],
+            ["l", "Il y a beaucoup de touristes", ["hay muchos turistas", "hay pocos turistas", "no hay turistas", "hay un turista"]],
+            ["o", "Il y a un parc près d'ici.", "Hay un parque cerca de aquí."],
+            ["d", [
+              ["Clara", "Il y a quoi dans ton quartier ?", "¿Qué hay en tu barrio?"],
+              ["", ["Il y a un parc et beaucoup de cafés.", "Il est parc et cafés.", "Il n'y a pas de quartier moi."], "Hay un parque y muchos cafés."],
+              ["Clara", "Et un cinéma ?", "¿Y un cine?"],
+              ["", ["Non, il n'y a pas de cinéma.", "Non, il n'y a pas un de cinéma.", "Oui, pas de oui."], "No, no hay cine."]
+            ]]
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "De compras",
+      "goal": "Comprar ropa y comida: tallas, precios y gustos",
+      "tutor": "compras",
+      "lessons": [
+        {
+          "t": "La ropa",
+          "g": "Nombrar prendas básicas",
+          "i": [
+            ["une chemise", "/yn ʃə.miz/", "una camisa", "Une chemise blanche.", "Una camisa blanca."],
+            ["un pantalon", "/œ̃ pɑ̃.ta.lɔ̃/", "un pantalón", "Un pantalon noir.", "Un pantalón negro."],
+            ["une robe", "/yn ʁɔb/", "un vestido", "Elle porte une robe rouge.", "Lleva un vestido rojo."],
+            ["des chaussures", "/de ʃo.syʁ/", "unos zapatos", "Des chaussures confortables.", "Unos zapatos cómodos."]
+          ],
+          "x": [
+            ["c", "«Une robe» es…", ["un vestido", "una bata", "un robo", "una ropa"], "Falso amigo: «la robe» es el vestido."],
+            ["l", "Un pantalon noir", ["un pantalón negro", "una camisa negra", "un abrigo negro", "unos zapatos negros"]],
+            ["o", "Elle porte une robe rouge.", "Lleva un vestido rojo."],
+            ["d", [
+              ["La vendeuse", "Je peux vous aider ?", "¿Puedo ayudarle?"],
+              ["", ["Oui, je cherche une chemise blanche.", "Oui, je suis une chemise.", "Non, je porte aider."], "Sí, busco una camisa blanca."],
+              ["La vendeuse", "Voilà nos chemises.", "Aquí están nuestras camisas."]
+            ]]
+          ]
+        },
+        {
+          "t": "La talla",
+          "g": "Probarte ropa y pedir otra talla",
+          "i": [
+            ["quelle taille ?", "/kɛl taj/", "¿qué talla?", "Vous faites quelle taille ?", "¿Qué talla usa?"],
+            ["essayer", "/e.se.je/", "probarse", "Je peux essayer ?", "¿Puedo probármelo?"],
+            ["trop grand", "/tʁo ɡʁɑ̃/", "demasiado grande", "C'est trop grand.", "Es demasiado grande."],
+            ["ça me va", "/sa mə va/", "me queda bien", "Ça me va bien !", "¡Me queda bien!"]
+          ],
+          "x": [
+            ["c", "La camisa te queda pequeña. ¿Qué dices?", ["C'est trop petit.", "Ça me va bien.", "C'est trop grand.", "Quelle taille ?"]],
+            ["l", "Je peux essayer ?", ["¿puedo probármelo?", "¿puedo pagar?", "¿puedo ver?", "¿puedo entrar?"]],
+            ["o", "Vous avez une taille plus grande ?", "¿Tiene una talla más grande?"],
+            ["d", [
+              ["", ["Je peux essayer ce pantalon ?", "Je peux taille ?", "Ça me va trop ?"], "¿Puedo probarme este pantalón?"],
+              ["Le vendeur", "Bien sûr. Ça va ?", "Claro. ¿Qué tal?"],
+              ["", ["C'est un peu trop grand. Vous avez une taille plus petite ?", "Ça me va trop.", "Oui, essayer."], "Es un poco grande. ¿Tiene una talla más pequeña?"],
+              ["Le vendeur", "Oui, voilà en trente-huit.", "Sí, aquí la tiene en treinta y ocho."]
+            ]]
+          ]
+        },
+        {
+          "t": "Los precios",
+          "g": "Entender precios y contar hasta cien",
+          "i": [
+            ["trente", "/tʁɑ̃t/", "treinta", "Trente euros.", "Treinta euros."],
+            ["cinquante", "/sɛ̃.kɑ̃t/", "cincuenta", "Cinquante centimes.", "Cincuenta céntimos."],
+            ["cent", "/sɑ̃/", "cien", "Cent euros, c'est cher !", "¡Cien euros es caro!"],
+            ["cher", "/ʃɛʁ/", "caro", "Ce n'est pas cher.", "No es caro."],
+            ["en solde", "/ɑ̃ sɔld/", "rebajado", "Cette robe est en solde.", "Este vestido está rebajado."]
+          ],
+          "x": [
+            ["l", "cinquante", ["cincuenta", "quince", "cinco", "quinientos"]],
+            ["c", "«Ce n'est pas cher» significa…", ["no es caro", "no es querido", "es carísimo", "no está a la venta"]],
+            ["l", "Ça fait trente euros", ["son treinta euros", "son trece euros", "son tres euros", "son trescientos euros"]],
+            ["d", [
+              ["", ["Combien coûte cette veste ?", "Combien cher veste ?", "C'est en solde moi ?"], "¿Cuánto cuesta esta chaqueta?"],
+              ["La vendeuse", "Quatre-vingt-dix euros, mais elle est en solde : cinquante euros.", "Noventa euros, pero está rebajada: cincuenta euros."],
+              ["", ["Cinquante ? Ce n'est pas cher, je la prends !", "C'est cent, merci.", "Je ne comprends pas cher."], "¿Cincuenta? No es caro, ¡me la llevo!"]
+            ]]
+          ]
+        },
+        {
+          "t": "En el mercado",
+          "g": "Comprar fruta y verdura por peso",
+          "i": [
+            ["un kilo de", "/œ̃ ki.lo də/", "un kilo de", "Un kilo de tomates.", "Un kilo de tomates."],
+            ["des pommes", "/de pɔm/", "unas manzanas", "Des pommes rouges.", "Unas manzanas rojas."],
+            ["des légumes", "/de le.ɡym/", "unas verduras", "Des légumes frais.", "Verduras frescas."],
+            ["frais, fraîche", "/fʁɛ, fʁɛʃ/", "fresco, fresca", "Le poisson est frais.", "El pescado está fresco."]
+          ],
+          "x": [
+            ["c", "Completa: «Un kilo ___ pommes.»", ["de", "des", "du", "les"], "Tras una cantidad se usa solo «de»: un kilo de, beaucoup de, un peu de."],
+            ["l", "Des légumes frais", ["verduras frescas", "fruta fresca", "legumbres secas", "verduras caras"]],
+            ["o", "Un kilo de tomates, s'il vous plaît.", "Un kilo de tomates, por favor."],
+            ["d", [
+              ["Le marchand", "Qu'est-ce que je vous sers ?", "¿Qué le pongo?"],
+              ["", ["Un kilo de pommes et des carottes, s'il vous plaît.", "Un kilo des le pommes.", "Je suis frais, merci."], "Un kilo de manzanas y zanahorias, por favor."],
+              ["Le marchand", "Et avec ceci ?", "¿Algo más?"],
+              ["", ["C'est tout, merci.", "Ceci, frais.", "Un kilo de moi."], "Eso es todo, gracias."]
+            ]]
+          ]
+        },
+        {
+          "t": "Prefiero…",
+          "g": "Expresar preferencias con matices",
+          "i": [
+            ["je préfère", "/ʒə pʁe.fɛʁ/", "prefiero", "Je préfère le thé.", "Prefiero el té."],
+            ["j'adore", "/ʒa.dɔʁ/", "me encanta", "J'adore cette couleur !", "¡Me encanta este color!"],
+            ["je déteste", "/ʒə de.tɛst/", "odio, detesto", "Je déteste faire la queue.", "Odio hacer cola."],
+            ["plutôt", "/ply.to/", "más bien, mejor", "Plutôt le bleu.", "Mejor el azul."]
+          ],
+          "x": [
+            ["c", "Ordena de menos a más: no me gusta → me encanta", ["je déteste, je n'aime pas, j'aime, j'adore", "j'adore, j'aime, je déteste, je n'aime pas", "j'aime, j'adore, je déteste, je n'aime pas", "je n'aime pas, je déteste, j'adore, j'aime"]],
+            ["l", "Je préfère le thé", ["prefiero el té", "me encanta el té", "detesto el té", "pido un té"]],
+            ["o", "Je préfère plutôt le bleu.", "Prefiero más bien el azul."],
+            ["d", [
+              ["Ton amie", "Tu prends la robe rouge ou la noire ?", "¿Te llevas el vestido rojo o el negro?"],
+              ["", ["Je préfère plutôt la noire.", "Je déteste plutôt.", "Je suis la noire."], "Prefiero más bien el negro."],
+              ["Ton amie", "Moi, j'adore la rouge !", "¡A mí me encanta el rojo!"]
+            ]]
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "Tu día",
+      "goal": "Contar tu rutina y tu semana con frecuencia y horarios",
+      "tutor": "aficiones",
+      "lessons": [
+        {
+          "t": "Por la mañana",
+          "g": "Los verbos de la rutina",
+          "i": [
+            ["je me réveille", "/ʒə mə ʁe.vɛj/", "me despierto", "Je me réveille à sept heures.", "Me despierto a las siete."],
+            ["je me douche", "/ʒə mə duʃ/", "me ducho", "Je me douche le matin.", "Me ducho por la mañana."],
+            ["je m'habille", "/ʒə ma.bij/", "me visto", "Je m'habille vite.", "Me visto rápido."],
+            ["je prends le petit-déjeuner", "/ʒə pʁɑ̃ lə pə.ti de.ʒœ.ne/", "desayuno", "Je prends le petit-déjeuner à huit heures.", "Desayuno a las ocho."]
+          ],
+          "x": [
+            ["c", "Completa: «Tu ___ réveilles tôt ?»", ["te", "me", "se", "tu"], "Verbos pronominales: je me, tu te, il se, nous nous, vous vous, ils se."],
+            ["l", "Je m'habille vite", ["me visto rápido", "me ducho rápido", "me despierto rápido", "desayuno rápido"]],
+            ["o", "Je me douche le matin.", "Me ducho por la mañana."],
+            ["d", [
+              ["Ana", "Tu fais quoi le matin ?", "¿Qué haces por la mañana?"],
+              ["", ["Je me réveille, je me douche et je prends le petit-déjeuner.", "Je me petit-déjeuner.", "Je réveille moi douche."], "Me despierto, me ducho y desayuno."],
+              ["Ana", "Moi, je ne prends pas de petit-déjeuner.", "Yo no desayuno."]
+            ]]
+          ]
+        },
+        {
+          "t": "Siempre, a veces, nunca",
+          "g": "Decir con qué frecuencia haces algo",
+          "i": [
+            ["toujours", "/tu.ʒuʁ/", "siempre", "Je bois toujours un café.", "Siempre tomo un café."],
+            ["souvent", "/su.vɑ̃/", "a menudo", "Je vais souvent au cinéma.", "Voy a menudo al cine."],
+            ["parfois", "/paʁ.fwa/", "a veces", "Parfois, je cuisine.", "A veces cocino."],
+            ["ne… jamais", "/nə ʒa.mɛ/", "nunca", "Je ne fume jamais.", "No fumo nunca."]
+          ],
+          "x": [
+            ["c", "Completa: «Je ___ bois ___ de café.» (nunca)", ["ne / jamais", "jamais / ne", "ne / pas jamais", "non / jamais"], "«Jamais» funciona como «pas»: rodea al verbo con «ne»."],
+            ["l", "Parfois, je cuisine", ["a veces cocino", "siempre cocino", "nunca cocino", "hoy cocino"]],
+            ["o", "Je vais souvent au cinéma.", "Voy a menudo al cine."],
+            ["d", [
+              ["Théo", "Tu fais du sport ?", "¿Haces deporte?"],
+              ["", ["Oui, souvent. Je cours le samedi.", "Oui, je ne jamais.", "Toujours jamais."], "Sí, a menudo. Corro los sábados."],
+              ["Théo", "Moi, je ne fais jamais de sport !", "¡Yo nunca hago deporte!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Horarios",
+          "g": "Decir a qué hora haces las cosas",
+          "i": [
+            ["à huit heures", "/a ɥi.t‿œʁ/", "a las ocho", "Je commence à huit heures.", "Empiezo a las ocho."],
+            ["tôt", "/to/", "temprano", "Je me lève tôt.", "Me levanto temprano."],
+            ["tard", "/taʁ/", "tarde", "Je rentre tard.", "Vuelvo tarde."],
+            ["d'habitude", "/da.bi.tyd/", "normalmente", "D'habitude, je dîne à huit heures.", "Normalmente ceno a las ocho."]
+          ],
+          "x": [
+            ["c", "«Tard» significa…", ["tarde (de hora)", "la tarde", "pronto", "temprano"], "La tarde del día es «l'après-midi»; «tard» es tarde, a una hora avanzada."],
+            ["l", "D'habitude, je dîne à huit heures", ["normalmente ceno a las ocho", "hoy ceno a las ocho", "nunca ceno a las ocho", "ceno ocho veces"]],
+            ["o", "Je commence le travail à huit heures.", "Empiezo el trabajo a las ocho."],
+            ["d", [
+              ["Ta collègue", "Tu finis à quelle heure ?", "¿A qué hora terminas?"],
+              ["", ["D'habitude à six heures, mais aujourd'hui tard.", "À tard heures.", "Je finis tôt tard."], "Normalmente a las seis, pero hoy tarde."],
+              ["Ta collègue", "Dommage ! Alors demain ?", "¡Qué pena! ¿Entonces mañana?"]
+            ]]
+          ]
+        },
+        {
+          "t": "El fin de semana",
+          "g": "Contar tu tiempo libre",
+          "i": [
+            ["je sors", "/ʒə sɔʁ/", "salgo", "Le samedi soir, je sors.", "El sábado por la noche salgo."],
+            ["je fais du sport", "/ʒə fɛ dy spɔʁ/", "hago deporte", "Je fais du sport le dimanche.", "Hago deporte los domingos."],
+            ["je me repose", "/ʒə mə ʁə.poz/", "descanso", "Le dimanche, je me repose.", "El domingo descanso."],
+            ["avec des amis", "/a.vɛk de.z‿a.mi/", "con amigos", "Je sors avec des amis.", "Salgo con amigos."]
+          ],
+          "x": [
+            ["c", "«Le samedi, je sors» significa…", ["los sábados salgo (siempre)", "este sábado salgo", "el sábado pasado salí", "el sábado entro"], "«Le samedi» = todos los sábados; «samedi» solo = este sábado."],
+            ["l", "Le dimanche, je me repose", ["el domingo descanso", "el domingo trabajo", "el domingo salgo", "el domingo madrugo"]],
+            ["o", "Je fais du sport le dimanche.", "Hago deporte los domingos."],
+            ["d", [
+              ["Hélène", "Tu fais quoi le week-end ?", "¿Qué haces el fin de semana?"],
+              ["", ["Le samedi, je sors avec des amis, et le dimanche je me repose.", "Le week-end je suis sport.", "Je sors me repose."], "Los sábados salgo con amigos y el domingo descanso."],
+              ["Hélène", "C'est parfait !", "¡Es perfecto!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Preguntar",
+          "g": "Hacer preguntas sencillas",
+          "i": [
+            ["qu'est-ce que tu fais ?", "/kɛs.kə ty fɛ/", "¿qué haces?", "Qu'est-ce que tu fais ce soir ?", "¿Qué haces esta noche?"],
+            ["quand ?", "/kɑ̃/", "¿cuándo?", "Tu pars quand ?", "¿Cuándo te vas?"],
+            ["pourquoi ?", "/puʁ.kwa/", "¿por qué?", "Pourquoi tu apprends le français ?", "¿Por qué aprendes francés?"],
+            ["parce que", "/paʁs kə/", "porque", "Parce que j'adore Paris.", "Porque me encanta París."]
+          ],
+          "x": [
+            ["c", "Responde a «Pourquoi tu es fatigué ?»", ["Parce que je travaille beaucoup.", "Pourquoi je travaille.", "Quand je travaille.", "Parce pourquoi."], "En francés, «pourquoi» pregunta y «parce que» responde."],
+            ["l", "Qu'est-ce que tu fais ce soir ?", ["¿qué haces esta noche?", "¿dónde estás esta noche?", "¿qué hiciste anoche?", "¿por qué sales esta noche?"]],
+            ["o", "Pourquoi tu apprends le français ?", "¿Por qué aprendes francés?"],
+            ["d", [
+              ["Lucas", "Pourquoi tu apprends le français ?", "¿Por qué aprendes francés?"],
+              ["", ["Parce que je veux habiter en France.", "Pourquoi la France.", "Quand j'apprends."], "Porque quiero vivir en Francia."],
+              ["Lucas", "Et tu pars quand ?", "¿Y cuándo te vas?"],
+              ["", ["L'année prochaine, j'espère !", "Parce que demain.", "Pourquoi quand."], "¡El año que viene, espero!"]
+            ]]
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "Hacer planes",
+      "goal": "Invitar, quedar y hablar de lo que vas a hacer",
+      "tutor": "planes",
+      "lessons": [
+        {
+          "t": "Voy a…",
+          "g": "Hablar del futuro cercano",
+          "i": [
+            ["je vais + infinitif", "/ʒə ve/", "voy a + infinitivo", "Je vais manger.", "Voy a comer."],
+            ["ce soir", "/sə swaʁ/", "esta noche", "Ce soir, je vais au cinéma.", "Esta noche voy al cine."],
+            ["la semaine prochaine", "/la sə.mɛn pʁɔ.ʃɛn/", "la semana que viene", "La semaine prochaine, je vais à Lyon.", "La semana que viene voy a Lyon."],
+            ["bientôt", "/bjɛ̃.to/", "pronto", "Je vais bientôt partir.", "Me voy a ir pronto."]
+          ],
+          "x": [
+            ["c", "Completa: «Nous ___ visiter Paris.»", ["allons", "vais", "va", "allez"], "Aller: je vais, tu vas, il va, nous allons, vous allez, ils vont."],
+            ["l", "Ce soir, je vais au cinéma", ["esta noche voy al cine", "anoche fui al cine", "esta tarde voy al cine", "esta noche veo una película en casa"]],
+            ["o", "La semaine prochaine, je vais à Lyon.", "La semana que viene voy a Lyon."],
+            ["d", [
+              ["Marie", "Tu vas faire quoi ce week-end ?", "¿Qué vas a hacer este fin de semana?"],
+              ["", ["Je vais visiter un musée.", "Je vais visité un musée.", "Je vais à visiter musée."], "Voy a visitar un museo."],
+              ["Marie", "Bonne idée !", "¡Buena idea!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Invitar",
+          "g": "Proponer un plan y responder",
+          "i": [
+            ["tu veux… ?", "/ty vø/", "¿quieres…?", "Tu veux venir ?", "¿Quieres venir?"],
+            ["on va… ?", "/ɔ̃ va/", "¿vamos…?", "On va au cinéma ?", "¿Vamos al cine?"],
+            ["avec plaisir", "/a.vɛk ple.ziʁ/", "con mucho gusto", "Oui, avec plaisir !", "¡Sí, con mucho gusto!"],
+            ["je ne peux pas", "/ʒə nə pø pa/", "no puedo", "Désolé, je ne peux pas.", "Lo siento, no puedo."]
+          ],
+          "x": [
+            ["c", "«On va au parc ?» significa…", ["¿vamos al parque?", "¿van al parque?", "¿se va al parque?", "¿uno va al parque?"], "En la conversación, «on» casi siempre significa «nosotros»."],
+            ["l", "Désolé, je ne peux pas", ["lo siento, no puedo", "lo siento, no quiero", "lo siento, no sé", "lo siento, no entiendo"]],
+            ["o", "Tu veux venir au cinéma ?", "¿Quieres venir al cine?"],
+            ["d", [
+              ["Antoine", "On va prendre un verre ce soir ?", "¿Vamos a tomar algo esta noche?"],
+              ["", ["Avec plaisir ! À quelle heure ?", "Je ne peux plaisir.", "On va verre moi."], "¡Con mucho gusto! ¿A qué hora?"],
+              ["Antoine", "Vers huit heures ?", "¿Sobre las ocho?"],
+              ["", ["Parfait, à ce soir !", "Je ne peux pas, oui.", "Huit verres, merci."], "¡Perfecto, hasta esta noche!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Quedar",
+          "g": "Fijar hora y lugar",
+          "i": [
+            ["un rendez-vous", "/œ̃ ʁɑ̃.de.vu/", "una cita", "J'ai un rendez-vous à trois heures.", "Tengo una cita a las tres."],
+            ["à quelle heure ?", "/a kɛ.l‿œʁ/", "¿a qué hora?", "On se voit à quelle heure ?", "¿A qué hora nos vemos?"],
+            ["devant", "/də.vɑ̃/", "delante de", "Devant le cinéma.", "Delante del cine."],
+            ["on se retrouve", "/ɔ̃ sə ʁə.tʁuv/", "nos encontramos", "On se retrouve à la gare.", "Nos encontramos en la estación."]
+          ],
+          "x": [
+            ["c", "«Un rendez-vous» puede ser…", ["una cita (médica, de trabajo o romántica)", "solo una cita romántica", "un regalo", "un recado"]],
+            ["l", "On se retrouve devant le cinéma", ["nos encontramos delante del cine", "nos vemos dentro del cine", "volvemos al cine", "salimos del cine"]],
+            ["o", "On se voit à quelle heure ?", "¿A qué hora nos vemos?"],
+            ["d", [
+              ["Léa", "On se retrouve où ?", "¿Dónde nos encontramos?"],
+              ["", ["Devant la gare, à sept heures ?", "À la gare quelle heure.", "Devant moi rendez-vous."], "¿Delante de la estación, a las siete?"],
+              ["Léa", "D'accord, à tout à l'heure !", "¡Vale, hasta luego!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Al teléfono",
+          "g": "Hacer y contestar una llamada",
+          "i": [
+            ["allô ?", "/a.lo/", "¿diga?, ¿sí?", "Allô ? C'est qui ?", "¿Diga? ¿Quién es?"],
+            ["c'est de la part de qui ?", "/sɛ də la paʁ də ki/", "¿de parte de quién?", "Oui, c'est de la part de qui ?", "Sí, ¿de parte de quién?"],
+            ["je te rappelle", "/ʒə tə ʁa.pɛl/", "te devuelvo la llamada", "Je suis occupé, je te rappelle.", "Estoy ocupado, te llamo luego."],
+            ["un message", "/œ̃ me.saʒ/", "un mensaje", "Je t'envoie un message.", "Te mando un mensaje."]
+          ],
+          "x": [
+            ["c", "Contestas el teléfono en Francia. ¿Qué dices?", ["Allô ?", "Bonne nuit ?", "Qui ?", "Pardon ?"]],
+            ["l", "Je te rappelle", ["te devuelvo la llamada", "te recuerdo", "te llamo ahora mismo", "me acuerdo de ti"]],
+            ["o", "Je t'envoie un message ce soir.", "Te mando un mensaje esta noche."],
+            ["d", [
+              ["Paul", "Allô, Sofia ? C'est Paul !", "¿Diga, Sofía? ¡Soy Paul!"],
+              ["", ["Salut Paul ! Je suis au travail, je te rappelle ?", "Allô qui Paul ?", "Je te message, au revoir."], "¡Hola Paul! Estoy en el trabajo, ¿te llamo luego?"],
+              ["Paul", "Pas de problème, à plus tard !", "¡No hay problema, hasta luego!"]
+            ]]
+          ]
+        },
+        {
+          "t": "Las estaciones",
+          "g": "Hablar de las épocas del año",
+          "i": [
+            ["en été", "/ɑ̃.n‿e.te/", "en verano", "En été, je vais à la plage.", "En verano voy a la playa."],
+            ["en hiver", "/ɑ̃.n‿i.vɛʁ/", "en invierno", "En hiver, il neige.", "En invierno nieva."],
+            ["au printemps", "/o pʁɛ̃.tɑ̃/", "en primavera", "Au printemps, Paris est magnifique.", "En primavera, París es magnífico."],
+            ["en automne", "/ɑ̃.n‿o.tɔn/", "en otoño", "En automne, il pleut souvent.", "En otoño llueve a menudo."],
+            ["les vacances", "/le va.kɑ̃s/", "las vacaciones", "Bonnes vacances !", "¡Buenas vacaciones!"]
+          ],
+          "x": [
+            ["c", "¿Qué estación lleva «au» en vez de «en»?", ["le printemps", "l'été", "l'hiver", "l'automne"], "Au printemps, pero en été, en automne, en hiver."],
+            ["l", "En hiver, il neige", ["en invierno nieva", "en verano hace calor", "en otoño llueve", "en invierno llueve"]],
+            ["o", "En été, je vais à la plage.", "En verano voy a la playa."],
+            ["d", [
+              ["Nina", "Tu pars en vacances quand ?", "¿Cuándo te vas de vacaciones?"],
+              ["", ["En été, en juillet. Je vais à la plage.", "Au été, plage.", "En vacances hiver juillet."], "En verano, en julio. Voy a la playa."],
+              ["Nina", "Super ! Bonnes vacances !", "¡Genial! ¡Buenas vacaciones!"]
+            ]]
+          ]
+        }
+      ]
+    }
+  ]
+}
