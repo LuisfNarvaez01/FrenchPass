@@ -15,6 +15,9 @@ import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
+import 'package:french_pass/features/path/data/path_repository.dart';
+import 'package:french_pass/features/path/domain/journey.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:french_pass/features/tutor/data/tutor_repository.dart';
@@ -33,6 +36,9 @@ class HomePage extends StatelessWidget {
         getIt<WordRepository>(),
         getIt<ProgressRepository>(),
         getIt<WidgetService>(),
+        path: getIt.isRegistered<PathRepository>()
+            ? getIt<PathRepository>()
+            : null,
       )..refresh(context.read<SettingsBloc>().state.levelFilter),
       child: const _HomeView(),
     );
@@ -143,6 +149,19 @@ class _HomeViewState extends State<_HomeView>
                             const SizedBox(height: Insets.lg),
                           ],
 
+                          // Where the learner is on the journey, above the
+                          // word that opens today's stop.
+                          if (getIt.isRegistered<PathRepository>()) ...[
+                            _JourneyStrip(
+                              stop: state.stop,
+                              onOpen: () async {
+                                await context.push('/path');
+                                if (mounted) _refresh();
+                              },
+                            ),
+                            const SizedBox(height: Insets.lg),
+                          ],
+
                           // The word is the hero: the first and biggest thing
                           // on screen, with one gold action under it.
                           _InkIn(
@@ -151,7 +170,11 @@ class _HomeViewState extends State<_HomeView>
                               word: word,
                               eyebrow: state.isExploring
                                   ? null
-                                  : 'Palabra del día · ${_todayFormatted()}',
+                                  : state.stop?.keyItem != null
+                                      ? 'Palabra del día · '
+                                          '${state.stop!.titleEs}'
+                                      : 'Palabra del día · '
+                                          '${_todayFormatted()}',
                               speaking: speaking,
                               sequenceSpeaking: sequenceSpeaking,
                               onListen: () => speak(word.french),
@@ -161,45 +184,57 @@ class _HomeViewState extends State<_HomeView>
                             ),
                           ),
                           const SizedBox(height: Insets.lg),
-                          WordActions(
-                            isSaved: state.isFavorite,
-                            onPractice: () async {
-                              // Captured before the await: practicing an
-                              // explored word should not snap the card back
-                              // to today's word, only refresh its SRS summary.
-                              final cubit = context.read<HomeCubit>();
-                              final wasExploring = cubit.state.isExploring;
-                              await context.push(
-                                '/word/${word.id}/practice',
-                                extra: word,
-                              );
-                              if (!mounted) return;
-                              if (wasExploring) {
-                                cubit.refreshCurrentCard();
-                              } else {
-                                _refresh();
-                              }
-                            },
-                            onSave: () async {
-                              // Captured before the await: the callback may
-                              // outlive this element.
-                              final cubit = context.read<HomeCubit>();
-                              final messenger = ScaffoldMessenger.of(context);
-                              await cubit.toggleFavorite();
-                              if (!mounted) return;
-                              final saved = cubit.state.isFavorite;
-                              messenger.showSnackBar(
-                                SnackBar(
-                                  content: Text(saved
-                                      ? 'Guardada en tus palabras'
-                                      : 'Quitada de tus palabras'),
-                                  duration: const Duration(seconds: 2),
-                                ),
-                              );
-                            },
-                          ).animate().fadeIn(delay: Motion.stagger(3)),
+                          if (_lessonAction(state) case final action?)
+                            action
+                          else
+                            WordActions(
+                              isSaved: state.isFavorite,
+                              onPractice: () async {
+                                // Captured before the await: practicing an
+                                // explored word should not snap the card back
+                                // to today's word, only refresh its SRS summary.
+                                final cubit = context.read<HomeCubit>();
+                                final wasExploring = cubit.state.isExploring;
+                                await context.push(
+                                  '/word/${word.id}/practice',
+                                  extra: word,
+                                );
+                                if (!mounted) return;
+                                if (wasExploring) {
+                                  cubit.refreshCurrentCard();
+                                } else {
+                                  _refresh();
+                                }
+                              },
+                              onSave: () async {
+                                // Captured before the await: the callback may
+                                // outlive this element.
+                                final cubit = context.read<HomeCubit>();
+                                final messenger = ScaffoldMessenger.of(context);
+                                await cubit.toggleFavorite();
+                                if (!mounted) return;
+                                final saved = cubit.state.isFavorite;
+                                messenger.showSnackBar(
+                                  SnackBar(
+                                    content: Text(saved
+                                        ? 'Guardada en tus palabras'
+                                        : 'Quitada de tus palabras'),
+                                    duration: const Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                            ).animate().fadeIn(delay: Motion.stagger(3)),
                           _NextWordRow(
                             isExploring: state.isExploring,
+                            onPronounce: state.stop == null || state.isExploring
+                                ? null
+                                : () async {
+                                    await context.push(
+                                      '/word/${word.id}/practice',
+                                      extra: word,
+                                    );
+                                    if (mounted) _refresh();
+                                  },
                             onNext: () {
                               stopSpeaking();
                               context.read<HomeCubit>().showRandomWord(context
@@ -233,6 +268,57 @@ class _HomeViewState extends State<_HomeView>
         ),
       ),
     );
+  }
+
+  /// While a journey stop is next (and the learner is on today's word),
+  /// the gold button opens it; past today's free allowance it explains the
+  /// wait instead.
+  Widget? _lessonAction(HomeState state) {
+    final stop = state.stop;
+    if (stop == null || state.isExploring) return null;
+    final path = getIt<PathRepository>();
+    final premium =
+        getIt.isRegistered<UsageService>() && getIt<UsageService>().isPremium;
+    final open = path.canStartNew(premium: premium);
+    final label = switch (stop.kind) {
+      StopKind.lesson => 'Empezar la lección',
+      StopKind.review => 'Empezar el repaso',
+      StopKind.checkpoint => 'Hacer el reto de la semana',
+    };
+    Future<void> go(String route) async {
+      await context.push(route);
+      if (mounted) _refresh();
+    }
+
+    final cubit = context.read<HomeCubit>();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        WordActions(
+          isSaved: state.isFavorite,
+          label: open ? label : 'Mañana sigue tu viaje',
+          icon: open ? Icons.play_arrow_rounded : Icons.bedtime_outlined,
+          onPractice: open ? () => go('/path/stop/${stop.id}') : null,
+          onSave: () async {
+            await cubit.toggleFavorite();
+          },
+        ),
+        if (!open) ...[
+          const SizedBox(height: Insets.sm),
+          Text(
+            'Hiciste tus ${PathRepository.freeStopsPerDay} lecciones de hoy. '
+            'Puedes repasar y practicar sin límite, o seguir avanzando con '
+            'Premium.',
+            textAlign: TextAlign.center,
+            style: context.texts.bodySmall,
+          ),
+          TextButton(
+            onPressed: () => go('/premium'),
+            child: const Text('Ver Premium'),
+          ),
+        ],
+      ],
+    ).animate().fadeIn(delay: Motion.stagger(3));
   }
 
   String _todayFormatted() {
@@ -437,18 +523,23 @@ class _NextWordRow extends StatelessWidget {
   final VoidCallback onNext;
   final VoidCallback onBackToToday;
 
+  /// Practise saying today's word (when the gold button opens the lesson).
+  final VoidCallback? onPronounce;
+
   const _NextWordRow({
     required this.isExploring,
     required this.onNext,
     required this.onBackToToday,
+    this.onPronounce,
   });
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
     final quiet = TextButton.styleFrom(foregroundColor: p.textSecondary);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    // Wrap: three links don't fit on one line on a narrow phone.
+    return Wrap(
+      alignment: WrapAlignment.center,
       children: [
         if (isExploring)
           TextButton.icon(
@@ -456,6 +547,13 @@ class _NextWordRow extends StatelessWidget {
             onPressed: onBackToToday,
             icon: const Icon(Icons.today_rounded, size: 16),
             label: const Text('Volver a la de hoy'),
+          ),
+        if (onPronounce != null)
+          TextButton.icon(
+            style: quiet,
+            onPressed: onPronounce,
+            icon: const Icon(Icons.mic_none_rounded, size: 16),
+            label: const Text('Pronunciarla'),
           ),
         TextButton.icon(
           style: quiet,
@@ -661,5 +759,87 @@ class _InkIn extends StatelessWidget {
           size: 0.6,
           color: p.goldBright.withValues(alpha: 0.16),
         );
+  }
+}
+
+/// The learner's place on the journey: the stage, this week's seven stops
+/// as dots, and the way into the map.
+class _JourneyStrip extends StatelessWidget {
+  final PathStop? stop;
+  final VoidCallback onOpen;
+  const _JourneyStrip({required this.stop, required this.onOpen});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final path = getIt<PathRepository>();
+    final current = stop;
+    final stage = current?.stage ?? path.currentStage;
+    final week = current == null
+        ? const <PathStop>[]
+        : [
+            for (final s in path.stopsIn(stage))
+              if (s.week == current.week) s,
+          ];
+    return Semantics(
+      button: true,
+      label: 'Tu viaje: ${stage.nameFr}, ${stage.nameEs}',
+      child: InkWell(
+        onTap: onOpen,
+        borderRadius: BorderRadius.circular(Radii.md),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: Insets.xs),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      current == null
+                          ? 'TU VIAJE'
+                          : 'TU VIAJE · SEMANA ${current.week}',
+                      style: AppTheme.eyebrow(context),
+                    ),
+                    const SizedBox(height: 2),
+                    Text.rich(
+                      TextSpan(children: [
+                        TextSpan(
+                          text: stage.nameFr,
+                          style: AppTheme.french(context, size: 19),
+                        ),
+                        TextSpan(
+                          text: '  ${stage.nameEs}',
+                          style: context.texts.bodySmall,
+                        ),
+                      ]),
+                    ),
+                    if (current == null)
+                      Text('Tu próxima etapa llega pronto',
+                          style: context.texts.bodySmall),
+                  ],
+                ),
+              ),
+              for (final s in week)
+                Container(
+                  width: s.id == current?.id ? 18 : 8,
+                  height: 8,
+                  margin: const EdgeInsets.only(left: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Radii.pill),
+                    color: path.isDone(s)
+                        ? p.good
+                        : s.id == current?.id
+                            ? p.gold
+                            : p.surfaceAlt,
+                  ),
+                ),
+              const SizedBox(width: Insets.xs),
+              Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

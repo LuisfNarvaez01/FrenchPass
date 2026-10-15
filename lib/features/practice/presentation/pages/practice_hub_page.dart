@@ -9,7 +9,9 @@ import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/pass_card.dart';
 import 'package:french_pass/core/widgets/topic_icons.dart';
 import 'package:french_pass/features/conjugation/domain/conjugator.dart';
+import 'package:french_pass/features/path/data/path_repository.dart';
 import 'package:french_pass/features/practice/data/learning_content.dart';
+import 'package:french_pass/features/premium/data/usage_service.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 
 typedef _Activity = ({
@@ -145,6 +147,24 @@ class _PracticeHubPageState extends State<PracticeHubPage> {
             ? 'Tienes 1 palabra por repasar hoy.'
             : 'Tienes $due palabras por repasar hoy.'
       );
+    }
+    // Next, the journey: today's lesson if there is one to open.
+    if (getIt.isRegistered<PathRepository>()) {
+      final path = getIt<PathRepository>();
+      final stop = path.next;
+      final premium = getIt.isRegistered<UsageService>() &&
+          getIt<UsageService>().isPremium;
+      if (stop != null && path.canStartNew(premium: premium)) {
+        return (
+          (
+            kind: PracticeKind.lesson,
+            icon: Icons.route_rounded,
+            title: stop.titleEs,
+            route: '/path/stop/${stop.id}',
+          ),
+          'La siguiente parada de tu viaje: ${stop.goalEs.toLowerCase()}.'
+        );
+      }
     }
     final storage = getIt<StorageService>();
     final totals = _progress.practiceTotals();

@@ -14,7 +14,12 @@ import 'package:french_pass/core/services/sound_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
+import 'package:french_pass/features/path/data/path_repository.dart';
+import 'package:french_pass/features/path/presentation/pages/journey_page.dart';
+import 'package:french_pass/features/path/presentation/pages/lesson_page.dart';
+import 'package:french_pass/features/path/presentation/pages/welcome_page.dart';
 import 'package:french_pass/features/practice/data/learning_content.dart';
+import 'package:french_pass/features/practice/presentation/widgets/practice_widgets.dart';
 import 'package:french_pass/features/practice/presentation/pages/conjugation_pages.dart';
 import 'package:french_pass/features/practice/presentation/pages/dictation_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/false_friends_page.dart';
@@ -74,6 +79,9 @@ void main() {
       ..registerSingleton<BillingService>(billing)
       ..registerSingleton<UsageService>(
           UsageService(storage, isPremium: () => billing.isPremium.value));
+    final path = PathRepository(storage);
+    await path.load();
+    getIt.registerSingleton<PathRepository>(path);
     settings = SettingsBloc(storage, notifications, getIt<TtsService>());
   });
 
@@ -166,10 +174,58 @@ void main() {
     expect(find.text('Ronda 1 de 3'), findsOneWidget);
   });
 
-  testWidgets('placement: intro and first question', (tester) async {
+  testWidgets('placement: intro, then an A1 question, quiet on answer',
+      (tester) async {
     await mount(tester, const PlacementPage());
-    await tapText(tester, 'Empezar');
-    expect(find.textContaining('¿Qué significa'), findsOneWidget);
+    await tester.runAsync(() async {
+      await tester.tap(find.text('Empezar'));
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+    });
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Prueba de nivel · A1'), findsOneWidget);
+    expect(find.byType(FeedbackBanner), findsNothing);
+  });
+
+  testWidgets('welcome: the promise and the two ways in', (tester) async {
+    await mount(tester, const WelcomePage());
+    expect(tester.takeException(), isNull);
+    expect(find.textContaining('una palabra a la vez'), findsOneWidget);
+    expect(find.text('Empiezo desde cero'), findsOneWidget);
+    expect(find.text('Ya sé algo de francés'), findsOneWidget);
+  });
+
+  testWidgets('journey map: seven stages, the first one open with its stops',
+      (tester) async {
+    await mount(tester, const JourneyPage());
+    expect(tester.takeException(), isNull);
+    expect(find.text('Départ'), findsOneWidget);
+    expect(find.text('Saludar'), findsOneWidget);
+    expect(find.text('SEMANA 1'), findsOneWidget);
+  });
+
+  testWidgets('a lesson: learn a word, then answer, then the conversation',
+      (tester) async {
+    SoundService.muted = true;
+    await mount(tester, const LessonPage(stopId: 'depart-1'));
+    expect(tester.takeException(), isNull);
+    expect(find.text('PALABRA NUEVA'), findsOneWidget);
+    expect(find.text('bonjour'), findsOneWidget);
+    // Through the three new words.
+    for (var i = 0; i < 3; i++) {
+      await tapText(tester, 'Entendido');
+    }
+    expect(tester.takeException(), isNull);
+    expect(find.textContaining('saludas a tu profesora'), findsOneWidget);
+    await tapText(tester, 'Bonjour, madame !');
+    expect(find.text('Correcto'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('a locked stop says so instead of opening', (tester) async {
+    await mount(tester, const LessonPage(stopId: 'depart-5'));
+    expect(tester.takeException(), isNull);
+    expect(find.text('Todavía no'), findsOneWidget);
   });
 
   testWidgets('progress shows the achievements once there is practice',
@@ -209,7 +265,10 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.takeException(), isNull);
     expect(find.textContaining('PALABRA DEL DÍA'), findsOneWidget);
-    expect(find.text('Practicar esta palabra'), findsOneWidget);
+    expect(find.text('Empezar la lección'), findsOneWidget);
+    expect(find.textContaining('TU VIAJE'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('CONTINÚA'), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.text('CONTINÚA'), findsOneWidget);
     expect(find.textContaining('Meta de hoy'), findsOneWidget);
     expect(find.text('¿Cuál es tu nivel?'), findsOneWidget);

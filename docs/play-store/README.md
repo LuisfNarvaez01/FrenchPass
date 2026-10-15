@@ -87,27 +87,45 @@ Lo que ya está hecho en el código va al final.
 2. **Crear la suscripción**: Monetizar › Productos › Suscripciones › Crear.
    - ID del producto: `premium` (exacto; la app lo busca con ese nombre).
    - Nombre: *FrenchPass Premium*.
-   - Dos planes base, con estos ID exactos:
+   - Tres planes base, con estos ID exactos:
+     - `semanal`: renovación automática cada semana, US$1,99.
      - `mensual`: renovación automática cada mes, US$4,99.
-     - `anual`: renovación automática cada año, US$39,99.
+     - `anual`: renovación automática cada año, US$34,99.
    - En cada plan, *Precios por país*: Play convierte solo, pero conviene
-     bajar Latinoamérica (por ejemplo US$2,99 al mes). Activa los planes.
-3. **Probar sin pagar**: Configuración › Pruebas de licencias, añade tu
+     bajar Latinoamérica (por ejemplo US$0,99 a la semana y US$2,99 al mes).
+     Activa los planes.
+3. **Crear el pago de por vida**: Monetizar › Productos › Productos
+   integrados en la app › Crear producto.
+   - ID del producto: `premium_vida` (exacto).
+   - Nombre: *FrenchPass Premium de por vida*. Precio sugerido: US$69,99.
+   - Es un producto de compra única (no consumible): la app lo detecta y da
+     Premium para siempre. Actívalo.
+4. **Probar sin pagar**: Configuración › Pruebas de licencias, añade tu
    cuenta de Google y las de tus testers. Sus compras no se cobran y las
    renovaciones pasan en minutos, así que puedes ver el ciclo completo.
-4. Las compras solo funcionan en la app instalada desde Play (prueba interna
+5. Las compras solo funcionan en la app instalada desde Play (prueba interna
    o cerrada). La versión de GitHub cuenta siempre como Premium.
 
-**Qué incluye cada plan** (se cambia en `lib/features/premium/data/usage_service.dart`):
+Todos los planes dan el mismo Premium; solo cambia cuánto dura. La app
+marca el anual como «el más elegido» y calcula cuánto se ahorra frente al
+mensual.
+
+**Qué incluye cada plan** (límites en
+`lib/features/premium/data/usage_service.dart`,
+`lib/features/path/data/path_repository.dart` y
+`lib/features/progress/data/progress_repository.dart`):
 
 | | Gratis | Premium |
 |---|---|---|
-| Palabra del día, quiz, repasos, pronunciación, widget | Sin límite | Sin límite |
+| Lecciones nuevas del viaje | 3 al día | Sin límite |
 | Tutor por voz | 10 minutos de prueba, una sola vez | 150 minutos al mes |
+| Repaso de tus errores | No | Sí |
 | Traductor y repaso frase por frase | 5 consultas al día | 100 consultas al día |
+| Congeladores de racha | Hasta 2 | Hasta 5 |
+| Palabra del día, repasos, práctica, prueba de nivel, widget | Sin límite | Sin límite |
 
-Las traducciones y los análisis ya guardados no cuentan: se vuelven a abrir
-gratis.
+Repetir una lección ya hecha nunca cuenta para el límite. Las traducciones y
+los análisis ya guardados tampoco: se vuelven a abrir gratis.
 
 ### Contenido de la app (formularios)
 
@@ -117,7 +135,7 @@ gratis.
 | Anuncios | No contiene anuncios |
 | Acceso a la app | Todas las funciones sin restricciones (no hay login) |
 | Clasificación de contenido | Categoría «Referencia, noticias o educativa». Hay interacción con IA generativa: márcalo cuando lo pregunte |
-| Público objetivo | 13 años o más. No la marques para niños: entrarías en el programa de familias, con reglas más duras sobre IA y datos |
+| Público objetivo | Solo 18 años o más: las condiciones de la API de Gemini no permiten apps para menores |
 | Apps gubernamentales, financieras, de salud, de noticias | No |
 | Servicios en primer plano | No aplica (el permiso genérico lo añade WorkManager para el widget) |
 

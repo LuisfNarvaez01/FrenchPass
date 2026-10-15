@@ -203,15 +203,21 @@ class _Example extends StatelessWidget {
 
 /// The one gold button under a word, with saving as a quiet companion.
 class WordActions extends StatelessWidget {
-  final VoidCallback onPractice;
+  final VoidCallback? onPractice;
   final VoidCallback onSave;
   final bool isSaved;
+
+  /// The gold button: practise this word, or start today's lesson.
+  final String label;
+  final IconData icon;
 
   const WordActions({
     super.key,
     required this.onPractice,
     required this.onSave,
     required this.isSaved,
+    this.label = 'Practicar esta palabra',
+    this.icon = Icons.mic_rounded,
   });
 
   @override
@@ -224,8 +230,8 @@ class WordActions extends StatelessWidget {
             height: 56,
             child: ElevatedButton.icon(
               onPressed: onPractice,
-              icon: const Icon(Icons.mic_rounded, size: 20),
-              label: const Text('Practicar esta palabra'),
+              icon: Icon(icon, size: 20),
+              label: Text(label),
             ),
           ),
         ),

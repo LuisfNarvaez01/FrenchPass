@@ -5,8 +5,10 @@ import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/mascot.dart';
+import 'package:french_pass/features/path/data/path_repository.dart';
 import 'package:french_pass/features/premium/data/billing_service.dart';
 import 'package:french_pass/features/premium/data/usage_service.dart';
+import 'package:french_pass/features/progress/data/progress_repository.dart';
 
 /// What Premium includes and how to get it. Prices come from Google Play,
 /// already in the learner's currency.
@@ -58,8 +60,8 @@ class _PremiumPageState extends State<PremiumPage> {
         _plans = plans;
         _loadFailed = plans.isEmpty;
         // The yearly plan is the better deal; start there.
-        _selected =
-            plans.where((p) => p.isYearly).firstOrNull ?? plans.firstOrNull;
+        _selected = plans.where((p) => p.term == PlanTerm.yearly).firstOrNull ??
+            plans.firstOrNull;
       });
     } catch (_) {
       if (mounted) setState(() => _loadFailed = true);
@@ -85,8 +87,8 @@ class _PremiumPageState extends State<PremiumPage> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(_billing.isPremium.value
-          ? 'Tu suscripción está activa.'
-          : 'No encontré una suscripción activa en esta cuenta de Google.'),
+          ? 'Tu Premium está activo.'
+          : 'No encontré una compra activa en esta cuenta de Google.'),
     ));
   }
 
@@ -111,13 +113,13 @@ class _PremiumPageState extends State<PremiumPage> {
                         style: context.texts.headlineMedium),
                     const SizedBox(height: Insets.xs),
                     Text(
-                      'Para hablar con el tutor todo el mes, no solo en la '
-                      'prueba.',
+                      'Avanza en tu viaje sin esperar al día siguiente y habla '
+                      'con el tutor todo el mes.',
                       textAlign: TextAlign.center,
-                      style: context.texts.bodySmall,
+                      style: context.texts.bodyMedium,
                     ),
                     const SizedBox(height: Insets.xl),
-                    const _Benefits(),
+                    const _Comparison(),
                     const SizedBox(height: Insets.xl),
                     if (premium)
                       _ActiveCard(minutesLeft: _usage.tutorTimeLeft().inMinutes)
@@ -149,8 +151,12 @@ class _PremiumPageState extends State<PremiumPage> {
       return const [Center(child: CircularProgressIndicator())];
     }
     if (_loadFailed) return [_PlansError(onRetry: _load)];
-    final monthly = plans.where((pl) => !pl.isYearly).firstOrNull;
+    final monthly =
+        plans.where((pl) => pl.term == PlanTerm.monthly).firstOrNull;
+    final lifetime = _selected?.term == PlanTerm.lifetime;
     return [
+      Text('ELIGE CUÁNTO TIEMPO', style: AppTheme.eyebrow(context)),
+      const SizedBox(height: Insets.sm),
       for (final plan in plans) ...[
         _PlanCard(
           plan: plan,
@@ -158,9 +164,9 @@ class _PremiumPageState extends State<PremiumPage> {
           selected: identical(plan, _selected),
           onTap: () => setState(() => _selected = plan),
         ),
-        const SizedBox(height: Insets.md),
+        const SizedBox(height: Insets.sm),
       ],
-      const SizedBox(height: Insets.sm),
+      const SizedBox(height: Insets.md),
       ElevatedButton(
         onPressed: _selected == null || _buying || _billing.pending.value
             ? null
@@ -172,7 +178,7 @@ class _PremiumPageState extends State<PremiumPage> {
                 height: 20,
                 child: CircularProgressIndicator(strokeWidth: 2),
               )
-            : const Text('Suscribirme'),
+            : Text(lifetime ? 'Comprar para siempre' : 'Suscribirme'),
       ),
       if (_billing.pending.value) ...[
         const SizedBox(height: Insets.md),
@@ -190,9 +196,10 @@ class _PremiumPageState extends State<PremiumPage> {
       ),
       const SizedBox(height: Insets.md),
       Text(
-        'La suscripción se renueva sola hasta que la canceles en Google Play '
-        '› Pagos y suscripciones. Si la cancelas, Premium sigue activo hasta '
-        'el final del periodo que pagaste.',
+        'Todos los planes dan el mismo Premium. Las suscripciones se renuevan '
+        'solas hasta que las canceles en Google Play › Pagos y '
+        'suscripciones, y siguen activas hasta el final del periodo pagado. '
+        'El plan de por vida se paga una vez.',
         textAlign: TextAlign.center,
         style: context.texts.bodySmall,
       ),
@@ -200,50 +207,92 @@ class _PremiumPageState extends State<PremiumPage> {
   }
 }
 
-class _Benefits extends StatelessWidget {
-  const _Benefits();
+/// What Premium adds, row by row, against what stays free.
+class _Comparison extends StatelessWidget {
+  const _Comparison();
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final tutorMinutes = UsageLimits.premiumTutorPerMonth.inMinutes;
     final rows = [
       (
+        Icons.route_rounded,
+        'Lecciones del viaje',
+        '${PathRepository.freeStopsPerDay} al día',
+        'Sin límite',
+      ),
+      (
         Icons.record_voice_over_rounded,
-        '$tutorMinutes minutos al mes con el tutor por voz',
-        'Unas quince lecciones de diez minutos.',
+        'Tutor por voz',
+        '${UsageLimits.freeTutor.inMinutes} min de prueba',
+        '${UsageLimits.premiumTutorPerMonth.inMinutes} min al mes',
+      ),
+      (
+        Icons.healing_rounded,
+        'Repaso de tus errores',
+        '—',
+        'Incluido',
       ),
       (
         Icons.translate_rounded,
-        'Traductor y repaso frase por frase',
-        'Hasta ${UsageLimits.premiumAiPerDay} consultas al día, en vez de '
-            '${UsageLimits.freeAiPerDay}.',
+        'Traductor y repaso con IA',
+        '${UsageLimits.freeAiPerDay} al día',
+        '${UsageLimits.premiumAiPerDay} al día',
+      ),
+      (
+        Icons.ac_unit_rounded,
+        'Congeladores de racha',
+        'Hasta ${ProgressRepository.maxFreezes}',
+        'Hasta ${ProgressRepository.premiumMaxFreezes}',
       ),
       (
         Icons.auto_stories_rounded,
-        'Lo gratuito sigue igual',
-        'Palabra del día, quiz, repasos y pronunciación, sin límite.',
+        'Palabra del día, repasos y práctica',
+        'Sin límite',
+        'Sin límite',
       ),
     ];
+    final head = context.texts.labelMedium;
     return AppCard(
+      padding:
+          const EdgeInsets.fromLTRB(Insets.lg, Insets.md, Insets.lg, Insets.md),
       child: Column(
         children: [
-          for (final (i, (icon, title, detail)) in rows.indexed) ...[
-            if (i > 0) const SizedBox(height: Insets.lg),
+          Row(
+            children: [
+              const Expanded(child: SizedBox()),
+              SizedBox(
+                  width: 84,
+                  child:
+                      Text('Gratis', textAlign: TextAlign.center, style: head)),
+              SizedBox(
+                width: 92,
+                child: Text('Premium',
+                    textAlign: TextAlign.center,
+                    style: head?.copyWith(
+                        color: p.gold, fontWeight: FontWeight.w800)),
+              ),
+            ],
+          ),
+          for (final (icon, title, free, premium) in rows) ...[
+            Divider(height: Insets.lg, color: p.border),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: p.gold, size: 22),
-                const SizedBox(width: Insets.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title, style: context.texts.titleMedium),
-                      const SizedBox(height: 2),
-                      Text(detail, style: context.texts.bodySmall),
-                    ],
-                  ),
+                Icon(icon, size: 18, color: p.textSecondary),
+                const SizedBox(width: Insets.sm),
+                Expanded(child: Text(title, style: context.texts.bodyMedium)),
+                SizedBox(
+                  width: 84,
+                  child: Text(free,
+                      textAlign: TextAlign.center,
+                      style: context.texts.bodySmall),
+                ),
+                SizedBox(
+                  width: 92,
+                  child: Text(premium,
+                      textAlign: TextAlign.center,
+                      style: context.texts.labelLarge
+                          ?.copyWith(color: p.textPrimary)),
                 ),
               ],
             ),
@@ -267,19 +316,28 @@ class _PlanCard extends StatelessWidget {
     required this.onTap,
   });
 
-  /// "Ahorras 33 %" against paying monthly for a year.
+  /// "Ahorras 40 %" for the yearly plan, against paying monthly.
   String? get _saving {
     final m = monthly;
-    if (!plan.isYearly || m == null || m.details.rawPrice <= 0) return null;
-    final percent =
-        (1 - plan.details.rawPrice / (m.details.rawPrice * 12)) * 100;
+    if (plan.term != PlanTerm.yearly || m == null || m.rawPrice <= 0) {
+      return null;
+    }
+    final percent = (1 - plan.rawPrice / (m.rawPrice * 12)) * 100;
     return percent >= 5 ? 'Ahorras ${percent.round()} %' : null;
   }
+
+  String? get _tag => switch (plan.term) {
+        PlanTerm.weekly => 'Para probar',
+        PlanTerm.yearly => 'El más elegido',
+        PlanTerm.lifetime => 'Pago único',
+        PlanTerm.monthly => null,
+      };
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
     final saving = _saving;
+    final tag = _tag;
     return Semantics(
       selected: selected,
       button: true,
@@ -290,12 +348,13 @@ class _PlanCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(Radii.lg),
           child: Container(
-            padding: const EdgeInsets.all(Insets.lg),
+            padding: const EdgeInsets.symmetric(
+                horizontal: Insets.lg, vertical: Insets.md),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Radii.lg),
               border: Border.all(
-                color: selected ? p.gold : p.border,
-                width: selected ? 2 : 1,
+                color: selected ? p.gold : Colors.transparent,
+                width: 2,
               ),
             ),
             child: Row(
@@ -311,14 +370,23 @@ class _PlanCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(plan.isYearly ? 'Anual' : 'Mensual',
-                          style: context.texts.titleMedium),
-                      Text(
-                        plan.isYearly
-                            ? '${plan.price} al año'
-                            : '${plan.price} al mes',
-                        style: context.texts.bodySmall,
+                      Row(
+                        children: [
+                          Text(plan.term.labelEs,
+                              style: context.texts.titleMedium),
+                          if (tag != null) ...[
+                            const SizedBox(width: Insets.sm),
+                            Pill(
+                                label: tag,
+                                tone: plan.term == PlanTerm.yearly
+                                    ? p.gold
+                                    : p.textSecondary,
+                                dense: true),
+                          ],
+                        ],
                       ),
+                      Text('${plan.price} ${plan.term.perEs}',
+                          style: context.texts.bodySmall),
                     ],
                   ),
                 ),

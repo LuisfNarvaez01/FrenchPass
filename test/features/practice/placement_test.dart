@@ -1,60 +1,92 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:french_pass/features/practice/data/learning_content.dart';
+import 'package:french_pass/features/path/domain/journey.dart';
 import 'package:french_pass/features/practice/domain/placement.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final bank =
+      Placement.parse(File('assets/data/placement.json').readAsStringSync());
 
-  group('score', () {
-    List<(CefrLevel, bool)> answers(Map<CefrLevel, List<bool>> byLevel) => [
-          for (final e in byLevel.entries)
-            for (final right in e.value) (e.key, right),
-        ];
-
-    test('the highest level passed in a row', () {
-      expect(
-        Placement.score(answers({
-          CefrLevel.a1: [true, true, true, true],
-          CefrLevel.a2: [true, true, false, true],
-          CefrLevel.b1: [false, true, false, false],
-          CefrLevel.b2: [true, true, true],
-        })),
-        CefrLevel.a2,
-        reason: 'B2 by luck does not count after failing B1',
-      );
+  group('the bank', () {
+    test('every level has a full, mixed block of valid questions', () {
+      for (final level in Placement.levels) {
+        final mine = bank.where((q) => q.level == level).toList();
+        expect(mine.length, greaterThanOrEqualTo(Placement.perLevel),
+            reason: level.name);
+        expect(mine.any((q) => q.kind == PlacementKind.listening), isTrue,
+            reason: '${level.name} needs a listening question');
+        expect(mine.any((q) => q.kind == PlacementKind.reading), isTrue,
+            reason: '${level.name} needs a reading question');
+        for (final q in mine) {
+          expect(q.item.options.length, 4, reason: q.item.prompt);
+          expect(q.item.options.toSet().length, 4,
+              reason: 'repeated option in ${q.item.prompt}');
+          if (q.kind == PlacementKind.listening) expect(q.listen, isNotNull);
+          if (q.kind == PlacementKind.reading) expect(q.passage, isNotNull);
+        }
+      }
     });
 
-    test('failing A1 still places at A1', () {
-      expect(
-          Placement.score(answers({
-            CefrLevel.a1: [false, false, true],
-          })),
-          CefrLevel.a1);
-    });
-
-    test('maps to the app level filter', () {
-      expect(Placement.filterFor(CefrLevel.a2), LevelFilter.beginner);
-      expect(Placement.filterFor(CefrLevel.b2), LevelFilter.intermediate);
+    test('a block has five questions with listening and reading, shuffled',
+        () {
+      final placement = Placement(bank, random: Random(3));
+      final block = placement.blockFor(CefrLevel.b1);
+      expect(block.length, Placement.perLevel);
+      expect(block.any((q) => q.kind == PlacementKind.listening), isTrue);
+      expect(block.any((q) => q.kind == PlacementKind.reading), isTrue);
+      // The bank lists every right answer first; shuffling must move some.
+      expect(block.any((q) => q.item.answer != 0), isTrue);
     });
   });
 
-  test('builds a test from the bundled content', () async {
-    final words = WordRepository();
-    await words.load();
-    final content = LearningContent();
-    await content.load();
+  group('score', () {
+    test('climbs only while four of five are right', () {
+      final result = Placement.score({
+        CefrLevel.a1: [true, true, true, true, false],
+        CefrLevel.a2: [true, true, true, false, true],
+        CefrLevel.b1: [true, false, true, false, true],
+      });
+      expect(result.level, CefrLevel.a2);
+      expect(result.stage, Stage.enVille);
+      expect(result.right, 11);
+      expect(result.total, 15);
+    });
 
-    final questions = Placement.build(words, content, random: Random(1));
-    expect(questions.length, 4 * Placement.wordsPerLevel + 3);
-    expect(questions.first.level, CefrLevel.a1);
-    for (final q in questions) {
-      expect(q.item.answer, inInclusiveRange(0, q.item.options.length - 1));
-      expect(q.item.options.length, greaterThanOrEqualTo(2));
-    }
+    test('three of five is not enough, even at A1', () {
+      final result = Placement.score({
+        CefrLevel.a1: [true, true, true, false, false],
+      });
+      expect(result.level, isNull);
+      expect(result.levelLabel, 'Pre-A1');
+      expect(result.stage, Stage.premiersPas,
+          reason: 'some French, not enough for A1');
+    });
+
+    test('knowing nothing starts the journey at zero', () {
+      final result = Placement.score({
+        CefrLevel.a1: [false, true, false, false, false],
+      });
+      expect(result.stage, Stage.depart);
+    });
+
+    test('passing everything lands at the top', () {
+      final all = {
+        for (final level in Placement.levels)
+          level: [true, true, true, true, true],
+      };
+      final result = Placement.score(all);
+      expect(result.level, CefrLevel.c1);
+      expect(result.stage, Stage.parisien);
+    });
+
+    test('maps to the app level filter', () {
+      expect(Placement.filterFor(null), LevelFilter.beginner);
+      expect(Placement.filterFor(CefrLevel.a2), LevelFilter.beginner);
+      expect(Placement.filterFor(CefrLevel.b2), LevelFilter.intermediate);
+    });
   });
 }

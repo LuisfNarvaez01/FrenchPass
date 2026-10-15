@@ -8,6 +8,7 @@ import 'package:french_pass/core/services/notification_service.dart';
 import 'package:french_pass/core/services/reminder_service.dart';
 import 'package:french_pass/core/services/speech_service.dart';
 import 'package:french_pass/core/services/sound_service.dart';
+import 'package:french_pass/features/path/data/path_repository.dart';
 import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/services/tts_service.dart';
 import 'package:french_pass/core/services/update_service.dart';
@@ -47,6 +48,17 @@ Future<void> configureDependencies() async {
   await content.load();
   getIt.registerSingleton<LearningContent>(content);
   getIt.registerSingleton<ProgressRepository>(ProgressRepository(storage));
+  final path = PathRepository(storage);
+  await path.load();
+  getIt.registerSingleton<PathRepository>(path);
+  // Someone who used the app before the journey existed skips the welcome.
+  final progress = getIt<ProgressRepository>();
+  final usedBefore =
+      progress.practiceTotals().values.fold(0, (a, b) => a + b) > 0 ||
+          progress.loadCards().isNotEmpty;
+  if (storage.getBool(StorageKeys.onboardingDone) == null && usedBefore) {
+    await storage.setBool(StorageKeys.onboardingDone, true);
+  }
   getIt.registerSingleton<TutorRepository>(TutorRepository(storage));
   getIt.registerSingleton<ReminderService>(ReminderService(
     storage,
@@ -64,6 +76,7 @@ Future<void> configureDependencies() async {
   getIt.registerSingleton<BillingService>(billing);
   getIt.registerSingleton<UsageService>(
       UsageService(storage, isPremium: () => billing.isPremium.value));
+  getIt<ProgressRepository>().isPremium = () => billing.isPremium.value;
 
   // ─── BLoCs ────────────────────────────────────────────────────────────────
   getIt.registerFactory<SettingsBloc>(

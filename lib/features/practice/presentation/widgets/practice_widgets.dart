@@ -147,6 +147,10 @@ class ChoiceQuestion extends StatefulWidget {
   final bool optionsAreFrench;
   final Widget? header;
 
+  /// A test, not practice: the pick is marked but right and wrong are not
+  /// revealed, and there is no explanation.
+  final bool quiet;
+
   const ChoiceQuestion({
     super.key,
     required this.item,
@@ -155,6 +159,7 @@ class ChoiceQuestion extends StatefulWidget {
     this.isLast = false,
     this.optionsAreFrench = false,
     this.header,
+    this.quiet = false,
   });
 
   @override
@@ -198,23 +203,26 @@ class _ChoiceQuestionState extends State<ChoiceQuestion> {
             label: option,
             state: !answered
                 ? _OptionState.idle
-                : i == item.answer
-                    ? _OptionState.right
-                    : i == _picked
-                        ? _OptionState.wrong
-                        : _OptionState.dim,
+                : widget.quiet
+                    ? (i == _picked ? _OptionState.idle : _OptionState.dim)
+                    : i == item.answer
+                        ? _OptionState.right
+                        : i == _picked
+                            ? _OptionState.wrong
+                            : _OptionState.dim,
             onTap: () => _pick(i),
           ),
           const SizedBox(height: Insets.sm),
         ],
         if (answered) ...[
           const SizedBox(height: Insets.md),
-          FeedbackBanner(
-            right: right,
-            title: right ? 'Correcto' : 'Era «${item.correct}»',
-            detail: item.why,
-            speak: widget.optionsAreFrench ? item.correct : null,
-          ).animate().fadeIn(duration: Motion.fast),
+          if (!widget.quiet)
+            FeedbackBanner(
+              right: right,
+              title: right ? 'Correcto' : 'Era «${item.correct}»',
+              detail: item.why,
+              speak: widget.optionsAreFrench ? item.correct : null,
+            ).animate().fadeIn(duration: Motion.fast),
           const SizedBox(height: Insets.lg),
           ElevatedButton(
             onPressed: widget.onNext,

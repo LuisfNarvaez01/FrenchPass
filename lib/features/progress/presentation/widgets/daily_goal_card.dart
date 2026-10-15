@@ -74,7 +74,7 @@ class DailyGoalCard extends StatelessWidget {
                     Semantics(
                       label: 'Congeladores de racha guardados: $freezes',
                       child: Pill(
-                        label: '$freezes / ${ProgressRepository.maxFreezes}',
+                        label: '$freezes / ${progress.freezeCap}',
                         icon: Icons.ac_unit_rounded,
                         tone: freezes > 0 ? p.gold : p.textMuted,
                         dense: true,

@@ -1,7 +1,7 @@
 name: french_pass
 description: Aprende francés con la palabra del día, práctica de pronunciación y sistema de repetición espaciada.
 publish_to: 'none'
-version: 2.0.0+14
+version: 2.1.0+15
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -82,6 +82,8 @@ flutter:
     - assets/data/false_friends.json
     - assets/data/grammar.json
     - assets/data/readings.json
+    - assets/data/journey.json
+    - assets/data/placement.json
     - assets/images/mascot.png
     - assets/images/mascot_cool.png
     - assets/images/mascot_thinking.png

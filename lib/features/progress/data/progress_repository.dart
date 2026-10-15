@@ -19,6 +19,9 @@ enum PracticeKind {
   match,
   placement,
   tutor,
+
+  /// A stop on the learning journey.
+  lesson,
 }
 
 /// Daily goal sizes, in exercises.
@@ -250,6 +253,15 @@ class ProgressRepository {
   /// to stop studying.
   static const maxFreezes = 2;
 
+  /// Premium saves up more, so a trip or a sick week doesn't cost the
+  /// streak.
+  static const premiumMaxFreezes = 5;
+
+  /// Whether the learner has Premium; set once billing is known.
+  bool Function() isPremium = () => false;
+
+  int get freezeCap => isPremium() ? premiumMaxFreezes : maxFreezes;
+
   int get streakFreezes => _storage.getInt(StorageKeys.streakFreezes) ?? 0;
 
   /// Days the streak survived thanks to a freeze.
@@ -264,7 +276,7 @@ class ProgressRepository {
     if (!awards.add(key)) return;
     await _storage.setStringSet(StorageKeys.freezeAwards, awards);
     final freezes = streakFreezes;
-    if (freezes < maxFreezes) {
+    if (freezes < freezeCap) {
       await _storage.setInt(StorageKeys.streakFreezes, freezes + 1);
     }
   }

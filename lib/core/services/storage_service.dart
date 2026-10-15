@@ -109,6 +109,11 @@ abstract final class StorageKeys {
   static const grammarDone = '${prefix}goals.grammarDone';
   static const readingsDone = '${prefix}goals.readingsDone';
 
+  static const pathDone = '${prefix}path.done';
+  static const pathLog = '${prefix}path.log';
+  static const pathStart = '${prefix}path.start';
+  static const pathMistakes = '${prefix}path.mistakes';
+
   static const tutorVoice = '${prefix}tutor.voice';
   static const tutorProfile = '${prefix}tutor.profile';
   static const tutorHistory = '${prefix}tutor.history';

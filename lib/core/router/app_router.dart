@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:french_pass/core/di/injection.dart';
+import 'package:french_pass/core/services/storage_service.dart';
 import 'package:french_pass/core/shell/main_shell.dart';
 import 'package:french_pass/features/categories/presentation/pages/categories_page.dart';
 import 'package:french_pass/features/categories/presentation/pages/category_words_page.dart';
+import 'package:french_pass/features/path/presentation/pages/journey_page.dart';
+import 'package:french_pass/features/path/presentation/pages/lesson_page.dart';
+import 'package:french_pass/features/path/presentation/pages/welcome_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/conjugation_pages.dart';
 import 'package:french_pass/features/practice/presentation/pages/dictation_page.dart';
 import 'package:french_pass/features/practice/presentation/pages/false_friends_page.dart';
@@ -31,7 +36,28 @@ class AppRouter {
 
   static final router = GoRouter(
     initialLocation: '/home',
+    // A new install starts with the welcome and its one choice.
+    redirect: (context, state) {
+      if (state.uri.path != '/home') return null;
+      final storage = getIt<StorageService>();
+      final done = storage.getBool(StorageKeys.onboardingDone) ?? false;
+      return done ? null : '/welcome';
+    },
     routes: [
+      GoRoute(
+        path: '/welcome',
+        builder: (context, state) => const WelcomePage(),
+      ),
+      // ── The learning journey ──────────────────────────────────────────────
+      GoRoute(
+        path: '/path',
+        builder: (context, state) => const JourneyPage(),
+      ),
+      GoRoute(
+        path: '/path/stop/:id',
+        builder: (context, state) =>
+            LessonPage(stopId: state.pathParameters['id']!),
+      ),
       ShellRoute(
         builder: (context, state, child) => MainShell(child: child),
         routes: [
