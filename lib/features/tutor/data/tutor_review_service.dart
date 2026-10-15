@@ -135,7 +135,7 @@ class TutorReviewService {
     required String voice,
     required String text,
   }) async {
-    if (!AiBackend.isReady) throw const AiException(unavailable: true);
+    if (!AiBackend.isReady) throw const AiException(issue: AiIssue.setup);
     try {
       final model = AiBackend.ai.generativeModel(
         model: GeminiModels.tts,
@@ -192,7 +192,7 @@ class TutorReviewService {
     Map<String, Object?>? jsonSchema,
     required double temperature,
   }) async {
-    if (!AiBackend.isReady) throw const AiException(unavailable: true);
+    if (!AiBackend.isReady) throw const AiException(issue: AiIssue.setup);
     final model = AiBackend.ai.generativeModel(
       model: GeminiModels.review,
       systemInstruction: Content.system(system),

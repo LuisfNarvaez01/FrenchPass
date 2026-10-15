@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:french_pass/core/config/app_channel.dart';
 import 'package:french_pass/core/di/injection.dart';
 import 'package:french_pass/core/router/app_router.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
@@ -10,6 +12,12 @@ import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.da
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // The Play build keeps its log quiet: error details are for the
+  // developer's GitHub build.
+  if (AppChannel.isPlay && kReleaseMode) {
+    debugPrint = (String? message, {int? wrapWidth}) {};
+  }
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -288,10 +288,10 @@ class LiveConnectException implements Exception {
   }
 
   AiException get asAiException => unavailable
-      ? const AiException(unavailable: true)
+      ? const AiException(issue: AiIssue.setup)
       : cause != null
           ? AiException.from(cause!)
-          : AiException(detail: message);
+          : AiException.from(message);
 
   @override
   String toString() => 'LiveConnectException: $message';

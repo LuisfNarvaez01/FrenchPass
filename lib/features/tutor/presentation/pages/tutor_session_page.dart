@@ -138,12 +138,8 @@ class _SessionView extends StatelessWidget {
                             ? () => context.pop()
                             : () => context.pushReplacement('/premium'),
                       ),
-                    TutorPhase.error => EmptyState(
-                        icon: Icons.wifi_off_rounded,
-                        title: 'No se pudo empezar',
+                    TutorPhase.error => _StartError(
                         message: state.error ?? 'Algo salió mal.',
-                        actionLabel: 'Volver',
-                        onAction: () => context.pop(),
                       ),
                     TutorPhase.connecting => _Connecting(lesson: lesson),
                     TutorPhase.ended => _Summary(lesson: lesson, state: state),
@@ -607,6 +603,55 @@ class _Orb extends StatelessWidget {
                 .animate(onPlay: (c) => c.repeat(reverse: true))
                 .scaleXY(begin: 1, end: 1.06, duration: Motion.slow)
             : orb,
+      ),
+    );
+  }
+}
+
+/// Why the lesson couldn't start, and what to try. The message's first
+/// paragraph says what happened; the rest are steps, read left to right.
+class _StartError extends StatelessWidget {
+  final String message;
+  const _StartError({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final parts = message.split('\n\n');
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(Insets.xxl),
+        child: Column(
+          children: [
+            Container(
+              width: Sizes.emptyIcon,
+              height: Sizes.emptyIcon,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: p.surfaceAlt,
+                border: Border.all(color: p.border),
+              ),
+              child: Icon(Icons.wifi_off_rounded, size: 30, color: p.textMuted),
+            ),
+            const SizedBox(height: Insets.xl),
+            Text('No se pudo empezar',
+                style: context.texts.headlineSmall,
+                textAlign: TextAlign.center),
+            const SizedBox(height: Insets.sm),
+            Text(parts.first,
+                style: context.texts.bodyMedium, textAlign: TextAlign.center),
+            if (parts.length > 1) ...[
+              const SizedBox(height: Insets.lg),
+              AppCard(
+                child: Text(parts.skip(1).join('\n\n'),
+                    style: context.texts.bodyMedium),
+              ),
+            ],
+            const SizedBox(height: Insets.xl),
+            ElevatedButton(
+                onPressed: () => context.pop(), child: const Text('Volver')),
+          ],
+        ),
       ),
     );
   }

@@ -199,7 +199,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
 
   Future<void> start() async {
     if (!AiBackend.isReady) {
-      _fail(const AiException(unavailable: true).messageEs);
+      _fail(const AiException(issue: AiIssue.setup).messageEs);
       return;
     }
     if (!_usage.canStartTutor) {
@@ -212,8 +212,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
     final problem = await AiBackend.verify();
     if (isClosed) return;
     if (problem != null) {
-      final e = AiException(unverified: true, detail: problem);
-      _fail('${e.messageEs}\n\n${e.technicalEs}');
+      _fail(problem.messageEs);
       return;
     }
     if (!await _audio.requestMicrophone()) {
@@ -293,13 +292,7 @@ class TutorSessionCubit extends Cubit<TutorSessionState> {
         tools: TutorPrompt.tools(),
       );
 
-  String _connectError(LiveConnectException e) {
-    final ai = e.asAiException;
-    final message = ai.rateLimited || ai.unavailable || ai.unverified
-        ? ai.messageEs
-        : 'No pude conectar con el tutor. Revisa tu conexión a internet.';
-    return [message, ai.technicalEs].where((s) => s.isNotEmpty).join('\n\n');
-  }
+  String _connectError(LiveConnectException e) => e.asAiException.messageEs;
 
   // ── Mic ──────────────────────────────────────────────────────────────────
   void _onMicChunk(Uint8List pcm) {

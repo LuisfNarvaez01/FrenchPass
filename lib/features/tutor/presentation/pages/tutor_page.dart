@@ -106,7 +106,7 @@ class _TutorPageState extends State<TutorPage> {
               InfoNotice(
                 icon: Icons.cloud_off_rounded,
                 iconColor: context.palette.warning,
-                message: const AiException(unavailable: true).messageEs,
+                message: const AiException(issue: AiIssue.setup).messageEs,
               ).animate().fadeIn(duration: Motion.base),
               const SizedBox(height: Insets.xl),
             ] else if (!_profile.isEmpty) ...[

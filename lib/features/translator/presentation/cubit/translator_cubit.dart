@@ -85,12 +85,7 @@ class TranslatorCubit extends Cubit<TranslatorState> {
         levelEstimate: _tutor.profile().levelEstimate,
       );
     } on AiException catch (e) {
-      error = e.rateLimited || e.unverified
-          ? e.messageEs
-          : e.unavailable
-              ? e.messageEs
-              : 'No pude traducir esto. Revisa tu conexión e inténtalo otra '
-                  'vez.';
+      error = e.messageEs;
     }
     if (isClosed) return;
 
