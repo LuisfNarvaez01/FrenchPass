@@ -8,6 +8,7 @@ import 'package:french_pass/core/widgets/app_widgets.dart';
 import 'package:french_pass/core/widgets/charts.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/achievements.dart';
+import 'package:french_pass/features/progress/presentation/widgets/review_queue.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
 import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 
@@ -31,7 +32,8 @@ class _ProgressPageState extends State<ProgressPage> {
   Widget build(BuildContext context) {
     final p = context.palette;
     final stats = _progress.stats();
-    final practiced = _progress.practiceTotals().values.fold(0, (a, b) => a + b);
+    final practiced =
+        _progress.practiceTotals().values.fold(0, (a, b) => a + b);
     final hasData = stats.totalAttempts > 0 || practiced > 0;
 
     return AppBackground(
@@ -81,6 +83,18 @@ class _ProgressPageState extends State<ProgressPage> {
                       Insets.page, Insets.xl, Insets.page, Insets.xxxl),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
+                      Builder(builder: (context) {
+                        final due = _progress.dueCards();
+                        return ReviewQueue(
+                          dueCount: due.length,
+                          words: due
+                              .map((c) => _words.byId(c.wordId))
+                              .whereType<Word>()
+                              .take(8)
+                              .toList(),
+                        );
+                      }),
+                      const SizedBox(height: Insets.xxl),
                       const _AchievementsSection(),
                       const SizedBox(height: Insets.xxl),
                       // ── Headline numbers ──────────────────────────────
@@ -292,7 +306,8 @@ class _AchievementsSection extends StatelessWidget {
                       color: done ? p.gold.withValues(alpha: 0.10) : p.surface,
                       borderRadius: BorderRadius.circular(Radii.md),
                       border: Border.all(
-                          color: done ? p.gold.withValues(alpha: 0.5) : p.border),
+                          color:
+                              done ? p.gold.withValues(alpha: 0.5) : p.border),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

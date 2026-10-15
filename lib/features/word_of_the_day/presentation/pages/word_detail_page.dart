@@ -9,9 +9,7 @@ import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/progress/domain/entities/srs_card.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/action_buttons_row.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/example_audio_row.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_card.dart';
+import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_hero.dart';
 
 class WordDetailPage extends StatefulWidget {
   final String wordId;
@@ -37,7 +35,6 @@ class _WordDetailPageState extends State<WordDetailPage> with TtsPlaybackState {
   @override
   Widget build(BuildContext context) {
     final word = getIt<WordRepository>().byId(widget.wordId);
-    final p = context.palette;
 
     return Scaffold(
       body: AppBackground(
@@ -52,39 +49,23 @@ class _WordDetailPageState extends State<WordDetailPage> with TtsPlaybackState {
                   slivers: [
                     AppSliverBar(
                       title: Text(word.french, style: context.texts.titleLarge),
-                      actions: [
-                        IconButton(
-                          tooltip: _isFavorite
-                              ? 'Quitar de guardadas'
-                              : 'Guardar palabra',
-                          icon: Icon(
-                            _isFavorite
-                                ? Icons.bookmark_rounded
-                                : Icons.bookmark_border_rounded,
-                            color: _isFavorite ? p.gold : p.textSecondary,
-                          ),
-                          onPressed: () async {
-                            final saved =
-                                await _progress.toggleFavorite(word.id);
-                            if (mounted) setState(() => _isFavorite = saved);
-                          },
-                        ),
-                      ],
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.fromLTRB(
                           Insets.page, Insets.sm, Insets.page, Insets.xxxl),
                       sliver: SliverList(
                         delegate: SliverChildListDelegate([
-                          WordCard(
+                          WordHero(
                             word: word,
-                            onTapIpa: () => speak(word.french),
+                            speaking: speaking,
+                            sequenceSpeaking: sequenceSpeaking,
+                            onListen: () => speak(word.french),
+                            onSentence: () => speak(word.exampleFr),
+                            onWordByWord: () => speakWordByWord(word.exampleFr),
                           ).animate().fadeIn(duration: Motion.base),
                           const SizedBox(height: Insets.lg),
-                          ActionButtonsRow(
-                            isSpeaking: speaking,
+                          WordActions(
                             isSaved: _isFavorite,
-                            onListen: () => speak(word.french),
                             onPractice: () async {
                               await context.push('/word/${word.id}/practice',
                                   extra: word);
@@ -97,13 +78,6 @@ class _WordDetailPageState extends State<WordDetailPage> with TtsPlaybackState {
                                   await _progress.toggleFavorite(word.id);
                               if (mounted) setState(() => _isFavorite = saved);
                             },
-                          ),
-                          const SizedBox(height: Insets.lg),
-                          ExampleAudioRow(
-                            isSpeakingWord: speaking,
-                            isSpeakingSequence: sequenceSpeaking,
-                            onWordByWord: () => speakWordByWord(word.exampleFr),
-                            onFullSentence: () => speak(word.exampleFr),
                           ),
                           const SizedBox(height: Insets.xxl),
                           _TranslationsCard(

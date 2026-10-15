@@ -201,7 +201,9 @@ void main() {
     await mount(tester, const Scaffold(body: HomePage()));
     await tester.pump(const Duration(seconds: 1));
     expect(tester.takeException(), isNull);
-    expect(find.text('Palabra del día'), findsOneWidget);
+    expect(find.textContaining('PALABRA DEL DÍA'), findsOneWidget);
+    expect(find.text('Practicar esta palabra'), findsOneWidget);
+    expect(find.text('CONTINÚA'), findsOneWidget);
     expect(find.textContaining('Meta de hoy'), findsOneWidget);
     expect(find.text('¿Cuál es tu nivel?'), findsOneWidget);
   });

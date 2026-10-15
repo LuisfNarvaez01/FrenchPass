@@ -70,7 +70,7 @@ demás es secundario: botones con contorno o de texto, o un menú.
 1. Sistema de diseño: color, tipografía, reglas de contenedores y
    navegación. *(v1.8.0)*
 2. Inicio: la palabra del día como protagonista, una acción principal y
-   "continuar donde lo dejaste".
+   "continuar donde lo dejaste". *(v1.9.0)*
 3. Catálogo y Práctica: sin iconos de marca de agua, progreso por
    categoría, actividades agrupadas y una recomendada.
 4. Tutor: guiado frente a libre, situaciones compactas con nivel y

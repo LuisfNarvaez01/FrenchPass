@@ -5,7 +5,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:french_pass/features/progress/presentation/widgets/daily_goal_card.dart';
 import 'package:french_pass/features/progress/domain/achievements.dart';
 import 'package:french_pass/core/services/reminder_service.dart';
 import 'package:french_pass/core/services/storage_service.dart';
@@ -17,12 +16,11 @@ import 'package:french_pass/core/widgets/mascot.dart';
 import 'package:french_pass/core/widgets/tts_playback_mixin.dart';
 import 'package:french_pass/features/progress/data/progress_repository.dart';
 import 'package:french_pass/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:french_pass/features/tutor/data/tutor_repository.dart';
+import 'package:french_pass/features/tutor/domain/lesson.dart';
 import 'package:french_pass/features/word_of_the_day/data/word_repository.dart';
-import 'package:french_pass/features/word_of_the_day/domain/entities/word.dart';
 import 'package:french_pass/features/word_of_the_day/presentation/cubit/home_cubit.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/action_buttons_row.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/example_audio_row.dart';
-import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_card.dart';
+import 'package:french_pass/features/word_of_the_day/presentation/widgets/word_hero.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -122,42 +120,17 @@ class _HomeViewState extends State<_HomeView>
                     SliverToBoxAdapter(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(
-                            Insets.page, Insets.lg, Insets.page, 0),
+                            Insets.page, Insets.md, Insets.sm, 0),
                         child: _Masthead(streak: state.streak),
                       ),
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.fromLTRB(
-                          Insets.page, Insets.xxl, Insets.page, Insets.xxxl),
+                          Insets.page, Insets.lg, Insets.page, Insets.xxxl),
                       sliver: SliverList(
                         delegate: SliverChildListDelegate([
-                          // Reviews are the one thing a returning learner
-                          // came for, so they lead -- one tap, above the fold.
-                          if (state.dueCount > 0) ...[
-                            _DueBanner(dueCount: state.dueCount)
-                                .animate()
-                                .fadeIn(duration: Motion.base),
-                            const SizedBox(height: Insets.xxl),
-                          ],
-
-                          if (_showPlacement) ...[
-                            _PlacementPrompt(
-                              onStart: () async {
-                                await context.push('/practice/placement');
-                                if (mounted) await _refresh();
-                              },
-                              onDismiss: () async {
-                                await getIt<StorageService>().setBool(
-                                    StorageKeys.placementDismissed, true);
-                                if (mounted) setState(() {});
-                              },
-                            ),
-                            const SizedBox(height: Insets.lg),
-                          ],
-                          DailyGoalCard(onTap: () => context.go('/quiz')),
                           if (getIt<AchievementService>().unseen()
                               case final fresh when fresh.isNotEmpty) ...[
-                            const SizedBox(height: Insets.md),
                             _NewAchievements(
                               achievements: fresh,
                               onOpen: () async {
@@ -166,32 +139,29 @@ class _HomeViewState extends State<_HomeView>
                                 context.go('/progress');
                               },
                             ),
+                            const SizedBox(height: Insets.lg),
                           ],
-                          const SizedBox(height: Insets.xxl),
 
-                          Text('Palabra del día',
-                              style: AppTheme.eyebrow(context)),
-                          const SizedBox(height: Insets.xs),
-                          Text(
-                            _todayFormatted(),
-                            style: context.texts.bodySmall,
-                          ),
-                          const SizedBox(height: Insets.lg),
-
+                          // The word is the hero: the first and biggest thing
+                          // on screen, with one gold action under it.
                           _InkIn(
                             key: ValueKey(word.id),
-                            child: WordCard(
+                            child: WordHero(
                               word: word,
-                              onTapIpa: () => speak(word.french),
+                              eyebrow: state.isExploring
+                                  ? null
+                                  : 'Palabra del día · ${_todayFormatted()}',
+                              speaking: speaking,
+                              sequenceSpeaking: sequenceSpeaking,
+                              onListen: () => speak(word.french),
+                              onSentence: () => speak(word.exampleFr),
+                              onWordByWord: () =>
+                                  speakWordByWord(word.exampleFr),
                             ),
                           ),
-
                           const SizedBox(height: Insets.lg),
-
-                          ActionButtonsRow(
-                            isSpeaking: speaking,
+                          WordActions(
                             isSaved: state.isFavorite,
-                            onListen: () => speak(word.french),
                             onPractice: () async {
                               // Captured before the await: practicing an
                               // explored word should not snap the card back
@@ -227,20 +197,6 @@ class _HomeViewState extends State<_HomeView>
                               );
                             },
                           ).animate().fadeIn(delay: Motion.stagger(3)),
-
-                          const SizedBox(height: Insets.lg),
-
-                          ExampleAudioRow(
-                            isSpeakingWord: speaking,
-                            isSpeakingSequence: sequenceSpeaking,
-                            onWordByWord: () => speakWordByWord(word.exampleFr),
-                            onFullSentence: () => speak(word.exampleFr),
-                          ).animate().fadeIn(delay: Motion.stagger(4)),
-
-                          const SizedBox(height: Insets.md),
-
-                          // Secondary: wandering off today's word comes after
-                          // everything that serves it.
                           _NextWordRow(
                             isExploring: state.isExploring,
                             onNext: () {
@@ -251,22 +207,20 @@ class _HomeViewState extends State<_HomeView>
                                   .levelFilter);
                             },
                             onBackToToday: _refresh,
-                          ).animate().fadeIn(delay: Motion.stagger(5)),
-
-                          const SizedBox(height: Insets.xxl),
-
-                          _StreakCard(
-                            streak: state.streak,
-                            studiedToday: state.studiedToday,
-                          ).animate().fadeIn(delay: Motion.stagger(6)),
-
-                          const SizedBox(height: Insets.lg),
-
-                          _ReviewQueue(
+                          ).animate().fadeIn(delay: Motion.stagger(4)),
+                          const SizedBox(height: Insets.xl),
+                          _ContinueSection(
                             dueCount: state.dueCount,
-                            words: state.dueWords,
-                            corpusSize: state.corpusSize,
-                          ).animate().fadeIn(delay: Motion.stagger(6)),
+                            onPlacement: () async {
+                              await context.push('/practice/placement');
+                              if (mounted) await _refresh();
+                            },
+                            onDismissPlacement: () async {
+                              await getIt<StorageService>().setBool(
+                                  StorageKeys.placementDismissed, true);
+                              if (mounted) setState(() {});
+                            },
+                          ).animate().fadeIn(delay: Motion.stagger(5)),
                         ]),
                       ),
                     ),
@@ -306,7 +260,7 @@ class _HomeViewState extends State<_HomeView>
       'domingo',
     ];
     final weekday = weekdays[now.weekday - 1];
-    return '$weekday, ${now.day} de ${months[now.month - 1]}';
+    return '$weekday ${now.day} de ${months[now.month - 1]}';
   }
 }
 
@@ -315,51 +269,6 @@ bool get _showPlacement {
   final storage = getIt<StorageService>();
   return storage.getString(StorageKeys.placementLevel) == null &&
       !(storage.getBool(StorageKeys.placementDismissed) ?? false);
-}
-
-class _PlacementPrompt extends StatelessWidget {
-  final VoidCallback onStart;
-  final VoidCallback onDismiss;
-  const _PlacementPrompt({required this.onStart, required this.onDismiss});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return AppCard(
-      accent: true,
-      child: Row(
-        children: [
-          const MascotSticker(size: 56, pose: MascotPose.thinking, tilt: 0),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('¿Cuál es tu nivel?', style: context.texts.titleMedium),
-                Text('Tres minutos y la app se ajusta a ti.',
-                    style: context.texts.bodySmall),
-                const SizedBox(height: Insets.xs),
-                // Wrap, not Row: both buttons don't fit beside the mascot
-                // on a typical phone.
-                Wrap(
-                  children: [
-                    TextButton(
-                        onPressed: onStart,
-                        child: const Text('Hacer la prueba')),
-                    TextButton(
-                      onPressed: onDismiss,
-                      child: Text('Ahora no',
-                          style: TextStyle(color: p.textMuted)),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class _NewAchievements extends StatelessWidget {
@@ -373,6 +282,7 @@ class _NewAchievements extends StatelessWidget {
     final first = achievements.first;
     return AppCard(
       onTap: onOpen,
+      accent: true,
       padding: const EdgeInsets.symmetric(
           horizontal: Insets.lg, vertical: Insets.md),
       child: Row(
@@ -389,7 +299,10 @@ class _NewAchievements extends StatelessWidget {
                       : '${achievements.length} logros nuevos',
                   style: context.texts.titleMedium,
                 ),
-                Text(first.description, style: context.texts.bodySmall),
+                Text(first.description,
+                    style: context.texts.bodySmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
               ],
             ),
           ),
@@ -401,6 +314,8 @@ class _NewAchievements extends StatelessWidget {
   }
 }
 
+/// The wordmark, today's status in one chip (streak and goal), and the two
+/// tools that live outside the tabs.
 class _Masthead extends StatelessWidget {
   final int streak;
   const _Masthead({required this.streak});
@@ -416,21 +331,17 @@ class _Masthead extends StatelessWidget {
               TextSpan(
                 text: 'French',
                 style: context.texts.headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w400),
+                    ?.copyWith(fontWeight: FontWeight.w500),
               ),
               TextSpan(
                 text: 'Pass',
                 style: context.texts.headlineMedium
-                    ?.copyWith(color: p.gold, fontWeight: FontWeight.w700),
+                    ?.copyWith(color: p.gold, fontWeight: FontWeight.w800),
               ),
             ]),
           ),
         ),
-        if (streak > 0)
-          Pill(
-              label: '$streak d',
-              icon: Icons.local_fire_department_rounded,
-              tone: p.terracotta),
+        _TodayChip(streak: streak),
         IconButton(
           tooltip: 'Traductor',
           icon: Icon(Icons.translate_rounded, color: p.textSecondary),
@@ -442,6 +353,63 @@ class _Masthead extends StatelessWidget {
           onPressed: () => context.push('/settings'),
         ),
       ],
+    );
+  }
+}
+
+/// Streak and today's goal side by side, small enough for the header.
+/// Opens Progreso, where both are explained.
+class _TodayChip extends StatelessWidget {
+  final int streak;
+  const _TodayChip({required this.streak});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final progress = getIt<ProgressRepository>();
+    final done = progress.practiceToday();
+    final goal = progress.dailyGoal;
+    final met = done >= goal;
+    return Semantics(
+      button: true,
+      label: 'Racha de $streak días. Meta de hoy: $done de $goal ejercicios.',
+      child: Material(
+        color: p.surface,
+        borderRadius: BorderRadius.circular(Radii.pill),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(Radii.pill),
+          onTap: () => context.go('/progress'),
+          child: ExcludeSemantics(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Insets.md, vertical: Insets.sm),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.local_fire_department_rounded,
+                      size: 16, color: streak > 0 ? p.terracotta : p.textMuted),
+                  const SizedBox(width: 2),
+                  Text('$streak', style: context.texts.labelLarge),
+                  const SizedBox(width: Insets.md),
+                  SizedBox(
+                    width: 15,
+                    height: 15,
+                    child: CircularProgressIndicator(
+                      value: (done / goal).clamp(0, 1).toDouble(),
+                      strokeWidth: 2.5,
+                      color: met ? p.good : p.gold,
+                      backgroundColor: p.surfaceAlt,
+                    ),
+                  ),
+                  const SizedBox(width: Insets.xs + 2),
+                  Text(met ? '$done' : '$done/$goal',
+                      style: context.texts.labelLarge),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -462,216 +430,184 @@ class _NextWordRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
+    final quiet = TextButton.styleFrom(foregroundColor: p.textSecondary);
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (isExploring) ...[
-          Expanded(
-            child: TextButton.icon(
-              onPressed: onBackToToday,
-              icon: Icon(Icons.today_rounded, size: 16, color: p.textSecondary),
-              label: const Text('Volver a la palabra de hoy'),
-              style: TextButton.styleFrom(foregroundColor: p.textSecondary),
-            ),
+        if (isExploring)
+          TextButton.icon(
+            style: quiet,
+            onPressed: onBackToToday,
+            icon: const Icon(Icons.today_rounded, size: 16),
+            label: const Text('Volver a la de hoy'),
           ),
-          const SizedBox(width: Insets.sm),
-        ],
-        Expanded(
-          child: TextButton.icon(
-            onPressed: onNext,
-            icon: Icon(Icons.shuffle_rounded, size: 16, color: p.gold),
-            label: const Text('Otra palabra'),
-          ),
+        TextButton.icon(
+          style: quiet,
+          onPressed: onNext,
+          icon: const Icon(Icons.shuffle_rounded, size: 16),
+          label: const Text('Otra palabra'),
         ),
       ],
     );
   }
 }
 
-/// Compact call to review, pinned above the word of the day whenever the
-/// spaced-repetition queue has something due.
-class _DueBanner extends StatelessWidget {
+/// What to do next, as one list: reviews due, today's goal, the tutor
+/// lesson to pick up, and (until answered) the placement test.
+class _ContinueSection extends StatelessWidget {
   final int dueCount;
-  const _DueBanner({required this.dueCount});
+  final VoidCallback onPlacement;
+  final VoidCallback onDismissPlacement;
 
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return AppCard(
-      onTap: () => context.push('/practice/quiz'),
-      padding: const EdgeInsets.symmetric(
-          horizontal: Insets.lg, vertical: Insets.md),
-      child: Row(
-        children: [
-          Icon(Icons.replay_rounded, color: p.terracotta, size: 22),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Toca repasar', style: context.texts.titleMedium),
-                Text(
-                  '$dueCount ${dueCount == 1 ? 'palabra espera' : 'palabras esperan'} tu voz',
-                  style: context.texts.bodySmall,
-                ),
-              ],
-            ),
-          ),
-          Text('Repasar',
-              style: context.texts.labelLarge?.copyWith(color: p.gold)),
-          Icon(Icons.chevron_right_rounded, color: p.gold, size: 20),
-        ],
-      ),
-    );
-  }
-}
-
-class _StreakCard extends StatelessWidget {
-  final int streak;
-  final bool studiedToday;
-
-  const _StreakCard({required this.streak, required this.studiedToday});
-
-  @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-
-    final (title, message) = switch ((streak, studiedToday)) {
-      (0, _) => ('Empieza tu racha hoy', 'Una palabra basta para arrancar.'),
-      (_, true) => (
-          '$streak ${streak == 1 ? 'día' : 'días'} de racha',
-          '¡Ya practicaste hoy! Nos vemos mañana.'
-        ),
-      _ => (
-          '$streak ${streak == 1 ? 'día' : 'días'} de racha',
-          'Practica hoy para no perderla.'
-        ),
-    };
-
-    final calm = MediaQuery.disableAnimationsOf(context);
-    final flame = Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: p.terracotta.withValues(alpha: 0.14),
-      ),
-      child: Icon(Icons.local_fire_department_rounded,
-          color: p.terracotta, size: 24),
-    );
-
-    return AppCard(
-      child: Row(
-        children: [
-          // Practising today earns the mascot; until then the flame asks
-          // for it with a short flicker.
-          if (studiedToday)
-            const SizedBox(
-              width: 48,
-              height: 48,
-              child: OverflowBox(
-                maxWidth: 68,
-                maxHeight: 68,
-                child: MascotSticker(size: 68),
-              ),
-            )
-          else if (streak > 0 && !calm)
-            flame
-                .animate(delay: 600.ms)
-                .scaleXY(begin: 1, end: 1.12, duration: 260.ms)
-                .then()
-                .scaleXY(begin: 1.12, end: 1 / 1.12, duration: 260.ms)
-                .then()
-                .scaleXY(begin: 1, end: 1.08, duration: 220.ms)
-                .then()
-                .scaleXY(begin: 1.08, end: 1 / 1.08, duration: 220.ms)
-          else
-            flame,
-          const SizedBox(width: Insets.lg),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: context.texts.titleMedium),
-                const SizedBox(height: 2),
-                Text(message, style: context.texts.bodySmall),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ReviewQueue extends StatelessWidget {
-  final int dueCount;
-  final List<Word> words;
-  final int corpusSize;
-
-  const _ReviewQueue({
+  const _ContinueSection({
     required this.dueCount,
-    required this.words,
-    required this.corpusSize,
+    required this.onPlacement,
+    required this.onDismissPlacement,
   });
 
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
+    final progress = getIt<ProgressRepository>();
+    final done = progress.practiceToday();
+    final goal = progress.dailyGoal;
+    final history = getIt<TutorRepository>().history();
+    final last = history.isEmpty ? null : Lessons.byId(history.last.lessonId);
+    final minutes = (dueCount * 12 / 60).ceil();
 
-    if (dueCount == 0) {
-      return InfoNotice(
-        icon: Icons.task_alt_rounded,
-        iconColor: p.good,
-        message: words.isEmpty && corpusSize > 0
-            ? 'Aún no tienes repasos programados. Practica la palabra '
-                'de hoy y el sistema te la devolverá en el momento justo.'
-            : 'Sin repasos pendientes. Todo al día.',
-      );
-    }
+    final rows = <Widget>[
+      if (dueCount > 0)
+        _ContinueRow(
+          icon: Icons.replay_rounded,
+          tone: p.terracotta,
+          title: dueCount == 1
+              ? 'Repasar 1 palabra'
+              : 'Repasar $dueCount palabras',
+          subtitle: 'Unos $minutes min, antes de que se te olviden',
+          onTap: () => context.push('/practice/quiz'),
+        ),
+      if (done < goal)
+        _ContinueRow(
+          icon: Icons.flag_rounded,
+          tone: p.gold,
+          title: 'Meta de hoy: $done de $goal',
+          subtitle: goal - done == 1
+              ? 'Te falta 1 ejercicio'
+              : 'Te faltan ${goal - done} ejercicios',
+          onTap: () => context.go('/quiz'),
+        ),
+      if (last != null && last.id != Lessons.freeTalkId)
+        _ContinueRow(
+          icon: Icons.record_voice_over_rounded,
+          tone: p.textSecondary,
+          title: 'Seguir con el tutor',
+          subtitle: last.titleEs,
+          onTap: () => context.push('/tutor/${last.id}'),
+        )
+      else
+        _ContinueRow(
+          icon: Icons.record_voice_over_rounded,
+          tone: p.textSecondary,
+          title: history.isEmpty
+              ? 'Tu primera conversación'
+              : 'Habla con el tutor',
+          subtitle: 'Practica en voz alta, a tu nivel',
+          onTap: () => context.go('/tutor'),
+        ),
+      if (_showPlacement)
+        _ContinueRow(
+          icon: Icons.school_rounded,
+          tone: p.textSecondary,
+          title: '¿Cuál es tu nivel?',
+          subtitle: 'Prueba de 3 minutos',
+          onTap: onPlacement,
+          trailing: IconButton(
+            tooltip: 'Ahora no',
+            icon: Icon(Icons.close_rounded, size: 18, color: p.textMuted),
+            onPressed: onDismissPlacement,
+          ),
+        ),
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(
-          eyebrow: 'Repetición espaciada',
-          title: 'Tu cola de repaso',
-          subtitle: 'Toca una palabra para verla antes del quiz',
-          trailing: TextButton(
-            onPressed: () => context.push('/practice/quiz'),
-            child: const Text('Quiz'),
+        Text('CONTINÚA', style: AppTheme.eyebrow(context)),
+        const SizedBox(height: Insets.sm),
+        AppCard(
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              for (final (i, row) in rows.indexed) ...[
+                if (i > 0) Divider(height: 1, indent: 64, color: p.border),
+                row,
+              ],
+            ],
           ),
         ),
-        const SizedBox(height: Insets.md),
-        for (final word in words) ...[
-          AppCard(
-            padding: const EdgeInsets.symmetric(
-                horizontal: Insets.lg, vertical: Insets.md),
-            onTap: () => context.push('/word/${word.id}'),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(word.french, style: context.texts.titleMedium),
-                      const SizedBox(height: 2),
-                      Text(word.translationEs,
-                          style: context.texts.bodySmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: Insets.md),
-                Pill(label: word.level.label, tone: p.textSecondary, dense: true),
-                const SizedBox(width: Insets.sm),
-                Icon(Icons.chevron_right_rounded, color: p.textMuted, size: 20),
-              ],
-            ),
-          ),
-          const SizedBox(height: Insets.sm),
-        ],
       ],
+    );
+  }
+}
+
+class _ContinueRow extends StatelessWidget {
+  final IconData icon;
+  final Color tone;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+  final Widget? trailing;
+
+  const _ContinueRow({
+    required this.icon,
+    required this.tone,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+            Insets.lg, Insets.md, Insets.sm, Insets.md),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: tone.withValues(alpha: 0.14),
+              ),
+              child: Icon(icon, size: 18, color: tone),
+            ),
+            const SizedBox(width: Insets.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: context.texts.titleMedium),
+                  Text(subtitle,
+                      style: context.texts.bodySmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ),
+            ),
+            trailing ??
+                Padding(
+                  padding: const EdgeInsets.only(right: Insets.sm),
+                  child: Icon(Icons.chevron_right_rounded,
+                      color: p.textMuted, size: 20),
+                ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -707,7 +643,7 @@ class _InkIn extends StatelessWidget {
           duration: 1100.ms,
           angle: 0.5,
           size: 0.6,
-          color: p.goldBright.withValues(alpha: 0.22),
+          color: p.goldBright.withValues(alpha: 0.16),
         );
   }
 }
