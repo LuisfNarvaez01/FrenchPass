@@ -51,7 +51,7 @@ class _GrammarListPageState extends State<GrammarListPage> {
                   horizontal: Insets.lg, vertical: Insets.md),
               child: Row(
                 children: [
-                  Pill(label: topic.level.label, tone: p.gold, dense: true),
+                  Pill(label: topic.level.label, tone: p.textSecondary, dense: true),
                   const SizedBox(width: Insets.md),
                   Expanded(
                     child: Column(
@@ -180,7 +180,7 @@ class _Explanation extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(
             Insets.page, Insets.md, Insets.page, Insets.xxxl),
         children: [
-          Pill(label: 'Nivel ${topic.level.label}', tone: p.gold, dense: true),
+          Pill(label: 'Nivel ${topic.level.label}', tone: p.textSecondary, dense: true),
           const SizedBox(height: Insets.md),
           Text(topic.summary, style: context.texts.titleMedium),
           const SizedBox(height: Insets.lg),

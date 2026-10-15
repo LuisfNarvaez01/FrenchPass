@@ -219,7 +219,7 @@ class _PhraseCardState extends State<PhraseCard> with TtsPlaybackState {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (level != null && level.isNotEmpty) ...[
-                Pill(label: level, tone: p.terracotta, dense: true),
+                Pill(label: level, tone: p.textSecondary, dense: true),
                 const SizedBox(width: Insets.sm),
               ],
               Expanded(

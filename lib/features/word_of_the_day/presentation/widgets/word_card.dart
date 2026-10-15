@@ -86,7 +86,7 @@ class _WordCardContent extends StatelessWidget {
                 icon: word.category.icon,
                 tone: p.gold,
               ),
-              Pill(label: word.level.label, tone: p.terracotta, dense: true),
+              Pill(label: word.level.label, tone: p.textSecondary, dense: true),
             ],
           ),
           SizedBox(height: compact ? Insets.xl : Insets.xxl),

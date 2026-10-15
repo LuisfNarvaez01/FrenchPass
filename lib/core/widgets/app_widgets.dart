@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:french_pass/core/theme/app_theme.dart';
 
-/// Page shell: paints the warm vertical ground plus a soft gold bloom at the
-/// top so every screen shares one atmosphere.
+/// Page shell: the night-blue ground with one soft lamp-light glow at the
+/// top, so every screen shares one atmosphere.
 class AppBackground extends StatelessWidget {
   final Widget child;
   const AppBackground({super.key, required this.child});
@@ -34,7 +34,7 @@ class AppBackground extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      p.gold.withValues(alpha: 0.10),
+                      p.gold.withValues(alpha: 0.07),
                       p.gold.withValues(alpha: 0),
                     ],
                   ),
@@ -42,8 +42,8 @@ class AppBackground extends StatelessWidget {
               ),
             ),
           ),
-          // A second, cooler bloom low on the opposite side keeps the warm
-          // top glow from reading as a single flat spotlight.
+          // A faint cool bloom low on the opposite side keeps the warm top
+          // glow from reading as a single flat spotlight.
           Positioned(
             bottom: -200,
             left: -140,
@@ -55,8 +55,8 @@ class AppBackground extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      p.terracotta.withValues(alpha: 0.05),
-                      p.terracotta.withValues(alpha: 0),
+                      p.textSecondary.withValues(alpha: 0.035),
+                      p.textSecondary.withValues(alpha: 0),
                     ],
                   ),
                 ),
@@ -70,7 +70,13 @@ class AppBackground extends StatelessWidget {
   }
 }
 
-/// The standard surface: 1px warm border, no elevation, generous radius.
+/// The standard surface. In the dark theme it stands out by being lighter
+/// than the ground, with only a hairline highlight; the light theme keeps a
+/// thin warm border, since white on cream needs one.
+///
+/// Use a card for a thing you can act on or that stands apart (the word of
+/// the day, a lesson). Plain lists, labels and explanations go on the page
+/// itself, not in a card of their own.
 class AppCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -94,7 +100,11 @@ class AppCard extends StatelessWidget {
       color: p.surface,
       borderRadius: BorderRadius.circular(radius),
       border: Border.all(
-        color: accent ? p.gold.withValues(alpha: 0.35) : p.border,
+        color: accent
+            ? p.gold.withValues(alpha: 0.35)
+            : Theme.of(context).brightness == Brightness.dark
+                ? Colors.white.withValues(alpha: 0.05)
+                : p.border,
       ),
       boxShadow: accent
           ? [
@@ -335,9 +345,8 @@ class Pill extends StatelessWidget {
         vertical: dense ? 3 : 6,
       ),
       decoration: BoxDecoration(
-        color: c.withValues(alpha: 0.12),
+        color: c.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(Radii.pill),
-        border: Border.all(color: c.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

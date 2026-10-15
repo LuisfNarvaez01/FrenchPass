@@ -181,7 +181,7 @@ class _ProfileCard extends StatelessWidget {
                     Text('LO QUE SÉ DE TI', style: AppTheme.eyebrow(context)),
               ),
               if (profile.levelEstimate.isNotEmpty)
-                Pill(label: profile.levelEstimate, tone: p.gold, dense: true),
+                Pill(label: profile.levelEstimate, tone: p.textSecondary, dense: true),
             ],
           ),
           const SizedBox(height: Insets.xs),

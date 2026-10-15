@@ -83,7 +83,7 @@ class AppTheme {
 
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: p.gold,
+          foregroundColor: p.textPrimary,
           side: BorderSide(color: p.borderStrong),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.md)),
@@ -113,13 +113,13 @@ class AppTheme {
       ),
 
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: p.surface,
+        backgroundColor: p.bgAlt,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         height: 68,
-        indicatorColor: p.gold.withValues(alpha: 0.16),
-        indicatorShape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(Radii.pill))),
+        // The selected tab shows in its icon and label, not a pill that
+        // competes with the content.
+        indicatorColor: Colors.transparent,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         iconTheme: WidgetStateProperty.resolveWith((states) =>
             IconThemeData(
@@ -132,8 +132,8 @@ class AppTheme {
           final selected = states.contains(WidgetState.selected);
           return GoogleFonts.lato(
             fontSize: 11,
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-            color: selected ? p.gold : p.textMuted,
+            fontWeight: selected ? FontWeight.w800 : FontWeight.w500,
+            color: selected ? p.textPrimary : p.textMuted,
           );
         }),
       ),
@@ -223,16 +223,26 @@ class AppTheme {
             color: p.textPrimary),
         displaySmall: GoogleFonts.playfairDisplay(
             fontSize: 34,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             height: 1.15,
             letterSpacing: -0.5,
             color: p.textPrimary),
         headlineLarge: GoogleFonts.playfairDisplay(
-            fontSize: 28, fontWeight: FontWeight.w600, color: p.textPrimary),
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            height: 1.15,
+            letterSpacing: -0.3,
+            color: p.textPrimary),
         headlineMedium: GoogleFonts.playfairDisplay(
-            fontSize: 23, fontWeight: FontWeight.w600, color: p.textPrimary),
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+            color: p.textPrimary),
         headlineSmall: GoogleFonts.playfairDisplay(
-            fontSize: 20, fontWeight: FontWeight.w600, color: p.textPrimary),
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            height: 1.25,
+            color: p.textPrimary),
         titleLarge: GoogleFonts.lato(
             fontSize: 17, fontWeight: FontWeight.w700, color: p.textPrimary),
         titleMedium: GoogleFonts.lato(
@@ -244,7 +254,7 @@ class AppTheme {
         bodyMedium: GoogleFonts.lato(
             fontSize: 14, height: 1.45, color: p.textSecondary),
         bodySmall: GoogleFonts.lato(
-            fontSize: 12.5, height: 1.4, color: p.textMuted),
+            fontSize: 13, height: 1.4, color: p.textMuted),
         labelLarge: GoogleFonts.lato(
             fontSize: 14, fontWeight: FontWeight.w700, color: p.textPrimary),
         labelMedium: GoogleFonts.lato(
@@ -253,10 +263,22 @@ class AppTheme {
             letterSpacing: 0.3,
             color: p.textSecondary),
         labelSmall: GoogleFonts.lato(
-            fontSize: 10.5,
+            fontSize: 11,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.8,
             color: p.textMuted),
+      );
+
+  /// French text as the hero of a screen: the word being learned, a phrase
+  /// to say. Serif in the learner's ink, never gold, so it reads as
+  /// content rather than decoration.
+  static TextStyle french(BuildContext context, {double size = 28}) =>
+      GoogleFonts.playfairDisplay(
+        fontSize: size,
+        fontWeight: FontWeight.w700,
+        height: 1.15,
+        letterSpacing: size >= 28 ? -0.4 : 0,
+        color: context.palette.textPrimary,
       );
 
   /// Style for IPA transcriptions.
@@ -270,7 +292,7 @@ class AppTheme {
   /// Uppercase eyebrow label used above sections.
   static TextStyle eyebrow(BuildContext context) => GoogleFonts.lato(
         fontSize: 11,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w800,
         letterSpacing: 1.4,
         color: context.palette.textMuted,
       );

@@ -293,7 +293,7 @@ class WordRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: Insets.md),
-          Pill(label: word.level.label, tone: p.terracotta, dense: true),
+          Pill(label: word.level.label, tone: p.textSecondary, dense: true),
           const SizedBox(width: Insets.sm),
           Icon(Icons.chevron_right_rounded, size: 20, color: p.textMuted),
         ],

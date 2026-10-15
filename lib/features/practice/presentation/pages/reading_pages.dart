@@ -174,7 +174,7 @@ class _ReadingPageState extends State<ReadingPage> {
         children: [
           Row(
             children: [
-              Pill(label: 'Nivel ${r.level.label}', tone: p.gold, dense: true),
+              Pill(label: 'Nivel ${r.level.label}', tone: p.textSecondary, dense: true),
               const Spacer(),
               SpeakButton(text: r.text, size: 44, tooltip: 'Escuchar todo'),
             ],
