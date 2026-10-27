@@ -13,17 +13,29 @@
             ["oui", "/wi/", "sí", "Oui, merci.", "Sí, gracias."],
             ["non", "/nɔ̃/", "no", "Non, merci.", "No, gracias."],
             ["moi aussi", "/mwa o.si/", "yo también", "— J'aime Paris. — Moi aussi !", "—Me gusta París. —¡A mí también!"],
-            ["moi non plus", "/mwa nɔ̃ ply/", "yo tampoco", "— Je ne parle pas allemand. — Moi non plus.", "—No hablo alemán. —Yo tampoco."]
+            ["moi non plus", "/mwa nɔ̃ ply/", "yo tampoco", "— Je ne parle pas allemand. — Moi non plus.", "—No hablo alemán. —Yo tampoco."],
+            ["d'accord", "/da.kɔʁ/", "vale, de acuerdo", "— On va au cinéma ? — D'accord !", "—¿Vamos al cine? —¡Vale!"],
+            ["bien sûr", "/bjɛ̃ syʁ/", "claro, por supuesto", "— Tu aimes Paris ? — Bien sûr !", "—¿Te gusta París? —¡Claro!"],
+            ["peut-être", "/pø.tɛtʁ/", "quizás", "Peut-être demain.", "Quizás mañana."]
           ],
           "x": [
             ["c", "Tu amiga dice «Je suis fatiguée». Tú también estás cansado. ¿Qué respondes?", ["Moi aussi.", "Moi non plus.", "Non, merci.", "De rien."], "«Moi aussi» responde a algo afirmativo; «moi non plus», a algo negativo."],
             ["c", "Alguien dice «Je n'aime pas le froid». A ti tampoco te gusta. ¿Qué dices?", ["Moi non plus.", "Moi aussi.", "Oui, merci.", "Enchanté."], "La frase es negativa, así que se responde «moi non plus»."],
             ["l", "Moi aussi", ["yo también", "yo tampoco", "sí, gracias", "y tú"]],
+            ["c", "Tu amigo propone «On va au cinéma ?». Quieres decir que sí, que vale. ¿Qué respondes?", ["D'accord !", "Moi non plus.", "Pardon.", "De rien."], "«D'accord» es «vale» o «de acuerdo»."],
+            ["l", "Bien sûr", ["claro", "quizás", "yo tampoco", "de nada"]],
+            ["o", "D'accord, peut-être demain.", "Vale, quizás mañana."],
             ["d", [
               ["Inès", "Un café ?", "¿Un café?"],
               ["", ["Oui, merci !", "Moi non plus.", "Bonne nuit."], "¡Sí, gracias!"],
               ["Inès", "J'adore le café de Paris.", "Me encanta el café de París."],
-              ["", ["Moi aussi !", "Moi non plus.", "Pardon."], "¡A mí también!"]
+              ["", ["Moi aussi !", "Moi non plus.", "Pardon."], "¡A mí también!"],
+              ["Inès", "Mais je n'aime pas le thé.", "Pero no me gusta el té."],
+              ["", ["Moi non plus.", "Moi aussi.", "Bonne journée."], "A mí tampoco."],
+              ["Inès", "Un croissant aussi ?", "¿Un cruasán también?"],
+              ["", ["Non, merci. Peut-être demain.", "Moi aussi, merci.", "Enchanté, Inès."], "No, gracias. Quizás mañana."],
+              ["Inès", "On se voit demain au café ?", "¿Nos vemos mañana en el café?"],
+              ["", ["D'accord, bien sûr !", "Moi non plus !", "De rien !"], "¡Vale, claro!"]
             ]]
           ]
         },
@@ -34,18 +46,32 @@
             ["je suis de…", "/ʒə sɥi də/", "soy de…", "Je suis de Bogotá.", "Soy de Bogotá."],
             ["j'habite à…", "/ʒa.bit a/", "vivo en… (ciudad)", "J'habite à Madrid.", "Vivo en Madrid."],
             ["tu es d'où ?", "/ty ɛ du/", "¿de dónde eres?", "Et toi, tu es d'où ?", "¿Y tú, de dónde eres?"],
-            ["la France", "/la fʁɑ̃s/", "Francia", "J'habite en France.", "Vivo en Francia."]
+            ["la France", "/la fʁɑ̃s/", "Francia", "J'habite en France.", "Vivo en Francia."],
+            ["tu habites où ?", "/ty a.bit u/", "¿dónde vives?", "Et toi, tu habites où ?", "¿Y tú, dónde vives?"],
+            ["l'Espagne", "/lɛs.paɲ/", "España", "J'habite en Espagne.", "Vivo en España."],
+            ["espagnol, espagnole", "/ɛs.pa.ɲɔl/", "español, española", "Carmen est espagnole.", "Carmen es española."],
+            ["la ville", "/la vil/", "la ciudad", "Lyon est une belle ville.", "Lyon es una ciudad bonita."]
           ],
           "x": [
             ["c", "Completa: «J'habite ___ Lyon.»", ["à", "de", "en", "au"], "Con ciudades se usa «à»: j'habite à Lyon, à Paris."],
             ["c", "Te preguntan «Tu es d'où ?». ¿Qué significa?", ["¿De dónde eres?", "¿Dónde vives?", "¿Cómo te llamas?", "¿Qué tal?"]],
             ["o", "Je suis de Mexico.", "Soy de Ciudad de México."],
             ["l", "J'habite à Paris", ["vivo en París", "soy de París", "me gusta París", "voy a París"]],
+            ["c", "Completa: «J'habite ___ Espagne.»", ["en", "à", "au", "de"], "Con países femeninos se usa «en»: en France, en Espagne. Con ciudades, «à»."],
+            ["l", "Elle est espagnole", ["es española", "vive en España", "habla inglés", "es de México"]],
+            ["o", "Tu habites où en France ?", "¿Dónde vives en Francia?"],
             ["d", [
-              ["Thomas", "Tu es d'où ?", "¿De dónde eres?"],
-              ["", ["Je suis de Lima.", "Je m'appelle Lima.", "Moi non plus."], "Soy de Lima."],
-              ["Thomas", "Et tu habites où ?", "¿Y dónde vives?"],
-              ["", ["J'habite à Barcelone.", "Ça va bien.", "Oui, merci."], "Vivo en Barcelona."]
+              ["Thomas", "Salut ! Tu es d'où ?", "¡Hola! ¿De dónde eres?"],
+              ["", ["Je suis de Lima. Et toi ?", "Je m'appelle Lima.", "Moi non plus."], "Soy de Lima. ¿Y tú?"],
+              ["Thomas", "Je suis de Lyon, en France. Et tu habites où ?", "Soy de Lyon, en Francia. ¿Y dónde vives?"],
+              ["", ["J'habite à Barcelone, en Espagne.", "J'habite de Barcelone.", "Ça va bien, merci."], "Vivo en Barcelona, en España."],
+              ["Thomas", "Ah, tu parles espagnol !", "¡Ah, hablas español!"],
+              ["", ["Oui, et un peu français.", "Non, je suis espagnol.", "Oui, je suis Espagne."], "Sí, y un poco de francés."],
+              ["Thomas", "Mon amie Carmen est espagnole.", "Mi amiga Carmen es española."],
+              ["", ["Ah oui ? Elle est d'où en Espagne ?", "Elle est de espagnole.", "Moi non plus, merci."], "¿Ah, sí? ¿De qué parte de España es?"],
+              ["Thomas", "De Séville. Mais elle habite à Lyon, comme moi.", "De Sevilla. Pero vive en Lyon, como yo."],
+              ["", ["Lyon, c'est une belle ville ?", "Lyon, c'est une belle sœur ?", "Je suis de belle ville."], "¿Lyon es una ciudad bonita?"],
+              ["Thomas", "Oui, très belle !", "¡Sí, muy bonita!"]
             ]]
           ]
         },
@@ -57,17 +83,29 @@
             ["deux", "/dø/", "dos", "Deux croissants !", "¡Dos cruasanes!"],
             ["trois", "/tʁwa/", "tres", "J'ai trois frères.", "Tengo tres hermanos."],
             ["quatre", "/katʁ/", "cuatro", "Quatre euros.", "Cuatro euros."],
-            ["cinq", "/sɛ̃k/", "cinco", "Il est cinq heures.", "Son las cinco."]
+            ["cinq", "/sɛ̃k/", "cinco", "Il est cinq heures.", "Son las cinco."],
+            ["zéro", "/ze.ʁo/", "cero", "Zéro euro ? C'est gratuit !", "¿Cero euros? ¡Es gratis!"],
+            ["c'est combien ?", "/sɛ kɔ̃.bjɛ̃/", "¿cuánto es?", "Le croissant, c'est combien ?", "¿Cuánto cuesta el cruasán?"],
+            ["le croissant", "/lə kʁwa.sɑ̃/", "el cruasán", "Le croissant est chaud.", "El cruasán está caliente."]
           ],
           "x": [
             ["l", "trois", ["tres", "dos", "cuatro", "cinco"]],
             ["l", "quatre", ["cuatro", "cinco", "uno", "tres"]],
             ["c", "«Deux croissants et un café.» ¿Cuántas cosas pides en total?", ["tres", "dos", "cuatro", "cinco"]],
+            ["c", "Quieres saber el precio. ¿Qué preguntas?", ["C'est combien ?", "C'est qui ?", "Ça va ?", "Tu es d'où ?"], "«Combien» pregunta por la cantidad o el precio."],
+            ["l", "Trois croissants", ["tres cruasanes", "dos cruasanes", "tres cafés", "cuatro cruasanes"]],
+            ["o", "Trois croissants, s'il vous plaît.", "Tres cruasanes, por favor."],
             ["d", [
               ["La boulangère", "Bonjour ! Vous désirez ?", "¡Buenos días! ¿Qué desea?"],
               ["", ["Deux croissants, s'il vous plaît.", "Deux merci.", "Je m'appelle deux."], "Dos cruasanes, por favor."],
-              ["La boulangère", "Ça fait quatre euros.", "Son cuatro euros."],
-              ["", ["Voilà, merci !", "Moi aussi.", "Bonne nuit."], "¡Aquí tiene, gracias!"]
+              ["La boulangère", "Deux croissants. Et avec ça ?", "Dos cruasanes. ¿Algo más?"],
+              ["", ["Et un café, s'il vous plaît.", "Et un zéro, s'il vous plaît.", "Moi non plus, merci."], "Y un café, por favor."],
+              ["La boulangère", "Voilà.", "Aquí tiene."],
+              ["", ["C'est combien ?", "C'est qui ?", "Tu es d'où ?"], "¿Cuánto es?"],
+              ["La boulangère", "Ça fait cinq euros.", "Son cinco euros."],
+              ["", ["Voilà cinq euros.", "Voilà cinq ans.", "J'ai zéro croissant."], "Aquí tiene cinco euros."],
+              ["La boulangère", "Merci ! Bonne journée !", "¡Gracias! ¡Que tenga un buen día!"],
+              ["", ["Merci, au revoir !", "Moi aussi, zéro.", "Enchanté, cinq."], "¡Gracias, adiós!"]
             ]]
           ]
         },
@@ -78,16 +116,29 @@
             ["j'aime", "/ʒɛm/", "me gusta", "J'aime le chocolat.", "Me gusta el chocolate."],
             ["je n'aime pas", "/ʒə nɛm pa/", "no me gusta", "Je n'aime pas le café.", "No me gusta el café."],
             ["le café", "/lə ka.fe/", "el café", "Le café est chaud.", "El café está caliente."],
-            ["le chocolat", "/lə ʃɔ.kɔ.la/", "el chocolate", "J'adore le chocolat !", "¡Me encanta el chocolate!"]
+            ["le chocolat", "/lə ʃɔ.kɔ.la/", "el chocolate", "J'adore le chocolat !", "¡Me encanta el chocolate!"],
+            ["j'adore", "/ʒa.dɔʁ/", "me encanta", "J'adore Paris.", "Me encanta París."],
+            ["le thé", "/lə te/", "el té", "Un thé, s'il vous plaît.", "Un té, por favor."],
+            ["tu aimes… ?", "/ty ɛm/", "¿te gusta…?", "Tu aimes le thé ?", "¿Te gusta el té?"],
+            ["beaucoup", "/bo.ku/", "mucho", "J'aime beaucoup le chocolat.", "Me gusta mucho el chocolate."]
           ],
           "x": [
             ["c", "¿Cómo dices «no me gusta el té»?", ["Je n'aime pas le thé.", "J'aime pas le thé non.", "Je aime pas le thé.", "Non j'aime le thé."], "La negación rodea al verbo: ne… pas. Delante de vocal, «ne» se vuelve «n'»."],
             ["o", "J'aime le chocolat.", "Me gusta el chocolate."],
             ["l", "Je n'aime pas le café", ["no me gusta el café", "me gusta el café", "quiero un café", "el café está caliente"]],
+            ["c", "¿Dónde va «beaucoup»?", ["J'aime beaucoup le thé.", "J'aime le beaucoup thé.", "Beaucoup j'aime le thé.", "Je beaucoup aime le thé."], "«Beaucoup» va justo después del verbo: j'aime beaucoup."],
+            ["l", "J'adore le thé", ["me encanta el té", "no me gusta el té", "quiero un té", "el té está caliente"]],
+            ["o", "Tu aimes le café ou le thé ?", "¿Te gusta el café o el té?"],
             ["d", [
               ["Chloé", "Tu aimes le chocolat ?", "¿Te gusta el chocolate?"],
-              ["", ["Oui, j'aime le chocolat !", "Non, je m'appelle chocolat.", "Pardon, madame."], "¡Sí, me gusta el chocolate!"],
-              ["Chloé", "Moi, je n'aime pas le café.", "A mí no me gusta el café."],
+              ["", ["Oui, j'adore le chocolat !", "Non, je m'appelle chocolat.", "Pardon, madame."], "¡Sí, me encanta el chocolate!"],
+              ["Chloé", "Moi aussi ! Et le café ?", "¡A mí también! ¿Y el café?"],
+              ["", ["Non, je n'aime pas le café.", "Non, je n'aime le café pas.", "Oui, je suis le café."], "No, no me gusta el café."],
+              ["Chloé", "Moi non plus. Tu aimes le thé ?", "A mí tampoco. ¿Te gusta el té?"],
+              ["", ["Oui, j'aime beaucoup le thé.", "Oui, j'aime le thé beaucoup de.", "Oui, je suis beaucoup le thé."], "Sí, me gusta mucho el té."],
+              ["Chloé", "Et Paris, tu aimes ?", "¿Y París, te gusta?"],
+              ["", ["Oui, j'adore Paris !", "Non, merci, Paris.", "Oui, je m'appelle Paris."], "¡Sí, me encanta París!"],
+              ["Chloé", "Moi aussi. Mais je n'aime pas le froid.", "A mí también. Pero no me gusta el frío."],
               ["", ["Moi non plus !", "Moi aussi !", "Enchanté !"], "¡A mí tampoco!"]
             ]]
           ]
@@ -99,17 +150,31 @@
             ["je suis étudiant", "/ʒə sɥi.z‿e.ty.djɑ̃/", "soy estudiante", "Je suis étudiante à Lyon.", "Soy estudiante en Lyon."],
             ["je travaille", "/ʒə tʁa.vaj/", "trabajo", "Je travaille dans un hôtel.", "Trabajo en un hotel."],
             ["le professeur", "/lə pʁɔ.fɛ.sœʁ/", "el profesor, la profesora", "Je suis professeur.", "Soy profesor."],
-            ["et vous ?", "/e vu/", "¿y usted?", "Je suis médecin. Et vous ?", "Soy médico. ¿Y usted?"]
+            ["et vous ?", "/e vu/", "¿y usted?", "Je suis médecin. Et vous ?", "Soy médico. ¿Y usted?"],
+            ["le médecin", "/lə med.sɛ̃/", "el médico, la médica", "Ma sœur est médecin.", "Mi hermana es médica."],
+            ["le bureau", "/lə by.ʁo/", "la oficina", "Je travaille dans un bureau.", "Trabajo en una oficina."],
+            ["l'université", "/ly.ni.vɛʁ.si.te/", "la universidad", "L'université est grande.", "La universidad es grande."],
+            ["tu fais quoi dans la vie ?", "/ty fɛ kwa dɑ̃ la vi/", "¿a qué te dedicas?", "Et toi, tu fais quoi dans la vie ?", "¿Y tú, a qué te dedicas?"]
           ],
           "x": [
             ["c", "Para decir tu profesión en francés…", ["Je suis professeur.", "Je suis un professeur de.", "Je professeur.", "J'ai professeur."], "Con profesiones no se pone artículo: je suis professeur, je suis médecin."],
             ["c", "Hablas con una persona mayor que no conoces. ¿Cómo preguntas «¿y usted?»?", ["Et vous ?", "Et toi ?", "Moi aussi ?", "Ça va ?"], "«Vous» es la forma de respeto; «toi», la de confianza."],
             ["o", "Je travaille dans un café.", "Trabajo en un café."],
+            ["c", "Completa: «Je travaille dans un ___.»", ["bureau", "université", "médecin", "étudiant"], "«Bureau» es masculino: un bureau. «Université» es femenino: une université."],
+            ["l", "Tu fais quoi dans la vie ?", ["¿a qué te dedicas?", "¿dónde vives?", "¿qué comes hoy?", "¿cómo estás?"]],
+            ["o", "Je suis étudiant à l'université.", "Soy estudiante en la universidad."],
             ["d", [
-              ["Madame Petit", "Vous êtes étudiant ?", "¿Es usted estudiante?"],
+              ["Madame Petit", "Bonjour ! Vous êtes étudiant ?", "¡Buenos días! ¿Es usted estudiante?"],
               ["", ["Non, je travaille. Et vous ?", "Moi aussi, merci.", "Bonne nuit, madame."], "No, trabajo. ¿Y usted?"],
-              ["Madame Petit", "Je suis professeur.", "Soy profesora."],
-              ["", ["Enchanté, madame !", "Salut !", "De rien."], "¡Mucho gusto, señora!"]
+              ["Madame Petit", "Je suis professeur à l'université.", "Soy profesora en la universidad."],
+              ["", ["Enchanté, madame !", "Salut, ma belle !", "De rien."], "¡Mucho gusto, señora!"],
+              ["Madame Petit", "Et vous travaillez où ?", "¿Y dónde trabaja usted?"],
+              ["", ["Je travaille dans un bureau, à Lyon.", "Je suis de bureau, merci.", "Je travaille un médecin."], "Trabajo en una oficina, en Lyon."],
+              ["Madame Petit", "Vous aimez votre travail ?", "¿Le gusta su trabajo?"],
+              ["", ["Oui, j'aime beaucoup mon travail.", "Oui, je suis travail.", "Non, merci, madame."], "Sí, me gusta mucho mi trabajo."],
+              ["Madame Petit", "Mon mari est médecin. Il travaille beaucoup !", "Mi marido es médico. ¡Trabaja mucho!"],
+              ["", ["Il travaille à l'hôpital ?", "Il est un médecin de ?", "Moi non plus, madame."], "¿Trabaja en el hospital?"],
+              ["Madame Petit", "Oui, à l'hôpital de Lyon.", "Sí, en el hospital de Lyon."]
             ]]
           ]
         }
@@ -122,7 +187,13 @@
         ["Julien", "Tu es étudiant ?", "¿Eres estudiante?"],
         ["", ["Non, je travaille dans un hôtel.", "Non, je suis un de hôtel.", "Oui, moi non plus."], "No, trabajo en un hotel."],
         ["Julien", "Super ! Moi, j'aime le café. Et toi ?", "¡Genial! A mí me gusta el café. ¿Y a ti?"],
-        ["", ["Moi aussi ! J'aime le café.", "Moi non plus ! J'aime le café.", "Pardon, le café."], "¡A mí también! Me gusta el café."]
+        ["", ["Moi aussi ! J'aime le café.", "Moi non plus ! J'aime le café.", "Pardon, le café."], "¡A mí también! Me gusta el café."],
+        ["Julien", "Et le thé ? Tu aimes le thé ?", "¿Y el té? ¿Te gusta el té?"],
+        ["", ["Non, je n'aime pas beaucoup le thé.", "Oui, je n'aime le thé.", "Bien sûr, cinq thés."], "No, no me gusta mucho el té."],
+        ["Julien", "Moi non plus ! On prend un café ensemble ?", "¡A mí tampoco! ¿Tomamos un café juntos?"],
+        ["", ["D'accord, bien sûr !", "Moi non plus, merci.", "Je suis de café."], "¡Vale, claro!"],
+        ["Le serveur", "Deux cafés, ça fait quatre euros.", "Dos cafés, son cuatro euros."],
+        ["", ["Voilà cinq euros, merci.", "Voilà cinq ans, merci.", "J'ai quatre, moi aussi."], "Aquí tiene cinco euros, gracias."]
       ]
     },
     {
@@ -137,17 +208,30 @@
             ["le père", "/lə pɛʁ/", "el padre", "Mon père s'appelle Jorge.", "Mi padre se llama Jorge."],
             ["la mère", "/la mɛʁ/", "la madre", "Ma mère est professeur.", "Mi madre es profesora."],
             ["le frère", "/lə fʁɛʁ/", "el hermano", "J'ai un frère.", "Tengo un hermano."],
-            ["la sœur", "/la sœʁ/", "la hermana", "Ma sœur habite à Lyon.", "Mi hermana vive en Lyon."]
+            ["la sœur", "/la sœʁ/", "la hermana", "Ma sœur habite à Lyon.", "Mi hermana vive en Lyon."],
+            ["le grand-père", "/lə ɡʁɑ̃.pɛʁ/", "el abuelo", "Mon grand-père a deux chiens.", "Mi abuelo tiene dos perros."],
+            ["la grand-mère", "/la ɡʁɑ̃.mɛʁ/", "la abuela", "Ma grand-mère habite avec nous.", "Mi abuela vive con nosotros."],
+            ["le fils", "/lə fis/", "el hijo", "Elle a un fils.", "Tiene un hijo."],
+            ["la fille", "/la fij/", "la hija; la chica", "J'ai une fille.", "Tengo una hija."]
           ],
           "x": [
             ["l", "la sœur", ["la hermana", "la madre", "el hermano", "la señora"]],
             ["c", "La madre de tu madre es…", ["ta grand-mère", "ta sœur", "ta mère", "ta tante"], "«Grand-mère» es abuela; «grand-père», abuelo."],
             ["o", "Ma sœur habite à Lyon.", "Mi hermana vive en Lyon."],
+            ["l", "la fille", ["la hija", "el hijo", "la hermana", "la madre"]],
+            ["c", "El padre de tu padre es…", ["ton grand-père", "ton frère", "ton fils", "ton père"], "«Grand-père» es abuelo; «fils», hijo."],
+            ["o", "Mon grand-père s'appelle Pedro.", "Mi abuelo se llama Pedro."],
             ["d", [
               ["Paul", "Tu as des frères et sœurs ?", "¿Tienes hermanos?"],
               ["", ["Oui, j'ai un frère et une sœur.", "Oui, je suis un frère.", "Non, merci beaucoup."], "Sí, tengo un hermano y una hermana."],
-              ["Paul", "Moi, j'ai deux sœurs.", "Yo tengo dos hermanas."],
-              ["", ["Super !", "Moi non plus.", "Bonne nuit."], "¡Genial!"]
+              ["Paul", "Moi, j'ai deux sœurs. Et tes parents, ils habitent où ?", "Yo tengo dos hermanas. ¿Y tus padres dónde viven?"],
+              ["", ["Mon père et ma mère habitent à Quito.", "Ma père et mon mère habitent à Quito.", "Mon père et ma mère, non merci."], "Mi padre y mi madre viven en Quito."],
+              ["Paul", "Et tes grands-parents ?", "¿Y tus abuelos?"],
+              ["", ["Ma grand-mère habite avec nous.", "Ma grand-mère est un fils.", "Mon grand-mère, merci."], "Mi abuela vive con nosotros."],
+              ["Paul", "Ma sœur a une fille et un fils.", "Mi hermana tiene una hija y un hijo."],
+              ["", ["Ils s'appellent comment ?", "Moi non plus, Paul.", "Ma fille est ton frère."], "¿Cómo se llaman?"],
+              ["Paul", "Léa et Tom. Léa a cinq ans.", "Léa y Tom. Léa tiene cinco años."],
+              ["", ["Super ! Ma sœur a une fille aussi.", "Super ! Je suis cinq ans.", "Bonne nuit, Léa."], "¡Genial! Mi hermana también tiene una hija."]
             ]]
           ]
         },
@@ -158,18 +242,32 @@
             ["j'ai", "/ʒe/", "tengo", "J'ai un chat.", "Tengo un gato."],
             ["tu as", "/ty a/", "tienes", "Tu as un stylo ?", "¿Tienes un bolígrafo?"],
             ["il a, elle a", "/il a, ɛl a/", "él tiene, ella tiene", "Elle a deux enfants.", "Ella tiene dos hijos."],
-            ["nous avons", "/nu.z‿a.vɔ̃/", "tenemos", "Nous avons une maison.", "Tenemos una casa."]
+            ["nous avons", "/nu.z‿a.vɔ̃/", "tenemos", "Nous avons une maison.", "Tenemos una casa."],
+            ["vous avez", "/vu.z‿a.ve/", "tiene usted; tienen", "Vous avez une chambre ?", "¿Tiene una habitación?"],
+            ["ils ont, elles ont", "/il.z‿ɔ̃, ɛl.z‿ɔ̃/", "ellos tienen, ellas tienen", "Mes parents ont un chat.", "Mis padres tienen un gato."],
+            ["le chat", "/lə ʃa/", "el gato", "Le chat est noir.", "El gato es negro."],
+            ["le chien", "/lə ʃjɛ̃/", "el perro", "Mon chien s'appelle Max.", "Mi perro se llama Max."]
           ],
           "x": [
             ["c", "Completa: «Elle ___ un chien.»", ["a", "as", "ai", "avons"], "Avoir: j'ai, tu as, il/elle a, nous avons."],
             ["c", "Completa: «Tu ___ faim ?»", ["as", "a", "es", "ai"], "En francés el hambre se «tiene»: avoir faim."],
             ["l", "Nous avons une maison", ["tenemos una casa", "tengo una casa", "vivimos en casa", "somos de casa"]],
             ["o", "J'ai un chat et un chien.", "Tengo un gato y un perro."],
+            ["c", "Completa: «Mes parents ___ une maison.»", ["ont", "a", "avez", "sont"], "Ils/elles ont. Ojo: «ils sont» es del verbo être."],
+            ["c", "Con respeto: «¿Tiene usted un bolígrafo?»", ["Vous avez un stylo ?", "Tu as un stylo ?", "Vous êtes un stylo ?", "Vous ont un stylo ?"], "Con «vous» el verbo es «avez»."],
+            ["l", "Ils ont un chien", ["tienen un perro", "tiene un perro", "son perros", "tienen un gato"]],
+            ["o", "Vous avez un chat ?", "¿Tiene usted un gato?"],
             ["d", [
               ["Léo", "Tu as un animal ?", "¿Tienes una mascota?"],
               ["", ["Oui, j'ai un chat.", "Oui, je suis un chat.", "Non, tu as."], "Sí, tengo un gato."],
               ["Léo", "Moi, j'ai un chien. Il a trois ans.", "Yo tengo un perro. Tiene tres años."],
-              ["", ["Il est mignon ?", "Il a mignon ?", "Merci, au revoir."], "¿Es bonito?"]
+              ["", ["Il est mignon ?", "Il a mignon ?", "Merci, au revoir."], "¿Es bonito?"],
+              ["Léo", "Oui, très ! Et ton chat, il a quel âge ?", "¡Sí, mucho! ¿Y tu gato cuántos años tiene?"],
+              ["", ["Il a deux ans.", "Il est deux ans.", "J'ai deux chats ans."], "Tiene dos años."],
+              ["Léo", "Mes parents ont deux chats et un chien.", "Mis padres tienen dos gatos y un perro."],
+              ["", ["Vous avez beaucoup d'animaux !", "Vous êtes beaucoup d'animaux !", "Ils a deux chiens."], "¡Tienen muchos animales!"],
+              ["Léo", "Oui ! Nous avons une grande maison.", "¡Sí! Tenemos una casa grande."],
+              ["", ["Moi, j'ai une petite maison.", "Moi, je suis une petite maison.", "Nous a une maison."], "Yo tengo una casa pequeña."]
             ]]
           ]
         },
@@ -180,18 +278,31 @@
             ["mon", "/mɔ̃/", "mi (masculino)", "Mon frère est grand.", "Mi hermano es alto."],
             ["ma", "/ma/", "mi (femenino)", "Ma mère est sympa.", "Mi madre es simpática."],
             ["mes", "/me/", "mis", "Mes parents habitent à Quito.", "Mis padres viven en Quito."],
-            ["les parents", "/le pa.ʁɑ̃/", "los padres", "Je vais chez mes parents.", "Voy a casa de mis padres."]
+            ["les parents", "/le pa.ʁɑ̃/", "los padres", "Je vais chez mes parents.", "Voy a casa de mis padres."],
+            ["ton, ta, tes", "/tɔ̃, ta, te/", "tu, tus", "Ta sœur est sympa.", "Tu hermana es simpática."],
+            ["son, sa, ses", "/sɔ̃, sa, se/", "su, sus (de él o de ella)", "Paul habite avec sa mère.", "Paul vive con su madre."],
+            ["la photo", "/la fɔ.to/", "la foto", "C'est une photo de ma famille.", "Es una foto de mi familia."],
+            ["la femme", "/la fam/", "la mujer; la esposa", "Sa femme est médecin.", "Su mujer es médica."]
           ],
           "x": [
             ["c", "Completa: «___ sœur s'appelle Ana.»", ["Ma", "Mon", "Mes", "Me"], "«Sœur» es femenino: ma sœur."],
             ["c", "Completa: «___ amie est française.»", ["Mon", "Ma", "Mes", "M'"], "Delante de vocal se usa «mon» aunque sea femenino: mon amie, mon école."],
             ["c", "Completa: «___ frères habitent à Lima.»", ["Mes", "Mon", "Ma", "Les mon"]],
             ["o", "Mes parents habitent à Quito.", "Mis padres viven en Quito."],
+            ["c", "Pregúntale a tu amigo «¿Es tu madre?»: «C'est ___ mère ?»", ["ta", "ton", "tes", "ma"], "«Mère» es femenino: ta mère. «Ma» sería «mi»."],
+            ["l", "ses parents", ["sus padres", "mis padres", "tus padres", "sus hermanos"]],
+            ["o", "Ma femme est sur la photo.", "Mi mujer está en la foto."],
             ["d", [
               ["Sarah", "C'est qui sur la photo ?", "¿Quién está en la foto?"],
               ["", ["C'est ma mère et mon frère.", "C'est mon mère et ma frère.", "C'est mes mère."], "Es mi madre y mi hermano."],
-              ["Sarah", "Ta mère est jolie !", "¡Tu madre es guapa!"],
-              ["", ["Merci !", "Pardon !", "Moi non plus !"], "¡Gracias!"]
+              ["Sarah", "Ta mère est jolie ! Et ton frère, il s'appelle comment ?", "¡Tu madre es guapa! ¿Y cómo se llama tu hermano?"],
+              ["", ["Il s'appelle Diego.", "Je m'appelle Diego.", "Merci, Diego !"], "Se llama Diego."],
+              ["Sarah", "Et la femme ici, c'est ta sœur ?", "¿Y la mujer de aquí es tu hermana?"],
+              ["", ["Non, c'est la femme de mon frère.", "Non, c'est mon femme de frère.", "Oui, c'est mes frère."], "No, es la mujer de mi hermano."],
+              ["Sarah", "Ah ! Ils ont des enfants ?", "¡Ah! ¿Tienen hijos?"],
+              ["", ["Oui, ils ont une fille. Elle a deux ans.", "Oui, ils sont une fille.", "Sa fille, merci."], "Sí, tienen una hija. Tiene dos años."],
+              ["Sarah", "Et tes parents, ils habitent où ?", "¿Y tus padres dónde viven?"],
+              ["", ["Mes parents habitent à Quito.", "Ma parents habitent à Quito.", "Mes parents habite à mon Quito."], "Mis padres viven en Quito."]
             ]]
           ]
         },
@@ -202,17 +313,30 @@
             ["quel âge as-tu ?", "/kɛ.l‿ɑʒ a ty/", "¿cuántos años tienes?", "Quel âge as-tu ?", "¿Cuántos años tienes?"],
             ["j'ai vingt ans", "/ʒe vɛ̃.t‿ɑ̃/", "tengo veinte años", "J'ai vingt ans.", "Tengo veinte años."],
             ["dix", "/dis/", "diez", "J'ai dix euros.", "Tengo diez euros."],
-            ["quinze", "/kɛ̃z/", "quince", "Mon frère a quinze ans.", "Mi hermano tiene quince años."]
+            ["quinze", "/kɛ̃z/", "quince", "Mon frère a quinze ans.", "Mi hermano tiene quince años."],
+            ["treize", "/tʁɛz/", "trece", "Ma sœur a treize ans.", "Mi hermana tiene trece años."],
+            ["quatorze", "/ka.tɔʁz/", "catorce", "Il y a quatorze étudiants.", "Hay catorce estudiantes."],
+            ["dix-neuf", "/diz.nœf/", "diecinueve", "Emma a dix-neuf ans.", "Emma tiene diecinueve años."]
           ],
           "x": [
             ["c", "¿Cómo se dice la edad en francés?", ["Con «avoir»: j'ai vingt ans", "Con «être»: je suis vingt ans", "Sin verbo: vingt ans je", "Con «faire»: je fais vingt"], "Igual que en español: se «tienen» años."],
             ["l", "quinze", ["quince", "cinco", "cincuenta", "catorce"]],
             ["l", "J'ai vingt ans", ["tengo veinte años", "tengo dos años", "son las veinte", "veinte euros"]],
             ["o", "Mon frère a quinze ans.", "Mi hermano tiene quince años."],
+            ["l", "treize", ["trece", "tres", "treinta", "dieciséis"]],
+            ["c", "Completa: «Elle ___ quatorze ans.»", ["a", "est", "as", "ai"], "La edad se dice con «avoir»: elle a quatorze ans."],
+            ["o", "Elle a quatorze ans aujourd'hui.", "Hoy cumple catorce años."],
             ["d", [
               ["Emma", "Quel âge as-tu ?", "¿Cuántos años tienes?"],
               ["", ["J'ai vingt ans. Et toi ?", "Je suis vingt ans.", "J'ai vingt euros."], "Tengo veinte años. ¿Y tú?"],
-              ["Emma", "Moi, j'ai dix-neuf ans.", "Yo tengo diecinueve años."]
+              ["Emma", "Moi, j'ai dix-neuf ans. Tu as des frères ?", "Yo tengo diecinueve años. ¿Tienes hermanos?"],
+              ["", ["Oui, un frère. Il a quinze ans.", "Oui, un frère. Il est quinze ans.", "Non, j'ai quinze frères ans."], "Sí, un hermano. Tiene quince años."],
+              ["Emma", "Moi, j'ai une petite sœur. Elle a dix ans.", "Yo tengo una hermana pequeña. Tiene diez años."],
+              ["", ["Dix ans ? Elle est petite !", "Dix ans ? Elle a petite !", "Dix heures, merci."], "¿Diez años? ¡Es pequeña!"],
+              ["Emma", "Et toi, tu as une sœur ?", "¿Y tú tienes una hermana?"],
+              ["", ["Oui, elle a treize ans.", "Oui, elle est treize ans.", "Oui, elle a treize heures."], "Sí, tiene trece años."],
+              ["Emma", "Treize ans ? Comme mon cousin !", "¿Trece años? ¡Como mi primo!"],
+              ["", ["Super ! Il s'appelle comment ?", "Super ! Il appelle quel âge ?", "Moi non plus, treize."], "¡Genial! ¿Cómo se llama?"]
             ]]
           ]
         },
@@ -223,20 +347,46 @@
             ["grand, grande", "/ɡʁɑ̃, ɡʁɑ̃d/", "alto, alta", "Mon père est grand.", "Mi padre es alto."],
             ["petit, petite", "/pə.ti, pə.tit/", "bajo, baja; pequeño", "Ma sœur est petite.", "Mi hermana es bajita."],
             ["sympa", "/sɛ̃.pa/", "simpático", "Ton ami est sympa !", "¡Tu amigo es simpático!"],
-            ["gentil, gentille", "/ʒɑ̃.ti, ʒɑ̃.tij/", "amable", "Elle est très gentille.", "Es muy amable."]
+            ["gentil, gentille", "/ʒɑ̃.ti, ʒɑ̃.tij/", "amable", "Elle est très gentille.", "Es muy amable."],
+            ["beau, belle", "/bo, bɛl/", "guapo, guapa; bonito", "Ta sœur est très belle.", "Tu hermana es muy guapa."],
+            ["jeune", "/ʒœn/", "joven", "Mon professeur est jeune.", "Mi profesor es joven."],
+            ["drôle", "/dʁol/", "gracioso, divertido", "Mon père est très drôle.", "Mi padre es muy gracioso."]
           ],
           "x": [
             ["c", "Completa: «Ma mère est ___.»", ["petite", "petit", "petits", "petites"], "Los adjetivos concuerdan: femenino añade -e."],
             ["c", "«Gentil» en español es…", ["amable", "gentil (de pueblo)", "guapo", "alto"], "«Gentil» es amable, simpático."],
             ["l", "Elle est très gentille", ["es muy amable", "es muy alta", "es muy pequeña", "es muy simpático"]],
+            ["c", "Completa: «Ma mère est très ___.»", ["belle", "beau", "beaux", "bel"], "El femenino de «beau» es «belle»."],
+            ["l", "Il est jeune et drôle", ["es joven y gracioso", "es mayor y serio", "es alto y gracioso", "es joven y tímido"]],
+            ["o", "Mon frère est très drôle.", "Mi hermano es muy gracioso."],
             ["d", [
               ["Hugo", "Il est comment, ton frère ?", "¿Cómo es tu hermano?"],
               ["", ["Il est grand et très sympa.", "Il est grande et sympa.", "Il a grand."], "Es alto y muy simpático."],
               ["Hugo", "Et ta sœur ?", "¿Y tu hermana?"],
-              ["", ["Elle est petite et gentille.", "Elle est petit et gentil.", "Elle a petite."], "Es bajita y amable."]
+              ["", ["Elle est petite et gentille.", "Elle est petit et gentil.", "Elle a petite."], "Es bajita y amable."],
+              ["Hugo", "Elle est jeune ?", "¿Es joven?"],
+              ["", ["Oui, elle a dix-neuf ans.", "Oui, elle est dix-neuf ans.", "Non, elle est vingt."], "Sí, tiene diecinueve años."],
+              ["Hugo", "Et ta mère, elle est comment ?", "¿Y cómo es tu madre?"],
+              ["", ["Elle est belle et très drôle.", "Elle est beau et drôle.", "Il est belle, ma mère."], "Es guapa y muy graciosa."],
+              ["Hugo", "Ta famille est super !", "¡Tu familia es genial!"],
+              ["", ["Merci ! Ils sont très gentils.", "Merci ! Ils est très gentil.", "Pardon, très."], "¡Gracias! Son muy amables."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Camille", "Tu as une grande famille ?", "¿Tienes una familia grande?"],
+        ["", ["Oui, j'ai deux frères et une sœur.", "Oui, je suis deux frères.", "Non, ma famille est très grand."], "Sí, tengo dos hermanos y una hermana."],
+        ["Camille", "Ils ont quel âge ?", "¿Cuántos años tienen?"],
+        ["", ["Mes frères ont quinze et vingt ans.", "Mes frères sont quinze ans.", "Mon frères a quinze ans."], "Mis hermanos tienen quince y veinte años."],
+        ["Camille", "Et ta sœur, elle est comment ?", "¿Y cómo es tu hermana?"],
+        ["", ["Elle est petite et très drôle.", "Elle est petit et drôle.", "Elle a petite."], "Es bajita y muy graciosa."],
+        ["Camille", "Tes parents habitent avec toi ?", "¿Tus padres viven contigo?"],
+        ["", ["Non, mes parents habitent à Quito.", "Non, ma parents habite à Quito.", "Oui, je suis mes parents."], "No, mis padres viven en Quito."],
+        ["Camille", "Tu as une photo ?", "¿Tienes una foto?"],
+        ["", ["Oui, voilà. C'est ma mère et mon grand-père.", "Oui, voilà. C'est mon mère et ma grand-père.", "Non, j'ai treize ans."], "Sí, aquí está. Son mi madre y mi abuelo."],
+        ["Camille", "Ton grand-père est très beau !", "¡Tu abuelo es muy guapo!"],
+        ["", ["Merci ! Il est aussi très gentil.", "Merci ! Elle est très gentille, mon grand-père.", "Moi non plus, merci."], "¡Gracias! También es muy amable."]
       ]
     },
     {
@@ -252,17 +402,28 @@
             ["sept", "/sɛt/", "siete", "Sept jours par semaine.", "Siete días a la semana."],
             ["huit", "/ɥit/", "ocho", "Huit euros, s'il vous plaît.", "Ocho euros, por favor."],
             ["neuf", "/nœf/", "nueve", "J'ai neuf ans.", "Tengo nueve años."],
-            ["dix", "/dis/", "diez", "Dix minutes !", "¡Diez minutos!"]
+            ["combien de… ?", "/kɔ̃.bjɛ̃ də/", "¿cuántos…?", "Tu as combien de frères ?", "¿Cuántos hermanos tienes?"],
+            ["il y a", "/i.li.ja/", "hay", "Il y a neuf étudiants.", "Hay nueve estudiantes."],
+            ["la semaine", "/la sə.mɛn/", "la semana", "Je travaille six jours par semaine.", "Trabajo seis días a la semana."]
           ],
           "x": [
             ["l", "huit", ["ocho", "seis", "nueve", "siete"]],
             ["l", "sept", ["siete", "seis", "diez", "dos"]],
             ["c", "En «sept», la «p»…", ["no se pronuncia", "se pronuncia fuerte", "suena como «b»", "suena como «f»"]],
             ["c", "«Neuf» significa nueve y también…", ["nuevo", "noveno", "nieve", "nunca"], "«Un livre neuf»: un libro nuevo."],
+            ["c", "¿Cómo dices «hay siete días en una semana»?", ["Il y a sept jours dans une semaine.", "Il a sept jours dans une semaine.", "Il est sept jours dans une semaine.", "Il y sept jours une semaine."], "«Il y a» significa «hay»."],
+            ["l", "Combien de croissants ?", ["¿cuántos cruasanes?", "¿cuánto cuesta el cruasán?", "dos cruasanes", "¿dónde están los cruasanes?"]],
+            ["o", "Il y a six chats ici.", "Aquí hay seis gatos."],
             ["d", [
+              ["Le vendeur", "Bonjour ! Vous désirez ?", "¡Buenos días! ¿Qué desea?"],
+              ["", ["Six croissants, s'il vous plaît.", "Six ans, s'il vous plaît.", "Il y a six, merci."], "Seis cruasanes, por favor."],
+              ["Le vendeur", "Six croissants. Et avec ça ?", "Seis cruasanes. ¿Algo más?"],
+              ["", ["Deux baguettes, s'il vous plaît.", "Deux semaines, s'il vous plaît.", "Il y a deux, merci."], "Dos baguettes, por favor."],
               ["Le vendeur", "Ça fait huit euros.", "Son ocho euros."],
               ["", ["Voilà dix euros.", "Voilà dix ans.", "J'ai huit heures."], "Aquí tiene diez euros."],
               ["Le vendeur", "Et voilà deux euros. Merci !", "Y aquí tiene dos euros. ¡Gracias!"],
+              ["", ["Vous ouvrez à sept heures ?", "Vous êtes sept heures ?", "Merci, neuf semaines."], "¿Abren a las siete?"],
+              ["Le vendeur", "Oui, à sept heures, six jours par semaine.", "Sí, a las siete, seis días a la semana."],
               ["", ["Merci, bonne journée !", "De rien, deux.", "Bonne nuit, huit."], "¡Gracias, buen día!"]
             ]]
           ]
@@ -275,18 +436,29 @@
             ["douze", "/duz/", "doce", "Il est midi, douze heures.", "Es mediodía, las doce."],
             ["seize", "/sɛz/", "dieciséis", "J'ai seize ans.", "Tengo dieciséis años."],
             ["dix-sept", "/di.sɛt/", "diecisiete", "Le bus de dix-sept heures.", "El autobús de las cinco de la tarde."],
-            ["vingt", "/vɛ̃/", "veinte", "Vingt minutes à pied.", "Veinte minutos a pie."]
+            ["vingt", "/vɛ̃/", "veinte", "Vingt minutes à pied.", "Veinte minutos a pie."],
+            ["dix-huit", "/di.zɥit/", "dieciocho", "Le train de dix-huit heures.", "El tren de las seis de la tarde."],
+            ["le numéro", "/lə ny.me.ʁo/", "el número", "J'habite au numéro douze.", "Vivo en el número doce."]
           ],
           "x": [
             ["l", "douze", ["doce", "dos", "dieciséis", "once"]],
             ["l", "seize", ["dieciséis", "seis", "trece", "diecisiete"]],
             ["c", "¿Cómo se forman 17, 18 y 19?", ["dix + sept, dix + huit, dix + neuf", "sept + dix", "como en español: diecisiete", "con «et»: dix et sept"]],
             ["o", "J'ai seize ans.", "Tengo dieciséis años."],
+            ["l", "dix-huit", ["dieciocho", "ocho", "diecinueve", "ochenta"]],
+            ["c", "En «dix-huit», la «x» suena…", ["como «z»", "como «ks»", "no suena", "como «j»"], "Delante de vocal, la x de «dix» suena /z/: dix-huit, dix ans."],
+            ["o", "Je prends le bus numéro douze.", "Tomo el autobús número doce."],
             ["d", [
               ["Le prof", "Tu as quel âge ?", "¿Cuántos años tienes?"],
               ["", ["J'ai dix-huit ans.", "Je suis dix-huit.", "Il est dix-huit heures."], "Tengo dieciocho años."],
               ["Le prof", "Et ta sœur ?", "¿Y tu hermana?"],
-              ["", ["Elle a douze ans.", "Elle est douze.", "Elle a douze heures."], "Tiene doce años."]
+              ["", ["Elle a douze ans.", "Elle est douze.", "Elle a douze heures."], "Tiene doce años."],
+              ["Le prof", "Et tu habites à quel numéro ?", "¿Y en qué número vives?"],
+              ["", ["J'habite au numéro seize.", "J'habite le seize numéro.", "Je suis numéro seize ans."], "Vivo en el número dieciséis."],
+              ["Le prof", "L'école, c'est loin de chez toi ?", "¿La escuela está lejos de tu casa?"],
+              ["", ["Non, vingt minutes à pied.", "Non, vingt ans à pied.", "Oui, onze."], "No, a veinte minutos a pie."],
+              ["Le prof", "Bien. Le cours commence à onze heures.", "Bien. La clase empieza a las once."],
+              ["", ["D'accord, à onze heures.", "D'accord, à onze ans.", "Moi non plus, onze."], "Vale, a las once."]
             ]]
           ]
         },
@@ -298,17 +470,31 @@
             ["il est… heures", "/i.l‿ɛ … œʁ/", "son las…", "Il est trois heures.", "Son las tres."],
             ["et demie", "/e də.mi/", "y media", "Il est huit heures et demie.", "Son las ocho y media."],
             ["et quart", "/e kaʁ/", "y cuarto", "Il est deux heures et quart.", "Son las dos y cuarto."],
-            ["moins le quart", "/mwɛ̃ lə kaʁ/", "menos cuarto", "Il est six heures moins le quart.", "Son las seis menos cuarto."]
+            ["moins le quart", "/mwɛ̃ lə kaʁ/", "menos cuarto", "Il est six heures moins le quart.", "Son las seis menos cuarto."],
+            ["midi", "/mi.di/", "mediodía", "On mange à midi.", "Comemos al mediodía."],
+            ["minuit", "/mi.nɥi/", "medianoche", "Il est minuit, bonne nuit !", "Es medianoche, ¡buenas noches!"],
+            ["à quelle heure ?", "/a kɛ.l‿œʁ/", "¿a qué hora?", "Le film est à quelle heure ?", "¿A qué hora es la película?"]
           ],
           "x": [
             ["l", "Il est huit heures et demie", ["son las ocho y media", "son las ocho y cuarto", "son las nueve y media", "son las ocho en punto"]],
             ["c", "5:45 en francés es…", ["six heures moins le quart", "cinq heures et quart", "cinq heures et demie", "six heures et quart"], "Como en español: las seis menos cuarto."],
             ["c", "«Il est une heure» lleva «heure» en singular porque…", ["es solo una", "es femenino", "es por la tarde", "es una excepción sin lógica"]],
             ["o", "Il est trois heures et quart.", "Son las tres y cuarto."],
+            ["c", "Son las 12:00 de la noche. ¿Qué dices?", ["Il est minuit.", "Il est midi.", "Il est douze.", "C'est minuit heures."], "«Midi» es mediodía; «minuit», medianoche. No llevan «heures»."],
+            ["l", "À quelle heure ?", ["¿a qué hora?", "¿qué hora es?", "¿cuántas horas?", "¿cuánto tiempo?"]],
+            ["o", "Je mange à midi.", "Como al mediodía."],
             ["d", [
               ["", ["Pardon, quelle heure est-il ?", "Pardon, quel âge as-tu ?", "Bonne nuit, l'heure."], "Perdón, ¿qué hora es?"],
               ["La passante", "Il est onze heures et demie.", "Son las once y media."],
-              ["", ["Merci beaucoup !", "Moi aussi !", "De rien !"], "¡Muchas gracias!"]
+              ["", ["Merci ! Et le musée ferme à quelle heure ?", "Merci ! Le musée a quel âge ?", "De rien ! Moi aussi."], "¡Gracias! ¿Y a qué hora cierra el museo?"],
+              ["La passante", "À six heures moins le quart.", "A las seis menos cuarto."],
+              ["", ["Et il ouvre à quelle heure demain ?", "Et il ouvre quel âge demain ?", "Et il est six heures moins ?"], "¿Y a qué hora abre mañana?"],
+              ["La passante", "À neuf heures et quart.", "A las nueve y cuarto."],
+              ["", ["Merci ! Il y a un café ici ?", "Merci ! Il y a une heure ici ?", "Merci ! Il est un café ?"], "¡Gracias! ¿Hay un café por aquí?"],
+              ["La passante", "Oui, là-bas. Il ouvre à midi.", "Sí, allí. Abre a mediodía."],
+              ["", ["Et il ferme à minuit ?", "Et il ferme à midi heures ?", "Et il a minuit ?"], "¿Y cierra a medianoche?"],
+              ["La passante", "Non, à dix heures du soir. Bonne journée !", "No, a las diez de la noche. ¡Buen día!"],
+              ["", ["Merci beaucoup, bonne journée !", "Moi aussi !", "De rien !"], "¡Muchas gracias, buen día!"]
             ]]
           ]
         },
@@ -320,16 +506,28 @@
             ["demain", "/də.mɛ̃/", "mañana", "À demain !", "¡Hasta mañana!"],
             ["hier", "/jɛʁ/", "ayer", "Hier, c'était dimanche.", "Ayer era domingo."],
             ["le matin", "/lə ma.tɛ̃/", "la mañana", "Le matin, je bois un café.", "Por la mañana tomo un café."],
-            ["le soir", "/lə swaʁ/", "la tarde-noche", "Le soir, je regarde un film.", "Por la noche veo una película."]
+            ["le soir", "/lə swaʁ/", "la tarde-noche", "Le soir, je regarde un film.", "Por la noche veo una película."],
+            ["l'après-midi", "/la.pʁɛ.mi.di/", "la tarde", "L'après-midi, je suis à l'université.", "Por la tarde estoy en la universidad."],
+            ["maintenant", "/mɛ̃t.nɑ̃/", "ahora", "Je suis à la maison maintenant.", "Ahora estoy en casa."],
+            ["ce soir", "/sə swaʁ/", "esta noche", "On mange ensemble ce soir ?", "¿Comemos juntos esta noche?"]
           ],
           "x": [
             ["c", "«Demain» significa…", ["mañana (el día siguiente)", "la mañana", "ayer", "hoy"], "La mañana del día es «le matin»; el día siguiente es «demain»."],
             ["l", "À demain !", ["¡hasta mañana!", "¡buenos días!", "¡hasta luego!", "¡hasta ayer!"]],
             ["o", "Aujourd'hui, c'est lundi.", "Hoy es lunes."],
+            ["c", "«Ce soir» significa…", ["esta noche", "cada noche", "anoche", "esta mañana"], "«Le soir» es la noche en general; «ce soir», la de hoy."],
+            ["l", "Je travaille l'après-midi", ["trabajo por la tarde", "trabajo por la mañana", "trabajo mañana", "trabajo ahora"]],
+            ["o", "Maintenant, je travaille à la maison.", "Ahora trabajo en casa."],
             ["d", [
               ["Nora", "On se voit aujourd'hui ?", "¿Nos vemos hoy?"],
               ["", ["Non, aujourd'hui je travaille. Demain ?", "Oui, hier.", "Le soir, merci."], "No, hoy trabajo. ¿Mañana?"],
-              ["Nora", "D'accord, demain matin !", "¡Vale, mañana por la mañana!"],
+              ["Nora", "Demain, je travaille le matin.", "Mañana trabajo por la mañana."],
+              ["", ["Alors demain après-midi ?", "Alors hier après-midi ?", "Alors maintenant demain ?"], "¿Entonces mañana por la tarde?"],
+              ["Nora", "D'accord, demain après-midi ! À quelle heure ?", "¡Vale, mañana por la tarde! ¿A qué hora?"],
+              ["", ["À trois heures, ça va ?", "À trois ans, ça va ?", "Hier, trois heures."], "A las tres, ¿te va bien?"],
+              ["Nora", "Parfait. Et ce soir, tu fais quoi ?", "Perfecto. ¿Y qué haces esta noche?"],
+              ["", ["Ce soir, je regarde un film.", "Ce soir, je regarde hier.", "Le matin, je suis un film."], "Esta noche veo una película."],
+              ["Nora", "Moi aussi ! Bon, je rentre maintenant.", "¡Yo también! Bueno, ahora me voy a casa."],
               ["", ["À demain !", "À hier !", "Bonne nuit, demain."], "¡Hasta mañana!"]
             ]]
           ]
@@ -342,19 +540,47 @@
             ["mai", "/mɛ/", "mayo", "Le premier mai.", "El primero de mayo."],
             ["juillet", "/ʒɥi.jɛ/", "julio", "Le quatorze juillet.", "El catorce de julio."],
             ["décembre", "/de.sɑ̃bʁ/", "diciembre", "Noël, c'est en décembre.", "Navidad es en diciembre."],
-            ["mon anniversaire", "/mɔ̃.n‿a.ni.vɛʁ.sɛʁ/", "mi cumpleaños", "Mon anniversaire, c'est le dix mai.", "Mi cumpleaños es el diez de mayo."]
+            ["mon anniversaire", "/mɔ̃.n‿a.ni.vɛʁ.sɛʁ/", "mi cumpleaños", "Mon anniversaire, c'est le dix mai.", "Mi cumpleaños es el diez de mayo."],
+            ["avril", "/a.vʁil/", "abril", "En avril, il pleut beaucoup.", "En abril llueve mucho."],
+            ["l'été", "/le.te/", "el verano", "En été, il fait chaud.", "En verano hace calor."],
+            ["c'est quand ?", "/sɛ kɑ̃/", "¿cuándo es?", "Le concert, c'est quand ?", "¿Cuándo es el concierto?"]
           ],
           "x": [
             ["c", "¿Cómo se dice «el 1 de mayo»?", ["le premier mai", "le un mai", "la première mai", "le mai un"], "El día 1 es «premier»; los demás, número normal: le deux mai."],
             ["l", "juillet", ["julio", "junio", "enero", "agosto"]],
             ["o", "Mon anniversaire, c'est le dix mai.", "Mi cumpleaños es el diez de mayo."],
+            ["l", "avril", ["abril", "agosto", "mayo", "enero"]],
+            ["c", "¿Cómo preguntas «¿cuándo es tu cumpleaños?»?", ["C'est quand, ton anniversaire ?", "Quel âge, ton anniversaire ?", "C'est où, ton anniversaire ?", "Tu as quand anniversaire ?"], "«Quand» significa «cuándo»."],
+            ["o", "Mon anniversaire est en avril.", "Mi cumpleaños es en abril."],
             ["d", [
               ["Lucie", "C'est quand, ton anniversaire ?", "¿Cuándo es tu cumpleaños?"],
               ["", ["C'est le trois juillet.", "C'est trois heures.", "J'ai trois ans."], "Es el tres de julio."],
-              ["Lucie", "Oh, c'est bientôt !", "¡Oh, es pronto!"]
+              ["Lucie", "Oh, c'est bientôt ! J'adore l'été.", "¡Oh, es pronto! Me encanta el verano."],
+              ["", ["Et toi, c'est quand ?", "Et toi, c'est quel âge ?", "Et toi, c'est qui ?"], "¿Y el tuyo, cuándo es?"],
+              ["Lucie", "C'est le premier décembre.", "Es el primero de diciembre."],
+              ["", ["En hiver ! Il fait froid en décembre.", "En été ! Il fait froid en décembre.", "En hiver ! Il est froid en décembre."], "¡En invierno! En diciembre hace frío."],
+              ["Lucie", "Oui, mais j'aime beaucoup décembre.", "Sí, pero me gusta mucho diciembre."],
+              ["", ["Moi, j'aime avril et mai.", "Moi, j'aime avril décembre ans.", "Moi non plus, j'adore décembre."], "A mí me gustan abril y mayo."],
+              ["Lucie", "Et l'anniversaire de ta mère, c'est quand ?", "¿Y el cumpleaños de tu madre, cuándo es?"],
+              ["", ["C'est le quatorze juillet.", "Elle a quatorze juillet.", "C'est quatorze heures."], "Es el catorce de julio."],
+              ["Lucie", "Comme la fête nationale !", "¡Como la fiesta nacional!"]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Marc", "Salut ! Tu es libre demain ?", "¡Hola! ¿Estás libre mañana?"],
+        ["", ["Demain matin, non. Je travaille.", "Demain matin, non. Je suis hier.", "Oui, il est demain."], "Mañana por la mañana no. Trabajo."],
+        ["Marc", "Et l'après-midi ? Il y a un film à quatre heures.", "¿Y por la tarde? Hay una película a las cuatro."],
+        ["", ["Quatre heures, c'est parfait !", "Quatre ans, c'est parfait !", "Il y a quatre, merci."], "¡A las cuatro es perfecto!"],
+        ["Marc", "Le cinéma est à vingt minutes. On se voit à trois heures et demie ?", "El cine está a veinte minutos. ¿Nos vemos a las tres y media?"],
+        ["", ["Oui, à trois heures et demie, d'accord.", "Oui, à trois ans et demi.", "Non, à hier et demie."], "Sí, a las tres y media, vale."],
+        ["Marc", "Au fait, c'est quand, ton anniversaire ?", "Por cierto, ¿cuándo es tu cumpleaños?"],
+        ["", ["C'est le seize mai.", "C'est seize heures.", "J'ai seize mai."], "Es el dieciséis de mayo."],
+        ["Marc", "Le seize mai ? C'est la semaine prochaine !", "¿El dieciséis de mayo? ¡Es la semana que viene!"],
+        ["", ["Oui, c'est mardi prochain !", "Oui, c'est hier !", "Non, j'ai mai ans."], "¡Sí, es el martes que viene!"],
+        ["Marc", "Super ! Bon, il est onze heures, je rentre.", "¡Genial! Bueno, son las once, me voy a casa."],
+        ["", ["D'accord. À demain après-midi !", "D'accord. À hier après-midi !", "Bonne journée, onze."], "Vale. ¡Hasta mañana por la tarde!"]
       ]
     },
     {
@@ -369,17 +595,30 @@
             ["je mange", "/ʒə mɑ̃ʒ/", "como", "Je mange une pomme.", "Me como una manzana."],
             ["je bois", "/ʒə bwa/", "bebo", "Je bois de l'eau.", "Bebo agua."],
             ["l'eau", "/lo/", "el agua", "Une bouteille d'eau.", "Una botella de agua."],
-            ["le pain", "/lə pɛ̃/", "el pan", "Le pain est frais.", "El pan está fresco."]
+            ["le pain", "/lə pɛ̃/", "el pan", "Le pain est frais.", "El pan está fresco."],
+            ["la pomme", "/la pɔm/", "la manzana", "La pomme est rouge.", "La manzana es roja."],
+            ["le fromage", "/lə fʁɔ.maʒ/", "el queso", "J'adore le fromage français.", "Me encanta el queso francés."],
+            ["le lait", "/lə lɛ/", "la leche", "Un café au lait, s'il vous plaît.", "Un café con leche, por favor."],
+            ["j'ai faim", "/ʒe fɛ̃/", "tengo hambre", "J'ai faim ! On mange ?", "¡Tengo hambre! ¿Comemos?"]
           ],
           "x": [
             ["c", "Completa: «Je bois ___ eau.»", ["de l'", "le", "un", "du"], "Con cantidades indefinidas se usa el partitivo: du pain, de l'eau, de la soupe."],
             ["l", "Je mange du pain", ["como pan", "bebo agua", "compro pan", "quiero pan"]],
             ["o", "Je bois de l'eau.", "Bebo agua."],
+            ["c", "Completa: «Je mange ___ fromage.»", ["du", "de la", "de l'", "des"], "«Fromage» es masculino: du fromage."],
+            ["l", "J'ai faim", ["tengo hambre", "tengo frío", "tengo sed", "estoy cansado"]],
+            ["o", "Je bois du lait le matin.", "Bebo leche por la mañana."],
             ["d", [
               ["Maman", "Tu manges quoi le matin ?", "¿Qué comes por la mañana?"],
               ["", ["Du pain et un café.", "Je bois le pain.", "Le matin, merci."], "Pan y un café."],
               ["Maman", "Et tu bois de l'eau ?", "¿Y bebes agua?"],
-              ["", ["Oui, beaucoup !", "Non, je mange.", "Moi non plus."], "¡Sí, mucha!"]
+              ["", ["Oui, beaucoup !", "Non, je mange.", "Moi non plus."], "¡Sí, mucha!"],
+              ["Maman", "Tu as faim maintenant ?", "¿Tienes hambre ahora?"],
+              ["", ["Oui, j'ai très faim !", "Oui, je suis très faim !", "Non, j'ai faim."], "¡Sí, tengo mucha hambre!"],
+              ["Maman", "Il y a du fromage et des pommes.", "Hay queso y manzanas."],
+              ["", ["Une pomme, s'il te plaît.", "Je bois une pomme, merci.", "Je mange du pomme."], "Una manzana, por favor."],
+              ["Maman", "Et un verre de lait ?", "¿Y un vaso de leche?"],
+              ["", ["Non merci, je n'aime pas le lait.", "Non merci, je n'aime le lait.", "Oui, je mange le lait."], "No, gracias, no me gusta la leche."]
             ]]
           ]
         },
@@ -390,16 +629,29 @@
             ["la maison", "/la mɛ.zɔ̃/", "la casa", "Ma maison est petite.", "Mi casa es pequeña."],
             ["la cuisine", "/la kɥi.zin/", "la cocina", "Je suis dans la cuisine.", "Estoy en la cocina."],
             ["la chambre", "/la ʃɑ̃bʁ/", "el dormitorio", "Ma chambre est bleue.", "Mi dormitorio es azul."],
-            ["le salon", "/lə sa.lɔ̃/", "el salón", "On regarde la télé dans le salon.", "Vemos la tele en el salón."]
+            ["le salon", "/lə sa.lɔ̃/", "el salón", "On regarde la télé dans le salon.", "Vemos la tele en el salón."],
+            ["la salle de bain", "/la sal də bɛ̃/", "el baño", "La salle de bain est petite.", "El baño es pequeño."],
+            ["le jardin", "/lə ʒaʁ.dɛ̃/", "el jardín", "On mange dans le jardin.", "Comemos en el jardín."],
+            ["l'appartement", "/la.paʁ.tə.mɑ̃/", "el apartamento, el piso", "J'habite dans un appartement.", "Vivo en un apartamento."]
           ],
           "x": [
             ["c", "«La chambre» es…", ["el dormitorio", "la cámara", "la cocina", "el comedor"], "Falso amigo: la cámara de fotos es «l'appareil photo»."],
             ["l", "Je suis dans la cuisine", ["estoy en la cocina", "cocino en casa", "como en la cocina", "voy a la cocina"]],
             ["o", "Ma chambre est petite.", "Mi dormitorio es pequeño."],
+            ["c", "«La salle de bain» es…", ["el baño", "el salón", "la sala de baile", "el dormitorio"], "«Salle de bain»: la habitación con ducha o bañera."],
+            ["l", "Mon appartement est petit", ["mi apartamento es pequeño", "mi casa es grande", "mi dormitorio es pequeño", "mi apartamento es bonito"]],
+            ["o", "Ma maison a un petit jardin.", "Mi casa tiene un jardín pequeño."],
             ["d", [
               ["Ton coloc", "Tu es où ?", "¿Dónde estás?"],
               ["", ["Je suis dans la cuisine.", "Je suis la cuisine.", "J'ai une cuisine."], "Estoy en la cocina."],
-              ["Ton coloc", "Super, j'ai faim !", "¡Genial, tengo hambre!"]
+              ["Ton coloc", "Super, j'ai faim ! Il y a du pain ?", "¡Genial, tengo hambre! ¿Hay pan?"],
+              ["", ["Oui, et du fromage aussi.", "Oui, et la chambre aussi.", "Non, je suis du pain."], "Sí, y también queso."],
+              ["Ton coloc", "Et mon téléphone, il est dans le salon ?", "¿Y mi teléfono está en el salón?"],
+              ["", ["Non, il est dans ta chambre.", "Non, il est dans ton chambre.", "Oui, il est la salle de bain."], "No, está en tu dormitorio."],
+              ["Ton coloc", "Merci ! Je vais dans la salle de bain, deux minutes.", "¡Gracias! Voy al baño, dos minutos."],
+              ["", ["D'accord, je mange dans le jardin.", "D'accord, je mange dans le lait.", "D'accord, je suis le jardin."], "Vale, como en el jardín."],
+              ["Ton coloc", "Bonne idée, il fait beau aujourd'hui !", "¡Buena idea, hoy hace buen tiempo!"],
+              ["", ["Oui, le jardin est très beau.", "Oui, le jardin est très belle.", "Non, merci, la cuisine."], "Sí, el jardín está muy bonito."]
             ]]
           ]
         },
@@ -411,18 +663,29 @@
             ["bleu", "/blø/", "azul", "Le ciel est bleu.", "El cielo es azul."],
             ["vert", "/vɛʁ/", "verde", "Un thé vert.", "Un té verde."],
             ["noir", "/nwaʁ/", "negro", "Un café noir.", "Un café solo."],
-            ["blanc, blanche", "/blɑ̃, blɑ̃ʃ/", "blanco, blanca", "Une chemise blanche.", "Una camisa blanca."]
+            ["blanc, blanche", "/blɑ̃, blɑ̃ʃ/", "blanco, blanca", "Une chemise blanche.", "Una camisa blanca."],
+            ["jaune", "/ʒon/", "amarillo", "Le soleil est jaune.", "El sol es amarillo."],
+            ["la couleur", "/la ku.lœʁ/", "el color", "Ma couleur préférée, c'est le bleu.", "Mi color favorito es el azul."]
           ],
           "x": [
             ["c", "Completa: «Une voiture ___.»", ["verte", "vert", "verts", "vertes"], "El color concuerda con el nombre: une voiture verte."],
             ["l", "noir", ["negro", "rojo", "noche", "azul"]],
             ["c", "En francés el color va normalmente…", ["detrás del nombre: une robe rouge", "delante: une rouge robe", "sin artículo", "en mayúscula"]],
             ["o", "Le ciel est bleu.", "El cielo es azul."],
+            ["c", "¿Cómo preguntas «¿de qué color es?»?", ["C'est de quelle couleur ?", "C'est quelle heure ?", "C'est combien de couleur ?", "Il fait quelle couleur ?"], "«Couleur» es femenino: quelle couleur."],
+            ["l", "Une fleur jaune", ["una flor amarilla", "una flor roja", "una fruta amarilla", "una flor blanca"]],
+            ["o", "Mon vélo est jaune et noir.", "Mi bici es amarilla y negra."],
             ["d", [
               ["La vendeuse", "Vous cherchez un pull de quelle couleur ?", "¿De qué color busca el jersey?"],
               ["", ["Bleu ou noir, s'il vous plaît.", "Il fait bleu.", "J'ai noir."], "Azul o negro, por favor."],
               ["La vendeuse", "J'ai ce pull bleu.", "Tengo este jersey azul."],
-              ["", ["Il est très beau, merci !", "Il pleut, merci.", "Moi non plus."], "¡Es muy bonito, gracias!"]
+              ["", ["Il est très beau, merci !", "Il pleut, merci.", "Moi non plus."], "¡Es muy bonito, gracias!"],
+              ["La vendeuse", "Il y a aussi une chemise blanche ou jaune.", "También hay una camisa blanca o amarilla."],
+              ["", ["Je n'aime pas le jaune. La blanche, s'il vous plaît.", "Je suis jaune, merci.", "La chemise est quelle heure ?"], "No me gusta el amarillo. La blanca, por favor."],
+              ["La vendeuse", "Et un pantalon ? Noir, gris ou vert ?", "¿Y un pantalón? ¿Negro, gris o verde?"],
+              ["", ["Noir, s'il vous plaît. C'est combien ?", "Il fait noir, merci.", "J'ai quatre couleurs ans."], "Negro, por favor. ¿Cuánto es?"],
+              ["La vendeuse", "Le pantalon, c'est vingt euros.", "El pantalón cuesta veinte euros."],
+              ["", ["D'accord, je prends tout, merci.", "D'accord, je prends la couleur vingt.", "Moi aussi, vingt euros."], "Vale, me lo llevo todo, gracias."]
             ]]
           ]
         },
@@ -433,16 +696,30 @@
             ["il fait beau", "/il fɛ bo/", "hace buen tiempo", "Aujourd'hui, il fait beau.", "Hoy hace buen tiempo."],
             ["il fait froid", "/il fɛ fʁwa/", "hace frío", "En hiver, il fait froid.", "En invierno hace frío."],
             ["il fait chaud", "/il fɛ ʃo/", "hace calor", "Il fait chaud à Séville.", "Hace calor en Sevilla."],
-            ["il pleut", "/il plø/", "llueve", "Il pleut à Paris.", "Llueve en París."]
+            ["il pleut", "/il plø/", "llueve", "Il pleut à Paris.", "Llueve en París."],
+            ["il neige", "/il nɛʒ/", "nieva", "Il neige en janvier.", "Nieva en enero."],
+            ["le soleil", "/lə sɔ.lɛj/", "el sol", "J'aime le soleil.", "Me gusta el sol."],
+            ["il fait quel temps ?", "/il fɛ kɛl tɑ̃/", "¿qué tiempo hace?", "Il fait quel temps à Lima ?", "¿Qué tiempo hace en Lima?"],
+            ["il y a du vent", "/i.li.ja dy vɑ̃/", "hace viento", "Il y a du vent à la plage.", "Hace viento en la playa."]
           ],
           "x": [
             ["c", "Para hablar del tiempo en francés se usa…", ["«il fait» (hace)", "«il est»", "«il a»", "«c'est fait»"], "Como en español: hace frío = il fait froid."],
             ["l", "Il pleut", ["llueve", "hace frío", "hace sol", "nieva"]],
             ["o", "Aujourd'hui, il fait beau.", "Hoy hace buen tiempo."],
+            ["c", "¿Cómo preguntas «¿qué tiempo hace?»?", ["Il fait quel temps ?", "Il est quelle heure ?", "Tu as quel temps ?", "C'est quel temps fait ?"], "El tiempo se pregunta con «il fait»."],
+            ["l", "Il neige à Montréal", ["nieva en Montreal", "llueve en Montreal", "hace frío en Montreal", "hace sol en Montreal"]],
+            ["o", "Il y a du soleil aujourd'hui.", "Hoy hace sol."],
             ["d", [
               ["Julie", "Il fait quel temps à Bogotá ?", "¿Qué tiempo hace en Bogotá?"],
               ["", ["Il pleut un peu, mais il ne fait pas froid.", "Il est pluie.", "J'ai beau."], "Llueve un poco, pero no hace frío."],
-              ["Julie", "Ici, il fait très chaud !", "¡Aquí hace mucho calor!"]
+              ["Julie", "Ici, à Paris, il fait très chaud !", "¡Aquí en París hace mucho calor!"],
+              ["", ["Il y a du soleil ?", "Il a du soleil ?", "Tu es du soleil ?"], "¿Hace sol?"],
+              ["Julie", "Oui, beaucoup. Et à Bogotá, il neige en hiver ?", "Sí, mucho. ¿Y en Bogotá nieva en invierno?"],
+              ["", ["Non, il ne neige pas à Bogotá.", "Non, il ne neige à Bogotá pas.", "Oui, il fait neige."], "No, en Bogotá no nieva."],
+              ["Julie", "Ici, en janvier, il fait froid et il y a du vent.", "Aquí, en enero, hace frío y hace viento."],
+              ["", ["Moi, je n'aime pas le froid.", "Moi, je ne suis pas le froid.", "Moi aussi, il pleut."], "A mí no me gusta el frío."],
+              ["Julie", "Alors viens en juillet ! Il fait beau.", "¡Entonces ven en julio! Hace buen tiempo."],
+              ["", ["D'accord, en juillet !", "D'accord, il fait juillet !", "Non merci, il fait beau."], "¡Vale, en julio!"]
             ]]
           ]
         },
@@ -453,20 +730,47 @@
             ["je me lève", "/ʒə mə lɛv/", "me levanto", "Je me lève à sept heures.", "Me levanto a las siete."],
             ["je vais au travail", "/ʒə ve o tʁa.vaj/", "voy al trabajo", "Je vais au travail en bus.", "Voy al trabajo en autobús."],
             ["je rentre", "/ʒə ʁɑ̃tʁ/", "vuelvo a casa", "Je rentre à six heures.", "Vuelvo a casa a las seis."],
-            ["je me couche", "/ʒə mə kuʃ/", "me acuesto", "Je me couche tard.", "Me acuesto tarde."]
+            ["je me couche", "/ʒə mə kuʃ/", "me acuesto", "Je me couche tard.", "Me acuesto tarde."],
+            ["je prends le petit-déjeuner", "/ʒə pʁɑ̃ lə pə.ti de.ʒœ.ne/", "desayuno", "Je prends le petit-déjeuner à la maison.", "Desayuno en casa."],
+            ["je dîne", "/ʒə din/", "ceno", "Je dîne avec ma famille.", "Ceno con mi familia."],
+            ["tôt", "/to/", "temprano", "Je me lève tôt.", "Me levanto temprano."],
+            ["tard", "/taʁ/", "tarde", "Le samedi, je me lève tard.", "Los sábados me levanto tarde."]
           ],
           "x": [
             ["c", "Ordena el día: primero…", ["je me lève", "je me couche", "je rentre", "je dors"]],
             ["l", "Je me couche à onze heures", ["me acuesto a las once", "me levanto a las once", "vuelvo a las once", "como a las once"]],
             ["o", "Je me lève à sept heures.", "Me levanto a las siete."],
+            ["c", "«Je me couche tard» significa…", ["me acuesto tarde", "me acuesto por la tarde", "me levanto tarde", "me acuesto temprano"], "«Tard» es tarde, a una hora avanzada; la tarde del día es «l'après-midi»."],
+            ["l", "Je dîne à huit heures", ["ceno a las ocho", "desayuno a las ocho", "almuerzo a las ocho", "ceno a las nueve"]],
+            ["o", "Je prends le petit-déjeuner à sept heures.", "Desayuno a las siete."],
             ["d", [
               ["Alex", "Tu te lèves à quelle heure ?", "¿A qué hora te levantas?"],
               ["", ["Je me lève à six heures et demie.", "Je me couche le matin.", "J'ai six heures."], "Me levanto a las seis y media."],
               ["Alex", "Oh là là, c'est tôt !", "¡Uf, qué temprano!"],
-              ["", ["Oui, mais je me couche tôt aussi.", "Non, merci.", "Bonne nuit, Alex."], "Sí, pero también me acuesto temprano."]
+              ["", ["Oui, mais je me couche tôt aussi.", "Non, merci.", "Bonne nuit, Alex."], "Sí, pero también me acuesto temprano."],
+              ["Alex", "Et tu prends le petit-déjeuner ?", "¿Y desayunas?"],
+              ["", ["Oui, du pain et un café.", "Oui, je bois le pain.", "Non, je prends le soir."], "Sí, pan y un café."],
+              ["Alex", "Tu vas au travail comment ?", "¿Cómo vas al trabajo?"],
+              ["", ["Je vais au travail en bus.", "Je suis au travail bus.", "Je rentre le bus."], "Voy al trabajo en autobús."],
+              ["Alex", "Et le soir ?", "¿Y por la noche?"],
+              ["", ["Je rentre à six heures et je dîne à huit heures.", "Je rentre à six ans.", "Je dîne le matin tard."], "Vuelvo a las seis y ceno a las ocho."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Sophie", "Alors, raconte ta journée. Tu te lèves tôt ?", "A ver, cuéntame tu día. ¿Te levantas temprano?"],
+        ["", ["Oui, je me lève à sept heures.", "Oui, je me couche à sept heures.", "Oui, je suis tôt."], "Sí, me levanto a las siete."],
+        ["Sophie", "Et le matin, tu manges quoi ?", "¿Y qué comes por la mañana?"],
+        ["", ["Du pain avec du fromage, et un café.", "Je bois du pain et du fromage.", "Le matin, il pleut."], "Pan con queso y un café."],
+        ["Sophie", "Tu habites dans une maison ?", "¿Vives en una casa?"],
+        ["", ["Non, dans un petit appartement.", "Non, dans une petit appartement.", "Oui, je suis une maison."], "No, en un apartamento pequeño."],
+        ["Sophie", "Il est comment, ton appartement ?", "¿Cómo es tu apartamento?"],
+        ["", ["Il a une cuisine jaune et une chambre bleue.", "Il a une cuisine jaune et un chambre bleu.", "Il fait jaune et bleu."], "Tiene una cocina amarilla y un dormitorio azul."],
+        ["Sophie", "Joli ! Et aujourd'hui, il fait quel temps chez toi ?", "¡Qué bonito! ¿Y hoy qué tiempo hace donde vives?"],
+        ["", ["Il pleut et il fait froid.", "Il est pluie et froid.", "J'ai froid temps."], "Llueve y hace frío."],
+        ["Sophie", "Alors ce soir, tu restes à la maison ?", "Entonces, ¿esta noche te quedas en casa?"],
+        ["", ["Oui, je rentre tôt et je dîne à la maison.", "Oui, je rentre tard hier.", "Non, je me lève ce soir."], "Sí, vuelvo temprano y ceno en casa."]
       ]
     }
   ]

@@ -25,12 +25,16 @@ class PracticeScaffold extends StatelessWidget {
   final double? progress;
   final List<Widget> actions;
 
+  /// A row under the progress bar, such as the lesson's hints.
+  final Widget? toolbar;
+
   const PracticeScaffold({
     super.key,
     required this.title,
     required this.child,
     this.progress,
     this.actions = const [],
+    this.toolbar,
   });
 
   @override
@@ -61,6 +65,7 @@ class PracticeScaffold extends StatelessWidget {
                     ),
                   ),
                 ),
+              if (toolbar case final bar?) bar,
               Expanded(child: child),
             ],
           ),
@@ -151,6 +156,9 @@ class ChoiceQuestion extends StatefulWidget {
   /// revealed, and there is no explanation.
   final bool quiet;
 
+  /// Options taken away by a hint.
+  final Set<int> hidden;
+
   const ChoiceQuestion({
     super.key,
     required this.item,
@@ -160,6 +168,7 @@ class ChoiceQuestion extends StatefulWidget {
     this.optionsAreFrench = false,
     this.header,
     this.quiet = false,
+    this.hidden = const {},
   });
 
   @override
@@ -198,22 +207,23 @@ class _ChoiceQuestionState extends State<ChoiceQuestion> {
         Text(item.prompt,
             style: context.texts.headlineSmall?.copyWith(height: 1.35)),
         const SizedBox(height: Insets.xl),
-        for (final (i, option) in item.options.indexed) ...[
-          _OptionButton(
-            label: option,
-            state: !answered
-                ? _OptionState.idle
-                : widget.quiet
-                    ? (i == _picked ? _OptionState.idle : _OptionState.dim)
-                    : i == item.answer
-                        ? _OptionState.right
-                        : i == _picked
-                            ? _OptionState.wrong
-                            : _OptionState.dim,
-            onTap: () => _pick(i),
-          ),
-          const SizedBox(height: Insets.sm),
-        ],
+        for (final (i, option) in item.options.indexed)
+          if (!widget.hidden.contains(i)) ...[
+            _OptionButton(
+              label: option,
+              state: !answered
+                  ? _OptionState.idle
+                  : widget.quiet
+                      ? (i == _picked ? _OptionState.idle : _OptionState.dim)
+                      : i == item.answer
+                          ? _OptionState.right
+                          : i == _picked
+                              ? _OptionState.wrong
+                              : _OptionState.dim,
+              onTap: () => _pick(i),
+            ),
+            const SizedBox(height: Insets.sm),
+          ],
         if (answered) ...[
           const SizedBox(height: Insets.md),
           if (!widget.quiet)

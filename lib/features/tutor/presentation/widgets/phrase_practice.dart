@@ -19,7 +19,19 @@ class PhrasePractice extends StatefulWidget {
   final String target;
   final bool compact;
 
-  const PhrasePractice({super.key, required this.target, this.compact = false});
+  /// Each scored attempt.
+  final ValueChanged<PronunciationResult>? onResult;
+
+  /// The microphone or the recognizer can't be used on this phone.
+  final VoidCallback? onUnavailable;
+
+  const PhrasePractice({
+    super.key,
+    required this.target,
+    this.compact = false,
+    this.onResult,
+    this.onUnavailable,
+  });
 
   @override
   State<PhrasePractice> createState() => _PhrasePracticeState();
@@ -100,6 +112,11 @@ class _PhrasePracticeState extends State<PhrasePractice> {
       _result = scored;
       _partial = '';
     });
+    if (scored != null) widget.onResult?.call(scored);
+    if (result.outcome == SpeechOutcome.permissionDenied ||
+        result.outcome == SpeechOutcome.unavailable) {
+      widget.onUnavailable?.call();
+    }
 
     if (scored != null && scored.isSuccess) {
       showMascotToast(context, scored.feedback.labelEs);
@@ -116,7 +133,7 @@ class _PhrasePracticeState extends State<PhrasePractice> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        _MicPill(
+        MicPill(
           listening: listening,
           level: _level,
           label: listening
@@ -152,14 +169,16 @@ class _PhrasePracticeState extends State<PhrasePractice> {
   }
 }
 
-class _MicPill extends StatelessWidget {
+/// The microphone button: a pill whose border pulses with the voice.
+class MicPill extends StatelessWidget {
   final bool listening;
   final double level;
   final String label;
   final VoidCallback onTap;
   final bool compact;
 
-  const _MicPill({
+  const MicPill({
+    super.key,
     required this.listening,
     required this.level,
     required this.label,
@@ -187,9 +206,7 @@ class _MicPill extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Radii.pill),
               border: Border.all(
-                color: listening
-                    ? p.gold
-                    : p.borderStrong,
+                color: listening ? p.gold : p.borderStrong,
                 width: listening ? 1.5 + level * 2 : 1,
               ),
             ),
@@ -205,8 +222,9 @@ class _MicPill extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: context.texts.labelLarge?.copyWith(
                       color: listening ? p.gold : p.textSecondary,
-                      fontStyle:
-                          listening && label.startsWith('«') ? FontStyle.italic : null,
+                      fontStyle: listening && label.startsWith('«')
+                          ? FontStyle.italic
+                          : null,
                     ),
                   ),
                 ),
@@ -231,7 +249,8 @@ class _ResultLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: Insets.sm, vertical: 3),
+          padding:
+              const EdgeInsets.symmetric(horizontal: Insets.sm, vertical: 3),
           decoration: BoxDecoration(
             color: tone.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(Radii.pill),
@@ -243,8 +262,8 @@ class _ResultLine extends StatelessWidget {
                   size: 13, color: tone),
               const SizedBox(width: Insets.xs),
               Text('${result.overallPercent}%',
-                  style: context.texts.labelMedium?.copyWith(
-                      color: tone, fontWeight: FontWeight.w800)),
+                  style: context.texts.labelMedium
+                      ?.copyWith(color: tone, fontWeight: FontWeight.w800)),
             ],
           ),
         ),

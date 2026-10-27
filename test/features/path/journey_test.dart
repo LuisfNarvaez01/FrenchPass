@@ -54,6 +54,36 @@ void main() {
       }
     });
 
+    test('a lesson checks each pair, asks for French and has you speak',
+        () {
+      for (final stop in stops.where((s) => s.kind == StopKind.lesson)) {
+        final steps = LessonBuilder.build(stop, stops, random: Random(3));
+        expect(steps[0], isA<LearnStep>(), reason: stop.id);
+        expect(steps[1], isA<LearnStep>(), reason: stop.id);
+        expect(steps[2], anyOf(isA<ChoiceStep>(), isA<ListenStep>()),
+            reason: stop.id);
+        expect(steps.whereType<SpeakStep>(), isNotEmpty, reason: stop.id);
+        expect(steps.whereType<ChoiceStep>().where((c) => c.french),
+            isNotEmpty,
+            reason: stop.id);
+        for (final c in steps.whereType<ChoiceStep>()) {
+          expect(c.options.toSet().length, c.options.length,
+              reason: '${stop.id} ${c.prompt}');
+        }
+      }
+    });
+
+    test('a retry keeps the right answer under new positions', () {
+      const step = ChoiceStep(
+          prompt: 'p', options: ['a', 'b', 'c', 'd'], answer: 2, about: 'x');
+      for (var seed = 0; seed < 10; seed++) {
+        final again =
+            LessonBuilder.again(step, random: Random(seed)) as ChoiceStep;
+        expect(again.options[again.answer], 'c');
+        expect(again.about, 'x');
+      }
+    });
+
     test('after shuffling, every answer still points at the right option',
         () {
       for (final stop in stops.where((s) => s.kind == StopKind.lesson)) {
@@ -86,7 +116,7 @@ void main() {
             if (s.stage == stop.stage &&
                 s.week == stop.week &&
                 s.kind == StopKind.lesson)
-              for (final i in s.items) i.es,
+              for (final i in s.items) ...[i.es, i.fr],
         };
         final steps = LessonBuilder.build(stop, stops, random: Random(2));
         expect(steps.length, greaterThanOrEqualTo(6), reason: stop.id);

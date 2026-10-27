@@ -99,6 +99,8 @@ class SettingsPage extends StatelessWidget {
                     rate: settings.speechRate,
                     onChanged: (rate) => bloc.add(ChangeSpeechRateEvent(rate)),
                   ),
+                  const _Separator(),
+                  const _AppVoiceTile(),
                 ],
               ),
 
@@ -456,6 +458,139 @@ class _SpeechRateTile extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// The phone voice that reads French everywhere except the tutor: words,
+/// lessons, listening and the translator.
+class _AppVoiceTile extends StatefulWidget {
+  const _AppVoiceTile();
+
+  @override
+  State<_AppVoiceTile> createState() => _AppVoiceTileState();
+}
+
+class _AppVoiceTileState extends State<_AppVoiceTile> {
+  final _tts = getIt<TtsService>();
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final voice = _tts.voice;
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+          horizontal: Insets.lg, vertical: Insets.sm),
+      leading: Icon(Icons.graphic_eq_rounded, size: 20, color: p.gold),
+      title: Text('Voz de la app', style: context.texts.titleMedium),
+      subtitle: Text(
+        voice == null
+            ? 'La del teléfono · palabras, lecciones y traductor'
+            : '${_AppVoiceSheet.labelOf(voice)} · palabras, lecciones y '
+                'traductor',
+        style: context.texts.bodySmall,
+      ),
+      trailing: Icon(Icons.expand_more_rounded, size: 20, color: p.textMuted),
+      onTap: () async {
+        final voices = await _tts.frenchVoices();
+        if (!context.mounted) return;
+        if (voices.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Este teléfono no tiene voces francesas. Instala '
+                'una en Ajustes de Android › Idiomas › Texto a voz.'),
+          ));
+          return;
+        }
+        final picked = await showModalBottomSheet<(TtsVoice?,)>(
+          context: context,
+          isScrollControlled: true,
+          builder: (_) => _AppVoiceSheet(voices: voices, current: voice),
+        );
+        if (picked == null) return;
+        final (choice,) = picked;
+        await _tts.setVoice(choice);
+        final storage = getIt<StorageService>();
+        if (choice == null) {
+          await storage.remove(StorageKeys.speechVoice);
+        } else {
+          await storage.setString(StorageKeys.speechVoice, choice.id);
+        }
+        if (mounted) setState(() {});
+      },
+    );
+  }
+}
+
+class _AppVoiceSheet extends StatelessWidget {
+  final List<TtsVoice> voices;
+  final TtsVoice? current;
+  const _AppVoiceSheet({required this.voices, required this.current});
+
+  static String labelOf(TtsVoice v) {
+    final tail = v.name.split(RegExp(r'[-_#]')).where((s) => s.isNotEmpty);
+    final code = tail.length > 1 ? tail.elementAt(tail.length - 2) : v.name;
+    return 'Voz ${code.toUpperCase()} · ${v.regionEs}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.palette;
+    final tts = getIt<TtsService>();
+    return SafeArea(
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.8),
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(bottom: Insets.lg),
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  Insets.xl, Insets.xl, Insets.xl, Insets.xs),
+              child: Text('Voz de la app', style: context.texts.titleLarge),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Insets.xl),
+              child: Text(
+                'Toca ▶ para escuchar cada voz. La del tutor se elige aparte, '
+                'en «Tutor de IA».',
+                style: context.texts.bodySmall,
+              ),
+            ),
+            const SizedBox(height: Insets.sm),
+            ListTile(
+              title: Text('La del teléfono', style: context.texts.bodyLarge),
+              subtitle: Text('La voz francesa por defecto de Android',
+                  style: context.texts.bodySmall),
+              trailing: current == null
+                  ? Icon(Icons.check_rounded, color: p.gold)
+                  : null,
+              onTap: () => Navigator.of(context).pop((null,)),
+            ),
+            for (final v in voices)
+              ListTile(
+                leading: IconButton(
+                  tooltip: 'Escuchar',
+                  icon: Icon(Icons.play_circle_outline_rounded, color: p.gold),
+                  onPressed: () async {
+                    final before = tts.voice;
+                    await tts.setVoice(v);
+                    await tts.speak("Bonjour, je m'appelle FrenchPass.");
+                    await tts.setVoice(before);
+                  },
+                ),
+                title: Text(labelOf(v), style: context.texts.bodyLarge),
+                subtitle: Text(
+                    v.network ? 'Necesita conexión' : 'Funciona sin conexión',
+                    style: context.texts.bodySmall),
+                trailing: current?.id == v.id
+                    ? Icon(Icons.check_rounded, color: p.gold)
+                    : null,
+                onTap: () => Navigator.of(context).pop((v,)),
+              ),
+          ],
+        ),
       ),
     );
   }

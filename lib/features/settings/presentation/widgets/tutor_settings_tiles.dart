@@ -103,8 +103,8 @@ class _VoiceTileState extends State<VoiceTile> {
           horizontal: Insets.lg, vertical: Insets.sm),
       leading: Icon(Icons.record_voice_over_outlined, size: 20, color: p.gold),
       title: Text('Voz del tutor', style: context.texts.titleMedium),
-      subtitle:
-          Text(TutorVoices.labelFor(_voice), style: context.texts.bodySmall),
+      subtitle: Text('${TutorVoices.labelFor(_voice)} · solo en el tutor',
+          style: context.texts.bodySmall),
       trailing: Icon(Icons.expand_more_rounded, size: 20, color: p.textMuted),
       onTap: () async {
         final picked = await showModalBottomSheet<String>(

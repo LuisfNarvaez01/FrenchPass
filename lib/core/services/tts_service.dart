@@ -3,6 +3,34 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+/// One of the device's French voices.
+class TtsVoice {
+  final String name;
+  final String locale;
+
+  /// Needs a connection to speak (Android's "-network" voices).
+  final bool network;
+
+  const TtsVoice(this.name, this.locale, {this.network = false});
+
+  /// Stored as `name|locale`.
+  String get id => '$name|$locale';
+
+  static TtsVoice? parse(String? id) {
+    final parts = id?.split('|');
+    if (parts == null || parts.length != 2) return null;
+    return TtsVoice(parts[0], parts[1]);
+  }
+
+  /// "Francia", "Canadá"… from the locale's region.
+  String get regionEs => switch (locale.toLowerCase().replaceAll('_', '-')) {
+        final l when l.endsWith('-ca') => 'Canadá',
+        final l when l.endsWith('-be') => 'Bélgica',
+        final l when l.endsWith('-ch') => 'Suiza',
+        _ => 'Francia',
+      };
+}
+
 /// French text-to-speech.
 ///
 /// Every entry point is guarded: on a device with no French voice installed the
@@ -14,6 +42,7 @@ class TtsService {
   bool _initialised = false;
   bool _available = false;
   double _rate = 0.45;
+  TtsVoice? _voice;
 
   /// Whether a usable French voice was found.
   bool get isAvailable => _available;
@@ -23,10 +52,13 @@ class TtsService {
   bool _speaking = false;
   bool get isSpeaking => _speaking;
 
-  Future<void> init({double rate = 0.45}) async {
+  /// [voice] is the learner's pick from Settings (`TtsVoice.id`), applied
+  /// over the engine's default French voice.
+  Future<void> init({double rate = 0.45, String? voice}) async {
     if (_initialised) return;
     _initialised = true;
     _rate = rate;
+    _voice = TtsVoice.parse(voice);
 
     try {
       await _tts.awaitSpeakCompletion(true);
@@ -52,6 +84,7 @@ class TtsService {
         await _tts.setLanguage(match);
       }
 
+      if (_voice case final v?) await _applyVoice(v);
       await _tts.setSpeechRate(_rate);
       await _tts.setPitch(1.0);
       await _tts.setVolume(1.0);
@@ -70,6 +103,60 @@ class TtsService {
   void _emit(bool value) {
     _speaking = value;
     if (!_speakingController.isClosed) _speakingController.add(value);
+  }
+
+  /// The voice in use, or null for the engine's default.
+  TtsVoice? get voice => _voice;
+
+  /// The French voices installed on the device, offline ones first.
+  Future<List<TtsVoice>> frenchVoices() async {
+    await init(rate: _rate);
+    try {
+      final raw = await _tts.getVoices;
+      final voices = <TtsVoice>[
+        for (final v in (raw as List? ?? const []))
+          if (v is Map &&
+              '${v['locale']}'.toLowerCase().startsWith('fr') &&
+              '${v['name']}'.isNotEmpty)
+            TtsVoice(
+              '${v['name']}',
+              '${v['locale']}',
+              network: '${v['name']}'.contains('network') ||
+                  v['network_required'] == '1' ||
+                  v['network_required'] == true,
+            ),
+      ];
+      final seen = <String>{};
+      return [
+        for (final v in voices.where((v) => !v.network)) v,
+        for (final v in voices.where((v) => v.network)) v,
+      ].where((v) => seen.add(v.id)).toList();
+    } catch (e) {
+      debugPrint('TtsService.frenchVoices failed: $e');
+      return const [];
+    }
+  }
+
+  /// Speaks with [voice] from now on; null goes back to the default.
+  Future<void> setVoice(TtsVoice? voice) async {
+    _voice = voice;
+    if (voice != null) {
+      await _applyVoice(voice);
+    } else {
+      try {
+        await _tts.setLanguage('fr-FR');
+      } catch (_) {
+        // Keeps whatever voice the engine had.
+      }
+    }
+  }
+
+  Future<void> _applyVoice(TtsVoice v) async {
+    try {
+      await _tts.setVoice({'name': v.name, 'locale': v.locale});
+    } catch (e) {
+      debugPrint('TtsService.setVoice failed: $e');
+    }
   }
 
   Future<void> setRate(double rate) async {

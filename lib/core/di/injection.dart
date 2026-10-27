@@ -87,7 +87,9 @@ Future<void> configureDependencies() async {
   // Warm the TTS engine so the first "Escuchar" tap is not the one that pays
   // for engine startup.
   final rate = storage.getInt(StorageKeys.speechRate);
-  await getIt<TtsService>().init(rate: (rate ?? 38) / 100);
+  await getIt<TtsService>().init(
+      rate: (rate ?? 38) / 100,
+      voice: storage.getString(StorageKeys.speechVoice));
 
   // Fire-and-forget: a slow or failed network check must never delay the UI
   // or crash startup. MainShell shows the result once it lands, if ever.

@@ -123,10 +123,12 @@ sealed class LessonStep {
       };
 }
 
-/// Meet a new word: its sound, meaning and an example.
+/// Meet a new word: its sound, meaning and an example. [again] is the
+/// second look at a word the learner missed, before its retry.
 class LearnStep extends LessonStep {
   final PathItem item;
-  const LearnStep(this.item);
+  final bool again;
+  const LearnStep(this.item, {this.again = false});
 }
 
 /// Four options, one right.
@@ -139,12 +141,16 @@ class ChoiceStep extends LessonStep {
   /// The taught item this asks about, so a miss can be reviewed later.
   final String? about;
 
+  /// The options are French ("how do you say…"), so they can be heard.
+  final bool french;
+
   const ChoiceStep({
     required this.prompt,
     required this.options,
     required this.answer,
     this.why = '',
     this.about,
+    this.french = false,
   });
 }
 
@@ -158,6 +164,14 @@ class ListenStep extends LessonStep {
     required this.options,
     required this.answer,
   });
+}
+
+/// Say French into the microphone.
+class SpeakStep extends LessonStep {
+  final String fr;
+  final String es;
+  final String ipa;
+  const SpeakStep({required this.fr, required this.es, this.ipa = ''});
 }
 
 /// Pair French with Spanish.

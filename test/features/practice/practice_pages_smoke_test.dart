@@ -223,21 +223,24 @@ void main() {
     expect(find.text('Semana 2'), findsOneWidget);
   });
 
-  testWidgets('a lesson: learn a word, then answer, then the conversation',
+  testWidgets('a lesson teaches two words, checks one, and offers a hint',
       (tester) async {
     SoundService.muted = true;
     await mount(tester, const LessonPage(stopId: 'depart-1'));
     expect(tester.takeException(), isNull);
     expect(find.text('PALABRA NUEVA'), findsOneWidget);
     expect(find.text('bonjour'), findsOneWidget);
-    // Through the three new words.
-    for (var i = 0; i < 3; i++) {
+    // New words have nothing to hint at.
+    expect(find.textContaining('Quitar dos opciones'), findsNothing);
+    for (var i = 0; i < 2; i++) {
       await tapText(tester, 'Entendido');
     }
     expect(tester.takeException(), isNull);
-    expect(find.textContaining('saludas a tu profesora'), findsOneWidget);
-    await tapText(tester, 'Bonjour, madame !');
-    expect(find.text('Correcto'), findsOneWidget);
+    expect(find.text('Quitar dos opciones · 3'), findsOneWidget);
+    final before = find.byType(InkWell).evaluate().length;
+    await tapText(tester, 'Quitar dos opciones · 3');
+    expect(find.text('Quitar dos opciones · 2'), findsOneWidget);
+    expect(find.byType(InkWell).evaluate().length, before - 2);
     expect(tester.takeException(), isNull);
   });
 

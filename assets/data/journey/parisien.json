@@ -13,16 +13,29 @@
             ["une meuf", "", "una chica (verlan de «femme»)", "C'est une meuf super sympa.", "Es una chica muy maja."],
             ["relou", "", "pesado (verlan de «lourd»)", "Il est trop relou.", "Es muy pesado."],
             ["chelou", "", "raro (verlan de «louche»)", "C'est chelou, cette histoire.", "Esta historia es rara."],
-            ["ouf", "", "una locura (verlan de «fou»)", "Le concert était ouf !", "¡El concierto fue una locura!"]
+            ["ouf", "", "una locura (verlan de «fou»)", "Le concert était ouf !", "¡El concierto fue una locura!"],
+            ["un keum", "", "un tío (verlan de «mec»)", "C'est qui, ce keum ?", "¿Quién es ese tío?"],
+            ["vénère", "", "cabreado (verlan de «énervé»)", "Elle est vénère contre son proprio.", "Está cabreada con su casero."],
+            ["chanmé", "", "brutal, buenísimo (verlan de «méchant»)", "Son dernier son est chanmé.", "Su último tema es brutal."],
+            ["téma", "", "mira (verlan de «mate»)", "Téma la vue depuis le toit !", "¡Mira las vistas desde la azotea!"]
           ],
           "x": [
             ["c", "El «verlan» consiste en…", ["invertir las sílabas de las palabras", "hablar en verso", "usar palabras inglesas", "hablar muy rápido"], "«Verlan» viene de «l'envers» (al revés)."],
             ["l", "C'est chelou, cette histoire", ["esta historia es rara", "esta historia es genial", "esta historia es larga", "esta historia es verdad"]],
             ["o", "Le concert était ouf !", "¡El concierto fue una locura!"],
+            ["c", "«Il est vénère» significa…", ["está cabreado", "es venerable", "es vegetariano", "está cansado"], "«Vénère» es el verlan de «énervé»."],
+            ["l", "Son dernier son est chanmé", ["su último tema es brutal", "su último tema es malísimo", "su último sonido es raro", "su última canción es lenta"]],
+            ["o", "Téma le keum avec son chapeau !", "¡Mira al tío del sombrero!"],
             ["d", [
-              ["Ton pote", "T'as vu le mec dans le métro ? Il était trop chelou.", "¿Viste al tipo del metro? Era rarísimo."],
+              ["Ton pote", "T'as vu le keum dans le métro ? Il était trop chelou.", "¿Viste al tío del metro? Era rarísimo."],
               ["", ["Grave ! Et il était relou, il parlait super fort.", "Oui, monsieur était bizarre de forme.", "Ouf, merci beaucoup."], "¡Total! Y era un pesado, hablaba altísimo."],
-              ["Ton pote", "Laisse tomber, c'est Paris !", "¡Déjalo, es París!"]
+              ["Ton pote", "Laisse tomber, c'est Paris ! Bon, tu viens au concert ce soir ?", "Déjalo, es París. Bueno, ¿vienes al concierto esta noche?"],
+              ["", ["Carrément, il paraît que le groupe est chanmé.", "Je viens pas, le concert est chanmé.", "Il paraît que le groupe est vénère de musique."], "Claro, dicen que el grupo es brutal."],
+              ["Ton pote", "Par contre, Léa est vénère, je lui ai pas répondu.", "Eso sí, Léa está cabreada: no le he contestado."],
+              ["", ["Appelle-la, sinon elle va être relou toute la soirée.", "Appelle-la, elle est chanmé d'être vénère.", "Félicitations, elle est très contente."], "Llámala, si no va a estar pesada toda la noche."],
+              ["Ton pote", "T'as raison. Téma, elle vient de m'envoyer un message.", "Tienes razón. Mira, me acaba de mandar un mensaje."],
+              ["", ["Elle dit quoi ? Elle vient avec nous ?", "Elle a dit ouf à la meuf du keum.", "Merci, je préfère le métro chelou."], "¿Qué dice? ¿Viene con nosotros?"],
+              ["Ton pote", "Ouais, elle ramène une meuf de son taf. Ça va être ouf !", "Sí, trae a una chica de su curro. ¡Va a ser una locura!"]
             ]]
           ]
         },
@@ -33,16 +46,29 @@
             ["bouffer", "", "comer (familiar)", "On va bouffer où ?", "¿Dónde vamos a jalar?"],
             ["bosser", "", "currar, trabajar", "Je bosse demain.", "Mañana curro."],
             ["une bagnole", "", "un coche (familiar)", "Sa bagnole est en panne.", "Su coche está averiado."],
-            ["le fric", "", "la pasta, el dinero", "Je n'ai plus de fric.", "Ya no tengo pasta."]
+            ["le fric", "", "la pasta, el dinero", "Je n'ai plus de fric.", "Ya no tengo pasta."],
+            ["le taf", "", "el curro (familiar)", "J'ai trop de taf cette semaine.", "Tengo muchísimo curro esta semana."],
+            ["galérer", "", "pasarlas canutas, costarle a uno (familiar)", "J'ai galéré pour trouver un appart.", "Me costó horrores encontrar piso."],
+            ["se casser", "", "largarse (familiar)", "Il est tard, je me casse.", "Es tarde, me largo."],
+            ["kiffer", "", "molar, encantar (familiar)", "Je kiffe ce quartier.", "Me encanta este barrio."]
           ],
           "x": [
             ["c", "«Bosser» es la versión familiar de…", ["travailler", "manger", "dormir", "parler"]],
             ["l", "Je n'ai plus de fric", ["ya no tengo pasta", "no tengo frío", "no tengo fruta", "ya no tengo tiempo"]],
             ["o", "On va bouffer où ce soir ?", "¿Dónde vamos a comer esta noche?"],
+            ["c", "«J'ai galéré pour trouver une place» significa…", ["me costó muchísimo encontrar sitio", "encontré sitio en una galería", "encontré sitio enseguida", "me rendí y no busqué sitio"]],
+            ["l", "Je kiffe ce quartier", ["me encanta este barrio", "odio este barrio", "conozco este barrio", "me mudo de barrio"]],
+            ["o", "Il est tard, je me casse.", "Es tarde, me largo."],
             ["d", [
-              ["Ton coloc", "Tu viens bouffer avec nous ?", "¿Vienes a comer con nosotros?"],
+              ["Ton coloc", "Tu viens bouffer avec nous ce soir ?", "¿Vienes a cenar con nosotros esta noche?"],
               ["", ["Je peux pas, je bosse, et j'ai plus de fric de toute façon.", "Je souhaiterais manger avec vous, monsieur.", "Je bouffe la bagnole."], "No puedo, curro, y de todas formas no me queda pasta."],
-              ["Ton coloc", "T'inquiète, c'est moi qui invite !", "¡Tranqui, invito yo!"]
+              ["Ton coloc", "T'inquiète, c'est moi qui invite ! Tu finis le taf à quelle heure ?", "Tranqui, invito yo. ¿A qué hora sales del curro?"],
+              ["", ["Vers vingt heures, mais j'ai pas de bagnole ce soir.", "Je finis la bagnole à vingt heures.", "Je kiffe pas de taf demain hier."], "Hacia las ocho, pero esta noche no tengo coche."],
+              ["Ton coloc", "Pas de souci, je passe te prendre. T'as galéré aujourd'hui ?", "No pasa nada, paso a recogerte. ¿Has tenido un día duro?"],
+              ["", ["Grave, j'ai galéré toute la journée avec un client.", "Oui, j'ai galéré une galerie de clients.", "Non, j'ai bouffé le client."], "Muchísimo, lo he pasado fatal todo el día con un cliente."],
+              ["Ton coloc", "On va dans le resto libanais que tu kiffes ?", "¿Vamos al libanés que te encanta?"],
+              ["", ["Parfait. Je bosse encore une heure, et après je me casse.", "Je me casse le resto, merci.", "Je kiffe pas bouffer, jamais."], "Perfecto. Curro una hora más y luego me largo."],
+              ["Ton coloc", "Top, je t'envoie un texto quand je suis en bas.", "Genial, te mando un mensaje cuando esté abajo."]
             ]]
           ]
         },
@@ -53,16 +79,29 @@
             ["ouais", "", "sí (familiar)", "Ouais, je sais.", "Sí, ya lo sé."],
             ["t'inquiète", "", "tranquilo, no te preocupes", "T'inquiète, je m'en occupe.", "Tranquilo, yo me encargo."],
             ["grave", "", "totalmente, muchísimo", "Il est grave sympa.", "Es supermajo."],
-            ["genre", "", "o sea, en plan", "Il m'a dit, genre, non.", "Me dijo, en plan, que no."]
+            ["genre", "", "o sea, en plan", "Il m'a dit, genre, non.", "Me dijo, en plan, que no."],
+            ["du coup", "", "así que, entonces (oral)", "Il pleuvait, du coup on est restés.", "Llovía, así que nos quedamos."],
+            ["j'avoue", "", "la verdad es que sí (coloquial, no confiesa nada)", "— Il est bien, ce film. — J'avoue.", "—Está bien esta peli. —La verdad es que sí."],
+            ["carrément", "", "totalmente; claro que sí (coloquial)", "Tu viens ? — Carrément !", "¿Vienes? —¡Claro que sí!"],
+            ["en mode", "", "en plan (coloquial)", "Il est arrivé en mode star.", "Llegó en plan estrella."]
           ],
           "x": [
             ["c", "«C'est grave bien» significa…", ["está muy bien", "es grave pero bien", "está fatal", "es importante"], "En registro joven, «grave» intensifica: muy, totalmente."],
             ["l", "T'inquiète, je m'en occupe", ["tranquilo, yo me encargo", "me preocupa, ocúpate tú", "¿te preocupas por mí?", "inquieto, me ocupo"]],
             ["o", "Ouais, je sais.", "Sí, ya lo sé."],
+            ["c", "Tu amiga dice «Ce prof est trop bien». Para darle la razón respondes…", ["J'avoue.", "J'avoue pas.", "Du coup.", "En mode."], "«J'avoue» aquí no confiesa nada: significa «la verdad es que sí»."],
+            ["l", "Il est arrivé en mode star", ["llegó en plan estrella", "llegó a la moda", "llegó en modo avión", "llegó con una estrella"]],
+            ["o", "Il pleuvait, du coup on est restés à la maison.", "Llovía, así que nos quedamos en casa."],
             ["d", [
-              ["Ta pote", "J'ai oublié mon chargeur…", "Me he olvidado el cargador…"],
+              ["Ta pote", "J'ai oublié mon chargeur… et j'ai plus de batterie.", "Me he olvidado el cargador… y no me queda batería."],
               ["", ["T'inquiète, j'en ai un. Il est grave rapide.", "Ne vous inquiétez point, madame.", "Genre ouais grave non."], "Tranqui, tengo uno. Carga rapidísimo."],
-              ["Ta pote", "Ouais, merci, t'es top !", "¡Sí, gracias, eres la mejor!"]
+              ["Ta pote", "Ouais, merci, t'es top ! Du coup, tu viens à la soirée de Karim ?", "Sí, gracias, eres la mejor. Entonces, ¿vienes a la fiesta de Karim?"],
+              ["", ["Carrément ! Mais genre, il faut apporter quelque chose ?", "Carrément pas oui, du coup.", "Je vous remercie de votre aimable invitation."], "¡Claro! Pero, en plan, ¿hay que llevar algo?"],
+              ["Ta pote", "Non, il a dit de venir les mains vides. Il est en mode grand chef.", "No, dijo que fuéramos con las manos vacías. Va en plan gran chef."],
+              ["", ["J'avoue, sa cuisine est grave bonne.", "J'avoue que je suis coupable, monsieur le juge.", "Ouais, ses mains sont vides."], "La verdad es que sí, cocina de maravilla."],
+              ["Ta pote", "Par contre, son coloc est un peu relou.", "Eso sí, su compañero de piso es un poco pesado."],
+              ["", ["T'inquiète, on l'évite, et du coup tout ira bien.", "Grave, je kiffe les relous.", "Du coup genre carrément ouais."], "Tranqui, lo evitamos y así todo irá bien."],
+              ["Ta pote", "Ouais, t'as raison. On se retrouve là-bas à neuf heures ?", "Sí, tienes razón. ¿Nos vemos allí a las nueve?"]
             ]]
           ]
         },
@@ -73,16 +112,28 @@
             ["le resto", "", "el restaurante", "On se fait un resto ?", "¿Vamos a un restaurante?"],
             ["l'appart", "", "el piso", "Mon appart est minuscule.", "Mi piso es minúsculo."],
             ["la clim", "", "el aire acondicionado", "Mets la clim, il fait chaud.", "Pon el aire, hace calor."],
-            ["à plus", "", "hasta luego (familiar)", "Allez, à plus !", "¡Venga, hasta luego!"]
+            ["à plus", "", "hasta luego (familiar)", "Allez, à plus !", "¡Venga, hasta luego!"],
+            ["le petit déj", "", "el desayuno (familiar)", "On prend le petit déj en terrasse ?", "¿Desayunamos en la terraza?"],
+            ["un apéro", "", "un aperitivo (familiar)", "On fait un apéro chez moi ce soir.", "Esta noche hacemos un aperitivo en mi casa."],
+            ["dispo", "", "disponible, libre (familiar)", "T'es dispo samedi ?", "¿Estás libre el sábado?"],
+            ["à toute", "", "hasta ahora (familiar)", "J'arrive dans dix minutes, à toute !", "Llego en diez minutos, ¡hasta ahora!"]
           ],
           "x": [
             ["c", "«Le petit déj'» es…", ["el desayuno", "el pequeño", "el deje", "un pastel"]],
             ["l", "Mets la clim, il fait chaud", ["pon el aire, hace calor", "pon el clima, hace frío", "abre la ventana", "apaga la calefacción"]],
             ["o", "On se fait un resto ce soir ?", "¿Vamos a un restaurante esta noche?"],
+            ["c", "«À toute» se usa cuando…", ["vas a ver a esa persona dentro de poco", "no la vas a ver en mucho tiempo", "te despides para siempre", "saludas por la mañana"], "«À toute» viene de «à tout à l'heure»."],
+            ["o", "T'es dispo samedi pour un apéro ?", "¿Estás libre el sábado para un aperitivo?"],
             ["d", [
-              ["Ton ami", "On se fait un resto ou on reste à l'appart ?", "¿Vamos a un restaurante o nos quedamos en el piso?"],
-              ["", ["Restons à l'appart, il y a la clim !", "Je souhaiterais un restaurant, je vous prie.", "À plus le resto."], "¡Quedémonos en el piso, hay aire acondicionado!"],
-              ["Ton ami", "Ok, je commande. À plus !", "Vale, pido. ¡Hasta luego!"]
+              ["Ton ami", "On se fait un resto ce soir ou on reste à l'appart ?", "¿Vamos a un restaurante esta noche o nos quedamos en el piso?"],
+              ["", ["Restons à l'appart, il y a la clim.", "Je souhaiterais un restaurant, je vous prie.", "À plus le resto."], "Quedémonos en el piso, hay aire acondicionado."],
+              ["Ton ami", "Ok. Et si on invitait Inès pour un apéro ?", "Vale. ¿Y si invitamos a Inès a un aperitivo?"],
+              ["", ["Bonne idée, mais je sais pas si elle est dispo.", "Bonne idée, l'apéro est dispo dans la clim.", "Non, le petit déj est à toute."], "Buena idea, pero no sé si está libre."],
+              ["Ton ami", "Je lui écris… Elle dit qu'elle arrive dans une heure.", "Le escribo… Dice que llega en una hora."],
+              ["", ["Super. Je descends acheter des chips et des boissons.", "Super, elle arrive au petit déj.", "Dommage, elle ne vient pas."], "Genial. Bajo a comprar patatas fritas y bebidas."],
+              ["Ton ami", "Prends aussi des croissants pour le petit déj de demain.", "Coge también cruasanes para el desayuno de mañana."],
+              ["", ["Ça marche. Je reviens dans un quart d'heure, à toute !", "Ça marche, à toute dans dix ans.", "Je reviens hier, à plus."], "Vale. Vuelvo en un cuarto de hora, ¡hasta ahora!"],
+              ["Ton ami", "À toute ! Et prends ta clé, je serai sous la douche.", "¡Hasta ahora! Y llévate la llave, estaré en la ducha."]
             ]]
           ]
         },
@@ -93,19 +144,47 @@
             ["j'sais pas", "", "no sé (oral)", "J'sais pas, on verra.", "No sé, ya veremos."],
             ["c'est pas grave", "", "no pasa nada (oral)", "C'est pas grave, t'inquiète.", "No pasa nada, tranquilo."],
             ["y a pas de souci", "", "no hay problema (oral)", "Y a pas de souci !", "¡No hay problema!"],
-            ["t'es où ?", "", "¿dónde estás? (oral)", "T'es où ? Je t'attends.", "¿Dónde estás? Te espero."]
+            ["t'es où ?", "", "¿dónde estás? (oral)", "T'es où ? Je t'attends.", "¿Dónde estás? Te espero."],
+            ["t'as qu'à", "", "pues… (sugerencia: «no tienes más que»)", "T'as qu'à prendre un taxi.", "Pues coge un taxi."],
+            ["y a moyen ?", "", "¿se puede?, ¿hay manera? (oral)", "Y a moyen de passer chez toi ?", "¿Puedo pasarme por tu casa?"],
+            ["faut pas", "", "no hay que, no tienes que (oral)", "Faut pas t'en faire.", "No tienes que preocuparte."],
+            ["ça vaut pas le coup", "", "no vale la pena (oral)", "Ça vaut pas le coup d'y aller en voiture.", "No vale la pena ir en coche."]
           ],
           "x": [
             ["c", "En el francés oral, el «ne» de la negación…", ["suele desaparecer", "se duplica", "se pone al final", "se cambia por «non»"], "«Je sais pas» en vez de «je ne sais pas»: normal al hablar, no al escribir."],
             ["l", "Y a pas de souci", ["no hay problema", "no hay soldados", "hay un problema", "no tengo ganas"]],
             ["o", "C'est pas grave, t'inquiète.", "No pasa nada, tranquilo."],
+            ["c", "«T'as qu'à demander» es la forma oral de…", ["tu n'as qu'à demander (no tienes más que pedirlo)", "tu as quatre demandes", "tu ne demandes jamais", "tu as demandé à qui ?"]],
+            ["l", "Y a moyen de passer chez toi ?", ["¿puedo pasarme por tu casa?", "¿hay transporte hasta tu casa?", "¿estás en casa a mediodía?", "no hay forma de ir a tu casa"]],
+            ["o", "Ça vaut pas le coup d'y aller en voiture.", "No vale la pena ir en coche."],
             ["d", [
-              ["Ta sœur", "T'es où ? Le film commence !", "¿Dónde estás? ¡Empieza la peli!"],
+              ["Ta sœur", "T'es où ? Le film commence dans dix minutes !", "¿Dónde estás? ¡La peli empieza en diez minutos!"],
               ["", ["J'sais pas, je suis perdu… Commencez sans moi, c'est pas grave.", "Je ne sais point où je me trouve.", "Y a pas de film."], "No sé, me he perdido… Empezad sin mí, no pasa nada."],
-              ["Ta sœur", "Y a pas de souci, on t'attend !", "¡No hay problema, te esperamos!"]
+              ["Ta sœur", "T'as qu'à regarder ton GPS !", "¡Pues mira el GPS!"],
+              ["", ["Il marche pas, j'ai plus de batterie.", "Il marche, y a pas de souci.", "Je n'ai point de batterie, ma sœur."], "No funciona, no me queda batería."],
+              ["Ta sœur", "Y a un café en face de toi ?", "¿Hay un café enfrente de ti?"],
+              ["", ["Ouais, le Café des Arts. Y a moyen de venir me chercher ?", "Ouais, y a moyen que le café vient.", "Non, faut pas de café."], "Sí, el Café des Arts. ¿Podéis venir a buscarme?"],
+              ["Ta sœur", "Je connais, c'est à deux rues. Faut pas bouger, j'arrive.", "Lo conozco, está a dos calles. No te muevas, voy."],
+              ["", ["Merci. Et on prend un taxi pour aller au cinéma ?", "Merci, faut pas venir.", "Ça vaut le coup de rester perdu."], "Gracias. ¿Y cogemos un taxi para ir al cine?"],
+              ["Ta sœur", "Ça vaut pas le coup, c'est à cinq minutes à pied.", "No vale la pena, está a cinco minutos andando."],
+              ["", ["Ok, je t'attends ici. Y a pas de souci.", "Ok, je pars, t'es où ?", "Le film, j'sais pas, c'est grave."], "Vale, te espero aquí. No hay problema."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Ton pote Malik", "Salut ! T'es où ? On fait un apéro chez Sarah, t'es dispo ?", "¡Hola! ¿Dónde estás? Hacemos un aperitivo en casa de Sarah, ¿estás libre?"],
+        ["", ["Carrément, mais je finis le taf dans une heure.", "Je ne suis point disponible, cher ami.", "Carrément, l'apéro a fini hier."], "Claro, pero salgo del curro en una hora."],
+        ["Ton pote Malik", "T'inquiète, on commence tard. Par contre, Sarah est un peu vénère.", "Tranqui, empezamos tarde. Eso sí, Sarah está un poco cabreada."],
+        ["", ["Ah bon ? Elle est vénère pourquoi ?", "Ah bon, elle kiffe être chanmé ?", "Génial, j'adore quand elle est contente."], "¿Ah, sí? ¿Por qué está cabreada?"],
+        ["Ton pote Malik", "Son proprio veut augmenter le loyer. Elle a galéré pour trouver cet appart.", "Su casero quiere subirle el alquiler. Le costó horrores encontrar ese piso."],
+        ["", ["C'est relou. Du coup, on lui apporte un truc pour lui remonter le moral ?", "C'est ouf, le proprio est trop sympa.", "Du coup, elle bouffe le loyer."], "Qué rollo. Entonces, ¿le llevamos algo para animarla?"],
+        ["Ton pote Malik", "Grave. T'as qu'à prendre une bouteille en route. Moi, j'ai plus de fric.", "Totalmente. Pues compra una botella de camino. Yo no tengo pasta."],
+        ["", ["Pas de souci, je m'en occupe. Y a moyen de venir en bagnole ?", "Je m'en occupe pas, j'sais pas.", "Y a moyen de bouffer la bouteille ?"], "No hay problema, yo me encargo. ¿Se puede ir en coche?"],
+        ["Ton pote Malik", "Ça vaut pas le coup, y a jamais de place dans son quartier. Prends le métro.", "No vale la pena, en su barrio nunca hay sitio. Coge el metro."],
+        ["", ["J'avoue. Et ça finit tard ? Je bosse demain matin.", "J'avoue, je kiffe les bouchons.", "Ouais, je prends le métro en bagnole."], "La verdad es que sí. ¿Y acaba tarde? Mañana trabajo por la mañana."],
+        ["Ton pote Malik", "Genre minuit. Tu pourras te casser quand tu veux.", "Hacia medianoche. Podrás largarte cuando quieras."],
+        ["", ["Parfait. Envoie-moi l'adresse, à toute !", "Parfait, à toute dans trois semaines.", "Téma, j'arrive pas, à plus."], "Perfecto. Mándame la dirección, ¡hasta ahora!"]
       ]
     },
     {
@@ -120,15 +199,28 @@
             ["je me permets de", "", "me permito", "Je me permets de vous contacter…", "Me permito contactarle…"],
             ["dans l'attente de", "", "a la espera de", "Dans l'attente de votre réponse…", "A la espera de su respuesta…"],
             ["je vous prie d'agréer", "", "le ruego acepte", "Je vous prie d'agréer mes salutations distinguées.", "Le ruego acepte mis saludos más atentos."],
-            ["veuillez", "", "le ruego, sírvase", "Veuillez trouver ci-joint…", "Sírvase encontrar adjunto…"]
+            ["veuillez", "", "le ruego, sírvase", "Veuillez trouver ci-joint…", "Sírvase encontrar adjunto…"],
+            ["ci-joint", "", "adjunto (en cartas)", "Vous trouverez ci-joint mon CV.", "Le adjunto mi CV."],
+            ["en réponse à", "", "en respuesta a", "En réponse à votre courrier du 3 mai…", "En respuesta a su carta del 3 de mayo…"],
+            ["Madame, Monsieur", "", "Estimado/a señor/a (saludo sin nombre)", "Madame, Monsieur, je me permets de vous écrire…", "Estimado/a señor/a: me permito escribirle…"],
+            ["je vous remercie par avance", "", "le agradezco de antemano", "Je vous remercie par avance de votre attention.", "Le agradezco de antemano su atención."]
           ],
           "x": [
             ["c", "La fórmula de cierre más formal es…", ["Je vous prie d'agréer, Madame, l'expression de mes salutations distinguées.", "Bisous.", "À plus.", "Cordialement bisous."]],
             ["l", "Dans l'attente de votre réponse", ["a la espera de su respuesta", "atendiendo su respuesta", "en respuesta a su espera", "respondo cuando pueda"]],
             ["o", "Veuillez trouver ci-joint mon dossier.", "Sírvase encontrar adjunto mi expediente."],
+            ["c", "Escribes a una empresa sin saber quién leerá la carta. Empiezas con…", ["Madame, Monsieur,", "Salut à tous,", "Cher ami,", "Coucou,"]],
+            ["l", "Je vous remercie par avance de votre attention", ["le agradezco de antemano su atención", "le agradezco su atención pasada", "le pido que preste atención", "gracias por avanzar"]],
+            ["o", "Vous trouverez ci-joint mon curriculum vitae.", "Le adjunto mi currículum."],
             ["d", [
               ["Ton collègue", "Comment je commence une lettre au ministère ?", "¿Cómo empiezo una carta al ministerio?"],
               ["", ["« Madame la Ministre, je me permets de vous écrire au sujet de… »", "« Coucou la ministre ! »", "« Salut, veuillez. »"], "«Señora Ministra, me permito escribirle en relación con…»"],
+              ["Ton collègue", "Et si je réponds à leur courrier du mois dernier ?", "¿Y si respondo a su carta del mes pasado?"],
+              ["", ["Alors écris : « En réponse à votre courrier du 12 mars… »", "Alors écris : « Ouais, j'ai reçu ton truc. »", "Alors écris : « En réponse à vous, veuillez. »"], "Entonces escribe: «En respuesta a su carta del 12 de marzo…»"],
+              ["Ton collègue", "Je dois aussi envoyer mon attestation. Je le dis comment ?", "También tengo que enviar mi certificado. ¿Cómo lo digo?"],
+              ["", ["« Veuillez trouver ci-joint mon attestation. »", "« Ci-joint, bisous. »", "« Je joins moi l'attestation à vous. »"], "«Le adjunto mi certificado.»"],
+              ["Ton collègue", "Parfait. Et juste avant la formule finale ?", "Perfecto. ¿Y justo antes de la fórmula final?"],
+              ["", ["« Dans l'attente de votre réponse, je vous remercie par avance de votre attention. »", "« Réponds vite, merci d'avance. »", "« Dans l'attente, je vous remercie par hasard. »"], "«A la espera de su respuesta, le agradezco de antemano su atención.»"],
               ["Ton collègue", "Et pour finir ?", "¿Y para terminar?"],
               ["", ["« Je vous prie d'agréer, Madame la Ministre, l'expression de ma haute considération. »", "« À plus, ministre. »", "« Bisous, veuillez. »"], "«Le ruego acepte, señora Ministra, la expresión de mi más alta consideración.»"]
             ]]
@@ -141,16 +233,29 @@
             ["une démarche", "", "un trámite", "Les démarches administratives sont longues.", "Los trámites administrativos son largos."],
             ["le formulaire", "", "el formulario", "Remplissez le formulaire.", "Rellene el formulario."],
             ["la pièce jointe", "", "el archivo adjunto", "Voir la pièce jointe.", "Ver el archivo adjunto."],
-            ["dans les meilleurs délais", "", "lo antes posible", "Merci de répondre dans les meilleurs délais.", "Gracias por responder lo antes posible."]
+            ["dans les meilleurs délais", "", "lo antes posible", "Merci de répondre dans les meilleurs délais.", "Gracias por responder lo antes posible."],
+            ["une pièce justificative", "", "un documento acreditativo", "Joignez une pièce justificative à votre demande.", "Adjunte un documento acreditativo a su solicitud."],
+            ["un titre de séjour", "", "un permiso de residencia", "Je dois renouveler mon titre de séjour.", "Tengo que renovar mi permiso de residencia."],
+            ["le récépissé", "", "el resguardo (de una solicitud)", "Gardez bien votre récépissé.", "Guarde bien su resguardo."],
+            ["être en règle", "", "estar en regla", "Tous vos papiers sont en règle.", "Todos sus papeles están en regla."]
           ],
           "x": [
             ["c", "«Une pièce justificative» es…", ["un documento acreditativo", "una pieza de repuesto", "una obra de teatro", "una justificación oral"]],
             ["l", "Dans les meilleurs délais", ["lo antes posible", "en el mejor plazo de pago", "con el mejor retraso", "en los mejores días"]],
             ["o", "Remplissez le formulaire en ligne.", "Rellene el formulario en línea."],
+            ["c", "En la prefectura te dan «un récépissé». Es…", ["un resguardo que prueba que has presentado la solicitud", "una receta médica", "el tique de una compra", "una multa"]],
+            ["o", "Je dois renouveler mon titre de séjour.", "Tengo que renovar mi permiso de residencia."],
             ["d", [
-              ["L'agent", "Il manque une pièce à votre dossier.", "Falta un documento en su expediente."],
+              ["L'agent", "Bonjour. C'est pour quelle démarche ?", "Buenos días. ¿Para qué trámite es?"],
+              ["", ["Je viens renouveler mon titre de séjour. J'ai rempli le formulaire en ligne.", "Je viens pour bouffer, j'ai faim.", "Je renouvelle le formulaire de mon séjour en vacances."], "Vengo a renovar mi permiso de residencia. He rellenado el formulario en línea."],
+              ["L'agent", "Très bien. Il manque une pièce à votre dossier : le justificatif de domicile.", "Muy bien. Falta un documento en su expediente: el justificante de domicilio."],
               ["", ["Je vous l'envoie en pièce jointe dans les meilleurs délais.", "Je joins la pièce de la démarche formulaire.", "Il manque, bisous."], "Se lo envío como archivo adjunto lo antes posible."],
-              ["L'agent", "Parfait, votre démarche sera alors complète.", "Perfecto, así su trámite estará completo."]
+              ["L'agent", "Une facture d'électricité récente suffit comme pièce justificative.", "Una factura de la luz reciente sirve como documento acreditativo."],
+              ["", ["Parfait, j'en ai une sur mon téléphone. Je peux vous la montrer ?", "Parfait, je n'ai pas d'électricité.", "Une facture ? Je préfère payer en liquide."], "Perfecto, tengo una en el móvil. ¿Puedo enseñársela?"],
+              ["L'agent", "Oui, ça ira. Voici votre récépissé. Gardez-le bien.", "Sí, servirá. Aquí tiene su resguardo. Guárdelo bien."],
+              ["", ["Merci. Avec ce récépissé, je suis en règle en attendant la carte ?", "Merci, je peux jeter le récépissé ?", "Le récépissé, c'est pour la pièce jointe ?"], "Gracias. Con este resguardo, ¿estoy en regla mientras espero la tarjeta?"],
+              ["L'agent", "Tout à fait. Votre démarche est complète, vous serez prévenu par SMS.", "Exacto. Su trámite está completo; le avisaremos por SMS."],
+              ["", ["Je vous remercie, bonne journée.", "Ok, salut, à toute.", "Je vous remercie, bonne nuit éternelle."], "Muchas gracias, que tenga un buen día."]
             ]]
           ]
         },
@@ -161,16 +266,30 @@
             ["auriez-vous l'amabilité de", "", "tendría la amabilidad de", "Auriez-vous l'amabilité de me rappeler ?", "¿Tendría la amabilidad de devolverme la llamada?"],
             ["je vous saurais gré de", "", "le agradecería que", "Je vous saurais gré de me répondre.", "Le agradecería que me respondiera."],
             ["n'hésitez pas à", "", "no dude en", "N'hésitez pas à me contacter.", "No dude en contactarme."],
-            ["je reste à votre disposition", "", "quedo a su disposición", "Je reste à votre disposition pour tout renseignement.", "Quedo a su disposición para cualquier información."]
+            ["je reste à votre disposition", "", "quedo a su disposición", "Je reste à votre disposition pour tout renseignement.", "Quedo a su disposición para cualquier información."],
+            ["je vous serais reconnaissant de", "", "le estaría agradecido si", "Je vous serais reconnaissant de me tenir informé.", "Le estaría agradecido si me mantuviera informado."],
+            ["permettez-moi de", "", "permítame", "Permettez-moi de vous présenter ma collègue.", "Permítame presentarle a mi compañera."],
+            ["je ne voudrais pas abuser", "", "no quisiera abusar (de su amabilidad)", "Je ne voudrais pas abuser de votre temps.", "No quisiera abusar de su tiempo."],
+            ["dans la mesure du possible", "", "en la medida de lo posible", "Répondez dans la mesure du possible avant vendredi.", "Responda, en la medida de lo posible, antes del viernes."]
           ],
           "x": [
             ["c", "«Je vous saurais gré de…» significa…", ["le agradecería que…", "sabría su grado…", "le saludaría…", "le sabré decir…"]],
             ["l", "N'hésitez pas à me contacter", ["no dude en contactarme", "no me contacte", "dude antes de contactarme", "no espere mi contacto"]],
             ["o", "Je reste à votre disposition pour tout renseignement.", "Quedo a su disposición para cualquier información."],
+            ["c", "La forma más cortés de pedir que te mantengan informado es…", ["Je vous serais reconnaissant de me tenir informé.", "Tiens-moi au courant, ok ?", "Informez-moi, c'est un ordre.", "Je vous saurais informé de gré."]],
+            ["o", "Permettez-moi de vous présenter ma collègue.", "Permítame presentarle a mi compañera."],
             ["d", [
-              ["La secrétaire", "Le directeur est en réunion.", "El director está reunido."],
+              ["La secrétaire", "Cabinet Duval, bonjour. Le directeur est en réunion.", "Despacho Duval, buenos días. El director está reunido."],
               ["", ["Auriez-vous l'amabilité de lui demander de me rappeler ?", "Il me rappelle, ok ?", "Dis-lui de m'appeler."], "¿Tendría la amabilidad de pedirle que me devuelva la llamada?"],
-              ["La secrétaire", "Bien sûr, je lui transmets.", "Por supuesto, se lo transmito."]
+              ["La secrétaire", "Bien sûr. C'est à quel sujet ?", "Por supuesto. ¿De qué se trata?"],
+              ["", ["Permettez-moi de vous expliquer : il s'agit du contrat signé la semaine dernière.", "C'est pas tes oignons.", "Permettez-moi le contrat de la semaine."], "Permítame explicárselo: se trata del contrato firmado la semana pasada."],
+              ["La secrétaire", "Je vois. Il est très pris aujourd'hui, ce sera peut-être demain.", "Entiendo. Hoy está muy ocupado; quizá sea mañana."],
+              ["", ["Dans la mesure du possible, j'aimerais qu'il me rappelle aujourd'hui.", "Je m'en fiche, il doit m'appeler tout de suite.", "Dans la mesure du possible, demain hier."], "En la medida de lo posible, me gustaría que me llamara hoy."],
+              ["La secrétaire", "Je lui transmets. Il a votre numéro ?", "Se lo transmito. ¿Tiene su número?"],
+              ["", ["Oui, mais je vous serais reconnaissant de le lui rappeler.", "Cherchez-le vous-même.", "Je vous serais reconnaissant de vous rappeler hier."], "Sí, pero le estaría agradecido si se lo recordara."],
+              ["La secrétaire", "C'est noté. N'hésitez pas à me rappeler si besoin.", "Anotado. No dude en volver a llamarme si hace falta."],
+              ["", ["Merci infiniment, je ne voudrais pas abuser de votre gentillesse.", "Merci, je vous rappelle toutes les cinq minutes.", "De rien, madame."], "Muchísimas gracias, no quisiera abusar de su amabilidad."],
+              ["La secrétaire", "Je vous en prie. Je reste à votre disposition.", "No hay de qué. Quedo a su disposición."]
             ]]
           ]
         },
@@ -181,17 +300,31 @@
             ["il fut", "", "fue (de «être»)", "Ce fut un grand jour.", "Fue un gran día."],
             ["ils vinrent", "", "vinieron", "Ils vinrent à la nuit tombée.", "Vinieron al caer la noche."],
             ["elle dit", "", "dijo", "Elle dit adieu et partit.", "Dijo adiós y se fue."],
-            ["il eut", "", "tuvo (de «avoir»)", "Il eut peur.", "Tuvo miedo."]
+            ["il eut", "", "tuvo (de «avoir»)", "Il eut peur.", "Tuvo miedo."],
+            ["il fit", "", "hizo (de «faire»)", "Il fit un geste de la main.", "Hizo un gesto con la mano."],
+            ["elle prit", "", "tomó, cogió (de «prendre»)", "Elle prit son manteau et sortit.", "Cogió el abrigo y salió."],
+            ["nous allâmes", "", "fuimos (de «aller»)", "Nous allâmes jusqu'à la mer.", "Fuimos hasta el mar."],
+            ["il mourut", "", "murió (de «mourir»)", "Balzac mourut en 1850, à Paris.", "Balzac murió en 1850, en París."]
           ],
           "x": [
             ["c", "El passé simple se usa hoy sobre todo…", ["en la literatura y textos históricos", "en la conversación diaria", "en los mensajes de móvil", "nunca"]],
             ["c", "«Ils firent» es el passé simple de…", ["faire", "finir", "fuir", "figer"]],
             ["l", "Elle dit adieu et partit", ["dijo adiós y se fue", "dice adiós y se va", "dirá adiós y se irá", "decía adiós y se iba"]],
+            ["c", "«Elle prit son manteau et sortit», dicho en francés hablado, sería…", ["Elle a pris son manteau et elle est sortie.", "Elle prenait son manteau et sortait.", "Elle prend son manteau et sort.", "Elle prendra son manteau et sortira."], "El passé simple de la narración equivale al passé composé de la lengua hablada."],
+            ["l", "Balzac mourut en mille huit cent cinquante", ["Balzac murió en 1850", "Balzac nació en 1850", "Balzac vivió hasta 1815", "Balzac murió en 1580"]],
+            ["o", "Nous allâmes jusqu'à la mer.", "Fuimos hasta el mar."],
             ["d", [
-              ["Ta prof", "Comment dirais-tu « Il a eu peur » dans un roman ?", "¿Cómo dirías «tuvo miedo» en una novela?"],
+              ["Ta prof", "Lis cette phrase : « Il fit nuit très tôt ce soir-là. » Comment la dirais-tu à l'oral ?", "Lee esta frase: «Se hizo de noche muy pronto aquella tarde.» ¿Cómo la dirías hablando?"],
+              ["", ["« Il a fait nuit très tôt ce soir-là. »", "« Il fera nuit très tôt hier. »", "« Il fit nuit, genre, très tôt. »"], "«Se hizo de noche muy pronto aquella tarde.»"],
+              ["Ta prof", "Bien. Et comment dirais-tu « il a eu peur » dans un roman ?", "Bien. ¿Y cómo dirías «tuvo miedo» en una novela?"],
               ["", ["« Il eut peur. »", "« Il avait eu peur demain. »", "« Il est eu peur. »"], "«Il eut peur.»"],
               ["Ta prof", "Parfait. Et « ils sont venus » ?", "Perfecto. ¿Y «vinieron»?"],
-              ["", ["« Ils vinrent. »", "« Ils venèrent. »", "« Ils vinent. »"], "«Ils vinrent.»"]
+              ["", ["« Ils vinrent. »", "« Ils venèrent. »", "« Ils vinent. »"], "«Ils vinrent.»"],
+              ["Ta prof", "Maintenant : « Elle a pris sa valise et elle est partie. »", "Ahora: «Cogió la maleta y se fue.»"],
+              ["", ["« Elle prit sa valise et partit. »", "« Elle prenut sa valise et partut. »", "« Elle prit sa valise et partira. »"], "«Elle prit sa valise et partit.»"],
+              ["Ta prof", "Très bien. Et la fin du chapitre : « Le vieil homme est mort au printemps. »", "Muy bien. Y el final del capítulo: «El anciano murió en primavera.»"],
+              ["", ["« Le vieil homme mourut au printemps. »", "« Le vieil homme mourit au printemps. »", "« Le vieil homme mort au printemps. »"], "«Le vieil homme mourut au printemps.»"],
+              ["Ta prof", "Bravo, Flaubert n'a plus de secrets pour toi.", "Bravo, Flaubert ya no tiene secretos para ti."]
             ]]
           ]
         },
@@ -202,19 +335,48 @@
             ["avant qu'il ne parte", "", "antes de que se vaya", "Parle-lui avant qu'il ne parte.", "Háblale antes de que se vaya."],
             ["je crains qu'il ne", "", "temo que (él)", "Je crains qu'il ne soit trop tard.", "Temo que sea demasiado tarde."],
             ["à moins que… ne", "", "a menos que", "À moins qu'il ne pleuve.", "A menos que llueva."],
-            ["plus… qu'il ne le pense", "", "más… de lo que cree", "C'est plus difficile qu'il ne le pense.", "Es más difícil de lo que cree."]
+            ["plus… qu'il ne le pense", "", "más… de lo que cree", "C'est plus difficile qu'il ne le pense.", "Es más difícil de lo que cree."],
+            ["de peur que… ne", "", "por miedo a que", "Il parle bas de peur qu'on ne l'entende.", "Habla bajo por miedo a que lo oigan."],
+            ["éviter que… ne", "", "evitar que", "Il faut éviter que la situation ne s'aggrave.", "Hay que evitar que la situación empeore."],
+            ["moins… qu'on ne le croit", "", "menos… de lo que se cree", "C'est moins cher qu'on ne le croit.", "Es menos caro de lo que se cree."]
           ],
           "x": [
             ["c", "«Je crains qu'il ne vienne» significa…", ["temo que venga", "temo que no venga", "creo que no viene", "temo venir"], "Ese «ne» es expletivo: no niega. Para negar haría falta «ne… pas»."],
             ["l", "À moins qu'il ne pleuve", ["a menos que llueva", "a menos que no llueva", "aunque llueva", "mientras no llueva"]],
             ["o", "C'est plus difficile qu'il ne le pense.", "Es más difícil de lo que cree."],
+            ["c", "«Il parle bas de peur qu'on ne l'entende» significa…", ["habla bajo por miedo a que lo oigan", "habla bajo porque nadie lo oye", "habla bajo aunque lo oigan", "habla alto por miedo a que no lo oigan"], "Tras «de peur que», ese «ne» tampoco niega: es expletivo."],
+            ["o", "Il faut éviter que la situation ne s'aggrave.", "Hay que evitar que la situación empeore."],
             ["d", [
-              ["Ton collègue", "Le client va signer demain.", "El cliente va a firmar mañana."],
+              ["Ton collègue", "Le client va signer demain matin.", "El cliente va a firmar mañana por la mañana."],
               ["", ["Appelle-le avant qu'il ne change d'avis.", "Appelle-le avant qu'il change pas.", "Je crains qu'il signe pas ne."], "Llámalo antes de que cambie de opinión."],
-              ["Ton collègue", "Tu as raison, je crains qu'il n'hésite encore.", "Tienes razón, temo que todavía dude."]
+              ["Ton collègue", "Tu as raison, je crains qu'il n'hésite encore.", "Tienes razón, temo que todavía dude."],
+              ["", ["Il faut éviter qu'il ne parle à la concurrence ce soir.", "Il faut éviter qu'il ne parle pas jamais.", "Il faut qu'il éviter la concurrence ne."], "Hay que evitar que hable con la competencia esta noche."],
+              ["Ton collègue", "Je lui envoie le contrat tout de suite, à moins que tu ne veuilles le relire.", "Le envío el contrato ahora mismo, a menos que quieras releerlo."],
+              ["", ["Oui, je préfère le relire, de peur qu'il n'y ait une erreur.", "Oui, de peur qu'il n'y ait pas d'erreur.", "Non, je crains qu'il ne lise le contrat."], "Sí, prefiero releerlo, por miedo a que haya un error."],
+              ["Ton collègue", "Tu crois que la négociation sera longue ?", "¿Crees que la negociación será larga?"],
+              ["", ["Non, ce sera moins compliqué qu'on ne le croit.", "Non, ce sera moins compliqué qu'on ne le croit pas.", "Oui, plus simple qu'il ne le soit."], "No, será menos complicado de lo que se cree."],
+              ["Ton collègue", "Et s'il demande une remise ?", "¿Y si pide un descuento?"],
+              ["", ["On la lui accorde, à moins qu'il ne demande plus de dix pour cent.", "On la lui accorde, à moins qu'il demande ne.", "On la lui accorde, à moins qu'il ne pleuve."], "Se lo concedemos, a menos que pida más del diez por ciento."],
+              ["Ton collègue", "Parfait. Finalement, c'est plus simple qu'il ne le pense.", "Perfecto. Al final, es más sencillo de lo que él cree."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["La recruteuse", "Bonjour, asseyez-vous. Merci d'avoir répondu à notre annonce.", "Buenos días, siéntese. Gracias por responder a nuestro anuncio."],
+        ["", ["Merci à vous. Permettez-moi de vous remettre une copie de mon dossier.", "Salut, voilà mon truc.", "Merci à vous. Permettez-moi de vous remettre à votre place."], "Gracias a usted. Permítame entregarle una copia de mi expediente."],
+        ["La recruteuse", "Volontiers. Je vois que vous aviez envoyé votre CV en pièce jointe.", "Con mucho gusto. Veo que había enviado su CV como archivo adjunto."],
+        ["", ["En effet, et je me suis permis d'y joindre deux lettres de recommandation.", "Ouais, j'ai balancé le CV par mail.", "En effet, je vous prie d'agréer mon CV."], "Así es, y me permití adjuntar dos cartas de recomendación."],
+        ["La recruteuse", "Notre maison a une longue histoire : son fondateur ouvrit le premier atelier en 1902.", "Nuestra casa tiene una larga historia: su fundador abrió el primer taller en 1902."],
+        ["", ["Je l'ai lu sur votre site : il fut l'un des premiers à exporter au Japon.", "Je l'ai lu : il ouvrira l'atelier en 1902.", "Ouf, c'est vieux, ça."], "Lo leí en su web: fue uno de los primeros en exportar a Japón."],
+        ["La recruteuse", "Exactement. Côté administratif, votre titre de séjour est-il en règle ?", "Exacto. En lo administrativo, ¿tiene el permiso de residencia en regla?"],
+        ["", ["Oui, tout est en règle. Je peux fournir une pièce justificative si besoin.", "Oui, mais c'est pas tes affaires.", "Non, mon titre de séjour est en vacances."], "Sí, todo está en regla. Puedo aportar un documento acreditativo si hace falta."],
+        ["La recruteuse", "Le poste commence en mars. Avez-vous des questions avant que nous ne terminions ?", "El puesto empieza en marzo. ¿Tiene alguna pregunta antes de que terminemos?"],
+        ["", ["Oui : auriez-vous l'amabilité de me préciser les horaires ?", "Oui : c'est combien, le fric ?", "Oui : auriez-vous l'amabilité de terminer ?"], "Sí: ¿tendría la amabilidad de precisarme el horario?"],
+        ["La recruteuse", "Du lundi au vendredi, de 9 h à 17 h, avec deux jours de télétravail.", "De lunes a viernes, de 9 a 17 h, con dos días de teletrabajo."],
+        ["", ["Très bien. Je vous serais reconnaissant de me tenir informé de la suite.", "Bon, ben, tu m'appelles, hein.", "Très bien. Je crains que vous ne me teniez informé."], "Muy bien. Le estaría agradecido si me mantuviera informado del resultado."],
+        ["La recruteuse", "Bien sûr. Nous vous répondrons dans les meilleurs délais.", "Por supuesto. Le responderemos lo antes posible."],
+        ["", ["Dans l'attente de votre réponse, je vous remercie de votre accueil.", "À plus, bisous.", "Dans l'attente de votre accueil, je vous remercie de votre réponse."], "A la espera de su respuesta, le agradezco su recibimiento."]
       ]
     },
     {
@@ -229,16 +391,30 @@
             ["c'est malin !", "", "¡qué listo! (irónico)", "Tu as perdu les clés ? C'est malin !", "¿Perdiste las llaves? ¡Muy listo!"],
             ["bravo le génie", "", "bravo, genio (irónico)", "Bravo le génie, tu as tout cassé.", "Bravo, genio, lo has roto todo."],
             ["comme par hasard", "", "qué casualidad (irónico)", "Comme par hasard, il est malade le lundi.", "Qué casualidad, siempre se pone enfermo los lunes."],
-            ["elle est bien bonne", "", "esa sí que es buena", "Elle est bien bonne, celle-là !", "¡Esa sí que es buena!"]
+            ["elle est bien bonne", "", "esa sí que es buena", "Elle est bien bonne, celle-là !", "¡Esa sí que es buena!"],
+            ["c'est du joli !", "", "¡muy bonito! (irónico, reproche)", "Tu as menti à ta mère ? C'est du joli !", "¿Le has mentido a tu madre? ¡Muy bonito!"],
+            ["il ne manquait plus que ça", "", "lo que faltaba", "Il pleut et j'ai oublié mon parapluie : il ne manquait plus que ça.", "Llueve y me he olvidado el paraguas: lo que faltaba."],
+            ["merci du cadeau", "", "vaya regalito (irónico)", "Encore un dossier pour vendredi ? Merci du cadeau.", "¿Otro expediente para el viernes? Vaya regalito."],
+            ["tu parles !", "", "¡anda ya!, ¡qué va! (irónico)", "Il va t'aider ? Tu parles !", "¿Que te va a ayudar? ¡Anda ya!"]
           ],
           "x": [
             ["c", "Tu amigo vuelca el café sobre tu portátil y dices «C'est malin !». Quieres decir…", ["que ha sido una torpeza", "que es muy inteligente", "que te alegra", "que no pasa nada"]],
             ["l", "Comme par hasard, il est malade le lundi", ["qué casualidad, siempre se pone enfermo los lunes", "por casualidad estuvo enfermo un lunes", "como es lunes, está enfermo", "el lunes es su día libre"]],
             ["o", "Elle est bien bonne, celle-là !", "¡Esa sí que es buena!"],
+            ["c", "«Merci du cadeau», dicho ante una mala noticia, significa…", ["vaya regalito (es irónico)", "gracias por el regalo", "te devuelvo el regalo", "no quiero nada"]],
+            ["l", "Il va t'aider ? Tu parles !", ["¿que te va a ayudar? ¡anda ya!", "¿te va a ayudar? habla con él", "te va a ayudar, ya lo verás", "¿hablas con él para que te ayude?"]],
+            ["o", "Il ne manquait plus que ça !", "¡Lo que faltaba!"],
             ["d", [
               ["Ton coloc", "J'ai oublié de payer l'électricité, ils ont coupé le courant.", "Se me olvidó pagar la luz y la han cortado."],
-              ["", ["Bravo le génie ! Et comme par hasard, le jour du match.", "C'est très intelligent, félicitations sincères.", "Elle est bien bonne la lumière, merci."], "¡Bravo, genio! Y qué casualidad, el día del partido."],
-              ["Ton coloc", "Bon, ça va, je m'en occupe…", "Bueno, vale, ya me encargo…"]
+              ["", ["Bravo le génie ! Et comme par hasard, le soir du match.", "C'est très intelligent, félicitations sincères.", "Elle est bien bonne la lumière, merci."], "¡Bravo, genio! Y qué casualidad, la noche del partido."],
+              ["Ton coloc", "Bon, ça va… Et en plus, le frigo commence à couler.", "Bueno, vale… Y encima la nevera empieza a gotear."],
+              ["", ["Il ne manquait plus que ça ! Tu as prévenu le proprio ?", "Super nouvelle, j'adore l'eau.", "Il manquait le frigo, du coup c'est réparé."], "¡Lo que faltaba! ¿Has avisado al casero?"],
+              ["Ton coloc", "Oui, il a dit qu'il passerait… dans deux semaines.", "Sí, ha dicho que pasará… dentro de dos semanas."],
+              ["", ["Merci du cadeau. Et il va nous rembourser la nourriture ?", "Merci de cadeau à lui de deux semaines.", "Tu parles, il est déjà venu hier."], "Vaya regalito. ¿Y nos va a pagar la comida?"],
+              ["Ton coloc", "Tu parles ! Il ne rembourse jamais rien.", "¡Anda ya! Nunca paga nada."],
+              ["", ["C'est du joli. Bon, on mange tout ce qu'il y a dans le frigo ce soir.", "C'est du joli, je kiffe ce proprio.", "Du joli frigo, on mange l'électricité."], "Muy bonito. Bueno, esta noche nos comemos todo lo que hay en la nevera."],
+              ["Ton coloc", "Elle est bien bonne, celle-là ! Un festin à la bougie.", "¡Esa sí que es buena! Un banquete a la luz de las velas."],
+              ["", ["Va pour le festin ! Au moins, on ne gaspillera rien.", "Une bougie ? Non, on a du courant.", "Le festin, c'est malin, merci du frigo."], "¡Vale, banquete! Al menos no desperdiciaremos nada."]
             ]]
           ]
         },
@@ -249,16 +425,31 @@
             ["ce n'est pas mal", "", "está muy bien (litote)", "Ton gâteau ? Ce n'est pas mal du tout !", "¿Tu pastel? ¡Está buenísimo!"],
             ["il n'est pas bête", "", "es muy listo (litote)", "Il n'est pas bête, ce garçon.", "Este chico es muy listo."],
             ["je ne dis pas non", "", "me encantaría (litote)", "Un café ? Je ne dis pas non.", "¿Un café? No digo que no."],
-            ["ce n'est pas faux", "", "tienes toda la razón (litote)", "Ce n'est pas faux, ce que tu dis.", "No es falso lo que dices."]
+            ["ce n'est pas faux", "", "tienes toda la razón (litote)", "Ce n'est pas faux, ce que tu dis.", "No es falso lo que dices."],
+            ["ce n'est pas donné", "", "es caro (litote: «no es regalado»)", "Ce restaurant, ce n'est pas donné.", "Este restaurante no es precisamente barato."],
+            ["ce n'est pas du luxe", "", "no viene nada mal, hacía falta", "Un peu de repos, ce ne serait pas du luxe.", "Un poco de descanso no vendría nada mal."],
+            ["je ne suis pas contre", "", "no me importaría, me apetece", "Une balade ? Je ne suis pas contre.", "¿Un paseo? No me importaría."],
+            ["ça ne casse pas trois pattes à un canard", "", "no es nada del otro mundo", "Le film ? Ça ne casse pas trois pattes à un canard.", "¿La peli? No es nada del otro mundo."]
           ],
           "x": [
             ["c", "«Va, je ne te hais point» (Corneille) es la litote más famosa. Significa…", ["te amo", "te odio un poco", "no me importas", "vete, te odio"]],
             ["l", "Je ne dis pas non", ["no digo que no (me encantaría)", "digo que no", "no lo digo", "no sé qué decir"]],
             ["o", "Ce n'est pas mal du tout !", "¡No está nada mal!"],
+            ["c", "«Ce n'est pas donné», hablando de un precio, significa…", ["es caro", "es gratis", "no lo venden", "está de oferta"], "Litote: se niega lo contrario para decir algo con más fuerza."],
+            ["l", "Ça ne casse pas trois pattes à un canard", ["no es nada del otro mundo", "es increíble", "no hace daño a nadie", "el pato tiene tres patas"]],
+            ["o", "Un peu de repos, ce ne serait pas du luxe.", "Un poco de descanso no vendría nada mal."],
             ["d", [
               ["Ton amie", "Tu veux goûter mon nouveau plat ?", "¿Quieres probar mi nuevo plato?"],
               ["", ["Je ne dis pas non ! … Mmm, ce n'est pas mal du tout.", "Je dis non, c'est mauvais.", "Ce n'est pas faux, merci."], "¡No digo que no! … Mmm, no está nada mal."],
-              ["Ton amie", "Venant de toi, c'est un compliment !", "¡Viniendo de ti, es un cumplido!"]
+              ["Ton amie", "Venant de toi, c'est un compliment ! J'ai suivi la recette d'un grand chef.", "Viniendo de ti, ¡es un cumplido! He seguido la receta de un gran chef."],
+              ["", ["Il n'est pas bête, ce chef. La sauce est excellente.", "Il est bête, ce chef, la sauce est bonne.", "Ce chef ne casse pas de canard."], "Este chef es muy listo. La salsa está buenísima."],
+              ["Ton amie", "Par contre, les truffes, ce n'est pas donné.", "Eso sí, las trufas no son precisamente baratas."],
+              ["", ["Je m'en doute. Mais pour une fois, ce n'est pas du luxe.", "Ah bon, elles étaient gratuites ?", "Ce n'est pas donné, donc c'était gratuit."], "Me lo imagino. Pero por una vez, no viene nada mal."],
+              ["Ton amie", "Samedi, j'invite des amis. Tu viens m'aider en cuisine ?", "El sábado invito a unos amigos. ¿Vienes a ayudarme en la cocina?"],
+              ["", ["Je ne suis pas contre, si tu me montres la recette.", "Je suis contre, j'adore cuisiner.", "Je ne suis pas contre la recette du canard à trois pattes."], "No me importaría, si me enseñas la receta."],
+              ["Ton amie", "Marché conclu. Et le dessert de la dernière fois, tu en as pensé quoi ?", "Trato hecho. ¿Y qué te pareció el postre de la última vez?"],
+              ["", ["Franchement ? Ça ne cassait pas trois pattes à un canard.", "Franchement ? Je ne dis pas non au canard.", "Ça casse trois pattes au dessert."], "¿Sinceramente? No era nada del otro mundo."],
+              ["Ton amie", "Ce n'est pas faux… Je ferai mieux samedi !", "No te falta razón… ¡El sábado lo haré mejor!"]
             ]]
           ]
         },
@@ -269,16 +460,31 @@
             ["je meurs de faim", "", "me muero de hambre", "Je meurs de faim, on mange ?", "Me muero de hambre, ¿comemos?"],
             ["c'est la mort", "", "es horrible, es un rollo", "Trois heures de réunion, c'est la mort.", "Tres horas de reunión es un rollo."],
             ["je te l'ai dit mille fois", "", "te lo he dicho mil veces", "Je te l'ai dit mille fois !", "¡Te lo he dicho mil veces!"],
-            ["ça fait une éternité", "", "hace una eternidad", "Ça fait une éternité qu'on ne s'est pas vus !", "¡Hace una eternidad que no nos vemos!"]
+            ["ça fait une éternité", "", "hace una eternidad", "Ça fait une éternité qu'on ne s'est pas vus !", "¡Hace una eternidad que no nos vemos!"],
+            ["un monde fou", "", "muchísima gente", "Il y avait un monde fou au marché.", "Había muchísima gente en el mercado."],
+            ["coûter les yeux de la tête", "", "costar un ojo de la cara", "Cet appart coûte les yeux de la tête.", "Este piso cuesta un ojo de la cara."],
+            ["des plombes", "", "horas y horas (coloquial)", "Ça fait des plombes que j'attends.", "Llevo horas esperando."],
+            ["être mort de rire", "", "morirse de risa", "On était morts de rire.", "Nos moríamos de risa."]
           ],
           "x": [
             ["c", "«C'est la mort» en una conversación significa…", ["es un rollo o es horrible", "alguien ha muerto", "es mortal de bueno", "es el final"]],
             ["l", "Ça fait une éternité qu'on ne s'est pas vus", ["hace una eternidad que no nos vemos", "nos vimos hace poco", "nunca nos hemos visto", "nos veremos en mucho tiempo"]],
             ["o", "Je te l'ai dit mille fois !", "¡Te lo he dicho mil veces!"],
+            ["c", "«Ça fait des plombes que j'attends» significa…", ["llevo horas esperando", "espero al fontanero", "acabo de llegar", "estoy harto del plomo"]],
+            ["l", "Cet appart coûte les yeux de la tête", ["este piso cuesta un ojo de la cara", "este piso tiene buenas vistas", "este piso es barato", "este piso da dolor de cabeza"]],
+            ["o", "Il y avait un monde fou au marché.", "Había muchísima gente en el mercado."],
             ["d", [
               ["Un vieil ami", "Salut ! Ça fait une éternité !", "¡Hola! ¡Hace una eternidad!"],
               ["", ["Oui, au moins cent ans ! Viens, je meurs de faim, on va manger.", "Oui, ça fait exactement deux ans et trois mois.", "C'est la mort, au revoir."], "¡Sí, por lo menos cien años! Ven, me muero de hambre, vamos a comer."],
-              ["Un vieil ami", "Avec plaisir !", "¡Con mucho gusto!"]
+              ["Un vieil ami", "Avec plaisir ! Mais pas ce resto, il y a toujours une queue énorme.", "¡Con mucho gusto! Pero ese restaurante no, siempre hay una cola enorme."],
+              ["", ["Grave, la dernière fois, on a attendu des plombes.", "Oui, on a attendu des plombs au resto.", "Non, il n'y a jamais personne."], "Total, la última vez esperamos horas."],
+              ["Un vieil ami", "Et en plus, c'est hors de prix.", "Y además es carísimo."],
+              ["", ["Oui, un plat coûte les yeux de la tête.", "Oui, un plat coûte les yeux de la tête du chef.", "Non, c'est donné, deux euros."], "Sí, un plato cuesta un ojo de la cara."],
+              ["Un vieil ami", "Allons au petit bistrot du coin. Au fait, tu te souviens de notre voyage à Rome ?", "Vamos al bistró de la esquina. Por cierto, ¿te acuerdas de nuestro viaje a Roma?"],
+              ["", ["Bien sûr ! Il y avait un monde fou au Colisée.", "Non, je te l'ai dit mille fois, j'aime Rome.", "Bien sûr, il y avait un monde fou dans ma tête."], "¡Claro! Había muchísima gente en el Coliseo."],
+              ["Un vieil ami", "Et le guide qui parlait pendant trois heures… c'était la mort !", "Y el guía que hablaba durante tres horas… ¡era un rollo!"],
+              ["", ["Mais quand il est tombé dans la fontaine, on était morts de rire.", "Mais quand il est tombé, on est morts.", "C'est la mort de rire, je te l'ai dit."], "Pero cuando se cayó a la fuente, nos moríamos de risa."],
+              ["Un vieil ami", "Je te l'ai dit mille fois : il l'a fait exprès pour avoir des pourboires !", "Te lo he dicho mil veces: ¡lo hizo a propósito para sacar propinas!"]
             ]]
           ]
         },
@@ -289,16 +495,29 @@
             ["un jeu de mots", "", "un juego de palabras", "C'est un jeu de mots intraduisible.", "Es un juego de palabras intraducible."],
             ["avoir de l'esprit", "", "tener ingenio", "Elle a beaucoup d'esprit.", "Tiene mucho ingenio."],
             ["l'humour pince-sans-rire", "", "el humor seco, sin reírse", "Il a un humour pince-sans-rire.", "Tiene un humor muy seco."],
-            ["au second degré", "", "en sentido irónico, no literal", "Il faut le prendre au second degré.", "Hay que tomárselo con ironía."]
+            ["au second degré", "", "en sentido irónico, no literal", "Il faut le prendre au second degré.", "Hay que tomárselo con ironía."],
+            ["au premier degré", "", "al pie de la letra", "Il prend tout au premier degré.", "Se lo toma todo al pie de la letra."],
+            ["un calembour", "", "un retruécano, un chiste de palabras", "Il adore les calembours douteux.", "Le encantan los chistes de palabras malos."],
+            ["une vanne", "", "una pulla, un chiste para picar (coloquial)", "Arrête tes vannes, c'est pas drôle.", "Deja de soltar pullas, no tiene gracia."],
+            ["chambrer", "", "vacilar, tomar el pelo (coloquial)", "Ses collègues le chambrent sur son accent.", "Sus compañeros le vacilan por su acento."]
           ],
           "x": [
             ["c", "«Prendre quelque chose au premier degré» es…", ["tomárselo al pie de la letra", "tomárselo con humor", "tomárselo en serio y con calma", "subir un escalón"]],
             ["l", "Il faut le prendre au second degré", ["hay que tomárselo con ironía", "hay que tomarlo en segundo lugar", "hay que tomarlo dos veces", "hay que tomarlo con calma"]],
             ["o", "Elle a beaucoup d'esprit.", "Tiene mucho ingenio."],
+            ["c", "«Une vanne», entre amigos, es…", ["una pulla o un chiste para picar a alguien", "una válvula del grifo", "una furgoneta", "una mentira grave"]],
+            ["o", "Il prend tout au premier degré.", "Se lo toma todo al pie de la letra."],
             ["d", [
-              ["Ton collègue", "Le patron a dit que je suis « indispensable comme un parapluie au désert ».", "El jefe dijo que soy «tan indispensable como un paraguas en el desierto»."],
+              ["Ton collègue", "Le patron a dit que je suis « indispensable comme un parapluie dans le désert ».", "El jefe dijo que soy «tan indispensable como un paraguas en el desierto»."],
               ["", ["C'était au second degré ! Il a un humour pince-sans-rire.", "Il pense que tu vends des parapluies.", "C'est un compliment au premier degré."], "¡Era irónico! Tiene un humor muy seco."],
-              ["Ton collègue", "Ah… je préfère ça !", "Ah… ¡prefiero eso!"]
+              ["Ton collègue", "Ah… Tu crois qu'il me chambre ?", "Ah… ¿Crees que me está vacilando?"],
+              ["", ["Un peu, mais c'est une vanne affectueuse. Il t'aime bien.", "Non, il le pense au premier degré, tu es renvoyé.", "Il te chambre la chambre."], "Un poco, pero es una pulla cariñosa. Le caes bien."],
+              ["Ton collègue", "Moi, je prends toujours tout au premier degré…", "Yo siempre me lo tomo todo al pie de la letra…"],
+              ["", ["Justement, réponds-lui avec un calembour, il adore ça.", "Justement, démissionne au premier degré.", "Réponds-lui avec un parapluie."], "Precisamente, contéstale con un juego de palabras, le encanta."],
+              ["Ton collègue", "Genre ? Je n'ai pas autant d'esprit que lui.", "¿Como qué? No tengo tanto ingenio como él."],
+              ["", ["Dis-lui que tu es « indispensable comme le café du lundi ».", "Dis-lui que tu n'as pas d'esprit, c'est un calembour.", "Dis-lui merci au premier degré du désert."], "Dile que eres «indispensable como el café del lunes»."],
+              ["Ton collègue", "Pas mal ! Ce n'est pas un jeu de mots, mais il y a de l'esprit.", "¡No está mal! No es un juego de palabras, pero tiene ingenio."],
+              ["", ["Exactement. Et s'il te répond au second degré, tu as gagné.", "Exactement, et s'il rit, tu es renvoyé.", "Et s'il se vexe, c'est un calembour."], "Exacto. Y si te contesta con ironía, has ganado."]
             ]]
           ]
         },
@@ -309,19 +528,49 @@
             ["je plaisante", "", "estoy bromeando", "Mais non, je plaisante !", "¡Que no, estoy bromeando!"],
             ["c'était pour rire", "", "era de broma", "Ne te fâche pas, c'était pour rire.", "No te enfades, era de broma."],
             ["tu me fais marcher", "", "me estás tomando el pelo", "Tu me fais marcher, là ?", "¿Me estás tomando el pelo?"],
-            ["sans blague", "", "¿en serio?, no me digas", "Sans blague ? Il a démissionné ?", "¿En serio? ¿Ha dimitido?"]
+            ["sans blague", "", "¿en serio?, no me digas", "Sans blague ? Il a démissionné ?", "¿En serio? ¿Ha dimitido?"],
+            ["mon œil !", "", "¡y un jamón!, ¡no me lo creo!", "Tu as tout fini ? Mon œil !", "¿Lo has terminado todo? ¡Y un jamón!"],
+            ["pour de vrai", "", "de verdad, en serio (oral)", "Tu pars pour de vrai ?", "¿Te vas de verdad?"],
+            ["un poisson d'avril", "", "una inocentada (del 1 de abril)", "C'était un poisson d'avril !", "¡Era una inocentada!"],
+            ["se payer la tête de", "", "quedarse con alguien, burlarse de", "Tu te paies ma tête ?", "¿Te estás quedando conmigo?"]
           ],
           "x": [
             ["c", "«Tu me fais marcher» significa…", ["me estás tomando el pelo", "me haces caminar", "me haces funcionar", "me acompañas"]],
             ["l", "Sans blague ? Il a démissionné ?", ["¿en serio? ¿ha dimitido?", "sin bromas, ha dimitido", "¿sin bromas no hay dimisión?", "¿bromeaba con dimitir?"]],
             ["o", "Ne te fâche pas, c'était pour rire.", "No te enfades, era de broma."],
+            ["c", "En Francia, las bromas de inocentes se hacen…", ["el 1 de abril", "el 28 de diciembre", "el 14 de julio", "el 1 de mayo"], "Es el «poisson d'avril»: los niños pegan un pez de papel en la espalda de alguien."],
+            ["l", "Tu pars pour de vrai ?", ["¿te vas de verdad?", "¿te vas por la verdad?", "¿te vas a ver?", "no te vas de verdad"]],
+            ["o", "Tu te paies ma tête ou quoi ?", "¿Te estás quedando conmigo o qué?"],
             ["d", [
               ["Ta collègue", "J'ai gagné au loto, je pars demain aux Bahamas.", "Me ha tocado la lotería, me voy mañana a las Bahamas."],
               ["", ["Sans blague ? … Attends, tu me fais marcher ?", "Félicitations, envoie-moi une carte postale officielle.", "C'était pour rire le loto."], "¿En serio? … Espera, ¿me estás tomando el pelo?"],
-              ["Ta collègue", "Évidemment, je plaisante !", "¡Claro, estoy bromeando!"]
+              ["Ta collègue", "Pas du tout ! J'ai déjà donné ma démission au patron.", "¡Para nada! Ya le he presentado mi dimisión al jefe."],
+              ["", ["Mon œil ! Hier encore, tu n'avais plus de fric.", "Mon œil me fait mal.", "Bravo, tu pars hier, alors."], "¡Y un jamón! Ayer mismo no te quedaba pasta."],
+              ["Ta collègue", "Je te jure, c'est pour de vrai.", "Te lo juro, va en serio."],
+              ["", ["Attends… on est le premier avril. C'est un poisson d'avril !", "Pour de vrai ? Alors donne-moi ton poisson.", "On est le premier avril, c'est ton anniversaire."], "Espera… es uno de abril. ¡Es una inocentada!"],
+              ["Ta collègue", "Bon, d'accord, je plaisante. Mais tu y as cru deux secondes !", "Vale, de acuerdo, estoy bromeando. ¡Pero te lo has creído dos segundos!"],
+              ["", ["Tu te paies ma tête depuis ce matin, avoue !", "Tu te paies le loto depuis ce matin.", "Je te paie la tête, merci."], "Llevas toda la mañana quedándote conmigo, ¡confiésalo!"],
+              ["Ta collègue", "Un peu… Ne te fâche pas, c'était pour rire.", "Un poco… No te enfades, era de broma."],
+              ["", ["T'inquiète, je ne suis pas fâché. Mais l'an prochain, je me vengerai.", "Je suis fâché pour de vrai, je démissionne.", "C'était pour rire, je te paie les Bahamas."], "Tranqui, no estoy enfadado. Pero el año que viene me vengaré."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Ton ami Julien", "Alors, ce week-end à Deauville ? Raconte !", "¿Y qué tal el fin de semana en Deauville? ¡Cuenta!"],
+        ["", ["Génial… il a plu trois jours. Comme par hasard, mon seul week-end libre.", "Génial, il a fait beau, comme par hasard il a plu.", "Comme par hasard, je n'y suis jamais allé."], "Genial… llovió tres días. Qué casualidad, mi único fin de semana libre."],
+        ["Ton ami Julien", "Ah, c'est malin d'avoir choisi la Normandie en novembre !", "¡Ah, muy listo eso de elegir Normandía en noviembre!"],
+        ["", ["Merci du cadeau ! Et l'hôtel, ce n'était pas donné.", "Merci, tu as raison, c'était très intelligent.", "Ce n'est pas donné, donc c'était gratuit."], "¡Gracias por el ánimo! Y el hotel no era precisamente barato."],
+        ["Ton ami Julien", "Laisse-moi deviner : il y avait un monde fou sur la plage ?", "Déjame adivinar: ¿había muchísima gente en la playa?"],
+        ["", ["Tu parles ! Il n'y avait personne, même pas les mouettes.", "Oui, un monde fou de soleil.", "Tu parles, il y avait trop de monde au soleil."], "¡Qué va! No había nadie, ni siquiera las gaviotas."],
+        ["Ton ami Julien", "Et le restaurant que je t'avais conseillé ?", "¿Y el restaurante que te había recomendado?"],
+        ["", ["Ça ne cassait pas trois pattes à un canard, et on a attendu des plombes.", "Il ne manquait plus que ça, c'était parfait.", "C'était un canard à trois pattes."], "No era nada del otro mundo, y esperamos horas."],
+        ["Ton ami Julien", "Sans blague ? Pourtant, il a une étoile !", "¿En serio? ¡Pero si tiene una estrella!"],
+        ["", ["Une étoile ? Tu me fais marcher, là.", "Une étoile ? Alors c'était délicieux, au premier degré.", "Une étoile filante, c'est un calembour."], "¿Una estrella? Me estás tomando el pelo."],
+        ["Ton ami Julien", "Évidemment, je plaisante ! Je l'ai choisi parce que c'était le moins cher.", "¡Claro, estoy bromeando! Lo elegí porque era el más barato."],
+        ["", ["Bravo le génie ! La prochaine fois, je choisis moi-même.", "Merci, je ne dis pas non à ton conseil.", "C'est du joli, j'y retourne demain."], "¡Bravo, genio! La próxima vez elijo yo."],
+        ["Ton ami Julien", "Ne te fâche pas, c'était pour rire. Je t'invite à dîner pour me faire pardonner.", "No te enfades, era de broma. Te invito a cenar para que me perdones."],
+        ["", ["Je ne dis pas non. Mais cette fois, c'est moi qui choisis le resto !", "Je dis non, je meurs de faim.", "Je ne dis pas non, ce n'est pas faux."], "No digo que no. ¡Pero esta vez elijo yo el restaurante!"]
       ]
     },
     {
@@ -336,16 +585,29 @@
             ["or", "", "ahora bien, pero resulta que", "Il devait venir. Or, il n'est pas venu.", "Debía venir. Ahora bien, no vino."],
             ["néanmoins", "", "no obstante", "Le projet est risqué ; néanmoins, il est prometteur.", "El proyecto es arriesgado; no obstante, es prometedor."],
             ["en l'occurrence", "", "en este caso", "Le responsable, en l'occurrence Paul, a signé.", "El responsable, en este caso Paul, firmó."],
-            ["quant à", "", "en cuanto a", "Quant à moi, je reste.", "En cuanto a mí, me quedo."]
+            ["quant à", "", "en cuanto a", "Quant à moi, je reste.", "En cuanto a mí, me quedo."],
+            ["certes", "", "es cierto que, ciertamente", "Certes, le prix est élevé, mais la qualité suit.", "Es cierto que el precio es alto, pero la calidad está a la altura."],
+            ["dès lors", "", "por consiguiente; desde ese momento", "Les preuves manquent ; dès lors, il faut l'acquitter.", "Faltan pruebas; por consiguiente, hay que absolverlo."],
+            ["en outre", "", "además (formal)", "Le texte est clair ; il est, en outre, bien documenté.", "El texto es claro; además, está bien documentado."],
+            ["par ailleurs", "", "por otra parte", "Par ailleurs, je tiens à remercier mon équipe.", "Por otra parte, quiero dar las gracias a mi equipo."]
           ],
           "x": [
             ["c", "«Or» introduce…", ["un dato que cambia el razonamiento", "una alternativa (o)", "una conclusión", "un ejemplo"], "No confundir «or» (ahora bien) con «ou» (o)."],
             ["l", "Quant à moi, je reste", ["en cuanto a mí, me quedo", "cuando yo me quede", "cuánto me quedo", "yo me iré igualmente"]],
             ["o", "Le projet est risqué ; néanmoins, il est prometteur.", "El proyecto es arriesgado; no obstante, es prometedor."],
+            ["c", "«Certes…, mais…» sirve para…", ["conceder un punto antes de objetar", "afirmar algo con total seguridad", "dar un ejemplo", "cerrar una conclusión"]],
+            ["o", "Les preuves manquent ; dès lors, il faut l'acquitter.", "Faltan pruebas; por consiguiente, hay que absolverlo."],
             ["d", [
               ["Ton directeur de thèse", "Ton introduction manque de liens logiques.", "A tu introducción le faltan conectores lógicos."],
               ["", ["J'ajouterai « or » pour le contraste et « néanmoins » pour nuancer.", "J'ajouterai « genre » et « grave ».", "Quant à or, néanmoins non."], "Añadiré «or» para el contraste y «néanmoins» para matizar."],
-              ["Ton directeur de thèse", "Très bien. Quant à la conclusion, elle est parfaite.", "Muy bien. En cuanto a la conclusión, es perfecta."]
+              ["Ton directeur de thèse", "Bien. Mais ton deuxième paragraphe affirme tout sans la moindre concession.", "Bien. Pero tu segundo párrafo lo afirma todo sin conceder nada."],
+              ["", ["Je peux commencer par « certes » pour reconnaître les limites de l'étude.", "Je peux commencer par « du coup » pour faire oral.", "Certes, je ne concède rien du tout."], "Puedo empezar con «certes» para reconocer los límites del estudio."],
+              ["Ton directeur de thèse", "Bonne idée. Et comment relies-tu les deux arguments principaux ?", "Buena idea. ¿Y cómo enlazas los dos argumentos principales?"],
+              ["", ["Avec « en outre », puisque le second renforce le premier.", "Avec « or », puisque le second répète le premier.", "Avec « en outre », parce qu'ils se contredisent."], "Con «en outre», ya que el segundo refuerza el primero."],
+              ["Ton directeur de thèse", "Et la conclusion découle-t-elle clairement des faits ?", "¿Y la conclusión se desprende claramente de los hechos?"],
+              ["", ["Oui : les données sont solides ; dès lors, l'hypothèse se confirme.", "Oui : dès lors que, quant à l'hypothèse.", "Non, dès lors, je n'ai pas de données."], "Sí: los datos son sólidos; por consiguiente, la hipótesis se confirma."],
+              ["Ton directeur de thèse", "Très bien. Quant à la bibliographie, elle est parfaite.", "Muy bien. En cuanto a la bibliografía, es perfecta."],
+              ["", ["Merci. Par ailleurs, j'ai ajouté deux articles récents, en l'occurrence ceux de 2023.", "Merci. Par ailleurs, genre, j'ai rien lu.", "Merci, en l'occurrence la bibliographie est un connecteur."], "Gracias. Por otra parte, he añadido dos artículos recientes, en este caso los de 2023."]
             ]]
           ]
         },
@@ -356,16 +618,30 @@
             ["s'avérer", "", "resultar (ser)", "La solution s'est avérée efficace.", "La solución resultó eficaz."],
             ["susciter", "", "suscitar, provocar", "Sa décision a suscité la colère.", "Su decisión provocó la ira."],
             ["entraîner", "", "conllevar, acarrear", "La crise a entraîné des licenciements.", "La crisis conllevó despidos."],
-            ["remettre en cause", "", "cuestionar", "Cette étude remet en cause nos certitudes.", "Este estudio cuestiona nuestras certezas."]
+            ["remettre en cause", "", "cuestionar", "Cette étude remet en cause nos certitudes.", "Este estudio cuestiona nuestras certezas."],
+            ["engendrer", "", "generar, engendrar", "Ce choix a engendré des tensions.", "Esta decisión generó tensiones."],
+            ["pallier", "", "paliar, suplir (sin «à»)", "Il faut pallier le manque de personnel.", "Hay que paliar la falta de personal."],
+            ["étayer", "", "respaldar, fundamentar", "Étayez votre thèse par des exemples.", "Fundamente su tesis con ejemplos."],
+            ["mettre en œuvre", "", "poner en práctica, aplicar", "Le gouvernement met en œuvre la réforme.", "El gobierno pone en práctica la reforma."]
           ],
           "x": [
             ["c", "Mejora «La décision a fait beaucoup de colère»:", ["La décision a suscité beaucoup de colère.", "La décision a été beaucoup de colère.", "La décision s'est avérée de colère.", "La décision a remis la colère."]],
             ["l", "La crise a entraîné des licenciements", ["la crisis conllevó despidos", "la crisis entrenó a los despedidos", "la crisis evitó despidos", "los despidos causaron la crisis"]],
             ["o", "Cette étude remet en cause nos certitudes.", "Este estudio cuestiona nuestras certezas."],
+            ["c", "¿Cuál es la construcción correcta en francés cuidado?", ["pallier le manque de moyens", "pallier au manque de moyens", "pallier du manque de moyens", "pallier sur le manque de moyens"], "«Pallier» es transitivo directo: «pallier à» se oye, pero se considera incorrecto."],
+            ["o", "Étayez votre thèse par des exemples précis.", "Fundamente su tesis con ejemplos precisos."],
             ["d", [
               ["Un journaliste", "Quel a été l'effet de la réforme ?", "¿Cuál ha sido el efecto de la reforma?"],
               ["", ["Elle a suscité un vif débat et s'est avérée plus coûteuse que prévu.", "Elle a fait des trucs et c'était cher.", "Elle a entraîné remettre."], "Suscitó un intenso debate y resultó más costosa de lo previsto."],
-              ["Un journaliste", "Ce qui remet en cause son utilité ?", "¿Lo que cuestiona su utilidad?"]
+              ["Un journaliste", "Ce qui remet en cause son utilité ?", "¿Lo que cuestiona su utilidad?"],
+              ["", ["Pas forcément. Elle a été mal mise en œuvre, voilà le problème.", "Pas forcément, elle a mis en œuvre le problème.", "Oui, elle a été parfaitement mise en œuvre, voilà le problème."], "No necesariamente. Se aplicó mal, ese es el problema."],
+              ["Un journaliste", "Vous pouvez étayer cette affirmation ?", "¿Puede respaldar esa afirmación?"],
+              ["", ["Oui : les hôpitaux n'ont reçu aucun moyen pour pallier le manque de personnel.", "Oui : j'étaye que c'est comme ça.", "Non, mais je suis sûr à cent pour cent."], "Sí: los hospitales no recibieron ningún medio para paliar la falta de personal."],
+              ["Un journaliste", "Et sur le plan social ?", "¿Y en el plano social?"],
+              ["", ["Le manque de concertation a engendré des grèves dans tout le pays.", "La concertation a engendré la paix sociale, hélas.", "Le social a engendré la réforme du journaliste."], "La falta de diálogo generó huelgas en todo el país."],
+              ["Un journaliste", "Que faudrait-il faire, selon vous ?", "¿Qué habría que hacer, según usted?"],
+              ["", ["Remettre en cause le calendrier et associer les syndicats dès le début.", "Remettre la réforme dans sa cause.", "Rien, tout s'est avéré parfait."], "Cuestionar el calendario e implicar a los sindicatos desde el principio."],
+              ["Un journaliste", "Merci, c'est très clair.", "Gracias, queda muy claro."]
             ]]
           ]
         },
@@ -376,16 +652,30 @@
             ["sous-entendre", "", "dar a entender", "Qu'est-ce que tu sous-entends ?", "¿Qué estás dando a entender?"],
             ["laisser entendre", "", "dejar entrever", "Il a laissé entendre qu'il partirait.", "Dejó entrever que se iría."],
             ["insinuer", "", "insinuar", "Tu insinues que j'ai menti ?", "¿Insinúas que he mentido?"],
-            ["prétendre", "", "afirmar (sin pruebas)", "Il prétend être médecin.", "Asegura ser médico."]
+            ["prétendre", "", "afirmar (sin pruebas)", "Il prétend être médecin.", "Asegura ser médico."],
+            ["un sous-entendu", "", "una indirecta, algo implícito", "Sa remarque était pleine de sous-entendus.", "Su comentario estaba lleno de indirectas."],
+            ["faire allusion à", "", "aludir a, referirse a", "À qui fais-tu allusion ?", "¿A quién te refieres?"],
+            ["je dis ça, je dis rien", "", "yo ahí lo dejo (indirecta fingiendo no decir nada)", "Il est encore en retard… je dis ça, je dis rien.", "Otra vez llega tarde… yo ahí lo dejo."],
+            ["à bon entendeur, salut", "", "quien avisa no es traidor", "La prochaine fois, je le signale. À bon entendeur, salut.", "La próxima vez lo comunico. Quien avisa no es traidor."]
           ],
           "x": [
             ["c", "«Il prétend être riche» significa…", ["asegura ser rico (y lo dudamos)", "pretende ser rico algún día", "finge ser pobre", "quiere ser rico"], "Falso amigo: «prétendre» es afirmar; «pretender» es «avoir l'intention de»."],
             ["l", "Il a laissé entendre qu'il partirait", ["dejó entrever que se iría", "dijo claramente que se iba", "dejó de oír que se iba", "se fue sin decir nada"]],
             ["o", "Tu insinues que j'ai menti ?", "¿Insinúas que he mentido?"],
+            ["c", "«Je dis ça, je dis rien» sirve para…", ["lanzar una indirecta fingiendo no decir nada", "pedir silencio", "decir que no sabes nada", "contar un secreto"]],
+            ["l", "À qui fais-tu allusion ?", ["¿a quién te refieres?", "¿a quién le haces ilusión?", "¿a quién se lo has dicho?", "¿quién te ha hecho ilusión?"]],
+            ["o", "Sa remarque était pleine de sous-entendus.", "Su comentario estaba lleno de indirectas."],
             ["d", [
               ["Ton collègue", "Le chef a dit que « certains » ne travaillaient pas assez.", "El jefe dijo que «algunos» no trabajaban lo suficiente."],
-              ["", ["Il sous-entendait quelqu'un en particulier, à ton avis ?", "Il prétendait le chef être.", "Insinuer certains, merci."], "¿Crees que estaba insinuando a alguien en concreto?"],
-              ["Ton collègue", "Il a laissé entendre que c'était toute l'équipe.", "Dio a entender que era todo el equipo."]
+              ["", ["Il sous-entendait quelqu'un en particulier, à ton avis ?", "Il prétendait le chef être.", "Insinuer certains, merci."], "¿Crees que se refería a alguien en concreto?"],
+              ["Ton collègue", "Il a laissé entendre que c'était toute l'équipe. Mais il regardait Marc.", "Dio a entender que era todo el equipo. Pero miraba a Marc."],
+              ["", ["Donc il faisait allusion à Marc, c'est évident.", "Donc il faisait l'illusion de Marc.", "Donc il parlait de toi, clairement et sans détour."], "Entonces aludía a Marc, está claro."],
+              ["Ton collègue", "Marc prétend qu'il a fini son rapport hier soir.", "Marc asegura que terminó su informe anoche."],
+              ["", ["C'est ce qu'il prétend… Moi, je ne l'ai pas vu. Je dis ça, je dis rien.", "Il prétend finir son rapport l'année prochaine.", "Je dis rien, je dis ça, Marc est parfait."], "Eso dice él… Yo no lo he visto. Yo ahí lo dejo."],
+              ["Ton collègue", "Tu insinues qu'il ment ?", "¿Insinúas que miente?"],
+              ["", ["Je n'insinue rien. Mais son mail de ce matin était plein de sous-entendus.", "Oui, j'insinue clairement qu'il est honnête.", "Je n'insinue rien, je prétends le mail."], "No insinúo nada. Pero su correo de esta mañana estaba lleno de indirectas."],
+              ["Ton collègue", "Le chef a ajouté : « La prochaine fois, je sévis. À bon entendeur, salut. »", "El jefe añadió: «La próxima vez tomaré medidas. Quien avisa no es traidor.»"],
+              ["", ["Le message est clair. Rendons nos rapports avant vendredi.", "Il nous dit bonjour, c'est gentil.", "Il dit salut, donc il part en vacances."], "El mensaje está claro. Entreguemos los informes antes del viernes."]
             ]]
           ]
         },
@@ -396,16 +686,31 @@
             ["il semblerait que", "", "parecería que", "Il semblerait que le train soit annulé.", "Parecería que el tren está cancelado."],
             ["à en croire", "", "a juzgar por, si hacemos caso de", "À en croire les sondages, il va gagner.", "Si hacemos caso de las encuestas, va a ganar."],
             ["sous réserve de", "", "a reserva de, salvo", "Sous réserve de confirmation.", "A reserva de confirmación."],
-            ["a priori", "", "en principio", "A priori, tout est prêt.", "En principio, todo está listo."]
+            ["a priori", "", "en principio", "A priori, tout est prêt.", "En principio, todo está listo."],
+            ["selon toute vraisemblance", "", "con toda probabilidad", "Selon toute vraisemblance, le colis arrivera lundi.", "Con toda probabilidad, el paquete llegará el lunes."],
+            ["il n'est pas exclu que", "", "no se descarta que (+ subjuntivo)", "Il n'est pas exclu qu'il pleuve demain.", "No se descarta que llueva mañana."],
+            ["si je ne m'abuse", "", "si no me equivoco (culto)", "Vous êtes, si je ne m'abuse, le frère de Claire.", "Usted es, si no me equivoco, el hermano de Claire."],
+            ["sauf erreur de ma part", "", "salvo error por mi parte", "Sauf erreur de ma part, la facture est déjà payée.", "Salvo error por mi parte, la factura ya está pagada."]
           ],
           "x": [
             ["c", "«A priori» en el francés cotidiano significa…", ["en principio, en una primera impresión", "antes de todo, obligatoriamente", "con prejuicios siempre", "a la fuerza"]],
             ["l", "Sous réserve de confirmation", ["a reserva de confirmación", "con la reserva confirmada", "sin necesidad de confirmación", "bajo confirmación inmediata"]],
             ["o", "À en croire les sondages, il va gagner.", "Si hacemos caso de las encuestas, va a ganar."],
+            ["c", "«Il n'est pas exclu que le vol soit retardé» significa…", ["no se descarta que el vuelo se retrase", "el vuelo no se retrasará", "lo han excluido del vuelo", "es seguro que el vuelo se retrasa"]],
+            ["o", "Sauf erreur de ma part, la facture est déjà payée.", "Salvo error por mi parte, la factura ya está pagada."],
             ["d", [
-              ["La cliente", "La livraison arrivera demain ?", "¿El pedido llegará mañana?"],
+              ["La cliente", "Bonjour, ma livraison arrivera demain ?", "Buenos días, ¿mi pedido llegará mañana?"],
               ["", ["A priori oui, sous réserve de confirmation du transporteur.", "Oui, c'est sûr à cent pour cent.", "Il semblerait que demain soit hier."], "En principio sí, a reserva de que lo confirme el transportista."],
-              ["La cliente", "D'accord, j'attends votre confirmation.", "De acuerdo, espero su confirmación."]
+              ["La cliente", "Le site indiquait pourtant une livraison aujourd'hui.", "Pero la web indicaba una entrega para hoy."],
+              ["", ["Il semblerait qu'il y ait eu un retard à l'entrepôt.", "Il semblerait que l'entrepôt soit une livraison.", "Le site ment toujours, c'est certain."], "Parece que ha habido un retraso en el almacén."],
+              ["La cliente", "Et si demain je ne suis pas chez moi ?", "¿Y si mañana no estoy en casa?"],
+              ["", ["Selon toute vraisemblance, le colis sera déposé en point relais.", "Selon toute vraisemblance, le colis sera détruit.", "Vous serez chez vous, c'est obligatoire."], "Con toda probabilidad, el paquete se dejará en un punto de recogida."],
+              ["La cliente", "D'ailleurs, j'ai payé les frais de livraison express.", "Por cierto, pagué los gastos de envío exprés."],
+              ["", ["Sauf erreur de ma part, ces frais vous seront remboursés.", "Sauf erreur de ma part, vous n'avez rien payé, madame.", "Les frais, a priori, c'est pas mon problème."], "Salvo error por mi parte, se le reembolsarán esos gastos."],
+              ["La cliente", "Et vous pouvez me garantir que ça ne se reproduira pas ?", "¿Y me puede garantizar que no se repetirá?"],
+              ["", ["Je ne peux rien garantir : il n'est pas exclu que la grève continue.", "Je garantis tout, la grève est exclue de demain.", "Il n'est pas exclu que je vous garantisse le contraire."], "No puedo garantizar nada: no se descarta que continúe la huelga."],
+              ["La cliente", "Bon. À en croire votre collègue, la grève s'arrête jeudi.", "Bueno. Si hacemos caso a su compañero, la huelga termina el jueves."],
+              ["", ["C'est possible. Si je ne m'abuse, un accord a été signé hier.", "C'est sûr, si je m'abuse d'un accord.", "Mon collègue ne sait rien, ne l'écoutez pas."], "Es posible. Si no me equivoco, ayer se firmó un acuerdo."]
             ]]
           ]
         },
@@ -416,20 +721,50 @@
             ["dont", "", "del que, cuyo", "Le livre dont je t'ai parlé.", "El libro del que te hablé."],
             ["auquel", "", "al que, al cual", "Le projet auquel je pense.", "El proyecto en el que pienso."],
             ["lequel", "", "el cual", "La table sur laquelle j'écris.", "La mesa sobre la que escribo."],
-            ["ce dont", "", "lo que (de lo que)", "C'est ce dont j'ai besoin.", "Es lo que necesito."]
+            ["ce dont", "", "lo que (de lo que)", "C'est ce dont j'ai besoin.", "Es lo que necesito."],
+            ["duquel", "", "del cual (tras «près de», «à côté de»…)", "Le parc près duquel j'habite est fermé.", "El parque cerca del cual vivo está cerrado."],
+            ["ce à quoi", "", "aquello en lo que, a lo que", "C'est ce à quoi je pensais.", "Es en lo que estaba pensando."],
+            ["parmi lesquels", "", "entre los cuales", "Dix candidats, parmi lesquels trois femmes.", "Diez candidatos, entre los cuales tres mujeres."],
+            ["quiconque", "", "cualquiera que, quien", "Quiconque a vu ce film s'en souvient.", "Quien ha visto esta película la recuerda."]
           ],
           "x": [
             ["c", "Completa: «C'est l'ami ___ je t'ai parlé.»", ["dont", "que", "auquel", "lequel"], "«Parler de» → dont."],
             ["c", "Completa: «C'est le problème ___ je pense.»", ["auquel", "dont", "que", "lequel"], "«Penser à» → auquel (à + lequel)."],
             ["l", "C'est ce dont j'ai besoin", ["es lo que necesito", "es lo que tengo", "es de quien hablo", "es lo que quiero"]],
             ["o", "Le livre dont je t'ai parlé est sorti.", "Ha salido el libro del que te hablé."],
+            ["c", "Completa: «Le musée près ___ j'habite est fermé.»", ["duquel", "dont", "auquel", "lequel"], "Con locuciones como «près de» o «à côté de» se usa «duquel», no «dont»."],
+            ["o", "C'est exactement ce à quoi je pensais.", "Es exactamente en lo que estaba pensando."],
             ["d", [
               ["Ta collègue", "Tu as trouvé le dossier ?", "¿Encontraste el expediente?"],
               ["", ["Oui, celui dont tu avais besoin, et la note à laquelle tu faisais référence.", "Oui, celui que tu avais besoin.", "Oui, lequel dont."], "Sí, el que necesitabas y la nota a la que hacías referencia."],
-              ["Ta collègue", "Parfait, c'est exactement ce dont j'avais besoin.", "Perfecto, es justo lo que necesitaba."]
+              ["Ta collègue", "Parfait, c'est exactement ce dont j'avais besoin. Il était où ?", "Perfecto, es justo lo que necesitaba. ¿Dónde estaba?"],
+              ["", ["Dans l'armoire à côté de laquelle on a mis l'imprimante.", "Dans l'armoire dont on a mis l'imprimante.", "Dans l'armoire auquel l'imprimante."], "En el armario junto al cual pusimos la impresora."],
+              ["Ta collègue", "Ah, celle-là ! Et la liste des participants ?", "¡Ah, ese! ¿Y la lista de participantes?"],
+              ["", ["Il y a vingt inscrits, parmi lesquels trois journalistes.", "Il y a vingt inscrits, dont lesquels trois journalistes.", "Il y a vingt inscrits, parmi lequel trois."], "Hay veinte inscritos, entre los cuales tres periodistas."],
+              ["Ta collègue", "Il faudrait un badge pour chacun.", "Haría falta una acreditación para cada uno."],
+              ["", ["C'est ce à quoi je pensais : quiconque entre devra le porter.", "C'est ce dont je pensais : quiconque entre.", "C'est à quoi ce je pensais, quiconque badge."], "Es en lo que estaba pensando: quien entre tendrá que llevarla."],
+              ["Ta collègue", "Et la salle ? Celle au fond de laquelle il y a l'écran ?", "¿Y la sala? ¿La que tiene la pantalla al fondo?"],
+              ["", ["Oui, c'est la salle dans laquelle on a fait la réunion de lundi.", "Oui, c'est la salle dont on a fait la réunion.", "Oui, la salle laquelle on a réuni lundi."], "Sí, es la sala en la que hicimos la reunión del lunes."],
+              ["Ta collègue", "Parfait, tout est prêt. Merci !", "Perfecto, todo está listo. ¡Gracias!"]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Ta directrice", "J'ai lu votre rapport sur le projet de Lyon. Résumez-moi la situation.", "He leído su informe sobre el proyecto de Lyon. Resúmame la situación."],
+        ["", ["Certes, le projet a pris du retard ; néanmoins, il reste rentable.", "Le projet, genre, ça va.", "Certes, le projet est rentable ; néanmoins, il est rentable."], "Es cierto que el proyecto lleva retraso; no obstante, sigue siendo rentable."],
+        ["Ta directrice", "Quelle est la cause de ce retard ?", "¿Cuál es la causa de ese retraso?"],
+        ["", ["Il semblerait que le fournisseur ait sous-estimé les délais.", "Il semblerait que le fournisseur ait sous-entendu des délais.", "Le retard, c'est la faute à personne, voilà."], "Parecería que el proveedor subestimó los plazos."],
+        ["Ta directrice", "Le fournisseur prétend pourtant avoir tout livré à temps.", "Sin embargo, el proveedor asegura haberlo entregado todo a tiempo."],
+        ["", ["Sauf erreur de ma part, les bons de livraison montrent le contraire.", "Sauf erreur de ma part, il a raison, rien n'est en retard.", "Il prétend, donc c'est vrai."], "Salvo error por mi parte, los albaranes demuestran lo contrario."],
+        ["Ta directrice", "Vous insinuez qu'il nous a menti ?", "¿Insinúa que nos ha mentido?"],
+        ["", ["Je n'insinue rien. Les dates sont dans le document dont je vous ai parlé.", "Je dis ça, je dis rien, il ment grave.", "Les dates sont dans le document que je vous ai parlé."], "No insinúo nada. Las fechas están en el documento del que le hablé."],
+        ["Ta directrice", "Bien. Et quelles mesures proposez-vous ?", "Bien. ¿Y qué medidas propone?"],
+        ["", ["Mettre en œuvre un suivi hebdomadaire pour pallier ces retards.", "Pallier au suivi des retards hebdomadaires.", "Rien, a priori ça s'arrangera tout seul."], "Poner en marcha un seguimiento semanal para paliar estos retrasos."],
+        ["Ta directrice", "Et le budget ? Il n'est pas exclu que la direction le remette en cause.", "¿Y el presupuesto? No se descarta que la dirección lo cuestione."],
+        ["", ["Le surcoût reste faible ; dès lors, le budget n'est pas menacé.", "Par ailleurs, le budget est exclu de la direction.", "Le budget ? Il s'est avéré que je m'en fiche."], "El sobrecoste es bajo; por consiguiente, el presupuesto no corre peligro."],
+        ["Ta directrice", "Très bien. Quant au client, je l'appellerai moi-même.", "Muy bien. En cuanto al cliente, lo llamaré yo misma."],
+        ["", ["Parfait. Je vous envoie une note à laquelle j'ajouterai les chiffres.", "Parfait, je vous envoie une note dont j'ajouterai.", "Parfait, appelez-le hier, a priori."], "Perfecto. Le envío una nota a la que añadiré las cifras."]
       ]
     },
     {
@@ -444,16 +779,29 @@
             ["le libre arbitre", "", "el libre albedrío", "Croyez-vous au libre arbitre ?", "¿Cree usted en el libre albedrío?"],
             ["la morale", "", "la moral", "C'est une question de morale.", "Es una cuestión de moral."],
             ["le bonheur", "", "la felicidad", "Le bonheur est-il un but ?", "¿Es la felicidad un objetivo?"],
-            ["la conscience", "", "la conciencia", "Avoir la conscience tranquille.", "Tener la conciencia tranquila."]
+            ["la conscience", "", "la conciencia", "Avoir la conscience tranquille.", "Tener la conciencia tranquila."],
+            ["le déterminisme", "", "el determinismo", "Le déterminisme nie-t-il la liberté ?", "¿Niega el determinismo la libertad?"],
+            ["la condition humaine", "", "la condición humana", "Camus a beaucoup écrit sur la condition humaine.", "Camus escribió mucho sobre la condición humana."],
+            ["la quête de sens", "", "la búsqueda de sentido", "Beaucoup de jeunes cadres sont en quête de sens.", "Muchos jóvenes profesionales buscan un sentido a lo que hacen."]
           ],
           "x": [
             ["c", "«Le moral» y «la morale» son…", ["el ánimo / la moral (ética)", "lo mismo", "la moraleja / el moral", "dos faltas de ortografía"], "Avoir le moral = estar de buen ánimo; la morale = la ética."],
             ["l", "Le bonheur est-il un but ?", ["¿es la felicidad un objetivo?", "¿es la felicidad un error?", "¿la felicidad está aquí?", "¿la suerte es un objetivo?"]],
             ["o", "C'est une question de morale.", "Es una cuestión de moral."],
+            ["c", "Según el determinismo…", ["todo lo que ocurre tiene causas que lo hacen inevitable", "somos totalmente libres", "la felicidad depende de la suerte", "la moral es universal"]],
+            ["o", "Le déterminisme nie-t-il la liberté ?", "¿Niega el determinismo la libertad?"],
             ["d", [
               ["Ton prof de philo", "Le bonheur dépend-il de nous ?", "¿Depende de nosotros la felicidad?"],
-              ["", ["En partie : si l'on croit au libre arbitre, nos choix y contribuent, mais les circonstances comptent aussi.", "Oui, le bonheur est la conscience.", "Non, la morale du bonheur."], "En parte: si creemos en el libre albedrío, nuestras decisiones contribuyen, pero las circunstancias también cuentan."],
-              ["Ton prof de philo", "Belle nuance.", "Bonito matiz."]
+              ["", ["En partie : nos choix y contribuent, mais les circonstances comptent aussi.", "Oui, le bonheur est la conscience.", "Non, la morale du bonheur."], "En parte: nuestras decisiones contribuyen, pero las circunstancias también cuentan."],
+              ["Ton prof de philo", "Belle nuance. Mais nos choix sont-ils vraiment libres ?", "Bonito matiz. Pero ¿son realmente libres nuestras decisiones?"],
+              ["", ["Je crois au libre arbitre, même si le déterminisme pèse sur nous.", "Je crois au déterminisme libre du bonheur.", "Non, nos choix sont libres et donc déterminés."], "Creo en el libre albedrío, aunque el determinismo pese sobre nosotros."],
+              ["Ton prof de philo", "Et la morale ? Est-elle universelle ?", "¿Y la moral? ¿Es universal?"],
+              ["", ["Certaines valeurs le sont, mais la morale varie selon les cultures.", "La morale est le moral des cultures.", "Oui, la morale, c'est avoir le moral."], "Algunos valores lo son, pero la moral varía según las culturas."],
+              ["Ton prof de philo", "Camus disait qu'il faut imaginer Sisyphe heureux. Qu'en penses-tu ?", "Camus decía que hay que imaginarse a Sísifo feliz. ¿Qué opinas?"],
+              ["", ["Que la quête de sens compte plus que le but lui-même.", "Que Sisyphe a trouvé le bonheur au loto.", "Que la condition humaine est un rocher heureux."], "Que la búsqueda de sentido cuenta más que el objetivo en sí."],
+              ["Ton prof de philo", "Intéressant. C'est toute la condition humaine, en somme.", "Interesante. En resumen, es toda la condición humana."],
+              ["", ["Exactement. Et au moins, Sisyphe a la conscience tranquille.", "Exactement, Sisyphe n'a pas de conscience humaine.", "Non, la condition humaine est un examen."], "Exacto. Y al menos Sísifo tiene la conciencia tranquila."],
+              ["Ton prof de philo", "Joli. Tu développeras ça dans ta dissertation.", "Bonito. Lo desarrollarás en tu redacción."]
             ]]
           ]
         },
@@ -464,16 +812,30 @@
             ["le scrutin", "", "la votación, el escrutinio", "Le scrutin a lieu dimanche.", "La votación es el domingo."],
             ["l'abstention", "", "la abstención", "L'abstention a atteint 40 %.", "La abstención llegó al 40 %."],
             ["un sondage", "", "una encuesta", "D'après le dernier sondage…", "Según la última encuesta…"],
-            ["le second tour", "", "la segunda vuelta", "Ils s'affrontent au second tour.", "Se enfrentan en la segunda vuelta."]
+            ["le second tour", "", "la segunda vuelta", "Ils s'affrontent au second tour.", "Se enfrentan en la segunda vuelta."],
+            ["voter blanc", "", "votar en blanco", "Beaucoup d'électeurs ont voté blanc.", "Muchos votantes votaron en blanco."],
+            ["une motion de censure", "", "una moción de censura", "L'opposition a déposé une motion de censure.", "La oposición ha presentado una moción de censura."],
+            ["la cohabitation", "", "la cohabitación (presidente y gobierno de bandos opuestos)", "La France a connu trois cohabitations.", "Francia ha vivido tres cohabitaciones."],
+            ["un élu", "", "un cargo electo", "Les élus locaux sont inquiets.", "Los cargos electos locales están preocupados."]
           ],
           "x": [
             ["c", "En las presidenciales francesas, si nadie supera el 50 %…", ["hay una segunda vuelta entre los dos primeros", "gana el que más votos tiene", "decide la Asamblea", "se repite todo"]],
             ["l", "L'abstention a atteint quarante pour cent", ["la abstención llegó al 40 %", "el 40 % votó", "la abstención bajó un 40 %", "hubo 40 abstenciones"]],
             ["o", "Ils s'affrontent au second tour.", "Se enfrentan en la segunda vuelta."],
+            ["c", "Hay «cohabitation» en Francia cuando…", ["el presidente y el primer ministro son de bandos opuestos", "dos partidos gobiernan juntos", "el presidente vive en el Elíseo", "se repiten las elecciones"]],
+            ["o", "L'opposition a déposé une motion de censure.", "La oposición ha presentado una moción de censura."],
             ["d", [
-              ["Ton voisin", "Tu penses que la participation sera forte ?", "¿Crees que la participación será alta?"],
+              ["Ton voisin", "Tu penses que la participation sera forte dimanche ?", "¿Crees que la participación será alta el domingo?"],
               ["", ["Les sondages prévoient une forte abstention, mais le second tour mobilise souvent plus.", "Le scrutin est un sondage.", "L'abstention gagne au second tour."], "Las encuestas prevén una alta abstención, pero la segunda vuelta suele movilizar más."],
-              ["Ton voisin", "Espérons-le.", "Ojalá."]
+              ["Ton voisin", "Moi, j'hésite. Aucun candidat ne me convainc.", "Yo dudo. No me convence ningún candidato."],
+              ["", ["Tu peux toujours voter blanc, même si ce n'est pas compté comme un suffrage exprimé.", "Tu peux voter blanc, c'est une motion de censure.", "Vote deux fois, personne ne le saura."], "Siempre puedes votar en blanco, aunque no cuente como voto válido."],
+              ["Ton voisin", "Et si l'opposition gagne les législatives après ?", "¿Y si la oposición gana después las legislativas?"],
+              ["", ["Alors on aurait une cohabitation, comme en 1997.", "Alors on aurait un second tour de cohabitation.", "Alors le président serait élu par sondage."], "Entonces habría una cohabitación, como en 1997."],
+              ["Ton voisin", "Le gouvernement pourrait aussi tomber, non ?", "El gobierno también podría caer, ¿no?"],
+              ["", ["Oui, si une motion de censure est votée à l'Assemblée.", "Oui, si les élus votent blanc au sondage.", "Non, un gouvernement ne tombe jamais en France."], "Sí, si se aprueba una moción de censura en la Asamblea."],
+              ["Ton voisin", "Les élus locaux disent que les gens sont fatigués de la politique.", "Los cargos electos locales dicen que la gente está cansada de la política."],
+              ["", ["C'est vrai, mais le scrutin reste le seul moyen de se faire entendre.", "C'est vrai, le scrutin est fatigué.", "Les élus sont des sondages."], "Es verdad, pero la votación sigue siendo la única forma de hacerse oír."],
+              ["Ton voisin", "Tu as raison. J'irai voter, même blanc.", "Tienes razón. Iré a votar, aunque sea en blanco."]
             ]]
           ]
         },
@@ -484,16 +846,31 @@
             ["l'intelligence artificielle", "", "la inteligencia artificial", "L'intelligence artificielle transforme le travail.", "La inteligencia artificial transforma el trabajo."],
             ["la vie privée", "", "la privacidad", "Protéger sa vie privée.", "Proteger la privacidad."],
             ["les données", "", "los datos", "Qui contrôle nos données ?", "¿Quién controla nuestros datos?"],
-            ["un enjeu", "", "un desafío, lo que está en juego", "C'est un enjeu majeur.", "Es un desafío de primer orden."]
+            ["un enjeu", "", "un desafío, lo que está en juego", "C'est un enjeu majeur.", "Es un desafío de primer orden."],
+            ["un biais", "", "un sesgo", "Cet algorithme reproduit des biais sexistes.", "Este algoritmo reproduce sesgos sexistas."],
+            ["le consentement", "", "el consentimiento", "Sans consentement, pas de collecte de données.", "Sin consentimiento, no hay recogida de datos."],
+            ["la souveraineté numérique", "", "la soberanía digital", "L'Europe défend sa souveraineté numérique.", "Europa defiende su soberanía digital."],
+            ["la désinformation", "", "la desinformación", "La désinformation circule vite sur les réseaux.", "La desinformación circula rápido por las redes."]
           ],
           "x": [
             ["c", "«Un enjeu» es…", ["lo que está en juego, un desafío", "un juego", "una apuesta de casino", "un problema técnico"]],
             ["l", "Qui contrôle nos données ?", ["¿quién controla nuestros datos?", "¿quién nos da los datos?", "¿quién controla el juego?", "¿quiénes son los donantes?"]],
             ["o", "Protéger sa vie privée est un enjeu majeur.", "Proteger la privacidad es un desafío de primer orden."],
+            ["c", "«Un biais» en un algoritmo es…", ["un sesgo que distorsiona los resultados", "un error de conexión", "una pieza del ordenador", "una vía de escape"]],
+            ["l", "La désinformation circule vite sur les réseaux", ["la desinformación circula rápido por las redes", "la información circula despacio", "la desinformación desaparece de las redes", "las redes informan rápido"]],
+            ["o", "Sans consentement, pas de collecte de données.", "Sin consentimiento, no hay recogida de datos."],
             ["d", [
-              ["Une étudiante", "L'IA est-elle une menace ?", "¿Es la IA una amenaza?"],
-              ["", ["Ce n'est pas la technologie en soi, mais l'usage des données qui constitue l'enjeu principal.", "Oui, l'IA mange les données.", "La vie privée est artificielle."], "No es la tecnología en sí, sino el uso de los datos lo que constituye el principal desafío."],
-              ["Une étudiante", "Donc tout dépend de la régulation.", "Entonces todo depende de la regulación."]
+              ["Une étudiante", "L'IA est-elle une menace, selon toi ?", "¿Es la IA una amenaza, en tu opinión?"],
+              ["", ["Pas en soi. L'enjeu principal, c'est l'usage des données.", "Oui, l'IA mange les données.", "La vie privée est artificielle."], "No en sí misma. El principal desafío es el uso de los datos."],
+              ["Une étudiante", "Donc tout dépend de la régulation ?", "¿Entonces todo depende de la regulación?"],
+              ["", ["En grande partie : sans consentement, aucune donnée ne devrait être collectée.", "Oui, la régulation dépend des données artificielles.", "Non, le consentement est un algorithme."], "En gran parte: sin consentimiento, no debería recogerse ningún dato."],
+              ["Une étudiante", "Mais les algorithmes sont neutres, non ?", "Pero los algoritmos son neutrales, ¿no?"],
+              ["", ["Pas du tout : ils reproduisent les biais des données qu'on leur fournit.", "Oui, totalement neutres, comme les humains.", "Les algorithmes ont des biais de vie privée."], "Para nada: reproducen los sesgos de los datos que se les dan."],
+              ["Une étudiante", "Et les fausses vidéos créées par l'IA ?", "¿Y los vídeos falsos creados con IA?"],
+              ["", ["Elles alimentent la désinformation, surtout en période électorale.", "Elles protègent la vie privée des électeurs.", "Elles sont un enjeu de souveraineté artistique."], "Alimentan la desinformación, sobre todo en periodo electoral."],
+              ["Une étudiante", "Et l'Europe, elle peut faire quelque chose face aux géants américains ?", "¿Y Europa puede hacer algo frente a los gigantes estadounidenses?"],
+              ["", ["Oui, c'est tout l'enjeu de la souveraineté numérique.", "Non, l'Europe n'a pas de données.", "Oui, en votant blanc sur Internet."], "Sí, ahí está todo el desafío de la soberanía digital."],
+              ["Une étudiante", "Tu devrais écrire un article là-dessus !", "¡Deberías escribir un artículo sobre eso!"]
             ]]
           ]
         },
@@ -504,16 +881,30 @@
             ["la sobriété", "", "la sobriedad (consumir menos)", "La sobriété énergétique.", "La sobriedad energética."],
             ["la décroissance", "", "el decrecimiento", "Les partisans de la décroissance.", "Los partidarios del decrecimiento."],
             ["durable", "", "sostenible", "Le développement durable.", "El desarrollo sostenible."],
-            ["l'empreinte carbone", "", "la huella de carbono", "Réduire son empreinte carbone.", "Reducir su huella de carbono."]
+            ["l'empreinte carbone", "", "la huella de carbono", "Réduire son empreinte carbone.", "Reducir su huella de carbono."],
+            ["l'écoblanchiment", "", "el greenwashing, el ecoblanqueo", "Cette pub, c'est de l'écoblanchiment.", "Este anuncio es puro greenwashing."],
+            ["l'écoanxiété", "", "la ecoansiedad", "L'écoanxiété touche surtout les jeunes.", "La ecoansiedad afecta sobre todo a los jóvenes."],
+            ["la transition écologique", "", "la transición ecológica", "La transition écologique a un coût.", "La transición ecológica tiene un coste."],
+            ["les circuits courts", "", "la venta de proximidad (sin intermediarios)", "Je privilégie les circuits courts.", "Prefiero comprar productos de proximidad."]
           ],
           "x": [
             ["c", "«Durable» en francés significa…", ["sostenible y duradero", "duro", "durante", "difícil"]],
             ["l", "Réduire son empreinte carbone", ["reducir su huella de carbono", "reducir su consumo de carbón", "imprimir en carbono", "reducir sus impuestos"]],
             ["o", "La sobriété énergétique est nécessaire.", "La sobriedad energética es necesaria."],
+            ["c", "Una petrolera se anuncia como «verde» sin cambiar nada. Eso es…", ["de l'écoblanchiment", "de la sobriété", "de la décroissance", "un circuit court"]],
+            ["o", "L'écoanxiété touche surtout les jeunes.", "La ecoansiedad afecta sobre todo a los jóvenes."],
             ["d", [
               ["Ton oncle", "La décroissance, c'est revenir à la bougie !", "¡El decrecimiento es volver a las velas!"],
               ["", ["Pas forcément : il s'agit plutôt de sobriété et de réduire notre empreinte carbone.", "Oui, la bougie est durable.", "La décroissance croît."], "No necesariamente: se trata más bien de sobriedad y de reducir nuestra huella de carbono."],
-              ["Ton oncle", "Hmm, présenté comme ça…", "Hmm, dicho así…"]
+              ["Ton oncle", "Hmm, présenté comme ça… Mais les entreprises font déjà des efforts, non ?", "Hmm, dicho así… Pero las empresas ya hacen esfuerzos, ¿no?"],
+              ["", ["Certaines, oui. D'autres font surtout de l'écoblanchiment.", "Oui, l'écoblanchiment est un gros effort durable.", "Non, les entreprises sont en décroissance."], "Algunas, sí. Otras hacen sobre todo greenwashing."],
+              ["Ton oncle", "Et toi, concrètement, tu fais quoi ?", "¿Y tú, en concreto, qué haces?"],
+              ["", ["J'achète en circuits courts et je prends le train plutôt que l'avion.", "J'achète en circuits courts au supermarché américain.", "Je prends l'avion, c'est plus durable."], "Compro productos de proximidad y cojo el tren en vez del avión."],
+              ["Ton oncle", "Ta cousine dit qu'elle ne dort plus à cause du climat.", "Tu prima dice que ya no duerme por culpa del clima."],
+              ["", ["C'est de l'écoanxiété. Agir à son échelle aide souvent à la réduire.", "C'est de l'écoblanchiment, elle doit dormir plus.", "Le climat, c'est la mort, laisse tomber."], "Es ecoansiedad. Actuar a su escala suele ayudar a reducirla."],
+              ["Ton oncle", "Mais la transition écologique va coûter une fortune !", "¡Pero la transición ecológica va a costar una fortuna!"],
+              ["", ["Certes, mais ne rien faire coûtera beaucoup plus cher.", "Certes, donc ne faisons rien du tout.", "Elle coûte une fortune durable."], "Es cierto, pero no hacer nada costará mucho más."],
+              ["Ton oncle", "Bon… tu m'as presque convaincu. Mais je garde ma voiture !", "Bueno… casi me convences. ¡Pero me quedo con el coche!"]
             ]]
           ]
         },
@@ -524,19 +915,50 @@
             ["les inégalités", "", "las desigualdades", "Les inégalités se creusent.", "Las desigualdades aumentan."],
             ["la mixité sociale", "", "la diversidad social", "Favoriser la mixité sociale.", "Favorecer la diversidad social."],
             ["l'intégration", "", "la integración", "Une politique d'intégration.", "Una política de integración."],
-            ["la solidarité", "", "la solidaridad", "Un élan de solidarité.", "Un impulso de solidaridad."]
+            ["la solidarité", "", "la solidaridad", "Un élan de solidarité.", "Un impulso de solidaridad."],
+            ["l'ascenseur social", "", "el ascensor social", "L'ascenseur social est en panne.", "El ascensor social está averiado."],
+            ["la laïcité", "", "la laicidad", "La laïcité est un principe de la République.", "La laicidad es un principio de la República."],
+            ["la précarité", "", "la precariedad", "La précarité touche de nombreux étudiants.", "La precariedad afecta a muchos estudiantes."],
+            ["le vivre-ensemble", "", "la convivencia", "L'école apprend le vivre-ensemble.", "La escuela enseña a convivir."]
           ],
           "x": [
             ["c", "«Les inégalités se creusent» significa…", ["las desigualdades aumentan", "las desigualdades se entierran", "las desigualdades se reducen", "las desigualdades se estudian"]],
             ["l", "Favoriser la mixité sociale", ["favorecer la diversidad social", "mezclar las redes sociales", "favorecer a la sociedad mixta de empresas", "evitar la mezcla"]],
             ["o", "Les inégalités se creusent dans les grandes villes.", "Las desigualdades aumentan en las grandes ciudades."],
+            ["c", "«L'ascenseur social est en panne» significa…", ["ya es difícil mejorar de posición social", "el ascensor del edificio está roto", "la sociedad está en recesión", "la gente ya no se muda"]],
+            ["l", "La laïcité est un principe de la République", ["la laicidad es un principio de la República", "la laicidad va contra la República", "la lealtad es un principio de la República", "la República prohíbe las religiones"]],
+            ["o", "La précarité touche de nombreux étudiants.", "La precariedad afecta a muchos estudiantes."],
             ["d", [
               ["Une sociologue", "Comment réduire les inégalités à l'école ?", "¿Cómo reducir las desigualdades en la escuela?"],
               ["", ["En favorisant la mixité sociale et en donnant plus de moyens aux quartiers défavorisés.", "En creusant l'intégration.", "La solidarité est inégale."], "Favoreciendo la diversidad social y dando más medios a los barrios desfavorecidos."],
-              ["Une sociologue", "C'est l'approche de nombreux pays.", "Es el enfoque de muchos países."]
+              ["Une sociologue", "Beaucoup disent que l'ascenseur social est en panne. Vous êtes d'accord ?", "Muchos dicen que el ascensor social está averiado. ¿Está de acuerdo?"],
+              ["", ["En partie : un enfant d'ouvrier a encore peu de chances de devenir médecin.", "Oui, il faut réparer l'ascenseur de l'école.", "Non, l'ascenseur social monte tout seul pour tous."], "En parte: el hijo de un obrero todavía tiene pocas posibilidades de llegar a médico."],
+              ["Une sociologue", "Et quel rôle joue la précarité des familles ?", "¿Y qué papel juega la precariedad de las familias?"],
+              ["", ["Un rôle majeur : un élève qui a faim ne peut pas bien apprendre.", "Aucun, la précarité aide à apprendre.", "La précarité est une solidarité."], "Un papel fundamental: un alumno que pasa hambre no puede aprender bien."],
+              ["Une sociologue", "Et la laïcité, selon vous, favorise-t-elle l'intégration ?", "¿Y la laicidad, según usted, favorece la integración?"],
+              ["", ["Oui, si elle protège la liberté de chacun au lieu d'exclure.", "Oui, la laïcité interdit toutes les religions.", "Non, la laïcité est une précarité sociale."], "Sí, si protege la libertad de cada uno en lugar de excluir."],
+              ["Une sociologue", "Que proposeriez-vous pour renforcer le vivre-ensemble ?", "¿Qué propondría para reforzar la convivencia?"],
+              ["", ["Des projets communs entre écoles de quartiers différents, et plus d'associations solidaires.", "Supprimer les écoles, c'est plus simple.", "Le vivre-ensemble, chacun chez soi."], "Proyectos comunes entre escuelas de barrios distintos y más asociaciones solidarias."],
+              ["Une sociologue", "C'est l'approche de nombreux pays, et elle donne des résultats.", "Es el enfoque de muchos países, y da resultados."]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["La journaliste", "Bienvenue dans notre débat. Première question : les jeunes croient-ils encore à la politique ?", "Bienvenidos a nuestro debate. Primera pregunta: ¿siguen creyendo los jóvenes en la política?"],
+        ["", ["Moins qu'avant : l'abstention des jeunes bat des records à chaque scrutin.", "Oui, ils votent tous au second tour du sondage.", "La politique, c'est grave relou."], "Menos que antes: la abstención juvenil bate récords en cada votación."],
+        ["La journaliste", "Pourquoi, selon vous ?", "¿Por qué, según usted?"],
+        ["", ["Beaucoup sont en quête de sens et ne se reconnaissent dans aucun élu.", "Parce que le libre arbitre est interdit.", "Ils sont tous élus, donc ils ne votent pas."], "Muchos buscan un sentido y no se identifican con ningún cargo electo."],
+        ["La journaliste", "Les réseaux sociaux n'aggravent-ils pas les choses ?", "¿No empeoran las cosas las redes sociales?"],
+        ["", ["Si, la désinformation y circule vite, et les algorithmes ont leurs biais.", "Non, les réseaux sont neutres et sans biais.", "Oui, la désinformation est durable."], "Sí, la desinformación circula rápido por ellas y los algoritmos tienen sus sesgos."],
+        ["La journaliste", "Pourtant, les jeunes se mobilisent pour le climat.", "Sin embargo, los jóvenes se movilizan por el clima."],
+        ["", ["Oui, l'écoanxiété les pousse à agir : sobriété, circuits courts, manifestations.", "Oui, ils font de l'écoblanchiment pour le climat.", "Non, le climat ne les intéresse pas du tout."], "Sí, la ecoansiedad los empuja a actuar: sobriedad, productos de proximidad, manifestaciones."],
+        ["La journaliste", "Et sur le plan social, que demandent-ils ?", "¿Y en el plano social, qué piden?"],
+        ["", ["Que l'ascenseur social fonctionne et que la précarité étudiante recule.", "Que la précarité augmente pour tous.", "Que l'ascenseur social soit supprimé par la morale."], "Que el ascensor social funcione y que retroceda la precariedad estudiantil."],
+        ["La journaliste", "Vaste programme ! Un dernier mot sur l'intelligence artificielle ?", "¡Amplio programa! ¿Una última palabra sobre la inteligencia artificial?"],
+        ["", ["C'est un enjeu majeur, à condition de protéger la vie privée de chacun.", "C'est un enjeu, donc supprimons la morale des données.", "L'intelligence artificielle a la conscience tranquille."], "Es un desafío de primer orden, siempre que se proteja la privacidad de cada uno."],
+        ["La journaliste", "Merci. Une conclusion, en une phrase ?", "Gracias. ¿Una conclusión, en una frase?"],
+        ["", ["Sans solidarité ni débat, il n'y a pas de démocratie vivante.", "Sans débat, la démocratie est durable.", "Avec la solidarité, on n'a plus besoin de démocratie."], "Sin solidaridad ni debate, no hay democracia viva."]
       ]
     },
     {
@@ -551,16 +973,31 @@
             ["petit à petit, l'oiseau fait son nid", "", "poco a poco se llega lejos", "Courage, petit à petit, l'oiseau fait son nid.", "Ánimo, poco a poco se llega lejos."],
             ["qui vivra verra", "", "el tiempo lo dirá", "Ça marchera ? Qui vivra verra.", "¿Funcionará? El tiempo lo dirá."],
             ["l'habit ne fait pas le moine", "", "el hábito no hace al monje", "Il a l'air sérieux, mais l'habit ne fait pas le moine.", "Parece serio, pero el hábito no hace al monje."],
-            ["il ne faut pas vendre la peau de l'ours avant de l'avoir tué", "", "no vendas la piel del oso antes de cazarlo", "On n'a pas encore gagné : il ne faut pas vendre la peau de l'ours avant de l'avoir tué.", "Aún no hemos ganado: no vendas la piel del oso antes de cazarlo."]
+            ["il ne faut pas vendre la peau de l'ours avant de l'avoir tué", "", "no vendas la piel del oso antes de cazarlo", "On n'a pas encore gagné : il ne faut pas vendre la peau de l'ours avant de l'avoir tué.", "Aún no hemos ganado: no vendas la piel del oso antes de cazarlo."],
+            ["qui ne tente rien n'a rien", "", "quien no arriesga no gana", "Postule ! Qui ne tente rien n'a rien.", "¡Preséntate! Quien no arriesga no gana."],
+            ["mettre la charrue avant les bœufs", "", "empezar la casa por el tejado", "Tu choisis les rideaux avant d'avoir l'appart ? Tu mets la charrue avant les bœufs.", "¿Eliges las cortinas antes de tener el piso? Estás empezando la casa por el tejado."],
+            ["les chiens aboient, la caravane passe", "", "ladran, luego cabalgamos (que digan lo que quieran)", "Ils critiquent ? Les chiens aboient, la caravane passe.", "¿Critican? Ladran, luego cabalgamos."],
+            ["après la pluie, le beau temps", "", "después de la tormenta llega la calma", "Courage, après la pluie, le beau temps.", "Ánimo, después de la tormenta llega la calma."]
           ],
           "x": [
             ["c", "Para animar a alguien que aprende francés despacio:", ["Petit à petit, l'oiseau fait son nid.", "L'habit ne fait pas le moine.", "Qui vivra verra.", "Il ne faut pas vendre la peau de l'ours."]],
             ["l", "Qui vivra verra", ["el tiempo lo dirá", "quien vive, ve", "veremos quién vive", "vivir para ver la verdad"]],
             ["o", "Courage, petit à petit, l'oiseau fait son nid.", "Ánimo, poco a poco se llega lejos."],
+            ["c", "Tu amiga duda si presentarse a un puesto difícil. Le dices…", ["Qui ne tente rien n'a rien.", "Les chiens aboient, la caravane passe.", "L'habit ne fait pas le moine.", "Il ne faut pas mettre la charrue avant les bœufs."]],
+            ["l", "Les chiens aboient, la caravane passe", ["que digan lo que quieran, yo sigo adelante", "los perros persiguen la caravana", "perro ladrador, poco mordedor", "la caravana se para cuando ladran"]],
+            ["o", "Courage, après la pluie, le beau temps.", "Ánimo, después de la tormenta llega la calma."],
             ["d", [
-              ["Ton ami", "On a déjà gagné le match, on peut fêter !", "¡Ya hemos ganado el partido, podemos celebrarlo!"],
-              ["", ["Attends, il reste dix minutes. Il ne faut pas vendre la peau de l'ours avant de l'avoir tué !", "L'habit ne fait pas le match.", "Petit à petit, on a gagné."], "Espera, quedan diez minutos. ¡No vendas la piel del oso antes de cazarlo!"],
-              ["Ton ami", "Bon, qui vivra verra…", "Bueno, el tiempo lo dirá…"]
+              ["Ton ami", "On mène 2-0, on a déjà gagné le match, on peut fêter ça !", "Vamos 2-0, ya hemos ganado el partido, ¡podemos celebrarlo!"],
+              ["", ["Attends, il reste dix minutes. Ne vends pas la peau de l'ours !", "L'habit ne fait pas le match.", "Petit à petit, on a gagné."], "Espera, quedan diez minutos. ¡No vendas la piel del oso!"],
+              ["Ton ami", "Bon, qui vivra verra… Tu as vu les supporters d'en face ? Ils nous insultent.", "Bueno, el tiempo lo dirá… ¿Has visto a los hinchas de enfrente? Nos insultan."],
+              ["", ["Laisse-les. Les chiens aboient, la caravane passe.", "Laisse-les, après la pluie, les chiens.", "Laisse-les, l'habit fait le moine."], "Déjalos. Ladran, luego cabalgamos."],
+              ["Ton ami", "Leur gardien a l'air nul, avec son vieux maillot.", "Su portero parece malísimo, con esa camiseta vieja."],
+              ["", ["Méfie-toi, l'habit ne fait pas le moine. Il a tout arrêté.", "Oui, l'habit fait le moine, il est nul.", "Petit à petit, le maillot fait son nid."], "Cuidado, el hábito no hace al monje. Lo ha parado todo."],
+              ["Ton ami", "Et si on gagne, on réserve déjà le train pour la finale ?", "Y si ganamos, ¿reservamos ya el tren para la final?"],
+              ["", ["Ne mettons pas la charrue avant les bœufs. D'abord la demi-finale !", "Mettons la charrue, la finale est demain.", "Oui, qui vivra verra la finale hier."], "No empecemos la casa por el tejado. ¡Primero la semifinal!"],
+              ["Ton ami", "Oh non… ils viennent de marquer. 2-1.", "Oh, no… acaban de marcar. 2-1."],
+              ["", ["Tu vois ? Mais on tient bon. Après la pluie, le beau temps.", "Tu vois, on a gagné, c'est fini.", "Petit à petit, on a perdu le nid."], "¿Ves? Pero aguantamos. Después de la tormenta llega la calma."],
+              ["Ton ami", "Coup de sifflet final ! On a gagné ! Petit à petit, l'oiseau fait son nid.", "¡Pitido final! ¡Hemos ganado! Poco a poco se llega lejos."]
             ]]
           ]
         },
@@ -571,16 +1008,30 @@
             ["à l'instar de", "", "a ejemplo de, al igual que", "À l'instar de ses voisins, la France a réagi.", "Al igual que sus vecinos, Francia reaccionó."],
             ["au demeurant", "", "por lo demás, por otra parte", "Une idée, au demeurant excellente.", "Una idea, por lo demás excelente."],
             ["eu égard à", "", "en consideración a", "Eu égard à votre situation…", "En consideración a su situación…"],
-            ["nonobstant", "", "no obstante, a pesar de", "Nonobstant les difficultés, le projet avance.", "A pesar de las dificultades, el proyecto avanza."]
+            ["nonobstant", "", "no obstante, a pesar de", "Nonobstant les difficultés, le projet avance.", "A pesar de las dificultades, el proyecto avanza."],
+            ["en tout état de cause", "", "en cualquier caso", "En tout état de cause, la décision vous appartient.", "En cualquier caso, la decisión es suya."],
+            ["a fortiori", "", "con mayor razón", "C'est difficile pour un adulte, a fortiori pour un enfant.", "Es difícil para un adulto, y con mayor razón para un niño."],
+            ["force est de constater que", "", "hay que reconocer que", "Force est de constater que la réforme a échoué.", "Hay que reconocer que la reforma ha fracasado."],
+            ["au premier chef", "", "en primer lugar, muy directamente", "Cette loi concerne au premier chef les locataires.", "Esta ley afecta en primer lugar a los inquilinos."]
           ],
           "x": [
             ["c", "«À l'instar de» significa…", ["al igual que, siguiendo el ejemplo de", "al instante de", "en lugar de", "en contra de"]],
             ["l", "Eu égard à votre situation", ["en consideración a su situación", "sin tener en cuenta su situación", "igual que su situación", "según su situación anterior"]],
             ["o", "Nonobstant les difficultés, le projet avance.", "A pesar de las dificultades, el proyecto avanza."],
+            ["c", "«Force est de constater que…» introduce…", ["una constatación que hay que admitir, aunque no guste", "una orden por la fuerza", "una hipótesis dudosa", "un ejemplo concreto"]],
+            ["o", "Force est de constater que la réforme a échoué.", "Hay que reconocer que la reforma ha fracasado."],
             ["d", [
-              ["Un avocat", "Pourquoi le tribunal a-t-il été clément ?", "¿Por qué fue clemente el tribunal?"],
-              ["", ["Eu égard à son âge et à l'instar de décisions précédentes.", "Parce que genre il était sympa.", "Nonobstant au demeurant."], "En consideración a su edad y siguiendo decisiones anteriores."],
-              ["Un avocat", "Une décision, au demeurant, très attendue.", "Una decisión, por lo demás, muy esperada."]
+              ["Un avocat", "Pourquoi le tribunal a-t-il été clément, selon vous ?", "¿Por qué fue clemente el tribunal, en su opinión?"],
+              ["", ["Eu égard à son âge, et à l'instar de décisions précédentes.", "Parce que genre il était sympa.", "Nonobstant au demeurant."], "En consideración a su edad, y siguiendo decisiones anteriores."],
+              ["Un avocat", "Une décision, au demeurant, très attendue. Mais la victime va faire appel.", "Una decisión, por lo demás, muy esperada. Pero la víctima va a recurrir."],
+              ["", ["C'est son droit. En tout état de cause, la cour d'appel tranchera.", "C'est interdit. En tout état de cause, rien.", "Elle fait appel au téléphone, au demeurant."], "Está en su derecho. En cualquier caso, decidirá el tribunal de apelación."],
+              ["Un avocat", "Nonobstant les preuves, la défense a été habile.", "A pesar de las pruebas, la defensa ha sido hábil."],
+              ["", ["Force est de constater qu'elle a su convaincre le jury.", "Force est de constater qu'elle a été condamnée à perpétuité.", "Force de constater la défense est habile."], "Hay que reconocer que supo convencer al jurado."],
+              ["Un avocat", "Et les familles des autres accusés ?", "¿Y las familias de los demás acusados?"],
+              ["", ["Elles sont concernées au premier chef : leur procès commence le mois prochain.", "Elles sont concernées au premier chef de cuisine.", "Au premier chef, nonobstant les familles."], "Les afecta directamente: su juicio empieza el mes que viene."],
+              ["Un avocat", "Le juge sera-t-il aussi indulgent avec eux ?", "¿Será el juez igual de indulgente con ellos?"],
+              ["", ["J'en doute. Ce sera difficile pour eux, a fortiori sans avocat.", "J'en doute, a fortiori il est clément avec tous.", "Oui, à l'instar de personne."], "Lo dudo. Lo tendrán difícil, y más aún sin abogado."],
+              ["Un avocat", "Vous avez raison. Je vais proposer de les défendre.", "Tiene razón. Voy a ofrecerme a defenderlos."]
             ]]
           ]
         },
@@ -591,16 +1042,32 @@
             ["actuellement", "", "actualmente (no «en realidad»)", "Je suis actuellement à Lyon.", "Actualmente estoy en Lyon."],
             ["éventuellement", "", "posiblemente (no «finalmente»)", "Je viendrai éventuellement.", "Puede que venga."],
             ["sensible", "", "sensible (no «sensato»)", "C'est un sujet sensible.", "Es un tema delicado."],
-            ["assister à", "", "asistir, presenciar (no «ayudar»)", "J'ai assisté au concert.", "Asistí al concierto."]
+            ["assister à", "", "asistir, presenciar (no «ayudar»)", "J'ai assisté au concert.", "Asistí al concierto."],
+            ["constipé", "", "estreñido (no «resfriado»)", "Le bébé est un peu constipé.", "El bebé está un poco estreñido."],
+            ["susceptible de", "", "que puede, propenso a (no solo «quisquilloso»)", "Ce médicament est susceptible de provoquer des nausées.", "Este medicamento puede provocar náuseas."],
+            ["la location", "", "el alquiler (no «la ubicación»)", "La location d'une voiture coûte cher ici.", "Alquilar un coche aquí es caro."],
+            ["une répétition", "", "un ensayo (además de «repetición»)", "La répétition générale est ce soir.", "El ensayo general es esta noche."]
           ],
           "x": [
             ["c", "«Éventuellement» significa…", ["posiblemente, si se da el caso", "finalmente", "eventualmente siempre", "en ocasiones especiales"], "Falso amigo con el inglés «eventually» (finalmente)."],
             ["l", "J'ai assisté au concert", ["asistí al concierto", "ayudé en el concierto", "organicé el concierto", "me perdí el concierto"]],
             ["o", "C'est un sujet très sensible.", "Es un tema muy delicado."],
+            ["c", "Quieres decir «estoy resfriado». Dices…", ["Je suis enrhumé.", "Je suis constipé.", "Je suis refroidi de nez.", "Je suis sensible."], "«Constipé» significa estreñido. Resfriado es «enrhumé»."],
+            ["l", "La répétition générale est ce soir", ["el ensayo general es esta noche", "la repetición general es mañana", "la reunión general es esta noche", "el estreno es esta noche"]],
+            ["o", "Ce médicament est susceptible de provoquer des nausées.", "Este medicamento puede provocar náuseas."],
             ["d", [
               ["Un collègue anglais", "« Eventually », en français c'est « éventuellement », non ?", "«Eventually» en francés es «éventuellement», ¿no?"],
               ["", ["Non, c'est « finalement ». « Éventuellement », c'est « possiblement ».", "Oui, exactement pareil.", "C'est « actuellement »."], "No, es «finalement». «Éventuellement» es «posiblemente»."],
-              ["Un collègue anglais", "Ah, ça change tout !", "¡Ah, eso lo cambia todo!"]
+              ["Un collègue anglais", "Ah, ça change tout ! Et « actually », c'est « actuellement » ?", "¡Ah, eso lo cambia todo! ¿Y «actually» es «actuellement»?"],
+              ["", ["Non plus : « actuellement », c'est « en ce moment ». « Actually », c'est « en fait ».", "Oui, c'est le même mot.", "« Actually », c'est « éventuellement »."], "Tampoco: «actuellement» es «en este momento». «Actually» es «en fait»."],
+              ["Un collègue anglais", "Ce soir, je vais voir mon ami à la répétition de sa pièce.", "Esta noche voy a ver a mi amigo en el ensayo de su obra."],
+              ["", ["Super, tu vas assister à la répétition générale ?", "Super, tu vas répéter la répétition ?", "Tu vas assister ton ami à répéter ?"], "Genial, ¿vas a asistir al ensayo general?"],
+              ["Un collègue anglais", "Oui, mais je suis un peu constipé, j'ai le nez qui coule.", "Sí, pero estoy un poco «constipé», me moquea la nariz."],
+              ["", ["Attention ! Tu veux dire « enrhumé ». « Constipé », c'est un autre problème…", "Constipé du nez, c'est sensible.", "« Constipé », c'est parfait pour le nez."], "¡Cuidado! Quieres decir «enrhumé». «Constipé» es otro problema…"],
+              ["Un collègue anglais", "Oups ! Bon, je prends un médicament. La notice dit qu'il est « susceptible de » fatiguer.", "¡Uy! Bueno, me tomo un medicamento. El prospecto dice que «es susceptible de» cansar."],
+              ["", ["Ça veut dire qu'il peut te fatiguer. Évite d'en prendre avant le spectacle.", "Ça veut dire qu'il se vexe facilement.", "Ça veut dire qu'il est sensible au théâtre."], "Significa que puede cansarte. Evita tomarlo antes del espectáculo."],
+              ["Un collègue anglais", "Merci ! Le français, c'est un sujet sensible pour moi…", "¡Gracias! El francés es un tema delicado para mí…"],
+              ["", ["T'inquiète, tu progresses vite. Actuellement, tu parles mieux que l'an dernier.", "Éventuellement, tu parleras finalement.", "Oui, tu es constipé du français."], "Tranqui, avanzas rápido. Ahora mismo hablas mejor que el año pasado."]
             ]]
           ]
         },
@@ -611,16 +1078,32 @@
             ["septante", "", "setenta (Bélgica, Suiza)", "J'ai septante ans.", "Tengo setenta años."],
             ["nonante", "", "noventa (Bélgica, Suiza)", "Nonante euros.", "Noventa euros."],
             ["le dîner", "", "la comida de mediodía (Bélgica, Quebec)", "On se voit au dîner à midi ?", "¿Nos vemos para comer a mediodía?"],
-            ["une chocolatine", "", "una napolitana de chocolate (sur de Francia)", "Une chocolatine, s'il vous plaît !", "¡Una napolitana de chocolate, por favor!"]
+            ["une chocolatine", "", "una napolitana de chocolate (sur de Francia)", "Une chocolatine, s'il vous plaît !", "¡Una napolitana de chocolate, por favor!"],
+            ["le souper", "", "la cena (Quebec, Bélgica, Suiza)", "On se voit au souper ?", "¿Nos vemos en la cena?"],
+            ["huitante", "", "ochenta (cantón de Vaud, Suiza)", "Ma grand-mère a huitante ans.", "Mi abuela tiene ochenta años."],
+            ["magasiner", "", "ir de compras (Quebec)", "On va magasiner samedi ?", "¿Vamos de compras el sábado?"],
+            ["une drache", "", "un chaparrón (Bélgica)", "Quelle drache ! Prends ton parapluie.", "¡Menudo chaparrón! Coge el paraguas."]
           ],
           "x": [
             ["c", "En Bélgica, 70 se dice…", ["septante", "soixante-dix", "septente", "sept-dix"]],
             ["l", "Nonante euros", ["noventa euros", "nueve euros", "diecinueve euros", "ningún euro"]],
             ["c", "En Quebec, «le souper» es…", ["la cena", "la sopa", "el desayuno", "el almuerzo"], "En Quebec: déjeuner (desayuno), dîner (comida), souper (cena)."],
+            ["c", "En Quebec, «magasiner» significa…", ["ir de compras", "almacenar", "trabajar en una tienda", "leer revistas"]],
+            ["l", "Ma grand-mère a huitante ans", ["mi abuela tiene ochenta años", "mi abuela tiene dieciocho años", "mi abuela tiene noventa años", "mi abuela tiene ocho años"]],
+            ["o", "On va magasiner samedi après-midi ?", "¿Vamos de compras el sábado por la tarde?"],
             ["d", [
-              ["Un Québécois", "On soupe ensemble ce soir ?", "¿Cenamos juntos esta noche?"],
+              ["Un Québécois", "Bienvenue à Montréal ! On soupe ensemble ce soir ?", "¡Bienvenido a Montreal! ¿Cenamos juntos esta noche?"],
               ["", ["Avec plaisir ! À quelle heure, le souper ?", "Une soupe ? Non merci.", "Septante soupes."], "¡Con gusto! ¿A qué hora es la cena?"],
-              ["Un Québécois", "Vers dix-huit heures, comme d'habitude chez nous.", "Hacia las seis, como siempre aquí."]
+              ["Un Québécois", "Vers dix-huit heures, comme d'habitude chez nous. Et demain, on dîne au resto du coin ?", "Hacia las seis, como siempre aquí. Y mañana, ¿comemos en el restaurante de la esquina?"],
+              ["", ["Bonne idée. Le dîner, c'est à midi, c'est ça ?", "Bonne idée. Le dîner, c'est à minuit, c'est ça ?", "Non, je dîne toujours le soir au souper."], "Buena idea. El «dîner» es a mediodía, ¿verdad?"],
+              ["Un Québécois", "C'est ça. Et après, on pourrait aller magasiner au centre-ville.", "Eso es. Y después podríamos ir de compras al centro."],
+              ["", ["Parfait, je dois acheter des cadeaux pour ma famille.", "Parfait, je dois ranger le magasin.", "Magasiner ? Je ne travaille pas ici."], "Perfecto, tengo que comprar regalos para mi familia."],
+              ["Un Québécois", "Tu as voyagé dans d'autres pays francophones ?", "¿Has viajado a otros países francófonos?"],
+              ["", ["Oui, en Belgique. Il y a eu une drache chaque jour !", "Oui, en Belgique, il a fait un soleil de drache.", "Non, la Belgique ne parle pas français."], "Sí, a Bélgica. ¡Cayó un chaparrón cada día!"],
+              ["Un Québécois", "Classique ! Et là-bas, on dit septante et nonante, non ?", "¡Clásico! Y allí dicen «septante» y «nonante», ¿no?"],
+              ["", ["Oui, et en Suisse, dans le canton de Vaud, on dit même huitante.", "Oui, et en Suisse on dit soixante-nonante.", "Non, on dit quatre-vingt-dix-sept."], "Sí, y en Suiza, en el cantón de Vaud, hasta dicen «huitante»."],
+              ["Un Québécois", "Et en France, pain au chocolat ou chocolatine ?", "¿Y en Francia, «pain au chocolat» o «chocolatine»?"],
+              ["", ["Ça dépend : à Paris, pain au chocolat ; à Toulouse, chocolatine.", "Ça dépend : à Paris, chocolatine ; à Montréal, nonante.", "Une chocolatine, c'est un souper."], "Depende: en París, «pain au chocolat»; en Toulouse, «chocolatine»."]
             ]]
           ]
         },
@@ -631,19 +1114,49 @@
             ["s'exprimer avec aisance", "", "expresarse con soltura", "Elle s'exprime avec aisance.", "Se expresa con soltura."],
             ["nuancer", "", "matizar", "Il faut nuancer ce propos.", "Hay que matizar esa afirmación."],
             ["convaincre", "", "convencer", "Il a su convaincre le jury.", "Supo convencer al jurado."],
-            ["avoir du vocabulaire", "", "tener un vocabulario rico", "Tu as beaucoup de vocabulaire !", "¡Tienes mucho vocabulario!"]
+            ["avoir du vocabulaire", "", "tener un vocabulario rico", "Tu as beaucoup de vocabulaire !", "¡Tienes mucho vocabulario!"],
+            ["avoir la langue bien pendue", "", "tener mucha labia", "Ta fille a la langue bien pendue !", "¡Tu hija tiene mucha labia!"],
+            ["avoir du répondant", "", "tener respuesta para todo, no achantarse", "En réunion, elle a du répondant.", "En las reuniones no se achanta."],
+            ["chercher ses mots", "", "buscar las palabras, titubear", "Au début, je cherchais mes mots.", "Al principio, buscaba las palabras."],
+            ["prendre de l'assurance", "", "ganar seguridad", "Avec la pratique, on prend de l'assurance.", "Con la práctica, se gana seguridad."]
           ],
           "x": [
             ["c", "Al final de este viaje, lo más importante es…", ["comunicar con matices y confianza", "no cometer ningún error", "hablar sin acento", "conocer todas las palabras"]],
             ["l", "Elle s'exprime avec aisance", ["se expresa con soltura", "se expresa con prisa", "se expresa con esfuerzo", "le cuesta expresarse"]],
             ["o", "Il a su convaincre le jury.", "Supo convencer al jurado."],
+            ["c", "«Il a la langue bien pendue» significa…", ["tiene mucha labia", "se ha mordido la lengua", "no habla nada", "habla varios idiomas"]],
+            ["o", "Avec la pratique, on prend de l'assurance.", "Con la práctica, se gana seguridad."],
             ["d", [
+              ["Ton examinatrice", "Pour commencer, comment décririez-vous votre niveau aujourd'hui ?", "Para empezar, ¿cómo describiría su nivel hoy?"],
+              ["", ["Au début, je cherchais mes mots ; maintenant, je m'exprime avec plus d'aisance.", "Je cherche mes mots dans le dictionnaire, voilà.", "J'ai la langue bien pendue au mur."], "Al principio buscaba las palabras; ahora me expreso con más soltura."],
+              ["Ton examinatrice", "Qu'est-ce qui vous a le plus aidé ?", "¿Qué es lo que más le ha ayudado?"],
+              ["", ["Parler tous les jours. Peu à peu, j'ai pris de l'assurance.", "Ne jamais parler, pour éviter les erreurs.", "J'ai pris une assurance auto."], "Hablar todos los días. Poco a poco, gané seguridad."],
+              ["Ton examinatrice", "On dit que les Français sont difficiles à convaincre. Votre avis ?", "Se dice que es difícil convencer a los franceses. ¿Su opinión?"],
+              ["", ["Il faut nuancer : ils aiment débattre, mais ils écoutent les bons arguments.", "Oui, c'est impossible, ils sont tous relous.", "Il faut nuancer le convaincre des Français."], "Hay que matizar: les encanta debatir, pero escuchan los buenos argumentos."],
+              ["Ton examinatrice", "Et dans un débat, savez-vous répondre du tac au tac ?", "¿Y en un debate, sabe responder al instante?"],
+              ["", ["J'ai de plus en plus de répondant, même si je réfléchis avant de parler.", "Non, je n'ai pas de vocabulaire, j'ai la langue pendue.", "Je réponds du tac au tac au tic-tac."], "Cada vez tengo más respuesta, aunque pienso antes de hablar."],
               ["Ton examinatrice", "Pour terminer, que vous a apporté l'apprentissage du français ?", "Para terminar, ¿qué le ha aportado aprender francés?"],
-              ["", ["Bien plus qu'une langue : une autre façon de penser, de nuancer et de voir le monde.", "Beaucoup de mots, merci.", "Le français est une langue, voilà."], "Mucho más que un idioma: otra forma de pensar, de matizar y de ver el mundo."],
+              ["", ["Bien plus qu'une langue : une autre façon de penser et de voir le monde.", "Beaucoup de mots, merci.", "Le français est une langue, voilà."], "Mucho más que un idioma: otra forma de pensar y de ver el mundo."],
               ["Ton examinatrice", "Vous vous exprimez avec beaucoup d'aisance. Félicitations !", "Se expresa con mucha soltura. ¡Enhorabuena!"]
             ]]
           ]
         }
+      ],
+      "cp": [
+        ["Camille", "Alors, c'est ta dernière soirée à Paris. Tu es triste ?", "Bueno, es tu última noche en París. ¿Estás triste?"],
+        ["", ["Un peu, mais qui vivra verra : je reviendrai peut-être l'an prochain.", "Un peu, l'habit ne fait pas le moine.", "Non, je suis constipé de joie."], "Un poco, pero el tiempo lo dirá: quizá vuelva el año que viene."],
+        ["Camille", "Quand tu es arrivé, tu cherchais tes mots. Maintenant, tu as la langue bien pendue !", "Cuando llegaste, buscabas las palabras. ¡Ahora tienes mucha labia!"],
+        ["", ["Petit à petit, l'oiseau fait son nid. Vous m'avez beaucoup aidé.", "Petit à petit, la caravane passe.", "J'ai la langue pendue au dîner."], "Poco a poco se llega lejos. Me habéis ayudado mucho."],
+        ["Camille", "Et ta prochaine étape ? Montréal, c'est ça ?", "¿Y tu próxima etapa? Montreal, ¿verdad?"],
+        ["", ["Oui, mais ne mettons pas la charrue avant les bœufs : j'attends encore mon visa.", "Oui, j'y habite déjà depuis septante ans.", "Oui, je vais magasiner le visa."], "Sí, pero no empecemos la casa por el tejado: aún espero el visado."],
+        ["Camille", "Là-bas, n'oublie pas : le dîner, c'est à midi, et le samedi, on va magasiner !", "Allí, no lo olvides: el «dîner» es a mediodía, ¡y los sábados se va de compras!"],
+        ["", ["Et le souper, c'est le soir. Je ne me ferai pas avoir.", "Et le souper, c'est le matin, avec une chocolatine.", "Le dîner à minuit, nonante fois."], "Y el «souper» es por la noche. No me pillarán."],
+        ["Camille", "Certains disent que partir si loin, c'est risqué.", "Algunos dicen que irse tan lejos es arriesgado."],
+        ["", ["Qui ne tente rien n'a rien. Et les chiens aboient, la caravane passe.", "Qui ne tente rien a tout, donc je reste.", "Après la pluie, les chiens aboient."], "Quien no arriesga no gana. Y que digan lo que quieran."],
+        ["Camille", "Tu parles comme un académicien ! Un petit discours pour finir ?", "¡Hablas como un académico! ¿Un pequeño discurso para terminar?"],
+        ["", ["En tout état de cause, c'est grâce à vous que j'ai pris de l'assurance.", "En tout état de cause, je n'ai rien appris ici.", "Nonobstant, merci au demeurant de rien."], "En cualquier caso, gracias a vosotros he ganado seguridad."],
+        ["Camille", "Arrête, tu vas me faire pleurer… Allez, on trinque !", "Para, que me vas a hacer llorar… ¡Venga, brindemos!"],
+        ["", ["À vous, et à Paris ! Vous m'avez convaincu de revenir.", "À vous, et adieu : je ne reviendrai jamais.", "À la vôtre, eu égard au trinquer."], "¡Por vosotros y por París! Me habéis convencido para volver."]
       ]
     }
   ]
