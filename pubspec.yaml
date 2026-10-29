@@ -1,7 +1,7 @@
 name: french_pass
 description: Aprende francés con la palabra del día, práctica de pronunciación y sistema de repetición espaciada.
 publish_to: 'none'
-version: 2.3.0+17
+version: 2.3.1+18
 
 environment:
   sdk: '>=3.3.0 <4.0.0'

@@ -242,6 +242,15 @@ void main() {
     expect(find.text('Quitar dos opciones · 2'), findsOneWidget);
     expect(find.byType(InkWell).evaluate().length, before - 2);
     expect(tester.takeException(), isNull);
+    // Picking an option sticks, even though the page rebuilds to score it.
+    final q = tester.widget<ChoiceQuestion>(find.byType(ChoiceQuestion));
+    final left = [
+      for (final (i, o) in q.item.options.indexed)
+        if (!q.hidden.contains(i)) o,
+    ];
+    await tapText(tester, left.first);
+    expect(find.text('Siguiente'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('a locked stop says so instead of opening', (tester) async {

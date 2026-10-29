@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -181,8 +182,16 @@ class _ChoiceQuestionState extends State<ChoiceQuestion> {
   @override
   void didUpdateWidget(ChoiceQuestion old) {
     super.didUpdateWidget(old);
-    if (!identical(old.item, widget.item)) _picked = null;
+    // Parents rebuild the item on every setState; only a different question
+    // clears the pick.
+    if (!_same(old.item, widget.item)) _picked = null;
   }
+
+  static bool _same(ChoiceItem a, ChoiceItem b) =>
+      identical(a, b) ||
+      (a.prompt == b.prompt &&
+          a.answer == b.answer &&
+          listEquals(a.options, b.options));
 
   void _pick(int i) {
     if (_picked != null) return;
